@@ -1,4 +1,4 @@
-package nomad.interfaces.main;
+package nomad.common.interfaces.main;
 
 public interface IhmMainToComInterface {
 }

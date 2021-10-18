@@ -1,4 +1,4 @@
-package nomad.interfaces.game;
+package nomad.common.interfaces.game;
 
 public interface IhmGameToIhmMainInterface {
 }
