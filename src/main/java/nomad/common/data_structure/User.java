@@ -1,4 +1,4 @@
-package model;
+package nomad.common.data_structure;
 
 import java.util.Date;
 import java.util.List;

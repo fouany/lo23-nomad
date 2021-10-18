@@ -1,4 +1,4 @@
-package model;
+package nomad.common.data_structure;
 
 import java.io.Serializable;
 import java.util.UUID;

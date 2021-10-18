@@ -1,4 +1,4 @@
-package model;
+package nomad.common.data_structure;
 
 import java.util.List;
 import java.util.Observable;

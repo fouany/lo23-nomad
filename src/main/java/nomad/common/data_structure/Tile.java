@@ -1,4 +1,4 @@
-package model;
+package nomad.common.data_structure;
 
 public class Tile extends Move {
 
