@@ -1,2 +1,4 @@
-package nomad.data.client;public class DataClientStructure {
+package nomad.data.client;
+
+public class DataClientController {
 }

@@ -1,4 +1,4 @@
 package nomad.com.client;
 
-public class ClientController {
+public class ComClientController {
 }

@@ -1,2 +1,4 @@
-package nomad.data.server;public class DataServerController {
+package nomad.data.server;
+
+public class DataServerController {
 }

@@ -1,2 +1,4 @@
-package nomad.main;public class IhmMainController {
+package nomad.main;
+
+public class IhmMainController {
 }

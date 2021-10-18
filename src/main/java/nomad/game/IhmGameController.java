@@ -1,2 +1,4 @@
-package nomad.game;public class IhmGameController {
+package nomad.game;
+
+public class IhmGameController {
 }
