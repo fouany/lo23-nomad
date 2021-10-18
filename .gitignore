@@ -12,8 +12,6 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
     # Java ignores
-
-
 *.class
 
 # Log file
