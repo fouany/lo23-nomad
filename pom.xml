@@ -48,6 +48,8 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <sonar.projectKey>lo23-a21-td1_a21_lo23_td1_AX0BOiEP9HKCiCcrmJBL</sonar.projectKey>
+        <sonar.qualitygate.wait>true</sonar.qualitygate.wait>
     </properties>
 
 </project>
