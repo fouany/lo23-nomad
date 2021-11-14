@@ -1,7 +1,6 @@
-package nomad.main.resources.controller;
+package nomad.main.controller;
 
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.common.ihm.IhmScreenController;
 

@@ -2,8 +2,8 @@ package nomad.game;
 
 import nomad.common.ihm.IhmScreenController;
 import nomad.common.ihm.MainApplication;
-import nomad.game.resources.controller.IhmGameControllerScreen1;
-import nomad.game.resources.controller.IhmGameControllerScreen2;
+import nomad.game.controller.IhmGameControllerScreen1;
+import nomad.game.controller.IhmGameControllerScreen2;
 
 import java.io.IOException;
 
@@ -31,8 +31,8 @@ public class IhmGameScreenController extends IhmScreenController {
 
     @Override
     public void initPaths() {
-        listPaths.add("src/main/java/nomad/game/resources/fxml/ihm_game_screen_1.fxml");
-        listPaths.add("src/main/java/nomad/game/resources/fxml/imh_game_screen_2.fxml");
+        listPaths.add("fxml/ihm_game_screen_1.fxml");
+        listPaths.add("fxml/imh_game_screen_2.fxml");
     }
 
     @Override

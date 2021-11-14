@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Button?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="nomad.game.resources.controller.IhmGameControllerScreen2"
+      fx:controller="nomad.game.controller.IhmGameControllerScreen2"
       prefHeight="400.0" prefWidth="600.0">
 
     <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="203.0" style="-fx-font-family: 'Poppins';" styleClass="main-bg-red" text="Back to screen 1 of game module" textAlignment="CENTER" onMouseClicked="#goToFirst"/>

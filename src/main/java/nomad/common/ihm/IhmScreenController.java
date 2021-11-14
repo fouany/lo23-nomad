@@ -7,10 +7,7 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 
 // Utils
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -92,10 +89,10 @@ public abstract class IhmScreenController {
      * Use to get the url of a fxml file
      * @param path path the file
      * @return the URL
-     * @throws MalformedURLException
+     * @throws NullPointerException on unexisting path
      */
-    protected URL getFxmlUrl(String path) throws MalformedURLException {
-        return new File(path).toURI().toURL();
+    protected String getFxmlUrl(String path) throws NullPointerException {
+        return this.getClass().getResource(path).toExternalForm();
     }
 
     /**
@@ -107,7 +104,7 @@ public abstract class IhmScreenController {
             FXMLLoader fxmlLoader = loadFile(listPaths.get(i),dictController.get(i));
             Scene scene = new Scene(fxmlLoader.load());
             if (dictStyles.containsKey(i)){
-                scene.getStylesheets().add(getFxmlUrl(dictStyles.get(i)).toExternalForm());
+                scene.getStylesheets().add(getFxmlUrl(dictStyles.get(i)));
             }
             dictScenes.put(i,scene);
         }
@@ -122,12 +119,12 @@ public abstract class IhmScreenController {
     public FXMLLoader loadFile(String url, IhmControllerComponent interfaceController){
         try {
             return new FXMLLoader(
-                    new File(url).toURI().toURL(),
+                    this.getClass().getResource(url),
                     null,
                     new JavaFXBuilderFactory(),
                     param -> interfaceController
             );
-        } catch (MalformedURLException e) {
+        } catch (NullPointerException e) {
             e.printStackTrace();
             return null;
         }
