@@ -5,6 +5,6 @@ module nomadapp {
     requires javafx.fxml;
 
     exports nomad.common.ihm;
-    exports nomad.main.resources.controller;
-    exports nomad.game.resources.controller;
+    exports nomad.main.controller;
+    exports nomad.game.controller;
 }

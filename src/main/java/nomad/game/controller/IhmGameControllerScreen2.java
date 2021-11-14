@@ -1,4 +1,4 @@
-package nomad.game.resources.controller;
+package nomad.game.controller;
 
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.common.ihm.IhmScreenController;

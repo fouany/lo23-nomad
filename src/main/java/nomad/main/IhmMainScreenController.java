@@ -1,7 +1,7 @@
 package nomad.main;
 import nomad.common.ihm.IhmScreenController;
 import nomad.common.ihm.MainApplication;
-import nomad.main.resources.controller.ServerConnectionController;
+import nomad.main.controller.ServerConnectionController;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ public class IhmMainScreenController extends IhmScreenController {
     }
 
     public void initPaths(){
-        listPaths.add("src/main/java/nomad/main/resources/fxml/ihm_server_connection.fxml");
+        listPaths.add("fxml/ihm_server_connection.fxml");
     }
 
     @Override
@@ -24,6 +24,6 @@ public class IhmMainScreenController extends IhmScreenController {
     }
 
     public void initStyles(){
-        dictStyles.put(0, "src/main/java/nomad/main/resources/Poppins/style.css");
+        dictStyles.put(0, "Poppins/style.css");
     }
 }
