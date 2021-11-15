@@ -5,5 +5,6 @@ import nomad.common.data_structure.Message;
 
 public interface ComToIhmGameInterface {
     void checkGameEnd(GameLight game);
+
     void transmissionCom(Message msg);
 }
