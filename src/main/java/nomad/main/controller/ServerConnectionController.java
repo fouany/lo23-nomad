@@ -1,13 +1,11 @@
 package nomad.main.controller;
 
 import javafx.scene.control.TextField;
+import nomad.common.data_structure.UserException;
 import nomad.common.ihm.IhmControllerComponent;
-import nomad.common.ihm.IhmScreenController;
+import nomad.main.IhmMainScreenController;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -15,35 +13,35 @@ import java.util.regex.Pattern;
 
 public class ServerConnectionController extends IhmControllerComponent {
 
-  public TextField serverIp;
-  public TextField serverPort;
+    public TextField serverIp;
+    public TextField serverPort;
 
-  public ServerConnectionController(IhmScreenController screen) {
-    super(screen);
-  }
-  @SuppressWarnings("unused")
-  private URL getFxmlUrl(String path) throws MalformedURLException {
-    return new File(path).toURI().toURL();
-  }
+    private IhmMainScreenController ihmMainScreenController;
 
-  private boolean IpFormatIsValid (String ip) {
-    String zeroTo255
-        = "(\\d{1,2}|([01])\\"
-        + "d{2}|2[0-4]\\d|25[0-5])";
+    public ServerConnectionController(IhmMainScreenController screen) {
+        super(screen);
+        ihmMainScreenController = screen;
+    }
 
-    String regex
-        = zeroTo255 + "\\."
-        + zeroTo255 + "\\."
-        + zeroTo255 + "\\."
-        + zeroTo255;
+    private boolean IpFormatIsValid(String ip) {
+        String zeroTo255
+                = "(\\d{1,2}|([01])\\"
+                + "d{2}|2[0-4]\\d|25[0-5])";
 
-    Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-    Matcher matcher = pattern.matcher(ip);
-    return matcher.matches();
-  }
+        String regex
+                = zeroTo255 + "\\."
+                + zeroTo255 + "\\."
+                + zeroTo255 + "\\."
+                + zeroTo255;
+
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(ip);
+        return matcher.matches();
+    }
 
     /**
      * Check if a given string is a valid port number (0 < port < 65536)
+     *
      * @param port a string containing a potential port number
      * @return True if the port is valid, else false
      */
@@ -58,15 +56,18 @@ public class ServerConnectionController extends IhmControllerComponent {
         return portNumber > 0 && portNumber < 65536;
     }
 
-  public void onClickConnection() throws IOException {
-    String ip = serverIp.getText();
-    String port = serverPort.getText();
+    public void onClickConnection() throws IOException, UserException, ClassNotFoundException {
+        String ip = serverIp.getText();
+        String port = serverPort.getText();
 
-    if(IpFormatIsValid(ip) && portFormatIsValid(port)) {
-      screenControl.changeModule();
-    } else {
-      Logger.getLogger(ServerConnectionController.class.getName()).log(Level.INFO,"Error on Ip address or in port" );
+        if (IpFormatIsValid(ip) && portFormatIsValid(port)) {
+            String user = ihmMainScreenController.getAttributes().get("login");
+            String password = ihmMainScreenController.getAttributes().get("password");
+            ihmMainScreenController.getDataI().login(user, password, ip, Integer.parseInt(port));
+            screenControl.changeScreen(2);
+        } else {
+            Logger.getLogger(ServerConnectionController.class.getName()).log(Level.INFO, "Error on Ip address or in port");
+        }
+
     }
-
-  }
 }
