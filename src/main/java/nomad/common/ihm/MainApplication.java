@@ -2,6 +2,7 @@ package nomad.common.ihm;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import nomad.data.client.DataToMainConcrete;
 import nomad.game.IhmGameScreenController;
 import nomad.main.IhmMainScreenController;
 
@@ -16,6 +17,11 @@ public class MainApplication extends Application {
    * Current stage
    */
   Stage stage;
+  private DataToMainConcrete dataToMainImpl;
+
+  public MainApplication() {
+    dataToMainImpl = new DataToMainConcrete();
+  }
 
   @Override
   public void start(Stage primaryStage) throws Exception {
@@ -31,7 +37,7 @@ public class MainApplication extends Application {
   public void changeModule(String mode) throws IOException {
     IhmScreenController controller;
     if (mode.equals("MAIN")) {
-      controller = new IhmMainScreenController(this);
+      controller = new IhmMainScreenController(this, dataToMainImpl);
     } else {
       controller = new IhmGameScreenController(this);
     }

@@ -1,3 +1,7 @@
+/*
+TODO mettre les bonnes tailles d'écran a jour
+*/
+
 .main-background{
     -fx-background-color:linear-gradient(to top right, #F77F00 , #FCBF49);
     -fx-font-family : 'Poppins'
@@ -19,13 +23,30 @@
  }
 
  .main-button {
-    -fx-border-radius: 4px;
+    -fx-border-radius: 2px;
     -fx-font-family : 'Poppins'
  }
 
  .main-bg-red {
      -fx-background-color : #D62828;
      -fx-text-fill : white
+ }
+
+ .main-bg-blue {
+   -fx-background-color: #003049;
+   -fx-text-fill: white;
+ }
+
+ .main-bg-orange {
+   -fx-background-color: #f77f00;
+   -fx-text-fill: white;
+ }
+
+ .main-bg-trans {
+   -fx-background-color: #F6F6F6;
+   -fx-text-fill: #D62828;
+     -fx-border-color: #D62828;
+     -fx-border-width: 2;
  }
 
   /* latin */
