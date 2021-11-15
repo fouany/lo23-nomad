@@ -17,9 +17,14 @@ public class MainApplication extends Application {
    */
   Stage stage;
 
+  private final int MIN_WIDTH= 935;
+  private final int MIN_HEIGHT = 610;
+
   @Override
   public void start(Stage primaryStage) throws Exception {
     stage = primaryStage;
+    stage.setMinHeight(MIN_HEIGHT);
+    stage.setMinWidth(MIN_WIDTH);
     this.changeModule("MAIN");
   }
 
