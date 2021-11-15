@@ -17,10 +17,11 @@ public interface DataToComServeurInterface {
     Move saveMove(UserLight user, Move m);
     boolean checkGameEnded(GameLight game);
     Game getStoredGame(UUID gameId);
-    void storeMessage(Message message);
+    void storeMessage(UUID gameId, Message message);
     List<Player> requestConnectedUserList();
     List<GameLight> requestGameList();
-    void updateUserListAdd (Player newUser);
-    Player updateUserListRemove (User oldUser);
+    void updateUserListAdd (User newUser);
+    User updateUserListRemove (UUID userId);
+    void updateListGamesRemove(User oldUser);
     User getPofileData(UUID idUser);
 }

@@ -174,6 +174,18 @@ public class Game extends Observable implements Serializable  {
         this.chat = chat;
     }
 
+    public void addMessage(Message message) {
+        chat.add(message);
+    }
+
+    public void addSpec(UserLight spect) {
+        this.spect.add(spect);
+    }
+
+    public GameLight createGameLight(){
+        return new GameLight(gameId, host, nbOfTowers);
+    }
+
     @Override
     public String toString() {
         return "Game{" +
