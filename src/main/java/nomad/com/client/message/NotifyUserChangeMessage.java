@@ -2,7 +2,7 @@ package nomad.com.client.message;
 
 import nomad.com.client.controller.ComClientController;
 import nomad.common.data_structure.Player;
-import nomad.common.interfaces.data.DataToComInterface;
+import nomad.common.data_structure.User;
 
 /**
  * NotifyUserChange Message - Client Side
@@ -11,7 +11,7 @@ public class NotifyUserChangeMessage extends ComClientMessage {
     /**
      * player
      */
-    private final Player player;
+    private final User user;
 
     /**
      * bool
@@ -21,12 +21,12 @@ public class NotifyUserChangeMessage extends ComClientMessage {
     /**
      * Constructor
      * @param clientController
-     * @param player
+     * @param user
      * @param connected
      */
-    public NotifyUserChangeMessage(ComClientController clientController, Player player, Boolean connected) {
+    public NotifyUserChangeMessage(ComClientController clientController, User user, Boolean connected) {
         super(clientController);
-        this.player = player;
+        this.user = user;
         this.connected = connected;
     }
 
@@ -35,6 +35,7 @@ public class NotifyUserChangeMessage extends ComClientMessage {
      */
     @Override
     public void process() {
+        Player player = new Player(user.getUserId(), user.getLogin(), user.getProfilePicture());
         clientController.getDataToCom().updateUserSession(player, connected);
     }
 }

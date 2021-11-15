@@ -23,7 +23,7 @@ public class ComClientToData implements ComToDataInterface {
 
     @Override
     public void logout(User user) {
-        ComClientController.SendServerMessage(new DisconnectionRequestMessage(serverController, user));
+        ComClientController.SendServerMessage(new DisconnectionRequestMessage(serverController, user.getUserId()));
     }
 
     @Override

@@ -38,35 +38,27 @@ public class ConnectionRequestMessage extends ComServerMessage {
         this.user = user;
     }
 
-    /**
-     * User getter
-     *
-     * @return
-     */
-    public User getUser() {
-        return user;
-    }
 
     /**
      * process
      */
     @Override
     public void process() {
-        ComClient client = ComServerController.server.clientList.get(getUser().getUserId());
+        ComClient client = ComServerController.server.clientList.get(user.getUserId());
         ComServerController.requestConnection(client, listener);
 
         // Creating a new player from the current user
-        Player player = new Player(getUser().getUserId(), getUser().getLogin(), getUser().getProfilePicture());
+        Player player = new Player(user.getUserId(), user.getLogin(), user.getProfilePicture());
 
         // Fetch all data required (player and games)
         List<Player> players = serverController.getDataToCom().requestConnectedUserList();
-        List<GameLight> games = serverController.getDataToCom().requestGamelist();
+        List<GameLight> games = serverController.getDataToCom().requestGameList();
 
         // ComServerController will send messages on the network
         ComServerController.SendClientMessage(client.socket, new SendNewInfosServerMessage(client.clientController, games, players));
 
         for (ComClient cli : ComServerController.server.clientList.values()) {
-            ComServerController.SendClientMessage(cli.socket, new NotifyUserChangeMessage(cli.clientController, player, true));
+            ComServerController.SendClientMessage(cli.socket, new NotifyUserChangeMessage(cli.clientController, user, true));
         }
     }
 }

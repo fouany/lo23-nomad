@@ -6,7 +6,6 @@ import nomad.com.client.message.NotifyUserChangeMessage;
 import nomad.com.server.controller.ComServerController;
 import nomad.common.data_structure.Player;
 import nomad.common.data_structure.User;
-import nomad.common.interfaces.data.DataToComServeurInterface;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -20,16 +19,16 @@ public class DisconnectionRequestMessage extends ComServerMessage {
      * @param serverController
      * @param dataToCom
      */
-    private final User user;
+    private final UUID userId;
 
     /**
      * Constructor
      * @param serverController
-     * @param user
+     * @param id
      */
-    public DisconnectionRequestMessage(ComServerController serverController, User user) {
+    public DisconnectionRequestMessage(ComServerController serverController, UUID id) {
         super(serverController);
-        this.user = user;
+        this.userId = id;
     }
 
     /**
@@ -37,19 +36,19 @@ public class DisconnectionRequestMessage extends ComServerMessage {
      */
     @Override
     public void process() {
-        Player player = serverController.getDataToCom().updateUserListRemove(user);
+        User user = serverController.getDataToCom().updateUserListRemove(userId);
 
 
         // Fetch all data required (clientList)
         HashMap<UUID, ComClient> clientList = ComServerController.server.clientList;
-        clientList.remove(user.getUserId());
+        clientList.remove(userId);
 
         // ComServerController will send messages on the network
         for (ComClient client : clientList.values()) {
-            ComServerController.SendClientMessage(client.socket, new NotifyUserChangeMessage(client.clientController, player, false));
+            ComServerController.SendClientMessage(client.socket, new NotifyUserChangeMessage(client.clientController, user, false));
         }
 
-        UUID userId = user.getUserId();
+        UUID userId = this.userId;
         ComClient client = clientList.get(userId);
         ComServerController.SendClientMessage(client.socket, new IsDisconnectedMessage(client.clientController, userId, true));
     }
