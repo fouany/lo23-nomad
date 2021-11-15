@@ -6,9 +6,13 @@ import nomad.common.data_structure.User;
 import java.util.UUID;
 
 public interface ComToDataInterface {
-   void requestHost(Player player);
-   void askForSave(UUID game);
-   void addConnectedUser(User user);
-   void logout(UUID idUser);
-   void getProfile(UUID idUser);
+    void requestHost(Player player);
+
+    void askForSave(UUID game);
+
+    void addConnectedUser(User user);
+
+    void logout(User user);
+
+    void getProfile(UUID idUser);
 }
