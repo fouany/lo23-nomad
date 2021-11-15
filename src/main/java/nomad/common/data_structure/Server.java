@@ -1,8 +1,9 @@
 package nomad.common.data_structure;
 
+import java.io.Serializable;
 import java.net.InetAddress;
 
-public class Server {
+public class Server implements Serializable {
 
     private String serverName;
     private InetAddress ipAddress;

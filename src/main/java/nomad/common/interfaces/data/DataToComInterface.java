@@ -9,7 +9,7 @@ public interface DataToComInterface {
     void updateSession(GameLight game, String name, boolean spect, boolean chatSpect);
     void updateSessionGameState(UUID idGame , boolean isLaunched);
     void updateUserSession(Player player, boolean connected);
-    void updateOpponent(Player player, GameLight game);
+    void updateOpponent(Player player, GameLight game) throws GameException;
 
     void handleSpectator(UserLight user, boolean isAdded);
     void gameLaunchEvent();
@@ -24,8 +24,10 @@ public interface DataToComInterface {
     void addConnectedUserProfile (List<Player> players, List<GameLight> games);
     void isDisconnected(UUID idUser, boolean isDeconnected);
     void gameCreated(Game game);
-    void newUser(GameLight game, Player player, boolean isPlayer);
+    void newUser(GameLight game, Player player, boolean isPlayer) throws GameException;
 
     List<Game> getStoredAvailableGames();
-    boolean currentUserisPlayer();
+    List<UserLight> getOnlineUsers();
+    //TODO UUID or boolean ?
+    UUID currentUserIsPlayer();
 }
