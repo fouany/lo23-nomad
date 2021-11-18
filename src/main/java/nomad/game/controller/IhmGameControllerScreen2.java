@@ -11,4 +11,10 @@ public class IhmGameControllerScreen2 extends IhmControllerComponent {
     public void goToFirst() {
         screenControl.changeScreen(0);
     }
+    public void goToThirdScreen() {
+        screenControl.changeScreen(2);
+    }
+
 }
+
+

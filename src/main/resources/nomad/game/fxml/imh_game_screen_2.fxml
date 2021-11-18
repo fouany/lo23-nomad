@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-
 <?import javafx.scene.control.Button?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="nomad.game.controller.IhmGameControllerScreen2"
-      prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.layout.VBox?>
 
-    <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="203.0" style="-fx-font-family: 'Poppins';" styleClass="main-bg-red" text="Back to screen 1 of game module" textAlignment="CENTER" onMouseClicked="#goToFirst"/>
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.game.controller.IhmGameControllerScreen2">
+
+    <Button mnemonicParsing="false" onMouseClicked="#goToFirst" prefHeight="26.0" prefWidth="200.0" style="-fx-font-family: 'Poppins';" styleClass="main-bg-red" text="Back to screen 1 of game module" textAlignment="CENTER" />
+   <Button mnemonicParsing="false" onMouseClicked="#goToThirdScreen" prefHeight="26.0" prefWidth="200.0" text="Go to screen 3 of game module" />
 </VBox>
