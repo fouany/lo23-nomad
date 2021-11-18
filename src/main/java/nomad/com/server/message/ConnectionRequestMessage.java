@@ -8,7 +8,6 @@ import nomad.com.server.controller.ComServerController;
 import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Player;
 import nomad.common.data_structure.User;
-import nomad.common.interfaces.data.DataToComServeurInterface;
 
 import java.util.List;
 
@@ -20,12 +19,7 @@ public class ConnectionRequestMessage extends ComServerMessage {
      * user
      */
     private final User user;
-
     private ComServerListener listener;
-
-    public void setListener(ComServerListener listener) {
-        this.listener = listener;
-    }
 
     /**
      * Constructor
@@ -38,14 +32,17 @@ public class ConnectionRequestMessage extends ComServerMessage {
         this.user = user;
     }
 
+    public void setListener(ComServerListener listener) {
+        this.listener = listener;
+    }
 
     /**
      * process
      */
     @Override
     public void process() {
-        ComClient client = ComServerController.server.clientList.get(user.getUserId());
-        ComServerController.requestConnection(client, listener);
+        ComClient client = serverController.server.clientList.get(user.getUserId());
+        serverController.requestConnection(client, listener);
 
         // Creating a new player from the current user
         Player player = new Player(user.getUserId(), user.getLogin(), user.getProfilePicture());
@@ -55,10 +52,10 @@ public class ConnectionRequestMessage extends ComServerMessage {
         List<GameLight> games = serverController.getDataToCom().requestGameList();
 
         // ComServerController will send messages on the network
-        ComServerController.SendClientMessage(client.socket, new SendNewInfosServerMessage(client.clientController, games, players));
+        serverController.SendClientMessage(client.socket, new SendNewInfosServerMessage(client.clientController, games, players));
 
-        for (ComClient cli : ComServerController.server.clientList.values()) {
-            ComServerController.SendClientMessage(cli.socket, new NotifyUserChangeMessage(cli.clientController, user, true));
+        for (ComClient cli : serverController.server.clientList.values()) {
+            serverController.SendClientMessage(cli.socket, new NotifyUserChangeMessage(cli.clientController, user, true));
         }
     }
 }

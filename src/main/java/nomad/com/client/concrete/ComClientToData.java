@@ -8,22 +8,27 @@ import nomad.com.server.message.DisconnectionRequestMessage;
 import nomad.common.data_structure.Player;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.com.ComToDataInterface;
-import nomad.common.interfaces.data.DataToComServeurInterface;
 
 import java.util.UUID;
 
 public class ComClientToData implements ComToDataInterface {
     public ComServerController serverController;
+    public ComClientController clientController;
+
+    public ComClientToData(ComServerController serverController, ComClientController clientController) {
+        this.serverController = serverController;
+        this.clientController = clientController;
+    }
 
     @Override
     public void addConnectedUser(User user) {
-        ComClient client = new ComClient(user);
-        ComClientController.SendServerMessage(new ConnectionRequestMessage(serverController, user));
+        new ComClient(user);
+        clientController.SendServerMessage(new ConnectionRequestMessage(serverController, user));
     }
 
     @Override
     public void logout(User user) {
-        ComClientController.SendServerMessage(new DisconnectionRequestMessage(serverController, user.getUserId()));
+        clientController.SendServerMessage(new DisconnectionRequestMessage(serverController, user.getUserId()));
     }
 
     @Override

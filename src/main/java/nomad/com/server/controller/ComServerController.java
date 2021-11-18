@@ -12,12 +12,7 @@ import java.net.Socket;
 import java.util.UUID;
 
 public class ComServerController implements Serializable {
-    public static ComServer server;
-
-    public DataToComServeurInterface getDataToCom() {
-        return dataToCom;
-    }
-
+    public ComServer server;
     private final DataToComServeurInterface dataToCom;
 
     public ComServerController(int port, DataToComServeurInterface dataToCom) {
@@ -25,19 +20,22 @@ public class ComServerController implements Serializable {
         this.dataToCom = dataToCom;
     }
 
-    public static void SendClientMessage(Socket client, ComMessage message) {
+    public DataToComServeurInterface getDataToCom() {
+        return dataToCom;
+    }
+
+    public void SendClientMessage(Socket client, ComMessage message) {
         ComServerSender sender = new ComServerSender(client, message);
         sender.start();
     }
 
-    public static void requestConnection(ComClient client, ComServerListener listener) {
-        Socket socket = client.socket;
+    public void requestConnection(ComClient client, ComServerListener listener) {
         UUID userId = client.user.getUserId();
         server.clientList.put(userId, client);
         server.listenerList.put(userId, listener);
     }
 
-    public static void requestDisconnection(UUID userId) {
+    public void requestDisconnection(UUID userId) {
         server.clientList.remove(userId);
         server.listenerList.get(userId).stop();
         server.listenerList.remove(userId);
