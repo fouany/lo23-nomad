@@ -5,7 +5,7 @@ import nomad.common.data_structure.*;
 import java.util.List;
 import java.util.UUID;
 
-public interface DataToComServeurInterface {
+public interface DataToComServerInterface {
     Game createGame(String name, UserLight host, int nbOfTowers, boolean spectAllowed, boolean spectChatAllowed, boolean hostColour);
     void joinGameRequest(Player player, GameLight game);
     void guestAccepted(GameLight game);

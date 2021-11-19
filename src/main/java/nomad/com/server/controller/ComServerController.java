@@ -5,7 +5,7 @@ import nomad.com.message.ComMessage;
 import nomad.com.server.ComServer;
 import nomad.com.server.ComServerListener;
 import nomad.com.server.ComServerSender;
-import nomad.common.interfaces.data.DataToComServeurInterface;
+import nomad.common.interfaces.data.DataToComServerInterface;
 
 import java.io.Serializable;
 import java.net.Socket;
@@ -13,14 +13,14 @@ import java.util.UUID;
 
 public class ComServerController implements Serializable {
     public ComServer server;
-    private final DataToComServeurInterface dataToCom;
+    private final DataToComServerInterface dataToCom;
 
-    public ComServerController(int port, DataToComServeurInterface dataToCom) {
+    public ComServerController(int port, DataToComServerInterface dataToCom) {
         server = new ComServer(port);
         this.dataToCom = dataToCom;
     }
 
-    public DataToComServeurInterface getDataToCom() {
+    public DataToComServerInterface getDataToCom() {
         return dataToCom;
     }
 

@@ -32,11 +32,6 @@ public class ComClientToData implements ComToDataInterface {
     }
 
     @Override
-    public void requestHost(Player player) {
-        //TODO
-    }
-
-    @Override
     public void askForSave(UUID game) {
         //TODO
     }

@@ -1,11 +1,11 @@
 package nomad.data.server;
 
-import nomad.common.interfaces.data.DataToIhmGameServeurInterface;
+import nomad.common.interfaces.data.DataToIhmGameServerInterface;
 
 /**
  * Concretization of the Ihm Game interface.
  */
-public class DataToIhmGameConcrete implements DataToIhmGameServeurInterface {
+public class DataToIhmGameConcrete implements DataToIhmGameServerInterface {
 
     private DataServerController dataServerController;
 

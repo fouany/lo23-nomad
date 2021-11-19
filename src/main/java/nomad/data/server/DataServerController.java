@@ -15,17 +15,17 @@ import java.util.UUID;
  */
 public class DataServerController {
     private UserController userController;
-    private DataToIhmGameServeurInterface dataToIhmGame;
-    private DataToIhmMainServeurInterface dataToIhmMain;
-    private DataToComServeurInterface dataToCom;
+    private DataToIhmGameServerInterface dataToIhmGame;
+    private DataToIhmMainServerInterface dataToIhmMain;
+    private DataToComServerInterface dataToCom;
     private IhmGameToDataInterface gameOfferedInterface;
     private IhmMainToDataInterface mainOfferedInterface;
     private ComToDataInterface comOfferedInterface;
     private Session session;
     private GamesController gamesController;
 
-    public DataServerController(UserController userController, DataToIhmGameServeurInterface dataToIhmGame,
-                                DataToIhmMainServeurInterface dataToIhmMain, DataToComServeurInterface dataToCom,
+    public DataServerController(UserController userController, DataToIhmGameServerInterface dataToIhmGame,
+                                DataToIhmMainServerInterface dataToIhmMain, DataToComServerInterface dataToCom,
                                 GamesController gamesController, IhmGameToDataInterface gameOfferedInterface,
                                 IhmMainToDataInterface mainOfferedInterface, ComToDataInterface comOfferedInterface){
         this.userController = userController;
@@ -92,7 +92,7 @@ public class DataServerController {
      * @param gameInterface
      */
     public void setGameObserver(DataToIhmGameConcrete gameInterface){
-        this.dataToIhmGame = (DataToIhmGameServeurInterface) gameInterface;
+        this.dataToIhmGame = (DataToIhmGameServerInterface) gameInterface;
     }
 
     /**
@@ -100,7 +100,7 @@ public class DataServerController {
      * @param mainInterface
      */
     public void setMainObserver(DataToIhmMainConcrete mainInterface){
-        this.dataToIhmMain = (DataToIhmMainServeurInterface) mainInterface;
+        this.dataToIhmMain = (DataToIhmMainServerInterface) mainInterface;
     }
 
     /**
@@ -108,7 +108,7 @@ public class DataServerController {
      * @param comInterface
      */
     public void setComObserver(DataToComConcrete comInterface){
-        this.dataToCom = (DataToComServeurInterface) comInterface;
+        this.dataToCom = (DataToComServerInterface) comInterface;
     }
 
     /**

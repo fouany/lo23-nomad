@@ -1,7 +1,7 @@
 package nomad.data.server;
 
 import nomad.common.data_structure.*;
-import nomad.common.interfaces.data.DataToComServeurInterface;
+import nomad.common.interfaces.data.DataToComServerInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * Concretization of the Ihm Com interface.
  */
-public class DataToComConcrete implements DataToComServeurInterface {
+public class DataToComConcrete implements DataToComServerInterface {
 
     private DataServerController dataServerController;
 
