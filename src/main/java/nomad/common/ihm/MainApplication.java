@@ -2,10 +2,14 @@ package nomad.common.ihm;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import nomad.com.client.concrete.ComClientToDataConcrete;
+import nomad.com.client.controller.ComClientController;
 import nomad.data.client.DataClientController;
+import nomad.data.client.DataToComConcrete;
 import nomad.data.client.DataToMainConcrete;
 import nomad.game.IhmGameScreenController;
 import nomad.main.IhmMainScreenController;
+import nomad.main.IhmMainToDataConcrete;
 
 import java.io.IOException;
 
@@ -18,14 +22,55 @@ public class MainApplication extends Application {
    * Current stage
    */
   Stage stage;
-  private DataToMainConcrete dataToMainImpl;
+  private DataToMainConcrete dataToMainConcrete;
+  private DataToComConcrete dataToComConcrete;
+
+  private IhmMainToDataConcrete ihmMainToDataConcrete;
+  private ComClientToDataConcrete comClientToDataConcrete;
+
+  private DataClientController dataClientController;
+  private ComClientController comClientController;
+  private IhmMainScreenController ihmMainScreenController;
+  private IhmGameScreenController ihmGameScreenController;
+  private IhmScreenController screenController;
 
   public MainApplication() {
+    initConcreteInterface();
+    try {
+      initController();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    linkConcreteController();
+  }
 
+  public void initConcreteInterface () {
+    dataToComConcrete = new DataToComConcrete();
+    dataToMainConcrete = new DataToMainConcrete();
+
+    ihmMainToDataConcrete = new IhmMainToDataConcrete();
+    comClientToDataConcrete = new ComClientToDataConcrete();
+  }
+
+  public void initController () throws IOException {
+    dataClientController = new DataClientController(comClientToDataConcrete,
+            ihmMainToDataConcrete,
+            null);
+    comClientController = new ComClientController(dataToComConcrete);
+    ihmGameScreenController = new IhmGameScreenController(this);
+    ihmMainScreenController = new IhmMainScreenController(this, dataToMainConcrete);
+  }
+
+  public void linkConcreteController (){
+    dataToComConcrete.setController(dataClientController);
+    dataToMainConcrete.setController(dataClientController);
+
+    ihmMainToDataConcrete.setController(ihmMainScreenController);
+    comClientToDataConcrete.setController(comClientController);
   }
 
   @Override
-  public void start(Stage primaryStage) throws Exception {
+  public void start(Stage primaryStage) {
     stage = primaryStage;
     this.changeModule("MAIN");
   }
@@ -35,14 +80,14 @@ public class MainApplication extends Application {
    * @param mode module wanted
    * @throws IOException
    */
-  public void changeModule(String mode) throws IOException {
-    IhmScreenController controller;
+  public void changeModule(String mode) {
+
     if (mode.equals("MAIN")) {
-      controller = new IhmMainScreenController(this, dataToMainImpl);
+      screenController = ihmMainScreenController;
     } else {
-      controller = new IhmGameScreenController(this);
+      screenController = ihmGameScreenController;
     }
-    controller.initIHM();
+    screenController.initIHM();
   }
 
   /**

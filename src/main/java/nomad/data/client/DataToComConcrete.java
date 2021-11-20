@@ -9,6 +9,10 @@ public class DataToComConcrete implements DataToComInterface {
 
     DataClientController dataClientController;
 
+    public void setController(DataClientController dataClientController) {
+        this.dataClientController = dataClientController;
+    }
+
     /**
      * adds a new game in the lobby and sets the attributes in the game
      * @param gameLight

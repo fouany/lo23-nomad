@@ -10,10 +10,17 @@ import java.util.UUID;
 public class ComClientToDataConcrete implements ComToDataInterface {
     public ComClientController clientController;
 
-    public ComClientToDataConcrete(ComClientController clientController) {
+    public void setController(ComClientController clientController) {
         this.clientController = clientController;
     }
 
+    /**
+     * addConnectedUser inform the server of the connection of the local user.
+     * This method is called by data upon completion of the login form.
+     * It must initialize the socket, it is the first communication client/server.
+     *
+     * @param user The local connected user
+     * */
     @Override
     public void addConnectedUser(User user) {
         clientController.setCurrentUser(user);
