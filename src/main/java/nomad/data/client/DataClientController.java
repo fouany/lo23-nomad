@@ -1,6 +1,6 @@
 package nomad.data.client;
 
-import nomad.com.client.concrete.ComClientToData;
+import nomad.com.client.concrete.ComClientToDataConcrete;
 import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Session;
 import nomad.common.data_structure.User;

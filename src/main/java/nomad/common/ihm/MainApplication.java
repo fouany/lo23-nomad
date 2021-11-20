@@ -2,6 +2,7 @@ package nomad.common.ihm;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import nomad.data.client.DataClientController;
 import nomad.data.client.DataToMainConcrete;
 import nomad.game.IhmGameScreenController;
 import nomad.main.IhmMainScreenController;
@@ -20,7 +21,7 @@ public class MainApplication extends Application {
   private DataToMainConcrete dataToMainImpl;
 
   public MainApplication() {
-    dataToMainImpl = new DataToMainConcrete();
+
   }
 
   @Override

@@ -17,10 +17,8 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
     DataClientController dataClientController;
 
     //constructor
-    public DataToMainConcrete(ComToDataInterface comToDataInterface,
-                              IhmMainToDataInterface ihmMainToDataInterface,
-                              IhmGameToDataInterface ihmGameToDataInterface) {
-        this.dataClientController = new DataClientController(comToDataInterface, ihmMainToDataInterface, ihmGameToDataInterface);
+    public DataToMainConcrete(DataClientController controller) {
+        this.dataClientController = controller;
     }
 
     public User getUser() { return dataClientController.getUserController().getUser();}
