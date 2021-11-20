@@ -1,7 +1,10 @@
 package nomad.data.client;
 
 import nomad.common.data_structure.*;
+import nomad.common.interfaces.com.ComToDataInterface;
 import nomad.common.interfaces.data.DataToIhmMainInterface;
+import nomad.common.interfaces.game.IhmGameToDataInterface;
+import nomad.common.interfaces.main.IhmMainToDataInterface;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,8 +17,10 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
     DataClientController dataClientController;
 
     //constructor
-    public DataToMainConcrete() {
-        this.dataClientController = new DataClientController();
+    public DataToMainConcrete(ComToDataInterface comToDataInterface,
+                              IhmMainToDataInterface ihmMainToDataInterface,
+                              IhmGameToDataInterface ihmGameToDataInterface) {
+        this.dataClientController = new DataClientController(comToDataInterface, ihmMainToDataInterface, ihmGameToDataInterface);
     }
 
     public User getUser() { return dataClientController.getUserController().getUser();}

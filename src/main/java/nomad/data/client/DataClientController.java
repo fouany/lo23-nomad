@@ -24,12 +24,15 @@ public class DataClientController {
     // Contains connected users, gamesInLobby, gamesInProgress
     Session session;
 
-    public DataClientController() {
-        this.path = "test"; // path might change ! 
+    public DataClientController(ComToDataInterface comToDataInterface,
+                                IhmMainToDataInterface ihmMainToDataInterface,
+                                IhmGameToDataInterface ihmGameToDataInterface) {
+        this.path = "test"; // path might change !
         this.gameController = new GameController(null);
         this.userController = new UserController(null);
-        this.ihmMainToDataInterface = new IhmMainToDataConcrete();
-        this.comToDataInterface = new ComClientToData();
+        this.ihmMainToDataInterface = ihmMainToDataInterface;
+        this.comToDataInterface = comToDataInterface;
+        this.ihmGameToDataInterface = ihmGameToDataInterface;
     }
 
     public Session getSession() {
