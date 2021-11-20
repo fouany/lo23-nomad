@@ -37,8 +37,8 @@ public class SendNewInfosServerMessage extends ComClientMessage {
     /**
      * process
      */
-    @Override
+   /* @Override
     public void process() {
         clientController.getDataToCom().addConnectedUserProfile(players, games);
-    }
+    }*/
 }

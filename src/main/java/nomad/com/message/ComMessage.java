@@ -9,5 +9,5 @@ public abstract class ComMessage implements Serializable {
     /**
      * process
      */
-    public abstract void process();
+    //public abstract void process();
 }

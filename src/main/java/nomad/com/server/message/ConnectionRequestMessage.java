@@ -1,34 +1,20 @@
 package nomad.com.server.message;
 
-import nomad.com.client.ComClient;
-import nomad.com.client.message.NotifyUserChangeMessage;
-import nomad.com.client.message.SendNewInfosServerMessage;
+import nomad.com.message.ComMessage;
 import nomad.com.server.ComServerListener;
-import nomad.com.server.controller.ComServerController;
-import nomad.common.data_structure.GameLight;
-import nomad.common.data_structure.Player;
 import nomad.common.data_structure.User;
-
-import java.util.List;
 
 /**
  * Connexion Message - Server Side
  */
-public class ConnectionRequestMessage extends ComServerMessage {
+public class ConnectionRequestMessage extends ComMessage {
     /**
      * user
      */
     private final User user;
     private ComServerListener listener;
 
-    /**
-     * Constructor
-     *
-     * @param serverController
-     * @param user
-     */
-    public ConnectionRequestMessage(ComServerController serverController, User user) {
-        super(serverController);
+    public ConnectionRequestMessage(User user) {
         this.user = user;
     }
 
@@ -39,7 +25,7 @@ public class ConnectionRequestMessage extends ComServerMessage {
     /**
      * process
      */
-    @Override
+   /* @Override
     public void process() {
         ComClient client = serverController.server.clientList.get(user.getUserId());
         serverController.requestConnection(client, listener);
@@ -57,5 +43,5 @@ public class ConnectionRequestMessage extends ComServerMessage {
         for (ComClient cli : serverController.server.clientList.values()) {
             serverController.SendClientMessage(cli.socket, new NotifyUserChangeMessage(cli.clientController, user, true));
         }
-    }
+    }*/
 }

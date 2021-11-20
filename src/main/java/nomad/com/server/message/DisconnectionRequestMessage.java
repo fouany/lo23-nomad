@@ -3,6 +3,7 @@ package nomad.com.server.message;
 import nomad.com.client.ComClient;
 import nomad.com.client.message.IsDisconnectedMessage;
 import nomad.com.client.message.NotifyUserChangeMessage;
+import nomad.com.message.ComMessage;
 import nomad.com.server.controller.ComServerController;
 import nomad.common.data_structure.User;
 
@@ -12,7 +13,7 @@ import java.util.UUID;
 /**
  * Disconnection Message - Server Side
  */
-public class DisconnectionRequestMessage extends ComServerMessage {
+public class DisconnectionRequestMessage extends ComMessage {
     private final UUID userId;
 
     /**
@@ -21,15 +22,14 @@ public class DisconnectionRequestMessage extends ComServerMessage {
      * @param serverController
      * @param id
      */
-    public DisconnectionRequestMessage(ComServerController serverController, UUID id) {
-        super(serverController);
+    public DisconnectionRequestMessage(UUID id) {
         this.userId = id;
     }
 
     /**
      * process
      */
-    @Override
+    /*@Override
     public void process() {
         User user = serverController.getDataToCom().updateUserListRemove(userId);
 
@@ -46,5 +46,5 @@ public class DisconnectionRequestMessage extends ComServerMessage {
         UUID userId = this.userId;
         ComClient client = clientList.get(userId);
         serverController.SendClientMessage(client.socket, new IsDisconnectedMessage(client.clientController, userId, true));
-    }
+    }*/
 }

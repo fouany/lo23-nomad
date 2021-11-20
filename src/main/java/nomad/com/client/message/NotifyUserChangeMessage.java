@@ -33,9 +33,9 @@ public class NotifyUserChangeMessage extends ComClientMessage {
     /**
      * process
      */
-    @Override
+    /*@Override
     public void process() {
         Player player = new Player(user.getUserId(), user.getLogin(), user.getProfilePicture());
         clientController.getDataToCom().updateUserSession(player, connected);
-    }
+    }*/
 }

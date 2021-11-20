@@ -1,6 +1,5 @@
 package nomad.com.server;
 
-import nomad.com.server.message.ComServerMessage;
 import nomad.com.server.message.ConnectionRequestMessage;
 
 import java.io.IOException;
@@ -22,10 +21,10 @@ public class ComServerListener extends Thread {
         while (true) {
             try {
                 ObjectInputStream in = new ObjectInputStream(client.getInputStream());
-                ComServerMessage message = (ComServerMessage) in.readObject();
-                message.process();
+                //ComServerMessage message = (ComServerMessage) in.readObject();
+                //message.process();
                 in.close();
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -36,7 +35,7 @@ public class ComServerListener extends Thread {
             ObjectInputStream in = new ObjectInputStream(client.getInputStream());
             ConnectionRequestMessage message = (ConnectionRequestMessage) in.readObject();
             message.setListener(this);
-            message.process();
+            //message.process();
             in.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

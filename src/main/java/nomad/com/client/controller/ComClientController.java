@@ -2,25 +2,44 @@ package nomad.com.client.controller;
 
 import nomad.com.client.ComClient;
 import nomad.com.client.ComClientSender;
-import nomad.com.server.message.ComServerMessage;
+import nomad.com.message.ComMessage;
+import nomad.common.data_structure.User;
 import nomad.common.interfaces.data.DataToComInterface;
 
 import java.io.Serializable;
 
 public class ComClientController implements Serializable {
-    public ComClient client;
     private final DataToComInterface dataToCom;
+    private ComClientSender sender;
+    private User currentUser;
+    private ComClient client;
 
-    public ComClientController(ComClient client, DataToComInterface dataToCom) {
-        this.client = client;
+    public ComClientController(DataToComInterface dataToCom) {
         this.dataToCom = dataToCom;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 
     public DataToComInterface getDataToCom() {
         return dataToCom;
     }
 
-    public void SendServerMessage(ComServerMessage message) {
+    public void initSocket() {
+        if (currentUser == null || currentUser.getLastServer() == null) {
+            throw new RuntimeException();
+        }
+        client = new ComClient(currentUser);
+        client.run();
+        }
+
+    public void sendServerMessage(ComMessage message) {
+        //envoie un message sur la socket
         ComClientSender sender = new ComClientSender(client.socket, message);
         sender.start();
     }
