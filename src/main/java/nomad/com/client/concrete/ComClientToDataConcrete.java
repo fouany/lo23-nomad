@@ -20,7 +20,7 @@ public class ComClientToDataConcrete implements ComToDataInterface {
      * It must initialize the socket, it is the first communication client/server.
      *
      * @param user The local connected user
-     * */
+     */
     @Override
     public void addConnectedUser(User user) {
         clientController.setCurrentUser(user);
@@ -30,17 +30,31 @@ public class ComClientToDataConcrete implements ComToDataInterface {
         );
     }
 
+    /**
+     * Disconnect the local user from the local server.
+     *
+     * @param user The local user to disconnect from the server.
+     */
     @Override
     public void logout(User user) {
         //envoie (via le controller) un message de deconnexion au serveur
     }
 
+    /**
+     * Ask the server to retrieve the replay of a specified game.
+     *
+     * @param game The identifier of the game to retrieve.
+     */
     @Override
     public void askForSave(UUID game) {
         //TODO
     }
 
-
+    /**
+     * Retrieve the profile of a given remote user from the server.
+     *
+     * @param idUser the unique identifier of the user profile to recover.
+     */
     @Override
     public void getProfile(UUID idUser) {
         //TODO
