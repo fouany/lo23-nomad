@@ -30,6 +30,9 @@ public class ComClientController implements Serializable {
         return dataToCom;
     }
 
+    /**
+     * Initialize the socket between the client and the server
+     */
     public void initSocket() {
         if (currentUser == null || currentUser.getLastServer() == null) {
             throw new RuntimeException();
@@ -39,7 +42,6 @@ public class ComClientController implements Serializable {
         }
 
     public void sendServerMessage(ComMessage message) {
-        //envoie un message sur la socket
         ComClientSender sender = new ComClientSender(client.socket, message);
         sender.start();
     }

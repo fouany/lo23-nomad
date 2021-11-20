@@ -20,7 +20,6 @@ public class ComClientListener extends Thread {
             try {
                 ObjectInputStream ois = new ObjectInputStream(client.getInputStream());
                 ComClientMessage message = (ComClientMessage) ois.readObject();
-                message.process();
                 ois.close();
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();

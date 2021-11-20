@@ -30,12 +30,4 @@ public class IsDisconnectedMessage extends ComClientMessage {
         this.userId = userId;
         this.isDisconnected = isDisconnected;
     }
-
-    /**
-     * process
-     */
-   // @Override
-    /*public void process() {
-        clientController.getDataToCom().isDisconnected(userId, isDisconnected);
-    }*/
 }

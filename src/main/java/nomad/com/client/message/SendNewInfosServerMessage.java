@@ -3,7 +3,6 @@ package nomad.com.client.message;
 import nomad.com.client.controller.ComClientController;
 import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Player;
-import nomad.common.interfaces.data.DataToComInterface;
 
 import java.util.List;
 
@@ -33,12 +32,4 @@ public class SendNewInfosServerMessage extends ComClientMessage {
         this.games = games;
         this.players = players;
     }
-
-    /**
-     * process
-     */
-   /* @Override
-    public void process() {
-        clientController.getDataToCom().addConnectedUserProfile(players, games);
-    }*/
 }
