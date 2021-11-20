@@ -1,16 +1,15 @@
 package nomad.data.client;
 
+import nomad.com.client.concrete.ComClientToData;
 import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Session;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.com.ComToDataInterface;
 import nomad.common.interfaces.game.IhmGameToDataInterface;
 import nomad.common.interfaces.main.IhmMainToDataInterface;
+import nomad.main.IhmMainToDataConcrete;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 public class DataClientController {
@@ -26,9 +25,11 @@ public class DataClientController {
     Session session;
 
     public DataClientController() {
-        this.path = "test.txt"; // path might change !
+        this.path = "test"; // path might change ! 
         this.gameController = new GameController(null);
         this.userController = new UserController(null);
+        this.ihmMainToDataInterface = new IhmMainToDataConcrete();
+        this.comToDataInterface = new ComClientToData();
     }
 
     public Session getSession() {
@@ -73,43 +74,37 @@ public class DataClientController {
         this.getGameController().setGame(null);
     }
 
-    public void write(List<User> userList, String path) throws IOException {
-        Path pathFichier = Paths.get(path);
+    public void write(User user) throws IOException {
         // le try to open file at the beginning and close it at the end
         try (
-            final OutputStream os = Files.newOutputStream(pathFichier);
-            ObjectOutputStream  out = new ObjectOutputStream(os);
+            FileOutputStream fos = new FileOutputStream(user.getName());
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
         ){
-            out.writeObject(userList);
-            out.flush();
+            oos.writeObject(user);
+            oos.flush();
         }
     }
 
-    public List<User> read(String path) throws IOException, ClassNotFoundException {
-        Path pathFichier = Paths.get(path);
+    public User read(String path) throws IOException, ClassNotFoundException {
         // le try to open file at the beginning and close it at the end
         try (
-            InputStream is = Files.newInputStream(pathFichier);
-            ObjectInputStream  in = new ObjectInputStream(is);
+            FileInputStream fis = new FileInputStream(path);
+            ObjectInputStream ois = new ObjectInputStream(fis);
         ) {
-            return (List<User>) in.readObject();
+            return (User) ois.readObject();
         }
     }
 
-    public void updateProfileFile(String file, User newUser) throws IOException, ClassNotFoundException {
+    public void updateProfileFile(User newUser) throws IOException, ClassNotFoundException {
         //1- Get all user
-        List<User> listUser =this.read(file);
+        User user = this.read(newUser.getName());
 
         //2- Modify the user connected
-        for (User u: listUser
-        ) {
-            if (u.getUserId().equals(this.userController.getUser().getUserId())) {
+        if (user.getUserId().equals(this.userController.getUser().getUserId())) {
                 this.getUserController().setUser(newUser);
-                break;
-            }
         }
 
-        //3 - Write the user list with the user modified in the profile file
-        this.write(listUser, file);
+        //3 - Write the user with the user modified in the profile file
+        this.write(user);
     }
 }
