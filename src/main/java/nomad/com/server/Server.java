@@ -17,10 +17,11 @@ import java.util.logging.Logger;
 
 public class Server extends Thread {
 
-    private HashMap<Socket, IdentifiedClient> clientList = new HashMap<>();
+    private final HashMap<Socket, IdentifiedClient> clientList = new HashMap<>();
     private ServerSocket serverSocket;
     private final DataToComServerInterface dataToCom;
     private final MessageProcessor messageProcessor;
+    private boolean serverRun = true;
 
     public Server(int port, DataToComServerInterface dataToCom) {
         this.dataToCom = dataToCom;
@@ -44,6 +45,12 @@ public class Server extends Thread {
         clientList.put(socket, identified);
     }
 
+    /**
+     * Get the User UID associated with a given socket
+     *
+     * @param socket Socket connected to a client
+     * @return UID of the associated identified user or null if not found or not identified
+     */
     public UUID getAssociatedUser(Socket socket) {
         if (clientList.containsKey(socket)) {
             return clientList.get(socket).getUID();
@@ -96,27 +103,42 @@ public class Server extends Thread {
      * @param userId ID of the client to disconnect
      */
     public void disconnectClient(Socket client, UUID userId) {
-        clientList.remove(client);
+        clientList.get(client).stopClientCommunication(); // Stop client communication thread
+        clientList.remove(client); // Remove client from identified clients list
         try {
             client.close();
         } catch (IOException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to close connection with client !");
         }
 
-        broadcast(new UserChangedMessage(dataToCom.getUserProfile(userId), false));
+        broadcast(new UserChangedMessage(dataToCom.getUserProfile(userId), false)); // announce disconnection to all clients
+    }
+
+    /**
+     * Get the MessageProcessor instance of the server
+     *
+     * @return an initialized MessageProcessor
+     */
+    public MessageProcessor getMessageProcessor() {
+        return messageProcessor;
+    }
+
+    /**
+     * Stop the server thread and do not allow new connections
+     */
+    public void stopServer() {
+        serverRun = false;
     }
 
     @Override
     public void run() {
-        while (true) {
+        while (serverRun) {
             try {
                 Socket client = serverSocket.accept();
-                ObjectInputStream inputStream = new ObjectInputStream(client.getInputStream());
-                IdentifiedClient unidentified = new IdentifiedClient(null, client, messageProcessor);
-
+                IdentifiedClient unidentified = new IdentifiedClient(null, client, this);
                 clientList.put(client, unidentified); // Add unidentified user
             } catch (IOException e) {
-                e.printStackTrace();
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to create client connection !");
             }
         }
     }
