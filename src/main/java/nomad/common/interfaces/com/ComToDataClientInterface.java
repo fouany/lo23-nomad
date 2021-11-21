@@ -4,7 +4,7 @@ import nomad.common.data_structure.User;
 
 import java.util.UUID;
 
-public interface ComToDataInterface {
+public interface ComToDataClientInterface {
 
     void askForSave(UUID game);
 

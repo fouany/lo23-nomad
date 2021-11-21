@@ -1,7 +1,7 @@
 package nomad.com.client;
 
 import nomad.com.common.message.ComMessage;
-import nomad.common.interfaces.data.DataToComInterface;
+import nomad.common.interfaces.data.DataToComClientInterface;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -18,7 +18,7 @@ public class ClientController {
     private ObjectOutputStream output;
     private Socket socket;
 
-    public ClientController(DataToComInterface dataToCom) {
+    public ClientController(DataToComClientInterface dataToCom) {
         this.messageProcessor = new MessageProcessor(dataToCom);
     }
 

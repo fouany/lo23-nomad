@@ -2,7 +2,7 @@ package nomad.data.server;
 
 import nomad.common.data_structure.Session;
 import nomad.common.data_structure.User;
-import nomad.common.interfaces.com.ComToDataInterface;
+import nomad.common.interfaces.com.ComToDataClientInterface;
 import nomad.common.interfaces.data.*;
 import nomad.common.interfaces.game.IhmGameToDataInterface;
 import nomad.common.interfaces.main.IhmMainToDataInterface;
@@ -20,14 +20,14 @@ public class DataServerController {
     private DataToComServerInterface dataToCom;
     private IhmGameToDataInterface gameOfferedInterface;
     private IhmMainToDataInterface mainOfferedInterface;
-    private ComToDataInterface comOfferedInterface;
+    private ComToDataClientInterface comOfferedInterface;
     private Session session;
     private GamesController gamesController;
 
     public DataServerController(UserController userController, DataToIhmGameServerInterface dataToIhmGame,
                                 DataToIhmMainServerInterface dataToIhmMain, DataToComServerInterface dataToCom,
                                 GamesController gamesController, IhmGameToDataInterface gameOfferedInterface,
-                                IhmMainToDataInterface mainOfferedInterface, ComToDataInterface comOfferedInterface){
+                                IhmMainToDataInterface mainOfferedInterface, ComToDataClientInterface comOfferedInterface){
         this.userController = userController;
         this.dataToIhmGame = dataToIhmGame;
         this.dataToIhmMain = dataToIhmMain;
@@ -83,7 +83,7 @@ public class DataServerController {
      * Returns the dataToCom interface.
      * @return dataToCom
      */
-    public ComToDataInterface getComOfferedInterface(){
+    public ComToDataClientInterface getComOfferedInterface(){
         return comOfferedInterface;
     }
 

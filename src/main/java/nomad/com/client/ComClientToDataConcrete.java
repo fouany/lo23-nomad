@@ -2,14 +2,14 @@ package nomad.com.client;
 
 import nomad.com.common.message.LocalUserConnectionMessage;
 import nomad.common.data_structure.User;
-import nomad.common.interfaces.com.ComToDataInterface;
+import nomad.common.interfaces.com.ComToDataClientInterface;
 
 import java.io.IOException;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ComClientToDataConcrete implements ComToDataInterface {
+public class ComClientToDataConcrete implements ComToDataClientInterface {
     ClientController clientController;
 
     public void setController(ClientController clientController) {

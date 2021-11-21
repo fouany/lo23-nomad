@@ -1,11 +1,11 @@
 package nomad.data.client;
 
 import nomad.common.data_structure.*;
-import nomad.common.interfaces.data.DataToComInterface;
+import nomad.common.interfaces.data.DataToComClientInterface;
 import java.util.List;
 import java.util.UUID;
 
-public class DataToComConcrete implements DataToComInterface {
+public class DataToComConcrete implements DataToComClientInterface {
 
     DataClientController dataClientController;
 

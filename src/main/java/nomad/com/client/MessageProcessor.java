@@ -5,20 +5,20 @@ import nomad.com.common.message.LobbyInformationMessage;
 import nomad.com.common.message.UserChangedMessage;
 import nomad.common.data_structure.Player;
 import nomad.common.data_structure.User;
-import nomad.common.interfaces.data.DataToComInterface;
+import nomad.common.interfaces.data.DataToComClientInterface;
 
 /**
  * Process messages sent by the server on client side
  */
 public class MessageProcessor {
-    private final DataToComInterface dataToCom;
+    private final DataToComClientInterface dataToCom;
 
     /**
      * Initialize the message processor
      *
      * @param dataToCom Data interface
      */
-    public MessageProcessor(DataToComInterface dataToCom) {
+    public MessageProcessor(DataToComClientInterface dataToCom) {
         this.dataToCom = dataToCom;
     }
 

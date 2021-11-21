@@ -1,13 +1,9 @@
 package nomad.data.client;
 
 import nomad.common.data_structure.*;
-import nomad.common.interfaces.com.ComToDataInterface;
 import nomad.common.interfaces.data.DataToIhmMainInterface;
-import nomad.common.interfaces.game.IhmGameToDataInterface;
-import nomad.common.interfaces.main.IhmMainToDataInterface;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
