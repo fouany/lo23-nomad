@@ -1,16 +1,13 @@
 package nomad.data.client;
 
 import nomad.common.data_structure.*;
-import nomad.common.interfaces.com.ComToDataInterface;
 import nomad.common.interfaces.data.DataToIhmMainInterface;
-import nomad.common.interfaces.game.IhmGameToDataInterface;
-import nomad.common.interfaces.main.IhmMainToDataInterface;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.net.InetAddress;
 
 public class DataToMainConcrete  implements DataToIhmMainInterface {
 
@@ -111,6 +108,13 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
         User u = dataClientController.read(dataClientController.getPathProfile());
         if ((u.getLogin().equals(login)) && (u.getPassword().equals(password))) {
             dataClientController.getUserController().setUser(u);
+            //2 Make sure the right port and IP is saved in user
+            if (IP != null){
+                dataClientController.getUserController().getUser().getLastServer().setIpAddress(InetAddress.getByName(IP));
+            }
+            if (port != 0){
+                dataClientController.getUserController().getUser().getLastServer().setPort(port);
+            }
             //2 Inform Com that a new user is connected
             dataClientController.getComToDataInterface().addConnectedUser(u);
             return;
