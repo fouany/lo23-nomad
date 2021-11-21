@@ -1,7 +1,7 @@
 package nomad.com.client;
 
-import nomad.com.common.ComMessage;
-import nomad.common.interfaces.data.DataToComInterface;
+import nomad.com.common.message.ComMessage;
+import nomad.common.interfaces.data.DataToComClientInterface;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -14,11 +14,11 @@ import java.util.logging.Logger;
  * ComClientController creates a socket binding on the remote server
  */
 public class ClientController {
+    private final MessageProcessor messageProcessor;
     private ObjectOutputStream output;
     private Socket socket;
-    private final MessageProcessor messageProcessor;
 
-    public ClientController(DataToComInterface dataToCom) {
+    public ClientController(DataToComClientInterface dataToCom) {
         this.messageProcessor = new MessageProcessor(dataToCom);
     }
 

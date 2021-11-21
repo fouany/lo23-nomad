@@ -12,11 +12,9 @@ import java.util.UUID;
  */
 public class UserController {
     private Map<UUID, User> users;
-    private DataServerController dataServerController;
 
-    public UserController(DataServerController dataServerController){
+    public UserController(){
         users = new HashMap<>();
-        this.dataServerController = dataServerController;
     }
 
     /**

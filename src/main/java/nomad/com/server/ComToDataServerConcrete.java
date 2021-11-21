@@ -1,4 +1,4 @@
-package nomad.com.server.concrete;
+package nomad.com.server;
 
 import nomad.common.data_structure.Player;
 import nomad.common.interfaces.com.ComToDataServerInterface;

@@ -3,7 +3,7 @@ package nomad.common;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import nomad.com.client.ClientController;
-import nomad.com.client.concrete.ComClientToDataConcrete;
+import nomad.com.client.ComClientToDataConcrete;
 import nomad.common.ihm.IhmScreenController;
 import nomad.data.client.DataClientController;
 import nomad.data.client.DataToComConcrete;

@@ -1,9 +1,9 @@
-package nomad.com.common;
+package nomad.com.common.message;
 
 import nomad.common.data_structure.User;
 
 /**
- * Message broadcasted by the server to all users to update a change of user
+ * Message broadcast by the server to all users to update a change of user
  */
 public class UserChangedMessage extends ComMessage {
     /**
@@ -18,7 +18,8 @@ public class UserChangedMessage extends ComMessage {
 
     /**
      * Constructor
-     * @param user The user (dis)connecting
+     *
+     * @param user        The user (dis)connecting
      * @param isConnected True for a connection, false for a disconnection
      */
     public UserChangedMessage(User user, boolean isConnected) {

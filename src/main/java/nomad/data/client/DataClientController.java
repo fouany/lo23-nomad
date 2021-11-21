@@ -1,22 +1,19 @@
 package nomad.data.client;
 
-import nomad.com.client.concrete.ComClientToDataConcrete;
 import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Session;
 import nomad.common.data_structure.User;
-import nomad.common.interfaces.com.ComToDataInterface;
+import nomad.common.interfaces.com.ComToDataClientInterface;
 import nomad.common.interfaces.game.IhmGameToDataInterface;
 import nomad.common.interfaces.main.IhmMainToDataInterface;
-import nomad.main.IhmMainToDataConcrete;
 
 import java.io.*;
-import java.util.List;
 
 public class DataClientController {
 
     UserController userController;
     private GameController gameController;
-    private ComToDataInterface comToDataInterface;
+    private ComToDataClientInterface comToDataInterface;
     private IhmMainToDataInterface ihmMainToDataInterface;
     private IhmGameToDataInterface ihmGameToDataInterface;
     private String path;
@@ -24,7 +21,7 @@ public class DataClientController {
     // Contains connected users, gamesInLobby, gamesInProgress
     Session session;
 
-    public DataClientController(ComToDataInterface comToDataInterface,
+    public DataClientController(ComToDataClientInterface comToDataInterface,
                                 IhmMainToDataInterface ihmMainToDataInterface,
                                 IhmGameToDataInterface ihmGameToDataInterface) {
         this.path = "test"; // path might change !
@@ -51,7 +48,7 @@ public class DataClientController {
         return gameController;
     }
 
-    public ComToDataInterface getComToDataInterface(){
+    public ComToDataClientInterface getComToDataInterface(){
         return comToDataInterface;
     }
 

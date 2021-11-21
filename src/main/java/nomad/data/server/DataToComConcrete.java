@@ -125,7 +125,7 @@ public class DataToComConcrete implements DataToComServerInterface {
     }
 
     @Override
-    public User getPofileData(UUID idUser) {
+    public User getUserProfile(UUID idUser) {
         return dataServerController.getUser(idUser);
     }
 }
