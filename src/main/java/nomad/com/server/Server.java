@@ -135,8 +135,8 @@ public class Server extends Thread {
         while (serverRun) {
             try {
                 Socket client = serverSocket.accept();
-                Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Accepted new user !");
                 IdentifiedClient unidentified = new IdentifiedClient(null, client, this);
+                unidentified.start();
                 clientList.put(client, unidentified); // Add unidentified user
             } catch (IOException e) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to create client connection !");

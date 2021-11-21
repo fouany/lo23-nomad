@@ -67,6 +67,7 @@ public class ClientController {
                     Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Socket with the server has been closed !");
                 }
                 output.writeObject(message);
+                output.flush();
 
             } catch (Exception e) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send message remote server !");

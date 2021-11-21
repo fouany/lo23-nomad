@@ -30,6 +30,7 @@ public class IdentifiedClient extends Thread {
         this.inputStream = new ObjectInputStream(socket.getInputStream());
         this.messageProcessor = server.getMessageProcessor();
         this.server = server;
+        this.connected = true;
     }
 
     private UUID id;
@@ -38,7 +39,7 @@ public class IdentifiedClient extends Thread {
     private final ObjectOutputStream outputStream;
     private final ObjectInputStream inputStream;
     private final MessageProcessor messageProcessor;
-    private boolean connected = true;
+    private boolean connected;
 
     public ObjectOutputStream getOutputStream() {
         return outputStream;
@@ -63,9 +64,7 @@ public class IdentifiedClient extends Thread {
     public void run() {
         while (connected) {
             try {
-                if (inputStream.available() > 0) {
-                    messageProcessor.processMessage(socket, (ComMessage) inputStream.readObject());
-                }
+                messageProcessor.processMessage(socket, (ComMessage) inputStream.readObject());
             } catch (IOException | ClassNotFoundException e) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send message to client !");
                 server.disconnectClient(socket, id);
