@@ -1,6 +1,6 @@
 package nomad.com.server.controller;
 
-import nomad.com.client.ComClient;
+import nomad.com.client.ClientController;
 import nomad.com.common.ComMessage;
 import nomad.com.server.ComServer;
 import nomad.com.server.ComServerListener;
@@ -29,7 +29,7 @@ public class ComServerController implements Serializable {
         sender.start();
     }
 
-    public void requestConnection(ComClient client, ComServerListener listener) {
+    public void requestConnection(ClientController client, ComServerListener listener) {
         //UUID userId = client.user.getUserId();
         //server.clientList.put(userId, client);
         //server.listenerList.put(userId, listener);

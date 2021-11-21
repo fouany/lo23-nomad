@@ -1,7 +1,7 @@
 package nomad.com.client.concrete;
 
-import nomad.com.client.controller.ComClientController;
-import nomad.com.client.message.UserConnectedMessage;
+import nomad.com.client.ClientController;
+import nomad.com.common.LocalUserConnectionMessage;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.com.ComToDataInterface;
 
@@ -11,9 +11,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ComClientToDataConcrete implements ComToDataInterface {
-    public ComClientController clientController;
+    ClientController clientController;
 
-    public void setController(ComClientController clientController) {
+    public void setController(ClientController clientController) {
         this.clientController = clientController;
     }
 
@@ -27,20 +27,21 @@ public class ComClientToDataConcrete implements ComToDataInterface {
      */
     @Override
     public void addConnectedUser(User user) {
-        clientController.setCurrentUser(user);
+        if (user == null) {
+            throw new NullPointerException();
+        }
+
         try {
-            clientController.initSocket();
+            clientController.connectClient(user.getLastServer().getIpAddress(), user.getLastServer().getPort());
+
         } catch (IOException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to init socket to remote server !");
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.toString());
             return;
         }
 
-        try {
-            clientController.sendServerMessage(new UserConnectedMessage(user));
-        } catch (IOException e) {
+        if (!clientController.sendMessage(new LocalUserConnectionMessage())) { // Connect to the remote server
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to register the user to the remote server !");
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.toString());
         }
     }
 
@@ -51,7 +52,8 @@ public class ComClientToDataConcrete implements ComToDataInterface {
      */
     @Override
     public void logout(User user) {
-        //envoie (via le controller) un message de deconnexion au serveur
+        // send disconnect message to the server via the controller
+        // if socket is still active, send disconnection message
     }
 
     /**

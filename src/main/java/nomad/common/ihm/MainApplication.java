@@ -2,8 +2,8 @@ package nomad.common.ihm;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import nomad.com.client.ClientController;
 import nomad.com.client.concrete.ComClientToDataConcrete;
-import nomad.com.client.controller.ComClientController;
 import nomad.data.client.DataClientController;
 import nomad.data.client.DataToComConcrete;
 import nomad.data.client.DataToMainConcrete;
@@ -29,7 +29,7 @@ public class MainApplication extends Application {
   private ComClientToDataConcrete comClientToDataConcrete;
 
   private DataClientController dataClientController;
-  private ComClientController comClientController;
+  private ClientController clientController;
   private IhmMainScreenController ihmMainScreenController;
   private IhmGameScreenController ihmGameScreenController;
   private IhmScreenController screenController;
@@ -56,7 +56,7 @@ public class MainApplication extends Application {
     dataClientController = new DataClientController(comClientToDataConcrete,
             ihmMainToDataConcrete,
             null);
-    comClientController = new ComClientController(dataToComConcrete);
+    clientController = new ClientController(dataToComConcrete);
     ihmGameScreenController = new IhmGameScreenController(this);
     ihmMainScreenController = new IhmMainScreenController(this, dataToMainConcrete);
   }
@@ -66,7 +66,7 @@ public class MainApplication extends Application {
     dataToMainConcrete.setController(dataClientController);
 
     ihmMainToDataConcrete.setController(ihmMainScreenController);
-    comClientToDataConcrete.setController(comClientController);
+    comClientToDataConcrete.setController(clientController);
   }
 
   @Override

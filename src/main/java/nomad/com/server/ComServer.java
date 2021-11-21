@@ -1,7 +1,6 @@
 package nomad.com.server;
 
-import nomad.com.client.ComClient;
-import nomad.common.interfaces.data.DataToComInterface;
+import nomad.com.client.ClientController;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -10,10 +9,9 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class ComServer extends Thread {
-    public HashMap<UUID, ComClient> clientList = new HashMap<>();
+    public HashMap<UUID, ClientController> clientList = new HashMap<>();
     public HashMap<UUID, ComServerListener> listenerList = new HashMap<>();
     private ServerSocket serverSocket;
-    private DataToComInterface DataToCom;
 
     public ComServer(int port) {
         try {

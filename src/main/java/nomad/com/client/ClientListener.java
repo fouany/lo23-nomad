@@ -12,18 +12,21 @@ import java.util.logging.Logger;
 /**
  * ComClientListener listens messages from a specified remote server.
  */
-public class ComClientListener extends Thread {
+public class ClientListener extends Thread {
 
     private final Socket client;
     private final ObjectInputStream input;
+    private final ClientController controller;
 
     /**
      * Initialize ComClientListener and ObjectInputStream associated with socket
      *
-     * @param client An open socket to the server.
+     * @param client An open socket to the server
+     * @param parent The parent controller
      */
-    public ComClientListener(Socket client) throws IOException {
+    public ClientListener(Socket client, ClientController parent) throws IOException {
         this.client = client;
+        this.controller = parent;
         synchronized (this.client) {
             input = new ObjectInputStream(client.getInputStream());
         }
@@ -31,11 +34,13 @@ public class ComClientListener extends Thread {
 
     @Override
     public void run() {
-        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Listening for messages from server...");
         while (true) {
             try {
                 ComMessage message = readMessage();
-                // TODO : process message with a MessageProcessor class
+                if (message != null) {
+                    controller.processMessage(message);
+                }
+
             } catch (IOException | ClassNotFoundException e) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to receive message from server !");
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.toString());
