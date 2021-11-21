@@ -5,7 +5,10 @@ import nomad.com.client.message.UserConnectedMessage;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.com.ComToDataInterface;
 
+import java.io.IOException;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ComClientToDataConcrete implements ComToDataInterface {
     public ComClientController clientController;
@@ -17,17 +20,28 @@ public class ComClientToDataConcrete implements ComToDataInterface {
     /**
      * addConnectedUser inform the server of the connection of the local user.
      * This method is called by data upon completion of the login form.
-     * It must initialize the socket, it is the first communication client/server.
+     * It is responsible for initializing the socket with the server.
+     * Warning : in case of failure to create the socket or send the message, no exception is thrown.
      *
      * @param user The local connected user
      */
     @Override
     public void addConnectedUser(User user) {
         clientController.setCurrentUser(user);
-        clientController.initSocket();
-        clientController.sendServerMessage(
-                new UserConnectedMessage(user)
-        );
+        try {
+            clientController.initSocket();
+        } catch (IOException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to init socket to remote server !");
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.toString());
+            return;
+        }
+
+        try {
+            clientController.sendServerMessage(new UserConnectedMessage(user));
+        } catch (IOException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to register the user to the remote server !");
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.toString());
+        }
     }
 
     /**
