@@ -33,14 +33,13 @@ public class ComClientToDataConcrete implements ComToDataInterface {
 
         try {
             clientController.connectClient(user.getLastServer().getIpAddress(), user.getLastServer().getPort());
-
         } catch (IOException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to init socket to remote server !");
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.toString());
             return;
         }
 
-        if (!clientController.sendMessage(new LocalUserConnectionMessage())) { // Connect to the remote server
+        if (!clientController.sendMessage(new LocalUserConnectionMessage(user))) { // Connect to the remote server
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to register the user to the remote server !");
         }
     }

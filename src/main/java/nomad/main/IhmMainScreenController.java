@@ -1,7 +1,7 @@
 package nomad.main;
 
 import nomad.common.ihm.IhmScreenController;
-import nomad.common.ihm.MainApplication;
+import nomad.common.MainApplication;
 import nomad.common.interfaces.data.DataToIhmMainInterface;
 import nomad.main.controller.ServerConnectionController;
 import nomad.main.controller.MenuController;

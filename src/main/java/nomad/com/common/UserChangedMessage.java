@@ -14,14 +14,14 @@ public class UserChangedMessage extends ComMessage {
     /**
      * True for new user, false for logged out user
      */
-    public final Boolean isConnected;
+    public final boolean isConnected;
 
     /**
      * Constructor
      * @param user The user (dis)connecting
      * @param isConnected True for a connection, false for a disconnection
      */
-    public UserChangedMessage(User user, Boolean isConnected) {
+    public UserChangedMessage(User user, boolean isConnected) {
         this.user = user;
         this.isConnected = isConnected;
     }

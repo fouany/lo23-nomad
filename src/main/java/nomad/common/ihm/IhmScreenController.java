@@ -5,6 +5,7 @@ package nomad.common.ihm;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
+import nomad.common.MainApplication;
 
 // Utils
 import java.io.IOException;

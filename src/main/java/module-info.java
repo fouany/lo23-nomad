@@ -7,4 +7,5 @@ module nomadapp {
     exports nomad.common.ihm;
     exports nomad.main.controller;
     exports nomad.game.controller;
+    exports nomad.common;
 }
