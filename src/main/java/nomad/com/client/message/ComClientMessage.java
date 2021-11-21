@@ -1,7 +1,7 @@
 package nomad.com.client.message;
 
 import nomad.com.client.controller.ComClientController;
-import nomad.com.message.ComMessage;
+import nomad.com.common.ComMessage;
 
 /**
  * ComClient Message abstract class - Client Side

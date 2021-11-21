@@ -1,6 +1,6 @@
 package nomad.com.client.message;
 
-import nomad.com.message.ComMessage;
+import nomad.com.common.ComMessage;
 import nomad.common.data_structure.User;
 
 public class UserConnectedMessage extends ComMessage {

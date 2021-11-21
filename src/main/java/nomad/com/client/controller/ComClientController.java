@@ -1,14 +1,16 @@
 package nomad.com.client.controller;
 
 import nomad.com.client.ComClient;
-import nomad.com.message.ComMessage;
+import nomad.com.common.ComMessage;
+import nomad.com.common.SocketClosedException;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.data.DataToComInterface;
 
 import java.io.IOException;
-import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ComClientController implements Serializable {
+public class ComClientController {
     private final DataToComInterface dataToCom;
     private User currentUser;
     private ComClient client;
@@ -49,6 +51,11 @@ public class ComClientController implements Serializable {
      * @throws IOException If the message cannot be sent.
      */
     public void sendServerMessage(ComMessage message) throws IOException {
-        client.sendMessage(message);
+        try {
+            client.sendMessage(message);
+        } catch (SocketClosedException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Socket has been closed !");
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.toString());
+        }
     }
 }

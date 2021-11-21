@@ -1,13 +1,7 @@
 package nomad.com.server.message;
 
-import nomad.com.client.ComClient;
-import nomad.com.client.message.IsDisconnectedMessage;
-import nomad.com.client.message.NotifyUserChangeMessage;
-import nomad.com.message.ComMessage;
-import nomad.com.server.controller.ComServerController;
-import nomad.common.data_structure.User;
+import nomad.com.common.ComMessage;
 
-import java.util.HashMap;
 import java.util.UUID;
 
 /**
