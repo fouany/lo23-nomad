@@ -1,16 +1,13 @@
 package nomad.data.client;
 
-import nomad.com.client.concrete.ComClientToDataConcrete;
 import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Session;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.com.ComToDataInterface;
 import nomad.common.interfaces.game.IhmGameToDataInterface;
 import nomad.common.interfaces.main.IhmMainToDataInterface;
-import nomad.main.IhmMainToDataConcrete;
 
 import java.io.*;
-import java.util.List;
 
 public class DataClientController {
 

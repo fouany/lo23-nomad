@@ -1,8 +1,8 @@
 package nomad.com.client;
 
-import nomad.com.common.ComMessage;
-import nomad.com.common.LobbyInformationsMessage;
-import nomad.com.common.UserChangedMessage;
+import nomad.com.common.message.ComMessage;
+import nomad.com.common.message.LobbyInformationMessage;
+import nomad.com.common.message.UserChangedMessage;
 import nomad.common.data_structure.Player;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.data.DataToComInterface;
@@ -32,8 +32,8 @@ public class MessageProcessor {
 
         if (messageClass.equals(UserChangedMessage.class)) {
             processUserChangedMessage((UserChangedMessage) message);
-        } else if (messageClass.equals(LobbyInformationsMessage.class)) {
-            processLobbyInformationsMessage((LobbyInformationsMessage) message);
+        } else if (messageClass.equals(LobbyInformationMessage.class)) {
+            processLobbyInformationMessage((LobbyInformationMessage) message);
         }
     }
 
@@ -56,7 +56,7 @@ public class MessageProcessor {
      *
      * @param message Message received from server
      */
-    private void processLobbyInformationsMessage(LobbyInformationsMessage message) {
+    private void processLobbyInformationMessage(LobbyInformationMessage message) {
         dataToCom.addConnectedUserProfile(message.players, message.games);
     }
 }

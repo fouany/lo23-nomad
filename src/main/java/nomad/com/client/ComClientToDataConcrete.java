@@ -1,7 +1,6 @@
-package nomad.com.client.concrete;
+package nomad.com.client;
 
-import nomad.com.client.ClientController;
-import nomad.com.common.LocalUserConnectionMessage;
+import nomad.com.common.message.LocalUserConnectionMessage;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.com.ComToDataInterface;
 

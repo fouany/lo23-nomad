@@ -1,6 +1,6 @@
 package nomad.com.server.message;
 
-import nomad.com.common.ComMessage;
+import nomad.com.common.message.ComMessage;
 
 import java.util.UUID;
 

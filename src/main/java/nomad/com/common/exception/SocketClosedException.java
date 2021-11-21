@@ -1,4 +1,4 @@
-package nomad.com.common;
+package nomad.com.common.exception;
 
 public class SocketClosedException extends Exception {
     public SocketClosedException() {

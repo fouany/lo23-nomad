@@ -1,7 +1,7 @@
 package nomad.com.server.controller;
 
 import nomad.com.client.ClientController;
-import nomad.com.common.ComMessage;
+import nomad.com.common.message.ComMessage;
 import nomad.com.server.ComServer;
 import nomad.com.server.ComServerListener;
 import nomad.com.server.ComServerSender;

@@ -1,4 +1,4 @@
-package nomad.com.common;
+package nomad.com.common.message;
 
 import java.io.Serializable;
 
