@@ -37,7 +37,8 @@ public class ComClientController implements Serializable {
         if (currentUser == null || currentUser.getLastServer() == null) {
             throw new RuntimeException();
         }
-        client = new ComClient(currentUser);
+
+        client = new ComClient(currentUser.getLastServer().getIpAddress(), currentUser.getLastServer().getPort());
         client.run();
         }
 

@@ -30,9 +30,9 @@ public class ComServerController implements Serializable {
     }
 
     public void requestConnection(ComClient client, ComServerListener listener) {
-        UUID userId = client.user.getUserId();
-        server.clientList.put(userId, client);
-        server.listenerList.put(userId, listener);
+        //UUID userId = client.user.getUserId();
+        //server.clientList.put(userId, client);
+        //server.listenerList.put(userId, listener);
     }
 
     public void requestDisconnection(UUID userId) {

@@ -8,34 +8,29 @@ import nomad.main.controller.ServerConnectionController;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ComClient extends Thread implements Serializable {
-    public int port;
-    public String ipRemote;
     public Socket socket;
-    public User user;
     public ComClientListener listener;
     public DataToComInterface dataToCom;
     public ComClientController clientController;
 
-    public ComClient(User user) {
-        Server server = user.getLastServer();
-        this.port = server.getPort();
-        this.ipRemote = server.getIpAddress().toString();
+    public ComClient(InetAddress adress, int port) {
+        try {
+            socket = new Socket(adress, port);
+        } catch (IOException e) {
+            Logger.getLogger(ServerConnectionController.class.getName()).log(Level.INFO, e.toString());
+        }
     }
 
 
     @Override
     public void run() {
-        try {
-            socket = new Socket(ipRemote, port);
-            listener = new ComClientListener(socket);
-            listener.start();
-        } catch (IOException e) {
-            Logger.getLogger(ServerConnectionController.class.getName()).log(Level.INFO, "Error on remote socket init");
-        }
+        listener = new ComClientListener(socket);
+        listener.start();
     }
 }
