@@ -7,6 +7,9 @@ import nomad.common.data_structure.Player;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.data.DataToComClientInterface;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Process messages sent by the server on client side
  */
@@ -28,6 +31,7 @@ public class MessageProcessor {
      * @param message Received message
      */
     public void processMessage(ComMessage message) {
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Received message of type : " + message.getClass().toString());
         Class<? extends ComMessage> messageClass = message.getClass();
 
         if (messageClass.equals(UserChangedMessage.class)) {

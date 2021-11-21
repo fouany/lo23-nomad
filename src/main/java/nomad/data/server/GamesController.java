@@ -10,11 +10,9 @@ import java.util.*;
  */
 public class GamesController {
     private Map<UUID, Game> games;
-    private DataServerController dataServerController;
 
-    public GamesController(DataServerController dataServerController){
+    public GamesController() {
         games = new HashMap<>();
-        this.dataServerController = dataServerController;
     }
 
     /**
