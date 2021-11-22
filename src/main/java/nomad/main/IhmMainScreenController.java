@@ -18,6 +18,8 @@ public class IhmMainScreenController extends IhmScreenController {
     private DataToIhmMainInterface dataI;
     private final String stylesheet = "Poppins/style.css";
 
+    private MenuController menuController;
+
     public IhmMainScreenController(MainApplication app, DataToIhmMainInterface dataI) throws IOException {
         super(app);
         module = "MAIN";
@@ -25,6 +27,10 @@ public class IhmMainScreenController extends IhmScreenController {
         attributes = new HashMap<>();
         initScenes();
         this.dataI = dataI;
+    }
+
+    public MenuController getMenuController() {
+        return menuController;
     }
 
     public Map<String, String> getAttributes() {
@@ -43,10 +49,10 @@ public class IhmMainScreenController extends IhmScreenController {
 
     @Override
     public void initController() {
+        menuController = new MenuController(this);
         dictController.put(0, new LoginController(this));
         dictController.put(1, new ServerConnectionController(this));
-        dictController.put(2, new MenuController(this));
-
+        dictController.put(2, menuController);
     }
 
     public void initStyles() {

@@ -31,7 +31,7 @@ public class MessageProcessor {
      * @param message Received message
      */
     public void processMessage(ComMessage message) {
-        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Received message of type : " + message.getClass().toString());
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, message.getClass().toString());
         Class<? extends ComMessage> messageClass = message.getClass();
 
         if (messageClass.equals(UserChangedMessage.class)) {

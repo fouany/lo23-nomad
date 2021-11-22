@@ -53,7 +53,6 @@ public class MenuController extends IhmControllerComponent implements Observer {
             userList.getItems().clear();
             displayUser(connectedUsers, userList);
         }
-
     }
 
     public void displayUser(List<UserLight> users, ListView<String> view) {
@@ -64,6 +63,6 @@ public class MenuController extends IhmControllerComponent implements Observer {
     }
 
     public void handleUserListClick() {
-        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Display profile of " + userList.getSelectionModel().getSelectedItem());
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, userList.getSelectionModel().getSelectedItem());
     }
 }

@@ -67,7 +67,7 @@ public class IdentifiedClient extends Thread {
                 messageProcessor.processMessage(socket, (ComMessage) inputStream.readObject());
             } catch (IOException | ClassNotFoundException e) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send message to client !");
-                server.disconnectClient(socket, id);
+                server.disconnectClient(socket);
                 connected = false;
             }
         }

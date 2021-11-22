@@ -7,9 +7,10 @@ import nomad.common.interfaces.main.IhmMainToDataInterface;
 
 public class IhmMainToDataConcrete implements IhmMainToDataInterface {
 
+    private IhmMainScreenController mainScreenController;
 
-    public void setController() {
-        // TODO : implement setter
+    public void setController(IhmMainScreenController mainScreenController) {
+        this.mainScreenController = mainScreenController;
     }
 
     public IhmMainToDataConcrete () {
@@ -18,7 +19,7 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
 
     @Override
     public void updateObservable(Session session) {
-        // TODO : implement Observable assignation
+        session.addObserver(mainScreenController.getMenuController());
     }
 
     @Override

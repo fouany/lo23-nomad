@@ -45,7 +45,7 @@ public class MessageProcessor {
 
         Class<? extends ComMessage> messageClass = message.getClass();
         if (messageClass.equals(LocalUserDisconnectionMessage.class)) {
-
+            server.disconnectClient(socket);
         }
     }
 
