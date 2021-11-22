@@ -53,7 +53,8 @@ public class IhmMainScreenController extends IhmScreenController {
 
     public void initStyles() {
         dictStyles.put(0, "Poppins/style.css");
-        dictStyles.put(2, "Poppins/style.css");
         dictStyles.put(1, "Poppins/style.css");
+        dictStyles.put(2, "Poppins/style.css");
+        dictStyles.put(3, "Poppins/style.css");
     }
 }
