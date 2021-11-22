@@ -1,12 +1,14 @@
 package nomad.common.data_structure;
 
+import java.io.Serializable;
+
 /**
  * Encapsulates game parameters for:
  * - Allowing spectators
  * - Allowing spectators chat
  * - The host color
  */
-public class GameParameters {
+public class GameParameters implements Serializable {
     private boolean spectAllowed;
     private boolean spectChatAllowed;
     private boolean hostColor;
