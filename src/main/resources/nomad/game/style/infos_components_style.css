@@ -1,0 +1,51 @@
+.container_extra_infos{
+    -fx-pref-width: 200px;
+    -fx-pref-height: 250px;
+}
+
+.header_infos{
+    -fx-pref-height: 50px;
+    -fx-background-color: #FCBF49;
+}
+
+.scroll_infos_parent{
+    -fx-pref-height: 250px;
+}
+
+.text_infos, .tab_chat .tab-label {
+    -fx-text-fill: #FFFFFF;
+}
+
+.scroll-bar:vertical{
+    -fx-background-color: #FCBF49;
+    -fx-padding: 2px;
+}
+
+.scroll-bar:vertical .thumb{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 5em;
+}
+
+
+.scroll_infos_container,
+.container_extra_infos,
+.scroll_infos_parent,
+.text_infos .content,
+.text_infos,
+.tab_chat,
+.scroll-bar:vertical > .increment-button > .increment-arrow,
+.scroll-bar:vertical > .decrement-button > .decrement-arrow
+{
+    -fx-background-color: #003049;
+}
+
+.container_extra_infos .tab-header-area .tab-header-background {
+    -fx-background-color: #FCBF49;
+}
+
+.button , .text_input_chat{
+    -fx-background-color: #EAE2B7;
+}
+
+
+
