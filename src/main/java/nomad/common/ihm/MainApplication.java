@@ -26,7 +26,7 @@ public class MainApplication extends Application {
   @Override
   public void start(Stage primaryStage) throws Exception {
     stage = primaryStage;
-    this.changeModule("MAIN");
+    this.changeModule("GAME");
   }
 
   /**
