@@ -1,12 +1,13 @@
 package nomad.common.data_structure;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
 /**
  * Contains user static information.
  */
-public class UserInfo {
+public class UserInfo implements Serializable {
 
     private UUID userId;
     private String login;
