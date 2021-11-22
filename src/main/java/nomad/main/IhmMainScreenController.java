@@ -3,6 +3,7 @@ package nomad.main;
 import nomad.common.ihm.IhmScreenController;
 import nomad.common.ihm.MainApplication;
 import nomad.common.interfaces.data.DataToIhmMainInterface;
+import nomad.main.controller.CreateGameController;
 import nomad.main.controller.ServerConnectionController;
 import nomad.main.controller.MenuController;
 import nomad.main.controller.LoginController;
@@ -20,7 +21,7 @@ public class IhmMainScreenController extends IhmScreenController {
     public IhmMainScreenController(MainApplication app, DataToIhmMainInterface dataI) throws IOException {
         super(app);
         module = "MAIN";
-        defaultStart = 0;
+        defaultStart = 3;
         attributes = new HashMap<>();
         initScenes();
         this.dataI = dataI;
@@ -38,6 +39,7 @@ public class IhmMainScreenController extends IhmScreenController {
         listPaths.add("fxml/ihm_login_connection.fxml");
         listPaths.add("fxml/ihm_server_connection.fxml");
         listPaths.add("fxml/ihm_menu.fxml");
+        listPaths.add("fxml/ihm_create_game.fxml");
     }
 
     @Override
@@ -45,6 +47,7 @@ public class IhmMainScreenController extends IhmScreenController {
         dictController.put(0, new LoginController(this));
         dictController.put(1, new ServerConnectionController(this));
         dictController.put(2, new MenuController(this));
+        dictController.put(3, new CreateGameController(this));
 
     }
 
