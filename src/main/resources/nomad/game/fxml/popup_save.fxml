@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="110.0" layoutY="255.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="145.0" text="Yes" />
+      <Button layoutX="340.0" layoutY="255.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="145.0" text="No" />
+      <Text layoutX="232.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Congratulation, you won!" wrappingWidth="135.861328125" />
+      <Text layoutX="214.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do you wish to save the game? " wrappingWidth="171.861328125" />
+   </children>
+</Pane>
