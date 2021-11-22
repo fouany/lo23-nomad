@@ -5,6 +5,6 @@ import java.io.Serializable;
 /**
  * Communication Message abstract class
  */
-public interface ComMessage extends Serializable {
+public abstract class ComMessage implements Serializable {
 
 }
