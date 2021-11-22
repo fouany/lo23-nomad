@@ -43,15 +43,7 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      */
     public void createAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws IOException {
         User u = new User(UUID.randomUUID(), login, pwd, name, profilePicture, birthDate,null,null,null,null);
-        List<User> listUser;
-        try {
-            listUser = dataClientController.read(dataClientController.getPathProfile());
-        }catch(IOException | ClassNotFoundException e){
-            //no file -> create new file
-            listUser = new ArrayList<>();
-        }
-        listUser.add(u);
-        dataClientController.write(listUser, dataClientController.getPathProfile());
+        dataClientController.write(u);
     }
 
 
@@ -73,7 +65,7 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
         newUser.setProfilePicture(profilePicture);
         newUser.setBirthDate(birthDate);
         try {
-            dataClientController.updateProfileFile(dataClientController.getPathProfile(), newUser);
+            dataClientController.updateProfileFile(newUser);
         } finally {
             dataClientController.getUserController().setUser(newUser);
         }
@@ -92,12 +84,10 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
         User newUser = null;
         List<User> listUser;
         try{
-            newUser = dataClientController.read(path).get(0);
+            newUser = dataClientController.read(path);
         } finally {
             //try to read the file with all the user and the new user
-            listUser = dataClientController.read(dataClientController.getPathProfile());
-            listUser.add(newUser);
-            dataClientController.write(listUser, dataClientController.getPathProfile());
+            dataClientController.write(newUser);
         }
     }
 
@@ -108,22 +98,22 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      * @param login login of the user
      * @param password password of the user
      * @param IP IP adress of the server
-     * @param Port Port of the user
+     * @param port Port of the user
      * @throws UserException User not found
      * @throws IOException Error in writing or reading file
      * @throws ClassNotFoundException class not found
      */
-    public void login(String login, String password, String IP, int Port) throws UserException, IOException, ClassNotFoundException {
+    public void login(String login, String password, String IP, int port) throws UserException, IOException, ClassNotFoundException {
         //1 - Verify account exists else throw exception
-        List<User> listUser = dataClientController.read(dataClientController.getPathProfile());
-        for (User u: listUser) {
-            if ((u.getLogin().equals(login)) && (u.getPassword().equals(password))) {
-                dataClientController.getUserController().setUser(u);
-                //2 Inform Com that a new user is connected
-                //dataClientController.getComToDataInterface().addConnectedUser(u, IP, Port);
-                return;
-            }
+
+        User u = dataClientController.read(dataClientController.getPathProfile());
+        if ((u.getLogin().equals(login)) && (u.getPassword().equals(password))) {
+            dataClientController.getUserController().setUser(u);
+            //2 Inform Com that a new user is connected
+            dataClientController.getComToDataInterface().addConnectedUser(u);
+            return;
         }
+
         throw new UserException("User doesn't exist");
 
     }
@@ -167,7 +157,7 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
         dataClientController.getUserController().createCategory(category);
 
         //2- Update Profile
-        dataClientController.updateProfileFile(dataClientController.getPathProfile(), getUser() );
+        dataClientController.updateProfileFile(getUser() );
     }
 
     /**
@@ -183,7 +173,7 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
         dataClientController.getUserController().addUser(user, category);
 
         //2- Update profile
-        dataClientController.updateProfileFile(dataClientController.getPathProfile(), getUser());
+        dataClientController.updateProfileFile(getUser());
     }
 
     /**
@@ -195,7 +185,7 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      */
     public void setPermissions(Contact updatedContact) throws CategoryException, IOException, ClassNotFoundException {
         dataClientController.getUserController().setPermissions(updatedContact);
-        dataClientController.updateProfileFile(dataClientController.getPathProfile(), getUser());
+        dataClientController.updateProfileFile(getUser());
     }
 
     /**
@@ -210,7 +200,7 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
         //1- Set category permission
         dataClientController.getUserController().setPermissions(lastCategory, updatedCategory);
         //2- Update profile
-        dataClientController.updateProfileFile(dataClientController.getPathProfile(), getUser());
+        dataClientController.updateProfileFile(getUser());
     }
 
 }

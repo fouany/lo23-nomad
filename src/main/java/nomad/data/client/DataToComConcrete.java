@@ -115,19 +115,6 @@ public class DataToComConcrete implements DataToComInterface {
         // TODO implementation
     }
 
-    // TODO : remove these 3 methods because already implemented in moveValidation()
-//    public void tileMoveReceived(Tile tile, Player player){
-//        dataClientController.getGameController().addTileMove(tile);
-//    }
-//
-//    public void towerMoveReceived(Tower tower, Player player){
-//        dataClientController.getGameController().addTowerMove(tower);
-//    }
-//
-//    public void skipMoveReceived(Skip skip, Player player){
-//        dataClientController.getGameController().addSkipMove(skip);
-//    }
-
     /**
      * removes the game from the gamesInPlay from the session object and sets the game to "ended" state
      * @param gameLight
@@ -195,7 +182,7 @@ public class DataToComConcrete implements DataToComInterface {
     }
 
     /**
-     * sets the game (created by the server) in the GameController
+     * Sets the game (created by the server) in the GameController.
      * @param game
      */
     public void gameCreated(Game game){
@@ -203,7 +190,7 @@ public class DataToComConcrete implements DataToComInterface {
     }
 
     /**
-     * user wants to join the game (as spectator or opponent)
+     * Adds an user to the game. (as spectator or opponent)
      * @param gameLight
      * @param player
      * @param isPlayer
@@ -223,7 +210,7 @@ public class DataToComConcrete implements DataToComInterface {
     }
 
     /**
-     * retrieves the saved games of the user
+     * Retrieves the saved games of the user.
      * @return
      */
     public List<Game> getStoredAvailableGames(){
