@@ -103,7 +103,7 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      */
     public void login(String login, String password, String ip, int port) throws UserException, IOException, ClassNotFoundException {
         //1 - Verify account exists else throw exception
-
+        dataClientController.setPath(login);
         User u = dataClientController.read(dataClientController.getPathProfile());
         if ((u.getLogin().equals(login)) && (u.getPassword().equals(password))) {
             dataClientController.getUserController().setUser(u);

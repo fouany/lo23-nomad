@@ -93,7 +93,7 @@ public class DataClientController {
     public void write(User user) throws IOException {
         // le try to open file at the beginning and close it at the end
         try (
-            FileOutputStream fos = new FileOutputStream(user.getName());
+            FileOutputStream fos = new FileOutputStream(user.getLogin());
             ObjectOutputStream oos = new ObjectOutputStream(fos);
         ){
             oos.writeObject(user);
@@ -113,11 +113,11 @@ public class DataClientController {
 
     public void updateProfileFile(User newUser) throws IOException, ClassNotFoundException {
         //1- Get all user
-        User user = this.read(newUser.getName());
+        User user = this.read(newUser.getLogin());
 
         //2- Modify the user connected
         if (user.getUserId().equals(this.userController.getUser().getUserId())) {
-                this.getUserController().setUser(newUser);
+            this.getUserController().setUser(newUser);
         }
 
         //3 - Write the user with the user modified in the profile file
