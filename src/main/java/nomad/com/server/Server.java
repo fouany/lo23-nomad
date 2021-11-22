@@ -55,7 +55,6 @@ public class Server extends Thread {
         if (clientList.containsKey(socket)) {
             return clientList.get(socket).getUID();
         }
-
         return null;
     }
 
@@ -71,7 +70,7 @@ public class Server extends Thread {
         } catch (IOException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send message to client !");
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.toString());
-            disconnectClient(client, clientList.get(client).getUID()); // Error has happened, kick the faulty client
+            disconnectClient(client); // Error has happened, kick the faulty client
         }
     }
 
@@ -91,7 +90,7 @@ public class Server extends Thread {
             } catch (IOException e) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send message to client !");
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.toString());
-                disconnectClient(entry.getKey(), entry.getValue().getUID()); // Error has happened, kick the faulty client
+                disconnectClient(entry.getKey()); // Error has happened, kick the faulty client
             }
         }
     }
@@ -100,9 +99,9 @@ public class Server extends Thread {
      * Disconnect a client and broadcast the change au identified users
      *
      * @param client Client to disconnect
-     * @param userId ID of the client to disconnect
      */
-    public void disconnectClient(Socket client, UUID userId) {
+    public void disconnectClient(Socket client) {
+        UUID uid = getAssociatedUser(client);
         clientList.get(client).stopClientCommunication(); // Stop client communication thread
         clientList.remove(client); // Remove client from identified clients list
         try {
@@ -112,7 +111,9 @@ public class Server extends Thread {
         }
 
         Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Disconnected user from server !");
-        broadcast(new UserChangedMessage(dataToCom.getUserProfile(userId), false)); // announce disconnection to all clients
+        if (uid != null) {
+            broadcast(new UserChangedMessage(dataToCom.getUserProfile(uid), false)); // announce disconnection to all clients
+        }
     }
 
     /**

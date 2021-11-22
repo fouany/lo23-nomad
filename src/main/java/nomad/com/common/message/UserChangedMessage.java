@@ -5,7 +5,7 @@ import nomad.common.data_structure.User;
 /**
  * Message broadcast by the server to all users to update a change of user
  */
-public class UserChangedMessage implements ComMessage {
+public class UserChangedMessage extends ComMessage {
     /**
      * The user concerned by changes
      */

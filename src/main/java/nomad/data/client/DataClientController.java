@@ -36,6 +36,9 @@ public class DataClientController {
     }
 
     public Session getSession() {
+        if (session == null) {
+            initSession();
+        }
         return session;
     }
 
@@ -76,7 +79,9 @@ public class DataClientController {
     }
 
     public void initSession() {
-        session = new Session(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        if(session == null) {
+            session = new Session(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        }
     }
 
     public void reset(){

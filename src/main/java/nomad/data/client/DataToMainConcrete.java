@@ -116,6 +116,7 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
             }
             //2 Inform Com that a new user is connected
             dataClientController.getComToDataInterface().addConnectedUser(u);
+            dataClientController.getIhmMainToDataInterface().updateObservable(dataClientController.getSession());
             return;
         }
 
