@@ -1,5 +1,7 @@
 package nomad.main.controller;
 
+import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.scene.control.ListView;
 import nomad.common.data_structure.Session;
 import nomad.common.data_structure.UserLight;
@@ -7,12 +9,12 @@ import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class MenuController extends IhmControllerComponent implements Observer {
+public class MenuController extends IhmControllerComponent implements ListChangeListener {
 
-    public ListView userList;
+    public ListView<String> userList;
     int counter = 0;
     private IhmMainScreenController ihmController;
 
@@ -20,7 +22,6 @@ public class MenuController extends IhmControllerComponent implements Observer {
     public MenuController(IhmMainScreenController ihmMainScreenController) {
         super(ihmMainScreenController);
         this.ihmController = ihmMainScreenController;
-        //dataMainImpl.getSession().addObserver(this);
     }
 
     public void logout() {
@@ -34,27 +35,14 @@ public class MenuController extends IhmControllerComponent implements Observer {
     }
 
     public void onClickJoin() {
-
+        // TODO : implement method
     }
 
     public void onClickProfile() {
+        // TODO : implement method
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        Session session = null;
-        if (o instanceof Session) {
-            session = (Session) o;
-        }
-        if (session != null) {
-            List<UserLight> connectedUsers = session.getConnectedUsers();
-            userList.getItems().clear();
-            displayUser(connectedUsers, userList);
-        }
-
-    }
-
-    public void displayUser(List<UserLight> users, ListView view) {
+    public void displayUser(List<UserLight> users, ListView<String> view) {
         for (UserLight user : users) {
             String field = user.getLogin() + "#" + user.getId();
             view.getItems().add(field);
@@ -62,7 +50,26 @@ public class MenuController extends IhmControllerComponent implements Observer {
     }
 
     public void handleUserListClick() {
-        //launch profile
-        System.out.println("Display profile of " + userList.getSelectionModel().getSelectedItem());
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, userList.getSelectionModel().getSelectedItem());
+    }
+
+    @Override
+    public void onChanged(Change change) {
+        while (change.next()) {
+
+            if (change.wasAdded()) {
+                for (Object u : change.getAddedSubList()) {
+                    Platform.runLater(() -> {
+                        userList.getItems().add(((UserLight) u).getLogin()); // add new user login to userList
+                    });
+                }
+            } else if (change.wasRemoved()) {
+                for (Object u : change.getRemoved()) {
+                    Platform.runLater(() -> {
+                        userList.getItems().remove(((UserLight) u).getLogin()); // remove user with login
+                    });
+                }
+            }
+        }
     }
 }

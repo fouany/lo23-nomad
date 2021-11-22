@@ -1,7 +1,7 @@
 package nomad.main;
 
 import nomad.common.ihm.IhmScreenController;
-import nomad.common.ihm.MainApplication;
+import nomad.common.MainApplication;
 import nomad.common.interfaces.data.DataToIhmMainInterface;
 import nomad.main.controller.ServerConnectionController;
 import nomad.main.controller.MenuController;
@@ -16,6 +16,9 @@ public class IhmMainScreenController extends IhmScreenController {
 
     private Map<String, String> attributes;
     private DataToIhmMainInterface dataI;
+    private final String stylesheet = "Poppins/style.css";
+
+    private MenuController menuController;
 
     public IhmMainScreenController(MainApplication app, DataToIhmMainInterface dataI) throws IOException {
         super(app);
@@ -24,6 +27,10 @@ public class IhmMainScreenController extends IhmScreenController {
         attributes = new HashMap<>();
         initScenes();
         this.dataI = dataI;
+    }
+
+    public MenuController getMenuController() {
+        return menuController;
     }
 
     public Map<String, String> getAttributes() {
@@ -42,15 +49,15 @@ public class IhmMainScreenController extends IhmScreenController {
 
     @Override
     public void initController() {
+        menuController = new MenuController(this);
         dictController.put(0, new LoginController(this));
         dictController.put(1, new ServerConnectionController(this));
-        dictController.put(2, new MenuController(this));
-
+        dictController.put(2, menuController);
     }
 
     public void initStyles() {
-        dictStyles.put(0, "Poppins/style.css");
-        dictStyles.put(2, "Poppins/style.css");
-        dictStyles.put(1, "Poppins/style.css");
+        dictStyles.put(0, stylesheet);
+        dictStyles.put(2, stylesheet);
+        dictStyles.put(1, stylesheet);
     }
 }

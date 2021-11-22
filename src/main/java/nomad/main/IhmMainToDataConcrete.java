@@ -6,19 +6,29 @@ import nomad.common.data_structure.User;
 import nomad.common.interfaces.main.IhmMainToDataInterface;
 
 public class IhmMainToDataConcrete implements IhmMainToDataInterface {
+
+    private IhmMainScreenController mainScreenController;
+
+    public void setController(IhmMainScreenController mainScreenController) {
+        this.mainScreenController = mainScreenController;
+    }
+
+    public IhmMainToDataConcrete () {
+        // TODO : implement constructor
+    }
+
     @Override
     public void updateObservable(Session session) {
-        //todo fix Observer on Observable
-
+        session.getConnectedUsers().addListener(mainScreenController.getMenuController());
     }
 
     @Override
     public void updateObservable(Game game) {
-      //todo fix Observer on Observable
+      // TODO : fix Observer on Observable
     }
 
     @Override
     public void updateObservable(User user) {
-      //todo fix Observer on Observable
+      // TODO : fix Observer on Observable
     }
 }

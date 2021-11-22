@@ -1,43 +1,34 @@
 package nomad.common.data_structure;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.List;
 import java.util.Observable;
 import java.util.UUID;
 
 public class Session extends Observable {
 
-    private List<UserLight> connectedUsers;
-    private List<GameLight> gamesInLobby;
-    private List<GameLight> gamesInPlay;
+    private ObservableList<UserLight> connectedUsers;
+    private ObservableList<GameLight> gamesInLobby;
+    private ObservableList<GameLight> gamesInPlay;
 
     public Session(List<UserLight> connectedUsers, List<GameLight> gamesInLobby, List<GameLight> gamesInPlay) {
-        this.connectedUsers = connectedUsers;
-        this.gamesInLobby = gamesInLobby;
-        this.gamesInPlay = gamesInPlay;
+        this.connectedUsers = FXCollections.observableArrayList(connectedUsers);
+        this.gamesInLobby = FXCollections.observableArrayList(gamesInLobby);
+        this.gamesInPlay = FXCollections.observableArrayList(gamesInPlay);
     }
 
-    public List<UserLight> getConnectedUsers() {
+    public ObservableList<UserLight> getConnectedUsers() {
         return connectedUsers;
     }
 
-    public void setConnectedUsers(List<UserLight> connectedUsers) {
-        this.connectedUsers = connectedUsers;
-    }
-
-    public List<GameLight> getGamesInLobby() {
+    public ObservableList<GameLight> getGamesInLobby() {
         return gamesInLobby;
     }
 
-    public void setGamesInLobby(List<GameLight> gamesInLobby) {
-        this.gamesInLobby = gamesInLobby;
-    }
-
-    public List<GameLight> getGamesInPlay() {
+    public ObservableList<GameLight> getGamesInPlay() {
         return gamesInPlay;
-    }
-
-    public void setGamesInPlay(List<GameLight> gamesInPlay) {
-        this.gamesInPlay = gamesInPlay;
     }
 
     public GameLight getGameInLobbyById(UUID gameId){

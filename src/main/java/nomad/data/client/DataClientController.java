@@ -1,22 +1,22 @@
 package nomad.data.client;
 
-import nomad.com.client.concrete.ComClientToData;
 import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Session;
 import nomad.common.data_structure.User;
-import nomad.common.interfaces.com.ComToDataInterface;
+import nomad.common.data_structure.UserLight;
+import nomad.common.interfaces.com.ComToDataClientInterface;
 import nomad.common.interfaces.game.IhmGameToDataInterface;
 import nomad.common.interfaces.main.IhmMainToDataInterface;
-import nomad.main.IhmMainToDataConcrete;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataClientController {
 
     UserController userController;
     private GameController gameController;
-    private ComToDataInterface comToDataInterface;
+    private ComToDataClientInterface comToDataInterface;
     private IhmMainToDataInterface ihmMainToDataInterface;
     private IhmGameToDataInterface ihmGameToDataInterface;
     private String path;
@@ -24,15 +24,21 @@ public class DataClientController {
     // Contains connected users, gamesInLobby, gamesInProgress
     Session session;
 
-    public DataClientController() {
-        this.path = "test"; // path might change ! 
+    public DataClientController(ComToDataClientInterface comToDataInterface,
+                                IhmMainToDataInterface ihmMainToDataInterface,
+                                IhmGameToDataInterface ihmGameToDataInterface) {
+        this.path = "test"; // path might change !
         this.gameController = new GameController(null);
         this.userController = new UserController(null);
-        this.ihmMainToDataInterface = new IhmMainToDataConcrete();
-        this.comToDataInterface = new ComClientToData();
+        this.ihmMainToDataInterface = ihmMainToDataInterface;
+        this.comToDataInterface = comToDataInterface;
+        this.ihmGameToDataInterface = ihmGameToDataInterface;
     }
 
     public Session getSession() {
+        if (session == null) {
+            initSession();
+        }
         return session;
     }
 
@@ -48,7 +54,7 @@ public class DataClientController {
         return gameController;
     }
 
-    public ComToDataInterface getComToDataInterface(){
+    public ComToDataClientInterface getComToDataInterface(){
         return comToDataInterface;
     }
 
@@ -68,8 +74,20 @@ public class DataClientController {
         this.path = path;
     }
 
+    public void initSession(List<UserLight> users, List<GameLight> games) {
+        session = new Session(users, games, new ArrayList<>());
+    }
+
+    public void initSession() {
+        if(session == null) {
+            session = new Session(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        }
+    }
+
     public void reset(){
-        this.session = null;
+        this.session.getConnectedUsers().clear();
+        this.session.getGamesInLobby().clear();
+        this.session.getGamesInPlay().clear();
         this.getUserController().setUser(null);
         this.getGameController().setGame(null);
     }
@@ -77,7 +95,7 @@ public class DataClientController {
     public void write(User user) throws IOException {
         // le try to open file at the beginning and close it at the end
         try (
-            FileOutputStream fos = new FileOutputStream(user.getName());
+            FileOutputStream fos = new FileOutputStream(user.getLogin());
             ObjectOutputStream oos = new ObjectOutputStream(fos);
         ){
             oos.writeObject(user);
@@ -97,11 +115,11 @@ public class DataClientController {
 
     public void updateProfileFile(User newUser) throws IOException, ClassNotFoundException {
         //1- Get all user
-        User user = this.read(newUser.getName());
+        User user = this.read(newUser.getLogin());
 
         //2- Modify the user connected
         if (user.getUserId().equals(this.userController.getUser().getUserId())) {
-                this.getUserController().setUser(newUser);
+            this.getUserController().setUser(newUser);
         }
 
         //3 - Write the user with the user modified in the profile file

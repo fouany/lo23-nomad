@@ -19,7 +19,7 @@ public interface DataToIhmMainInterface {
 
     //TODO: return boolean or exception ?
     void addAccount(String path) throws IOException, ClassNotFoundException;
-    void login(String login, String password, String IP, int Port) throws UserException,IOException, ClassNotFoundException;
+    void login(String login, String password, String ip, int port) throws UserException,IOException, ClassNotFoundException;
     void logout();
     User getProfileInfos (UUID idUserLight);
     void createCategory (Category category) throws CategoryException, IOException, ClassNotFoundException;
