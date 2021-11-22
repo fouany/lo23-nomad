@@ -2,19 +2,24 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="679.0" prefWidth="1101.0" styleClass="main_view_game" stylesheets="@../../style/global_game_style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox layoutX="567.0" layoutY="66.0" prefHeight="500.0" prefWidth="200.0">
+      <VBox layoutX="869.0" layoutY="117.0" prefHeight="500.0" prefWidth="200.0">
          <children>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="600.0" styleClass="container_extra_infos" stylesheets="@../../style/infos_components_style.css">
                <children>
@@ -70,5 +75,70 @@
             </TabPane>
          </children>
       </VBox>
+      <HBox layoutX="40.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="69.0" prefWidth="806.0">
+         <children>
+            <Pane prefHeight="69.0" prefWidth="254.0" style="-fx-background-color: #003049;">
+               <children>
+                  <Circle fill="#960808" layoutX="35.0" layoutY="34.0" radius="34.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Circle fill="#acacac" layoutX="35.0" layoutY="34.0" radius="28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <ImageView fitHeight="69.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-radius: 50%;" />
+                  <VBox layoutX="70.0" prefHeight="70.0" prefWidth="184.0">
+                     <children>
+                        <TextField alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Player : ">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <TextField alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Connected Towers :">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+            <Separator opacity="0.0" orientation="VERTICAL" prefHeight="69.0" prefWidth="65.5" />
+            <Pane prefHeight="69.0" prefWidth="167.0" style="-fx-background-color: #003049;">
+               <children>
+                  <VBox prefHeight="70.0" prefWidth="167.0">
+                     <children>
+                        <TextField alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Towers : 0/5">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <TextField alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Tiles : 0/165">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+            <Separator layoutX="264.0" layoutY="10.0" opacity="0.0" orientation="VERTICAL" prefHeight="69.0" prefWidth="65.5" />
+            <Pane prefHeight="69.0" prefWidth="254.0" style="-fx-background-color: #134900;">
+               <children>
+                  <VBox prefHeight="70.0" prefWidth="184.0">
+                     <children>
+                        <TextField alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Player : ">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <TextField alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Connected Towers :">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <Circle fill="WHITE" layoutX="219.0" layoutY="34.0" radius="34.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Circle fill="#acacac" layoutX="219.0" layoutY="34.0" radius="28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+               </children>
+            </Pane>
+         </children>
+      </HBox>
    </children>
 </Pane>

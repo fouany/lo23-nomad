@@ -33,11 +33,13 @@ public class IhmGameScreenController extends IhmScreenController {
     public void initPaths() {
         listPaths.add("fxml/ihm_game_screen_1.fxml");
         listPaths.add("fxml/imh_game_screen_2.fxml");
+        listPaths.add("fxml/page/main_game_view.fxml");
     }
 
     @Override
     public void initController() {
         dictController.put(0,new IhmGameControllerScreen1(this));
         dictController.put(1,new IhmGameControllerScreen2(this));
+        dictController.put(2,new IhmGameControllerScreen2(this));
     }
 }
