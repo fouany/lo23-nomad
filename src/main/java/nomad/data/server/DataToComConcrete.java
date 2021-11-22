@@ -1,7 +1,7 @@
 package nomad.data.server;
 
 import nomad.common.data_structure.*;
-import nomad.common.interfaces.data.DataToComServeurInterface;
+import nomad.common.interfaces.data.DataToComServerInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * Concretization of the Ihm Com interface.
  */
-public class DataToComConcrete implements DataToComServeurInterface {
+public class DataToComConcrete implements DataToComServerInterface {
 
     private DataServerController dataServerController;
 
@@ -21,7 +21,7 @@ public class DataToComConcrete implements DataToComServeurInterface {
     @Override
     public Game createGame(String name, UserLight host, int nbOfTowers, boolean spectAllowed, boolean spectChatAllowed, boolean hostColour) {
         Player player = new Player(host.getId(), host.getLogin(), null); // profile picture is null ?
-        Game game = new Game(UUID.randomUUID(), player, null, nbOfTowers, name, spectAllowed, spectChatAllowed, null, null, hostColour, false, false, null, null, null);
+        Game game = new Game(player, nbOfTowers, name, new GameParameters(spectAllowed, spectChatAllowed, hostColour));
         dataServerController.getGamesController().setGame(game);
         return game;
     }
@@ -48,7 +48,7 @@ public class DataToComConcrete implements DataToComServeurInterface {
 
     @Override
     public List<User> getUserList(GameLight game) {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -125,7 +125,7 @@ public class DataToComConcrete implements DataToComServeurInterface {
     }
 
     @Override
-    public User getPofileData(UUID idUser) {
+    public User getUserProfile(UUID idUser) {
         return dataServerController.getUser(idUser);
     }
 }

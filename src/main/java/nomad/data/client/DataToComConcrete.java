@@ -1,13 +1,18 @@
 package nomad.data.client;
 
 import nomad.common.data_structure.*;
-import nomad.common.interfaces.data.DataToComInterface;
+import nomad.common.interfaces.data.DataToComClientInterface;
+
 import java.util.List;
 import java.util.UUID;
 
-public class DataToComConcrete implements DataToComInterface {
+public class DataToComConcrete implements DataToComClientInterface {
 
     DataClientController dataClientController;
+
+    public void setController(DataClientController dataClientController) {
+        this.dataClientController = dataClientController;
+    }
 
     /**
      * adds a new game in the lobby and sets the attributes in the game
@@ -45,6 +50,9 @@ public class DataToComConcrete implements DataToComInterface {
      */
     // TODO : pas besoin du booleen !
     public void updateUserSession(Player player, boolean connected){
+        if (player.getId() == dataClientController.getUserController().getUser().getUserId()) {
+            return;
+        }
         dataClientController.getSession().getConnectedUsers().add(new UserLight(player.getId(), player.getLogin()));
     }
 
@@ -147,35 +155,28 @@ public class DataToComConcrete implements DataToComInterface {
     // Non : On rajoute aussi la liste des Games en lobby
     public void addConnectedUserProfile(List<Player> players, List<GameLight> games) {
         for (Player p : players){
-            UserLight ul = new UserLight(p.getId(), p.getLogin());
-            dataClientController.getSession().getConnectedUsers().add(ul);
+            dataClientController.getSession().getConnectedUsers().add(new UserLight(p));
         }
+
         for (GameLight gl : games){
             dataClientController.getSession().getGamesInLobby().add(gl);
         }
-        //dataClientController.getIhmMainToDataInterface().updateObservable(dataClientController.getSession());
     }
 
     /**
-     * removes a user from the connected users of the session object
-     * @param userId
-     * @param isDeconnected
+     * Remove an user from the connected users of the session object
+     * @param userId UID of the user to remove
+     * @param isDeconnected Not used
      */
     // TODO : changer signature : pas besoin du booleen
     public void isDisconnected(UUID userId, boolean isDeconnected){
         List<UserLight> connectedUsers = dataClientController.getSession().getConnectedUsers();
-        for (int i = 0; i < connectedUsers.size(); i++) {
-            if (connectedUsers.get(i).getId() == userId){
-                connectedUsers.remove(i);
-                return;
-            }
-        }
-        //dataClientController.getIhmMainToDataInterface().updateObservable(dataClientController.getSession());
+        connectedUsers.removeIf((UserLight u) -> u.getId() == userId);
     }
 
     /**
-     * retrieves all the online users
-     * @return
+     * Retrieve all the online users
+     * @return List of connected users
      */
     public List<UserLight> getOnlineUsers(){
         return dataClientController.getSession().getConnectedUsers();

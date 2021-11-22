@@ -47,7 +47,7 @@
                         <configuration>
                             <launcher>StartNomad</launcher>
                             <jlinkImageName>NomadTheGame</jlinkImageName>
-                            <mainClass>nomadapp/nomad.common.ihm.MainApplication</mainClass>
+                            <mainClass>nomadapp/nomad.common.MainApplication</mainClass>
                         </configuration>
                     </execution>
                 </executions>

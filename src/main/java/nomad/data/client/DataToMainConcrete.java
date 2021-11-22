@@ -4,18 +4,17 @@ import nomad.common.data_structure.*;
 import nomad.common.interfaces.data.DataToIhmMainInterface;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.net.InetAddress;
 
 public class DataToMainConcrete  implements DataToIhmMainInterface {
 
     DataClientController dataClientController;
 
-    //constructor
-    public DataToMainConcrete() {
-        this.dataClientController = new DataClientController();
+    public void setController(DataClientController dataClientController) {
+        this.dataClientController = dataClientController;
     }
 
     public User getUser() { return dataClientController.getUserController().getUser();}
@@ -42,10 +41,9 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      * @throws IOException error writing file
      */
     public void createAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws IOException {
-        User u = new User(UUID.randomUUID(), login, pwd, name, profilePicture, birthDate,null,null,null,null);
+        User u = new User(new UserInfo(login, pwd, name, profilePicture, birthDate));
         dataClientController.write(u);
     }
-
 
     /**
      * modifies an account
@@ -82,7 +80,6 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
     public void addAccount(String path) throws IOException, ClassNotFoundException {
         //try to read file
         User newUser = null;
-        List<User> listUser;
         try{
             newUser = dataClientController.read(path);
         } finally {
@@ -97,20 +94,28 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      * Login
      * @param login login of the user
      * @param password password of the user
-     * @param IP IP adress of the server
+     * @param ip IP adress of the server
      * @param port Port of the user
      * @throws UserException User not found
      * @throws IOException Error in writing or reading file
      * @throws ClassNotFoundException class not found
      */
-    public void login(String login, String password, String IP, int port) throws UserException, IOException, ClassNotFoundException {
+    public void login(String login, String password, String ip, int port) throws UserException, IOException, ClassNotFoundException {
         //1 - Verify account exists else throw exception
-
+        dataClientController.setPath(login);
         User u = dataClientController.read(dataClientController.getPathProfile());
         if ((u.getLogin().equals(login)) && (u.getPassword().equals(password))) {
             dataClientController.getUserController().setUser(u);
+            //2 Make sure the right port and IP is saved in user
+            if (ip != null){
+                dataClientController.getUserController().getUser().getLastServer().setIpAddress(InetAddress.getByName(ip));
+            }
+            if (port != 0){
+                dataClientController.getUserController().getUser().getLastServer().setPort(port);
+            }
             //2 Inform Com that a new user is connected
             dataClientController.getComToDataInterface().addConnectedUser(u);
+            dataClientController.getIhmMainToDataInterface().updateObservable(dataClientController.getSession());
             return;
         }
 
@@ -124,14 +129,11 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      * logout
      */
     public void logout(){
-        //1 - get the id of the userConnected
-        UUID userID = dataClientController.getUserController().getUser().getUserId();
-
-        //2 - Reset all attributes
+        // Reset all attributes
         dataClientController.reset();
 
-        //3 - Call logout method of ComToDataInterface
-        //dataClientController.getComToDataInterface().logout(userID);
+        // Call logout method of ComToDataInterface
+        dataClientController.getComToDataInterface().logout();
     }
 
     //TODO: COM getProfileInfos()
@@ -141,8 +143,7 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      * @return User
      */
     public User getProfileInfos(UUID idUserLight){
-        return null;
-        //dataClientController.getComToDataInterface().getProfileInfos(idUserLight);
+        return null; // TODO : implement and call getProfile in ComClientToData
     }
 
     /**

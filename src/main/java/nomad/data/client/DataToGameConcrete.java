@@ -7,6 +7,10 @@ public class DataToGameConcrete implements DataToIhmGameInterface  {
 
     DataClientController dataClientController;
 
+    public void setDataClientController(DataClientController dataClientController) {
+        this.dataClientController = dataClientController;
+    }
+
     public User getUser(){
         return dataClientController.getUserController().getUser();
     }
