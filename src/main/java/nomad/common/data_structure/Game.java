@@ -12,33 +12,23 @@ public class Game extends Observable implements Serializable  {
     private Player opponent;
     private int nbOfTowers;
     private String name;
-    private boolean spectAllowed;
-    private boolean spectChatAllowed;
+    private GameParameters gameParameters;
     private Board board;
     private UUID currentPlayer;
-    private boolean hostColor;
     private boolean gameLaunched;
     private boolean gameEnded;
     private List<Move> moves;
     private List<UserLight> spect;
     private List<Message> chat;
 
-    public Game(UUID gameId, Player host, Player opponent, int nbOfTowers, String name, boolean spectAllowed, boolean spectChatAllowed, Board board, UUID currentPlayer, boolean hostColor, boolean gameLaunched, boolean gameEnded, List<Move> moves, List<UserLight> spect, List<Message> chat) {
-        this.gameId = gameId;
+    public Game(Player host, int nbOfTowers, String name, GameParameters gameParameters) {
+        this.gameId = UUID.randomUUID();
         this.host = host;
-        this.opponent = opponent;
         this.nbOfTowers = nbOfTowers;
         this.name = name;
-        this.spectAllowed = spectAllowed;
-        this.spectChatAllowed = spectChatAllowed;
-        this.board = board;
-        this.currentPlayer = currentPlayer;
-        this.hostColor = hostColor;
-        this.gameLaunched = gameLaunched;
-        this.gameEnded = gameEnded;
-        this.moves = moves;
-        this.spect = spect;
-        this.chat = chat;
+        this.board = new Board();
+        this.currentPlayer = host.getId();
+        this.gameParameters = gameParameters;
     }
 
     public UUID getGameId() {
@@ -82,19 +72,19 @@ public class Game extends Observable implements Serializable  {
     }
 
     public boolean isSpectAllowed() {
-        return spectAllowed;
+        return gameParameters.isSpectAllowed();
     }
 
     public void setSpectAllowed(boolean spectAllowed) {
-        this.spectAllowed = spectAllowed;
+        this.gameParameters.setSpectAllowed(spectAllowed);
     }
 
     public boolean isSpectChatAllowed() {
-        return spectChatAllowed;
+        return gameParameters.isSpectChatAllowed();
     }
 
     public void setSpectChatAllowed(boolean spectChatAllowed) {
-        this.spectChatAllowed = spectChatAllowed;
+        this.gameParameters.setSpectChatAllowed(spectChatAllowed);
     }
 
     public Board getBoard() {
@@ -127,11 +117,11 @@ public class Game extends Observable implements Serializable  {
 
 
     public boolean isHostColor() {
-        return hostColor;
+        return gameParameters.isHostColor();
     }
 
     public void setHostColor(boolean hostColor) {
-        this.hostColor = hostColor;
+        this.gameParameters.setHostColor(hostColor);
     }
 
     public boolean isGameLaunched() {
@@ -194,11 +184,11 @@ public class Game extends Observable implements Serializable  {
                 ", opponent=" + opponent +
                 ", nbOfTowers=" + nbOfTowers +
                 ", name='" + name + '\'' +
-                ", spectAllowed=" + spectAllowed +
-                ", spectChatAllowed=" + spectChatAllowed +
+                ", spectAllowed=" + gameParameters.isSpectAllowed() +
+                ", spectChatAllowed=" + gameParameters.isSpectChatAllowed() +
                 ", board=" + board +
                 ", currentPlayer=" + currentPlayer +
-                ", hostColor=" + hostColor +
+                ", hostColor=" + gameParameters.isHostColor() +
                 ", gameLaunched=" + gameLaunched +
                 ", gameEnded=" + gameEnded +
                 ", moves=" + moves +

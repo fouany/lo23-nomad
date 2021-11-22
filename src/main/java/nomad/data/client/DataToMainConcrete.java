@@ -41,7 +41,7 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      * @throws IOException error writing file
      */
     public void createAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws IOException {
-        User u = new User(UUID.randomUUID(), login, pwd, name, profilePicture, birthDate,null,null,null,null);
+        User u = new User(new UserInfo(login, pwd, name, profilePicture, birthDate));
         dataClientController.write(u);
     }
 
