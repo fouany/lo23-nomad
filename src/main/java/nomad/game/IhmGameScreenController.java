@@ -4,6 +4,7 @@ import nomad.common.ihm.IhmScreenController;
 import nomad.common.ihm.MainApplication;
 import nomad.game.controller.IhmGameControllerScreen1;
 import nomad.game.controller.IhmGameControllerScreen2;
+import nomad.game.controller.IhmGameControllerScreen3;
 
 import java.io.IOException;
 
@@ -31,13 +32,15 @@ public class IhmGameScreenController extends IhmScreenController {
 
     @Override
     public void initPaths() {
-        listPaths.add("fxml/ihm_game_screen_1.fxml");
-        listPaths.add("fxml/imh_game_screen_2.fxml");
+        listPaths.add("fxml/page/ihm_game_screen_1.fxml");
+        listPaths.add("fxml/page/imh_game_screen_2.fxml");
+        listPaths.add("fxml/page/main_game_view.fxml");
     }
 
     @Override
     public void initController() {
         dictController.put(0,new IhmGameControllerScreen1(this));
         dictController.put(1,new IhmGameControllerScreen2(this));
+        dictController.put(2,new IhmGameControllerScreen2(this));
     }
 }

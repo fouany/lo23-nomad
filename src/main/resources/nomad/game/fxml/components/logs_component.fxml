@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="container_extra_infos" stylesheets="@../../style/infos_components_style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="50.0" prefWidth="200.0" styleClass="header_infos">
+         <children>
+            <Text layoutX="1.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGS" textAlignment="CENTER" wrappingWidth="198.19309997558594" />
+         </children>
+      </Pane>
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxWidth="1.7976931348623157E308" prefHeight="300.0" prefWidth="300.0" styleClass="scroll_infos_parent" vbarPolicy="ALWAYS">
+        <content>
+          <AnchorPane maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="198.0" styleClass="scroll_infos_container">
+               <children>
+                  <TextArea editable="false" prefHeight="223.0" prefWidth="183.0" styleClass="text_infos" text="fdsfsdfsdfsd&#10;">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</VBox>
