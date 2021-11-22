@@ -1,6 +1,7 @@
 package nomad.com.client;
 
 import nomad.com.common.message.LocalUserConnectionMessage;
+import nomad.com.common.message.LocalUserDisconnectionMessage;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.com.ComToDataClientInterface;
 
@@ -45,13 +46,10 @@ public class ComClientToDataConcrete implements ComToDataClientInterface {
 
     /**
      * Disconnect the local user from the local server.
-     *
-     * @param user The local user to disconnect from the server.
      */
     @Override
-    public void logout(User user) {
-        // send disconnect message to the server via the controller
-        // if socket is still active, send disconnection message
+    public void logout() {
+        clientController.disconnect();
     }
 
     /**

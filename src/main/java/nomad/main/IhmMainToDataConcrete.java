@@ -7,27 +7,27 @@ import nomad.common.interfaces.main.IhmMainToDataInterface;
 
 public class IhmMainToDataConcrete implements IhmMainToDataInterface {
 
-    private IhmMainScreenController screenController;
 
-    public void setController(IhmMainScreenController screenController) {
-        this.screenController = screenController;
+    public void setController() {
+        // TODO : implement setter
     }
 
     public IhmMainToDataConcrete () {
+        // TODO : implement constructor
     }
 
     @Override
     public void updateObservable(Session session) {
-        //session.addObserver();
+        // TODO : implement Observable assignation
     }
 
     @Override
     public void updateObservable(Game game) {
-      //todo fix Observer on Observable
+      // TODO : fix Observer on Observable
     }
 
     @Override
     public void updateObservable(User user) {
-      //todo fix Observer on Observable
+      // TODO : fix Observer on Observable
     }
 }

@@ -9,10 +9,12 @@ import nomad.main.IhmMainScreenController;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MenuController extends IhmControllerComponent implements Observer {
 
-    public ListView userList;
+    public ListView<String> userList;
     int counter = 0;
     private IhmMainScreenController ihmController;
 
@@ -20,7 +22,6 @@ public class MenuController extends IhmControllerComponent implements Observer {
     public MenuController(IhmMainScreenController ihmMainScreenController) {
         super(ihmMainScreenController);
         this.ihmController = ihmMainScreenController;
-        //dataMainImpl.getSession().addObserver(this);
     }
 
     public void logout() {
@@ -34,10 +35,11 @@ public class MenuController extends IhmControllerComponent implements Observer {
     }
 
     public void onClickJoin() {
-
+        // TODO : implement method
     }
 
     public void onClickProfile() {
+        // TODO : implement method
     }
 
     @Override
@@ -54,7 +56,7 @@ public class MenuController extends IhmControllerComponent implements Observer {
 
     }
 
-    public void displayUser(List<UserLight> users, ListView view) {
+    public void displayUser(List<UserLight> users, ListView<String> view) {
         for (UserLight user : users) {
             String field = user.getLogin() + "#" + user.getId();
             view.getItems().add(field);
@@ -62,7 +64,6 @@ public class MenuController extends IhmControllerComponent implements Observer {
     }
 
     public void handleUserListClick() {
-        //launch profile
-        System.out.println("Display profile of " + userList.getSelectionModel().getSelectedItem());
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Display profile of " + userList.getSelectionModel().getSelectedItem());
     }
 }

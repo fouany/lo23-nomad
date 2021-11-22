@@ -2,12 +2,12 @@
 package nomad.common.ihm;
 
 // JavaFX imports
+
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import nomad.common.MainApplication;
 
-// Utils
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -141,10 +141,9 @@ public abstract class IhmScreenController {
     }
 
     /**
-     * Change the current module
-     * @throws IOException
+     * Change the current active module
      */
-    public void changeModule() throws IOException {
+    public void changeModule() {
         if (module.equals("MAIN")) {
             mainApp.changeModule("GAME");
         } else {

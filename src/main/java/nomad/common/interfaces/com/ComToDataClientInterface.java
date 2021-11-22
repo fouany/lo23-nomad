@@ -10,7 +10,7 @@ public interface ComToDataClientInterface {
 
     void addConnectedUser(User user);
 
-    void logout(User user);
+    void logout();
 
     void getProfile(UUID idUser);
 }

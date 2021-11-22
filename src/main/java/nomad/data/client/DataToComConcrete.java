@@ -3,7 +3,6 @@ package nomad.data.client;
 import nomad.common.data_structure.*;
 import nomad.common.interfaces.data.DataToComClientInterface;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -166,25 +165,19 @@ public class DataToComConcrete implements DataToComClientInterface {
     }
 
     /**
-     * removes a user from the connected users of the session object
-     * @param userId
-     * @param isDeconnected
+     * Remove an user from the connected users of the session object
+     * @param userId UID of the user to remove
+     * @param isDeconnected Not used
      */
     // TODO : changer signature : pas besoin du booleen
     public void isDisconnected(UUID userId, boolean isDeconnected){
         List<UserLight> connectedUsers = dataClientController.getSession().getConnectedUsers();
-        for (int i = 0; i < connectedUsers.size(); i++) {
-            if (connectedUsers.get(i).getId() == userId){
-                connectedUsers.remove(i);
-                return;
-            }
-        }
-        //dataClientController.getIhmMainToDataInterface().updateObservable(dataClientController.getSession());
+        connectedUsers.removeIf((UserLight u) -> u.getId() == userId);
     }
 
     /**
-     * retrieves all the online users
-     * @return
+     * Retrieve all the online users
+     * @return List of connected users
      */
     public List<UserLight> getOnlineUsers(){
         return dataClientController.getSession().getConnectedUsers();

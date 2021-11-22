@@ -81,7 +81,6 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
     public void addAccount(String path) throws IOException, ClassNotFoundException {
         //try to read file
         User newUser = null;
-        List<User> listUser;
         try{
             newUser = dataClientController.read(path);
         } finally {
@@ -96,21 +95,21 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      * Login
      * @param login login of the user
      * @param password password of the user
-     * @param IP IP adress of the server
+     * @param ip IP adress of the server
      * @param port Port of the user
      * @throws UserException User not found
      * @throws IOException Error in writing or reading file
      * @throws ClassNotFoundException class not found
      */
-    public void login(String login, String password, String IP, int port) throws UserException, IOException, ClassNotFoundException {
+    public void login(String login, String password, String ip, int port) throws UserException, IOException, ClassNotFoundException {
         //1 - Verify account exists else throw exception
 
         User u = dataClientController.read(dataClientController.getPathProfile());
         if ((u.getLogin().equals(login)) && (u.getPassword().equals(password))) {
             dataClientController.getUserController().setUser(u);
             //2 Make sure the right port and IP is saved in user
-            if (IP != null){
-                dataClientController.getUserController().getUser().getLastServer().setIpAddress(InetAddress.getByName(IP));
+            if (ip != null){
+                dataClientController.getUserController().getUser().getLastServer().setIpAddress(InetAddress.getByName(ip));
             }
             if (port != 0){
                 dataClientController.getUserController().getUser().getLastServer().setPort(port);
@@ -130,14 +129,11 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      * logout
      */
     public void logout(){
-        //1 - get the id of the userConnected
-        UUID userID = dataClientController.getUserController().getUser().getUserId();
-
-        //2 - Reset all attributes
+        // Reset all attributes
         dataClientController.reset();
 
-        //3 - Call logout method of ComToDataInterface
-        //dataClientController.getComToDataInterface().logout(userID);
+        // Call logout method of ComToDataInterface
+        dataClientController.getComToDataInterface().logout();
     }
 
     //TODO: COM getProfileInfos()
@@ -147,8 +143,7 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      * @return User
      */
     public User getProfileInfos(UUID idUserLight){
-        return null;
-        //dataClientController.getComToDataInterface().getProfileInfos(idUserLight);
+        return null; // TODO : implement and call getProfile in ComClientToData
     }
 
     /**

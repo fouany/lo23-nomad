@@ -17,6 +17,7 @@ public class ClientListener extends Thread {
     private final Socket client;
     private final ObjectInputStream input;
     private final ClientController controller;
+    private boolean listen;
 
     /**
      * Initialize ComClientListener and ObjectInputStream associated with socket
@@ -25,6 +26,7 @@ public class ClientListener extends Thread {
      * @param parent The parent controller
      */
     public ClientListener(Socket client, ClientController parent) throws IOException {
+        listen = true;
         this.client = client;
         this.controller = parent;
         synchronized (this.client) {
@@ -32,9 +34,16 @@ public class ClientListener extends Thread {
         }
     }
 
+    /**
+     * Stop the listener thread
+     */
+    public void stopListening() {
+        listen = false;
+    }
+
     @Override
     public void run() {
-        while (true) {
+        while (listen) {
             try {
                 ComMessage message = readMessage();
                 if (message != null) {
@@ -53,7 +62,7 @@ public class ClientListener extends Thread {
     }
 
     /**
-     * Read a message from the socket, in a non-blocking way
+     * Read a message from the socket, in a blocking way
      *
      * @return ComMessage or null if no message was available
      * @throws IOException            Fail to create InputStream
@@ -64,6 +73,7 @@ public class ClientListener extends Thread {
         synchronized (client) {
             if (client.isClosed()) {
                 input.close();
+                stopListening();
                 throw new SocketClosedException();
             }
 

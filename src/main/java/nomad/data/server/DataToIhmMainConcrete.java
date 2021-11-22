@@ -7,9 +7,4 @@ import nomad.common.interfaces.data.DataToIhmMainServerInterface;
  */
 public class DataToIhmMainConcrete implements DataToIhmMainServerInterface {
 
-    private DataServerController dataServerController;
-
-    public DataToIhmMainConcrete(DataServerController dataServerController){
-        this.dataServerController = dataServerController;
-    }
 }

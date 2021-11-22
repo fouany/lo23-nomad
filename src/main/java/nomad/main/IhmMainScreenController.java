@@ -16,6 +16,7 @@ public class IhmMainScreenController extends IhmScreenController {
 
     private Map<String, String> attributes;
     private DataToIhmMainInterface dataI;
+    private final String stylesheet = "Poppins/style.css";
 
     public IhmMainScreenController(MainApplication app, DataToIhmMainInterface dataI) throws IOException {
         super(app);
@@ -49,8 +50,8 @@ public class IhmMainScreenController extends IhmScreenController {
     }
 
     public void initStyles() {
-        dictStyles.put(0, "Poppins/style.css");
-        dictStyles.put(2, "Poppins/style.css");
-        dictStyles.put(1, "Poppins/style.css");
+        dictStyles.put(0, stylesheet);
+        dictStyles.put(2, stylesheet);
+        dictStyles.put(1, stylesheet);
     }
 }

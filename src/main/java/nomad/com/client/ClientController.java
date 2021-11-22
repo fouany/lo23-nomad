@@ -1,6 +1,7 @@
 package nomad.com.client;
 
 import nomad.com.common.message.ComMessage;
+import nomad.com.common.message.LocalUserDisconnectionMessage;
 import nomad.common.interfaces.data.DataToComClientInterface;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.util.logging.Logger;
  */
 public class ClientController {
     private final MessageProcessor messageProcessor;
+    private ClientListener listener;
     private ObjectOutputStream output;
     private Socket socket;
 
@@ -31,7 +33,6 @@ public class ClientController {
      */
     public void connectClient(InetAddress address, int port) throws IOException {
         socket = new Socket(address, port);
-        ClientListener listener;
         synchronized (socket) {
             output = new ObjectOutputStream(socket.getOutputStream());
             listener = new ClientListener(socket, this);
@@ -49,6 +50,28 @@ public class ClientController {
         return socket;
     }
 
+    /**
+     * Disconnect the client from the server. If the socket is still active, inform the server of the disconnection.
+     */
+    public void disconnect() {
+        if (!socket.isClosed()) {
+            sendMessage(new LocalUserDisconnectionMessage());
+            try {
+                socket.close();
+            } catch (IOException e) {
+                Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Error happened during the disconnection from the server !");
+            }
+        }
+
+        listener.stopListening();
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Disconnected from the server");
+    }
+
+    /**
+     * Process an incoming message from the server
+     *
+     * @param message Message transmitted by the server
+     */
     public void processMessage(ComMessage message) {
         messageProcessor.processMessage(message);
     }
@@ -63,13 +86,14 @@ public class ClientController {
         synchronized (socket) {
             try {
                 if (socket.isClosed()) {
-                    output.close();
-                    Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Socket with the server has been closed !");
+                    disconnect();
+                    return false;
                 }
                 output.writeObject(message);
                 output.flush();
 
             } catch (Exception e) {
+                disconnect();
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send message remote server !");
                 return false;
             }

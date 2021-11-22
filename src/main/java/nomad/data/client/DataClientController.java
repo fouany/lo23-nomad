@@ -72,7 +72,7 @@ public class DataClientController {
     }
 
     public void initSession(List<UserLight> users, List<GameLight> games) {
-        session = new Session(users, games, new ArrayList<GameLight>());
+        session = new Session(users, games, new ArrayList<>());
     }
 
     public void initSession() {

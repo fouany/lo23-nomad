@@ -2,7 +2,6 @@ package nomad.common.interfaces.data;
 
 import nomad.common.data_structure.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

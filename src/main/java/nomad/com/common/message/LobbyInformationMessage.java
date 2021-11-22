@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Message sent by the server to inform new users of current games and logged players or update users of changes
  */
-public class LobbyInformationMessage extends ComMessage {
+public class LobbyInformationMessage implements ComMessage {
     /**
      * Current games on the server
      */
