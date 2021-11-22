@@ -8,7 +8,7 @@ import java.util.UUID;
 public interface DataToComServeurInterface {
     Game createGame(String name, UserLight host, int nbOfTowers, boolean spectAllowed, boolean spectChatAllowed, boolean hostColour);
     void joinGameRequest(Player player, GameLight game);
-    void guestAccepted();
+    void guestAccepted(GameLight game);
     void guestRefused(Player player);
     void addSpecInGame(UserLight user, GameLight game);
     List<User> getUserList(GameLight game);
@@ -17,10 +17,11 @@ public interface DataToComServeurInterface {
     Move saveMove(UserLight user, Move m);
     boolean checkGameEnded(GameLight game);
     Game getStoredGame(UUID gameId);
-    void storeMessage(Message message);
+    void storeMessage(UUID gameId, Message message);
     List<Player> requestConnectedUserList();
-    List<GameLight> requestGamelist();
-    void updateUserlistAdd (Player newUser);
-    Player updateUserListRemove (User oldUser);
+    List<GameLight> requestGameList();
+    void updateUserListAdd (User newUser);
+    User updateUserListRemove (UUID userId);
+    void updateListGamesRemove(User oldUser);
     User getPofileData(UUID idUser);
 }

@@ -2,6 +2,7 @@ package nomad.common.data_structure;
 
 import java.util.List;
 import java.util.Observable;
+import java.util.UUID;
 
 public class Session extends Observable {
 
@@ -37,6 +38,22 @@ public class Session extends Observable {
 
     public void setGamesInPlay(List<GameLight> gamesInPlay) {
         this.gamesInPlay = gamesInPlay;
+    }
+
+    public GameLight getGameInLobbyById(UUID gameId){
+        GameLight tempGameLight = null;
+        for (int i = 0; i < gamesInLobby.size(); i++) {
+            if (gamesInLobby.get(i).getGameId() == gameId) tempGameLight = gamesInLobby.get(i);
+        }
+        return tempGameLight;
+    }
+
+    public GameLight getGameInPlayById(UUID gameId){
+        GameLight tempGameLight = null;
+        for (int i = 0; i < gamesInPlay.size(); i++) {
+            if (gamesInPlay.get(i).getGameId() == gameId) tempGameLight = gamesInPlay.get(i);
+        }
+        return tempGameLight;
     }
 
     @Override

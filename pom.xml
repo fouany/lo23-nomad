@@ -57,7 +57,7 @@
 
     <properties>
         <sonar.qualitygate.wait>true</sonar.qualitygate.wait>
-        <sonar.projectKey>lo23-a21-td1_a21_lo23_td1_AX0BOiEP9HKCiCcrmJBL</sonar.projectKey>
+        <sonar.projectKey>lo23-a21-td1_a21_lo23_td1_AX0uYSiAVhyusf5BO_Ku</sonar.projectKey>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>

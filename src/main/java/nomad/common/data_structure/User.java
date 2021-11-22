@@ -1,11 +1,12 @@
 package nomad.common.data_structure;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Observable;
 import java.util.UUID;
 
-public class User extends Observable {
+public class User extends Observable implements Serializable {
 
     private UUID userId;
     private String login;
@@ -15,6 +16,7 @@ public class User extends Observable {
     private Date birthDate;
     private ProfileStat profileStat;
     private List<Contact> contacts;
+    private List<Category> categoryList;
     private List<Game> savedGames;
     private Server lastServer;
 
@@ -95,12 +97,48 @@ public class User extends Observable {
         this.contacts = contacts;
     }
 
+    public List<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
+    }
+
+    public void addCategory(Category category) throws CategoryException {
+        for (Category c: this.categoryList
+             ) {
+            if (c.getName().equals(category.getName())){
+                throw new CategoryException("Category already exists");
+            }
+
+        }
+        this.categoryList.add(category);
+    }
     public List<Game> getSavedGames() {
         return savedGames;
     }
 
     public void setSavedGames(List<Game> savedGames) {
         this.savedGames = savedGames;
+    }
+
+    public void addSavedGame(Game game){ this.savedGames.add(game); }
+    public void addUser(UserLight user, Category category) throws CategoryException {
+        for (Category c:this.categoryList
+             ) {
+            if (c.getName().equals(category.getName())){
+                this.contacts.add(new Contact(user, category ));
+            }
+
+        }
+        throw new CategoryException("Category doesn't exist");
+    }
+
+    public void updateCategory(Category lastCategory, Category newCategory)  {
+        this.categoryList.remove(lastCategory);
+        this.categoryList.add(newCategory);
+
     }
 
     public Server getLastServer() {

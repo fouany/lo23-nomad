@@ -1,10 +1,11 @@
 package nomad.common.data_structure;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Observable;
 import java.util.UUID;
 
-public class Game extends Observable {
+public class Game extends Observable implements Serializable  {
 
     private UUID gameId;
     private Player host;
@@ -17,11 +18,12 @@ public class Game extends Observable {
     private UUID currentPlayer;
     private boolean hostColor;
     private boolean gameLaunched;
+    private boolean gameEnded;
     private List<Move> moves;
     private List<UserLight> spect;
     private List<Message> chat;
 
-    public Game(UUID gameId, Player host, Player opponent, int nbOfTowers, String name, boolean spectAllowed, boolean spectChatAllowed, Board board, UUID currentPlayer, boolean hostColor, boolean gameLaunched, List<Move> moves, List<UserLight> spect, List<Message> chat) {
+    public Game(UUID gameId, Player host, Player opponent, int nbOfTowers, String name, boolean spectAllowed, boolean spectChatAllowed, Board board, UUID currentPlayer, boolean hostColor, boolean gameLaunched, boolean gameEnded, List<Move> moves, List<UserLight> spect, List<Message> chat) {
         this.gameId = gameId;
         this.host = host;
         this.opponent = opponent;
@@ -33,6 +35,7 @@ public class Game extends Observable {
         this.currentPlayer = currentPlayer;
         this.hostColor = hostColor;
         this.gameLaunched = gameLaunched;
+        this.gameEnded = gameEnded;
         this.moves = moves;
         this.spect = spect;
         this.chat = chat;
@@ -102,13 +105,26 @@ public class Game extends Observable {
         this.board = board;
     }
 
-    public UUID getCurrentPlayer() {
+    public UUID getCurrentPlayerUUID() {
         return currentPlayer;
     }
 
     public void setCurrentPlayer(UUID currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
+
+    public void changeCurrentPlayer(){
+        UUID currentPlayerUUID = getCurrentPlayerUUID();
+        UUID opponentUUID = getOpponent().getId();
+        UUID hostUUID = getHost().getId();
+
+        if (hostUUID == currentPlayerUUID) {
+            setCurrentPlayer(opponentUUID);
+        } else {
+            setCurrentPlayer(hostUUID);
+        }
+    }
+
 
     public boolean isHostColor() {
         return hostColor;
@@ -124,6 +140,14 @@ public class Game extends Observable {
 
     public void setGameLaunched(boolean gameLaunched) {
         this.gameLaunched = gameLaunched;
+    }
+
+    public boolean isGameEnded() {
+        return gameEnded;
+    }
+
+    public void setGameEnded(boolean gameEnded) {
+        this.gameEnded = gameEnded;
     }
 
     public List<Move> getMoves() {
@@ -150,9 +174,21 @@ public class Game extends Observable {
         this.chat = chat;
     }
 
+    public void addMessage(Message message) {
+        chat.add(message);
+    }
+
+    public void addSpec(UserLight spect) {
+        this.spect.add(spect);
+    }
+
+    public GameLight createGameLight(){
+        return new GameLight(gameId, host, nbOfTowers);
+    }
+
     @Override
     public String toString() {
-        return "model.Game{" +
+        return "Game{" +
                 "gameId=" + gameId +
                 ", host=" + host +
                 ", opponent=" + opponent +
@@ -164,6 +200,7 @@ public class Game extends Observable {
                 ", currentPlayer=" + currentPlayer +
                 ", hostColor=" + hostColor +
                 ", gameLaunched=" + gameLaunched +
+                ", gameEnded=" + gameEnded +
                 ", moves=" + moves +
                 ", spect=" + spect +
                 ", chat=" + chat +
