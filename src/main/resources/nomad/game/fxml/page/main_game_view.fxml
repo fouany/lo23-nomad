@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="567.0" layoutY="66.0" prefHeight="500.0" prefWidth="200.0">
+         <children>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="600.0" styleClass="container_extra_infos" stylesheets="@../../style/infos_components_style.css">
+               <children>
+                  <Pane prefHeight="50.0" prefWidth="200.0" styleClass="header_infos">
+                     <children>
+                        <Text layoutX="1.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGS" textAlignment="CENTER" wrappingWidth="198.19309997558594" />
+                     </children>
+                  </Pane>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxWidth="1.7976931348623157E308" prefHeight="300.0" prefWidth="300.0" styleClass="scroll_infos_parent" vbarPolicy="ALWAYS">
+                    <content>
+                      <AnchorPane maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="198.0" styleClass="scroll_infos_container">
+                           <children>
+                              <TextArea editable="false" prefHeight="223.0" prefWidth="183.0" styleClass="text_infos" text="fdsfsdfsdfsd&#10;">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </TextArea>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+            <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="239.0" prefWidth="600.0" styleClass="container_extra_infos" stylesheets="@../../style/infos_components_style.css" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab styleClass="tab_chat" text="Chat">
+                     <content>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                           <styleClass>
+                              <String fx:value="tab_chat" />
+                              <String fx:value="scroll_infos_parentscroll_infos_parent" />
+                           </styleClass>
+                           <content>
+                              <TextArea prefHeight="219.0" prefWidth="200.0" styleClass="text_infos" />
+                           </content>
+                        </ScrollPane>
+                     </content>
+                  </Tab>
+                <Tab styleClass="tab_chat" text="Players">
+                     <content>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                           <styleClass>
+                              <String fx:value="tab_chat" />
+                              <String fx:value="scroll_infos_parent" />
+                           </styleClass>
+                           <content>
+                              <TextArea prefHeight="219.0" prefWidth="200.0" styleClass="text_infos" />
+                           </content>
+                        </ScrollPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </VBox>
+   </children>
+</Pane>
