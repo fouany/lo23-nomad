@@ -19,7 +19,7 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
 
     @Override
     public void updateObservable(Session session) {
-        session.addObserver(mainScreenController.getMenuController());
+        session.getConnectedUsers().addListener(mainScreenController.getMenuController());
     }
 
     @Override

@@ -83,20 +83,18 @@ public class ClientController {
      * @param message The message to send to the server
      */
     public boolean sendMessage(ComMessage message) {
-        synchronized (socket) {
-            try {
-                if (socket.isClosed()) {
-                    disconnect();
-                    return false;
-                }
-                output.writeObject(message);
-                output.flush();
-
-            } catch (Exception e) {
+        try {
+            if (socket.isClosed()) {
                 disconnect();
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send message remote server !");
                 return false;
             }
+            output.writeObject(message);
+            output.flush();
+
+        } catch (Exception e) {
+            disconnect();
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send message remote server !");
+            return false;
         }
         return true;
     }

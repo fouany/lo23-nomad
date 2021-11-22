@@ -85,7 +85,9 @@ public class DataClientController {
     }
 
     public void reset(){
-        this.session = null;
+        this.session.getConnectedUsers().clear();
+        this.session.getGamesInLobby().clear();
+        this.session.getGamesInPlay().clear();
         this.getUserController().setUser(null);
         this.getGameController().setGame(null);
     }

@@ -1,6 +1,8 @@
 package nomad.common.data_structure;
 
 import java.io.Serializable;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.*;
 
 public class User extends Observable implements Serializable {
@@ -125,6 +127,13 @@ public class User extends Observable implements Serializable {
     }
 
     public Server getLastServer() {
+        if (lastServer == null) { // TODO : modify lastServer assignation
+            try {
+                lastServer = new Server("default", InetAddress.getByName("127.0.0.1"), 12);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+        }
         return lastServer;
     }
 

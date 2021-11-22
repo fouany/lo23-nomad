@@ -3,6 +3,7 @@ package nomad.com.server;
 import nomad.com.common.message.*;
 import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Player;
+import nomad.common.data_structure.User;
 import nomad.common.interfaces.data.DataToComServerInterface;
 
 import java.net.Socket;
@@ -36,16 +37,19 @@ public class MessageProcessor {
      */
     public void processMessage(Socket socket, ComMessage message) {
         Logger.getLogger(this.getClass().getName()).log(Level.INFO, message.getClass().toString());
-        UUID userId = server.getAssociatedUser(socket);
+        UUID userId = server.getAssociatedUserUID(socket);
 
         if (userId == null && message.getClass() == LocalUserConnectionMessage.class) {
-            registerUser(socket, (LocalUserConnectionMessage) message);
+            broadcastNewUser((LocalUserConnectionMessage) message);
             sendLobbyInformation(socket);
+            registerUser(socket, (LocalUserConnectionMessage) message);
         }
 
         Class<? extends ComMessage> messageClass = message.getClass();
         if (messageClass.equals(LocalUserDisconnectionMessage.class)) {
-            server.disconnectClient(socket);
+            User u = dataToCom.getUserProfile(server.getAssociatedUserUID(socket));
+            dataToCom.updateUserListRemove(server.getAssociatedUserUID(socket));
+            server.disconnectClient(socket, u);
         }
     }
 
@@ -56,9 +60,12 @@ public class MessageProcessor {
      * @param message Connection message
      */
     private void registerUser(Socket socket, LocalUserConnectionMessage message) {
-        server.broadcast(new UserChangedMessage(message.user, true));
         dataToCom.updateUserListAdd(message.user);
         server.registerUser(socket, message.user);
+    }
+
+    private void broadcastNewUser(LocalUserConnectionMessage message) {
+        server.broadcast(new UserChangedMessage(message.user, true));
     }
 
     /**

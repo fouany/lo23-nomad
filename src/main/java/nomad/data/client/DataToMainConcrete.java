@@ -45,7 +45,6 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
         dataClientController.write(u);
     }
 
-
     /**
      * modifies an account
      * @param login login modified

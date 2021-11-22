@@ -6,7 +6,6 @@ import nomad.common.data_structure.User;
 import nomad.common.interfaces.data.DataToComServerInterface;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
@@ -51,7 +50,7 @@ public class Server extends Thread {
      * @param socket Socket connected to a client
      * @return UID of the associated identified user or null if not found or not identified
      */
-    public UUID getAssociatedUser(Socket socket) {
+    public UUID getAssociatedUserUID(Socket socket) {
         if (clientList.containsKey(socket)) {
             return clientList.get(socket).getUID();
         }
@@ -82,6 +81,7 @@ public class Server extends Thread {
     public void broadcast(ComMessage message) {
         for (Map.Entry<Socket, IdentifiedClient> entry : clientList.entrySet()) {
             if (entry.getValue().getUID() == null) { // Skip unidentified users
+                System.out.println(entry.getValue().getUID());
                 continue;
             }
 
@@ -100,8 +100,8 @@ public class Server extends Thread {
      *
      * @param client Client to disconnect
      */
-    public void disconnectClient(Socket client) {
-        UUID uid = getAssociatedUser(client);
+    public void disconnectClient(Socket client, User user) {
+        UUID uid = getAssociatedUserUID(client);
         clientList.get(client).stopClientCommunication(); // Stop client communication thread
         clientList.remove(client); // Remove client from identified clients list
         try {
@@ -111,6 +111,22 @@ public class Server extends Thread {
         }
 
         Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Disconnected user from server !");
+        if (uid != null) {
+            broadcast(new UserChangedMessage(user, false)); // announce disconnection to all clients
+        }
+    }
+
+    public void disconnectClient(Socket client) {
+        clientList.get(client).stopClientCommunication(); // Stop client communication thread
+        clientList.remove(client); // Remove client from identified clients list
+        try {
+            client.close();
+        } catch (IOException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to close connection with client !");
+        }
+
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Disconnected user from server !");
+        UUID uid = clientList.get(client).getUID();
         if (uid != null) {
             broadcast(new UserChangedMessage(dataToCom.getUserProfile(uid), false)); // announce disconnection to all clients
         }
