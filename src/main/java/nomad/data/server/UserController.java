@@ -2,10 +2,7 @@ package nomad.data.server;
 
 import nomad.common.data_structure.User;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Controller for an user.
@@ -37,7 +34,7 @@ public class UserController {
      * Get all users
      */
     public List<User> getAllUsers(){
-        return (List<User>) users.values();
+        return new ArrayList<>(users.values());
     }
 
     /**

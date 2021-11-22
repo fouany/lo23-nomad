@@ -36,9 +36,9 @@ public class MessageProcessor {
     }
 
     private void registerUser(Socket socket, LocalUserConnectionMessage message) {
-        server.registerUser(socket, message.user);
-        dataToCom.updateUserListAdd(message.user);
         server.broadcast(new UserChangedMessage(message.user, true));
+        dataToCom.updateUserListAdd(message.user);
+        server.registerUser(socket, message.user);
     }
 
     private void sendLobbyInformation(Socket socket) {

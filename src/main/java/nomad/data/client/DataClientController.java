@@ -3,11 +3,14 @@ package nomad.data.client;
 import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Session;
 import nomad.common.data_structure.User;
+import nomad.common.data_structure.UserLight;
 import nomad.common.interfaces.com.ComToDataClientInterface;
 import nomad.common.interfaces.game.IhmGameToDataInterface;
 import nomad.common.interfaces.main.IhmMainToDataInterface;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataClientController {
 
@@ -66,6 +69,14 @@ public class DataClientController {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public void initSession(List<UserLight> users, List<GameLight> games) {
+        session = new Session(users, games, new ArrayList<GameLight>());
+    }
+
+    public void initSession() {
+        session = new Session(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
 
     public void reset(){

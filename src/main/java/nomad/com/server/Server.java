@@ -111,6 +111,7 @@ public class Server extends Thread {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to close connection with client !");
         }
 
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Disconnected user from server !");
         broadcast(new UserChangedMessage(dataToCom.getUserProfile(userId), false)); // announce disconnection to all clients
     }
 

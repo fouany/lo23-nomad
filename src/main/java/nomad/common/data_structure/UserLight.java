@@ -13,6 +13,11 @@ public class UserLight implements Serializable {
         this.login = login;
     }
 
+    public UserLight(Player player) {
+        this.id = player.getId();
+        this.login = player.getLogin();
+    }
+
     public UUID getId() {
         return id;
     }

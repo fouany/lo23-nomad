@@ -67,12 +67,7 @@ public class ClientListener extends Thread {
                 throw new SocketClosedException();
             }
 
-            ComMessage message = null;
-            if (input.available() > 0) {
-                message = (ComMessage) input.readObject();
-            }
-
-            return message;
+            return (ComMessage) input.readObject();
         }
     }
 }

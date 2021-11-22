@@ -2,6 +2,8 @@ package nomad.data.client;
 
 import nomad.common.data_structure.*;
 import nomad.common.interfaces.data.DataToComClientInterface;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,6 +51,9 @@ public class DataToComConcrete implements DataToComClientInterface {
      */
     // TODO : pas besoin du booleen !
     public void updateUserSession(Player player, boolean connected){
+        if (player.getId() == dataClientController.getUserController().getUser().getUserId()) {
+            return;
+        }
         dataClientController.getSession().getConnectedUsers().add(new UserLight(player.getId(), player.getLogin()));
     }
 
@@ -150,14 +155,14 @@ public class DataToComConcrete implements DataToComClientInterface {
     // TODO : supprimer cette méthode car déjà implémentée dans updateUserSession
     // Non : On rajoute aussi la liste des Games en lobby
     public void addConnectedUserProfile(List<Player> players, List<GameLight> games) {
+        dataClientController.initSession();
         for (Player p : players){
-            UserLight ul = new UserLight(p.getId(), p.getLogin());
-            dataClientController.getSession().getConnectedUsers().add(ul);
+            dataClientController.getSession().getConnectedUsers().add(new UserLight(p));
         }
+
         for (GameLight gl : games){
             dataClientController.getSession().getGamesInLobby().add(gl);
         }
-        //dataClientController.getIhmMainToDataInterface().updateObservable(dataClientController.getSession());
     }
 
     /**
