@@ -1,6 +1,8 @@
 package nomad.common.data_structure;
 
 import java.io.Serializable;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.*;
 
 public class User extends Observable implements Serializable {
@@ -12,12 +14,12 @@ public class User extends Observable implements Serializable {
     private List<Game> savedGames;
     private Server lastServer;
 
-    public User(UserInfo userInfo) {
+    public User(UserInfo userInfo) throws UnknownHostException {
         this.userInfo = userInfo;
         this.profileStat = new ProfileStat(0, 0, 0);
         this.contacts = new ArrayList<>();
         this.savedGames = new ArrayList<>();
-        this.lastServer = null;
+        this.lastServer = new Server("default", InetAddress.getLocalHost(), 0);
     }
 
     public UUID getUserId() {
