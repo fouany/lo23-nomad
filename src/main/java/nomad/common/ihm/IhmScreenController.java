@@ -2,11 +2,12 @@
 package nomad.common.ihm;
 
 // JavaFX imports
+
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
+import nomad.common.MainApplication;
 
-// Utils
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,8 +81,13 @@ public abstract class IhmScreenController {
      * Call when we initialize the current module
      */
     public void initIHM(){
-        mainApp.getStage().setTitle("Nomad - Game");
+        //Retrive the current dimensions of the stage
+        double width = mainApp.getStage().getWidth();
+        double height = mainApp.getStage().getHeight();
+        mainApp.getStage().setTitle("Nomad - "+module);
         mainApp.getStage().setScene(dictScenes.get(defaultStart));
+        mainApp.getStage().setHeight(height);
+        mainApp.getStage().setWidth(width);
         mainApp.getStage().show();
     }
 
@@ -140,10 +146,9 @@ public abstract class IhmScreenController {
     }
 
     /**
-     * Change the current module
-     * @throws IOException
+     * Change the current active module
      */
-    public void changeModule() throws IOException {
+    public void changeModule() {
         if (module.equals("MAIN")) {
             mainApp.changeModule("GAME");
         } else {

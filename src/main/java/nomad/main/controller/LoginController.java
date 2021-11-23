@@ -17,15 +17,16 @@ public class LoginController extends IhmControllerComponent {
     }
 
     public void onClickImportProfile() {
+        // TODO : implement method
     }
 
     public void onClickSignUp() {
+        // TODO : implement method
     }
 
     public void onClickSignIn() {
         ihmMainScreenController.getAttributes().put("login", login.getText());
         ihmMainScreenController.getAttributes().put("password", password.getText());
-
         screenControl.changeScreen(1);
     }
 }

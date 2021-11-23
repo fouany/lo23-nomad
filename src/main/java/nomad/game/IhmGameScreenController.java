@@ -1,7 +1,7 @@
 package nomad.game;
 
 import nomad.common.ihm.IhmScreenController;
-import nomad.common.ihm.MainApplication;
+import nomad.common.MainApplication;
 import nomad.game.controller.IhmGameControllerScreen1;
 import nomad.game.controller.IhmGameControllerScreen2;
 

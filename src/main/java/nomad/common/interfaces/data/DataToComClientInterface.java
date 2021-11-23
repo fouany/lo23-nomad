@@ -4,7 +4,7 @@ import nomad.common.data_structure.*;
 import java.util.List;
 import java.util.UUID;
 
-public interface DataToComInterface {
+public interface DataToComClientInterface {
 
     void updateSession(GameLight game, String name, boolean spect, boolean chatSpect);
     void updateSessionGameState(UUID idGame , boolean isLaunched);
