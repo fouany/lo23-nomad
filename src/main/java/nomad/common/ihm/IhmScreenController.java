@@ -81,8 +81,13 @@ public abstract class IhmScreenController {
      * Call when we initialize the current module
      */
     public void initIHM(){
-        mainApp.getStage().setTitle("Nomad - Game");
+        //Retrive the current dimensions of the stage
+        double width = mainApp.getStage().getWidth();
+        double height = mainApp.getStage().getHeight();
+        mainApp.getStage().setTitle("Nomad - "+module);
         mainApp.getStage().setScene(dictScenes.get(defaultStart));
+        mainApp.getStage().setHeight(height);
+        mainApp.getStage().setWidth(width);
         mainApp.getStage().show();
     }
 
