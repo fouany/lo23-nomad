@@ -128,7 +128,7 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
     /**
      * logout
      */
-    public void logout(){
+    public void logout() throws IOException {
         // Reset all attributes
         dataClientController.reset();
 

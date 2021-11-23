@@ -2,6 +2,7 @@ package nomad.common.interfaces.com;
 
 import nomad.common.data_structure.User;
 
+import java.io.IOException;
 import java.util.UUID;
 
 public interface ComToDataClientInterface {
@@ -10,7 +11,7 @@ public interface ComToDataClientInterface {
 
     void addConnectedUser(User user);
 
-    void logout();
+    void logout() throws IOException;
 
     void getProfile(UUID idUser);
 }

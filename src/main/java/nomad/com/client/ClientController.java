@@ -53,14 +53,10 @@ public class ClientController {
     /**
      * Disconnect the client from the server. If the socket is still active, inform the server of the disconnection.
      */
-    public void disconnect() {
+    public void disconnect() throws IOException {
         if (!socket.isClosed()) {
             sendMessage(new LocalUserDisconnectionMessage());
-            try {
-                socket.close();
-            } catch (IOException e) {
-                Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Error happened during the disconnection from the server !");
-            }
+            socket.close();
         }
 
         listener.stopListening();
@@ -92,7 +88,11 @@ public class ClientController {
             output.flush();
 
         } catch (Exception e) {
-            disconnect();
+            try {
+                disconnect();
+            } catch (IOException ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to disconnect from the remote server !");
+            }
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send message remote server !");
             return false;
         }

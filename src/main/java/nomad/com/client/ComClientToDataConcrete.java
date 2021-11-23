@@ -48,7 +48,7 @@ public class ComClientToDataConcrete implements ComToDataClientInterface {
      * Disconnect the local user from the local server.
      */
     @Override
-    public void logout() {
+    public void logout() throws IOException {
         clientController.disconnect();
     }
 

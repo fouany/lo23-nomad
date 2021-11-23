@@ -3,11 +3,11 @@ package nomad.main.controller;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.ListView;
-import nomad.common.data_structure.Session;
 import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 public class MenuController extends IhmControllerComponent implements ListChangeListener {
 
     public ListView<String> userList;
-    int counter = 0;
     private IhmMainScreenController ihmController;
 
 
@@ -25,13 +24,16 @@ public class MenuController extends IhmControllerComponent implements ListChange
     }
 
     public void logout() {
-        this.ihmController.getDataI().logout();
+        try {
+            this.ihmController.getDataI().logout();
+            this.ihmController.changeScreen(0);
+        } catch (IOException e) {
+            // TODO : display something !
+        }
     }
 
     public void onClickCreate() {
-        counter++;
-        String name = "user_" + counter;
-        userList.getItems().add(name);
+        // TODO : implement method
     }
 
     public void onClickJoin() {

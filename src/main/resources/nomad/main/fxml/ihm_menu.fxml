@@ -19,7 +19,7 @@
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <Button mnemonicParsing="false" onMouseClicked="#logout" text="Button">
+                  <Button mnemonicParsing="false" onMouseClicked="#logout" style="-fx-font-family: 'Poppins';" styleClass="main-bg-blue" text="Logout">
                      <HBox.margin>
                         <Insets left="500.0" />
                      </HBox.margin>
