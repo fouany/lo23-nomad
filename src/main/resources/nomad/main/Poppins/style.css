@@ -1,13 +1,27 @@
+/*
+TODO mettre les bonnes tailles d'écran a jour
+*/
+
+* {
+    -fx-maximum-red : #D62828;
+    -fx-prussian-blue : #003049;
+    -fx-orange : #F77F00;
+    -fx-maximum_yellow : #FCBF49;
+    -fx-cream : #EAE2B7;
+    -fx-white-break : #F2F2F2;
+    -fx-orange-gradient : linear-gradient(to top right, #F77F00 , #FCBF49);
+}
+
 .main-background{
-    -fx-background-color:linear-gradient(to top right, #F77F00 , #FCBF49);
+    -fx-background-color:-fx-orange-gradient;
     -fx-font-family : 'Poppins'
  }
 
  .main-container {
-    -fx-background-color: #F2F2F2;
+    -fx-background-color: -fx-white-break;
     /* CONTAINER_SHADOW */
     -fx-padding: 16px;
-    
+     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 2, 0, 0, 2);
     -fx-border-radius: 4px;
  }
 
@@ -19,12 +33,13 @@
  }
 
  .main-button {
-    -fx-border-radius: 4px;
+    -fx-border-radius: 2px;
+     -fx-pref-height: 35px;
     -fx-font-family : 'Poppins'
  }
 
  .main-bg-red {
-     -fx-background-color : #D62828;
+     -fx-background-color : -fx-maximum-red;
      -fx-text-fill : white
  }
 
