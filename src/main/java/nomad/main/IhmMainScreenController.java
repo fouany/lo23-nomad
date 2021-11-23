@@ -55,6 +55,7 @@ public class IhmMainScreenController extends IhmScreenController {
         dictController.put(0, new LoginController(this));
         dictController.put(1, new ServerConnectionController(this));
         dictController.put(2, menuController);
+        dictController.put(3,new CreateGameController(this));
     }
 
     public void initStyles() {
