@@ -36,7 +36,7 @@
                         <Separator prefHeight="10.0" prefWidth="256.0" visible="false" />
                         <Label style="-fx-font-family: 'Poppins';" text="Tower number :">
                         </Label>
-                        <Slider fx:id="towerNumber" max="10.0" min="2.0" showTickLabels="true" showTickMarks="true" value="2.0" />
+                        <Slider fx:id="towerNumber" max="10.0" min="2.0" value="2.0" showTickLabels="true" showTickMarks="true" blockIncrement="1.0" snapToTicks="true" majorTickUnit="1.0" minorTickCount="0"/>
                         <Separator prefHeight="10.0" prefWidth="256.0" visible="false" />
                         <HBox prefHeight="50.0" prefWidth="256.0">
                            <children>
