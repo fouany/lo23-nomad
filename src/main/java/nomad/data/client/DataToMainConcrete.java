@@ -5,7 +5,6 @@ import nomad.common.interfaces.data.DataToIhmMainInterface;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 import java.net.InetAddress;
 
@@ -40,9 +39,26 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      * @param birthDate date of birth of the user
      * @throws IOException error writing file
      */
-    public void createAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws IOException {
-        User u = new User(new UserInfo(login, pwd, name, profilePicture, birthDate));
-        dataClientController.write(u);
+    public void createAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws IOException, UserException {
+        //Verify information
+        if (login.isEmpty() || pwd.isEmpty() || name.isEmpty()){
+            throw new UserException("Some user information is not empty");
+
+        }
+            //Create User
+            User u = new User(new UserInfo(login, pwd, name, profilePicture, birthDate));
+
+            //Verify there is not already a file with this login
+            try {
+                dataClientController.read(login);
+            } catch (IOException | ClassNotFoundException e) {
+                //if there is no file => create
+                dataClientController.write(u);
+                return;
+            }
+            //if there is already a user with this login
+            throw new UserException("Login already exist");
+
     }
 
     /**
