@@ -15,32 +15,34 @@ public class DataToComConcrete implements DataToComClientInterface {
     }
 
     /**
-     * adds a new game in the lobby and sets the attributes in the game
+     * adds a new game in the lobby
      * @param gameLight
-     * @param name
-     * @param spect
-     * @param spectatorChat
      */
-    public void updateSession(GameLight gameLight, String name, boolean spect, boolean spectatorChat){
+    //TODO : Modifier diagramme de sequence : a quoi servent les paramètre name, spect et spectatorChat
+    public void updateSession(GameLight gameLight){
         dataClientController.getSession().getGamesInLobby().add(gameLight);
-        dataClientController.getGameController().getGame().setName(name);
-        dataClientController.getGameController().getGame().setSpectAllowed(spect);
-        dataClientController.getGameController().getGame().setSpectChatAllowed(spectatorChat);
     }
 
     /**
-     * removes the game from the lobby and adds the game in the games in play (in the Session object)
+     * Change the State of Game in Session
      * @param gameId
      * @param gameLaunched
      */
+    //
     public void updateSessionGameState(UUID gameId, boolean gameLaunched){
-        GameLight gameToRemove = dataClientController.getSession().getGameInLobbyById(gameId);
-        dataClientController.getSession().getGamesInLobby().remove(gameToRemove);
+        //if the game is launched : remove from gameInLobby and add to GameInPlays
+        if (gameLaunched) {
+            //1- Remove the game from game in lobby
+            GameLight game = dataClientController.getSession().getGameInLobbyById(gameId);
+            dataClientController.getSession().getGamesInLobby().remove(game);
 
-        dataClientController.getGameController().getGame().setGameLaunched(gameLaunched);
-        // not sure if it's the right game being retrieved below
-        GameLight gameToAdd = dataClientController.getGameController().getGameLight();
-        dataClientController.getSession().getGamesInPlay().add(gameToAdd);
+            //2- Add Game to game in Play
+            dataClientController.getSession().getGamesInPlay().add(game);
+        }else{ //the game is ended
+            //remove the game from game in Play
+            GameLight game = dataClientController.getSession().getGameInPlayById(gameId);
+            dataClientController.getSession().getGamesInPlay().remove(game);
+        }
     }
 
     /**
@@ -183,7 +185,7 @@ public class DataToComConcrete implements DataToComClientInterface {
     }
 
     /**
-     * Sets the game (created by the server) in the GameController.
+     * Set the game (created by the server) in the GameController.
      * @param game
      */
     public void gameCreated(Game game){

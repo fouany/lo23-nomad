@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public interface DataToComClientInterface {
 
-    void updateSession(GameLight game, String name, boolean spect, boolean chatSpect);
+    void updateSession(GameLight game);
     void updateSessionGameState(UUID idGame , boolean isLaunched);
     void updateUserSession(Player player, boolean connected);
     void updateOpponent(Player player, GameLight game) throws GameException;

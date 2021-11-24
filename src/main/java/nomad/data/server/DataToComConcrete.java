@@ -19,10 +19,18 @@ public class DataToComConcrete implements DataToComServerInterface {
     }
 
     @Override
+    //Create a Game
     public Game createGame(String name, UserLight host, int nbOfTowers, boolean spectAllowed, boolean spectChatAllowed, boolean hostColour) {
+        //Create a Player
         Player player = new Player(host.getId(), host.getLogin(), null); // profile picture is null ?
+
+        //Create a Game
         Game game = new Game(player, nbOfTowers, name, new GameParameters(spectAllowed, spectChatAllowed, hostColour));
         dataServerController.getGamesController().setGame(game);
+
+        //Add Game to Lobby
+        dataServerController.getSession().getGamesInLobby().add(new GameLight(game.getGameId(),player, nbOfTowers));
+
         return game;
     }
 
