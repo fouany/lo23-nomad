@@ -4,10 +4,9 @@ import nomad.common.data_structure.*;
 import nomad.common.interfaces.data.DataToIhmMainInterface;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 import java.net.InetAddress;
+import java.util.Date;
+import java.util.UUID;
 
 public class DataToMainConcrete  implements DataToIhmMainInterface {
 
@@ -202,6 +201,16 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
         dataClientController.getUserController().setPermissions(lastCategory, updatedCategory);
         //2- Update profile
         dataClientController.updateProfileFile(getUser());
+    }
+
+    @Override
+    public void enoughPlayers(GameLight game) throws GameException {
+        //TODO
+    }
+
+    @Override
+    public void rejectPlayers(GameLight game) throws GameException {
+        //TODO
     }
 
 }

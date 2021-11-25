@@ -26,4 +26,6 @@ public interface DataToIhmMainInterface {
     void addUser (UserLight user, Category category) throws CategoryException, IOException, ClassNotFoundException;
     void setPermissions(Contact updatedContact) throws CategoryException, IOException, ClassNotFoundException;
     void setPermissions(Category lastCategory,Category updatedCategory) throws CategoryException, IOException, ClassNotFoundException;
+    void enoughPlayers (GameLight game) throws GameException;
+    void rejectPlayers (GameLight game) throws GameException;
 }
