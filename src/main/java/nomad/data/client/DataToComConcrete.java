@@ -228,4 +228,19 @@ public class DataToComConcrete implements DataToComClientInterface {
         return dataClientController.getGameController().getGame().getCurrentPlayerUUID();
     }
 
+    @Override
+    public void enoughPlayers(GameLight game) {
+        //TODO
+    }
+
+    @Override
+    public void rejectPlayers(GameLight game) {
+        //TODO
+    }
+
+    @Override
+    public UserLight getUserLight() {
+        return dataClientController.getUserController().getUserLight();
+    }
+
 }

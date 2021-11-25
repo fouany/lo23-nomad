@@ -52,18 +52,28 @@ public class DataToComConcrete implements DataToComServerInterface {
     }
 
     @Override
-    public void launchGame(GameLight game) {
+    public void launchGame(UUID gameId) {
         // Does nothing because not developped yet
     }
 
     @Override
-    public Tower saveTower(UserLight user, Tower t) {
-        return null;
+    public void saveTower(Tower t) {
+        //TODO
     }
 
     @Override
-    public Move saveMove(UserLight user, Move m) {
-        return null;
+    public void saveTile(Tile t) {
+        //TODO
+    }
+
+    @Override
+    public void saveMove(UserLight user, Move m) {
+        //TODO
+    }
+
+    @Override
+    public void saveSkip(Skip s) {
+        //TODO
     }
 
     @Override
@@ -127,5 +137,10 @@ public class DataToComConcrete implements DataToComServerInterface {
     @Override
     public User getUserProfile(UUID idUser) {
         return dataServerController.getUser(idUser);
+    }
+
+    @Override
+    public void addOpponent(UUID gameId, UUID userId) {
+        //TODO
     }
 }
