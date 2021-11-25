@@ -24,6 +24,10 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
 
     @Override
     public void updateObservable(Game game) {
+        if(!game.isGameLaunched() && game.getOpponent() == null) //game just has been created
+        {
+            mainScreenController.getCreateGameController().displayWaitingRoom();
+        }
       // TODO : fix Observer on Observable
     }
 

@@ -9,6 +9,7 @@ TODO mettre les bonnes tailles d'écran a jour
     -fx-maximum_yellow : #FCBF49;
     -fx-cream : #EAE2B7;
     -fx-white-break : #F2F2F2;
+    -fx-green : #27AE60;
     -fx-orange-gradient : linear-gradient(to top right, #F77F00 , #FCBF49);
 }
 
@@ -24,6 +25,8 @@ TODO mettre les bonnes tailles d'écran a jour
      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 2, 0, 0, 2);
     -fx-border-radius: 4px;
  }
+
+
 
  .main-textfield {
     -fx-background-color: #FFFFFF;
@@ -56,6 +59,59 @@ TODO mettre les bonnes tailles d'écran a jour
  .main-bg-cream {
    -fx-background-color: #EAE2B7;
    -fx-text-fill: #003049;
+ }
+
+ .dialog-blur-bg {
+     -fx-background-color: rgba(196,196,196,0.44);
+ }
+ .dialog-bg {
+     -fx-background-color: -fx-prussian-blue;
+
+     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 2, 0, 0, 2);
+ }
+
+ .dialog-title {
+     -fx-background-color: -fx-maximum-red;
+     -fx-text-fill: white;
+
+     -fx-font-family: Poppins;
+     -fx-font-weight: 800;
+     -fx-font-size: 16px;
+
+ }
+
+.dialog-button {
+    -fx-text-fill: white;
+}
+
+ .dialog-error > .dialog-title {
+     -fx-background-color: -fx-maximum-red;
+ }
+
+ .dialog-error > HBox > .dialog-button {
+     -fx-background-color: -fx-maximum-red;
+ }
+
+.dialog-success > .dialog-title {
+    -fx-background-color: -fx-green;
+}
+
+.dialog-success > HBox > .dialog-button {
+    -fx-background-color: -fx-green;
+}
+
+.dialog-warning > .dialog-title {
+    -fx-background-color: -fx-orange;
+}
+
+.dialog-warning > HBox > .dialog-button {
+    -fx-background-color: -fx-orange;
+}
+
+ .dialog-content {
+     -fx-text-fill: white;
+     -fx-font-family: Poppins;
+     -fx-padding: 5px 16px;
  }
 
  /* latin */

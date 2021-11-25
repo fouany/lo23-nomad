@@ -6,6 +6,7 @@ package nomad.common.ihm;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 import nomad.common.MainApplication;
 
 import java.io.IOException;
@@ -143,6 +144,11 @@ public abstract class IhmScreenController {
     public void changeScreen(int i){
         mainApp.getStage().setScene(dictScenes.get(i));
         mainApp.getStage().show();
+    }
+
+    public Stage getStage()
+    {
+        return mainApp.getStage();
     }
 
     /**

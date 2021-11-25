@@ -1,16 +1,13 @@
 package nomad.main.controller;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
+import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class CreateGameController extends IhmControllerComponent {
 
@@ -29,8 +26,6 @@ public class CreateGameController extends IhmControllerComponent {
     @FXML
     public CheckBox allowViewersChat;
 
-
-    public ArrayList<CheckBox> checkboxes = new ArrayList<>();
 
 
 
@@ -67,11 +62,6 @@ public class CreateGameController extends IhmControllerComponent {
     }
 
     private void resetCheckBoxes() {
-        //not working ???
-        /*for (CheckBox checkbox : checkboxes) {
-            checkbox.setSelected(false);
-        }*/
-
         red.setSelected(false);
         white.setSelected(false);
         random.setSelected(false);
@@ -105,17 +95,17 @@ public class CreateGameController extends IhmControllerComponent {
                 color = Color.RANDOM;
                 break;
             default:
-                Log("Error");
+                log("Error");
                 /*todo throw exception*/
 
         }
 
     }
 
-    private void Log(String log)
+    private void log(String data)
     {
 
-        System.out.println(log);
+        System.out.println(data);
     }
 
 
@@ -137,26 +127,29 @@ public class CreateGameController extends IhmControllerComponent {
         return color != Color.NULL && !gameName.getText().equals("");
     }
 
+    public void displayWaitingRoom()
+    {
+
+        DialogController.display("Partie créée", "Votre partie a bien été créée", DialogController.DialogStatus.SUCCESS, this.ihmMainScreenController);
+
+        this.ihmMainScreenController.changeScreen(4);
+    }
+
     public void onClickCreateGame() {
-        if(!validate()) {
-            Alert al = new Alert(AlertType.INFORMATION);
-            al.setHeaderText("Look, an Information Dialog");
-            al.setContentText("Please fill blank fields");
-            al.showAndWait().ifPresent(rs -> {
-                if (rs == ButtonType.OK) {
-                }
+       if(!validate()) {
+            DialogController.display("Formulaire incomplet", "Veuillez renseigner tous les champs", DialogController.DialogStatus.WARNING, this.ihmMainScreenController);
+            return;
+       }
+            log(gameName.getText());
+            log(String.valueOf((int)towerNumber.getValue()));
+            log(color.name());
+            UserLight user = ihmMainScreenController.getDataI().getUserLight();
 
-
-                return;
-            });
-
-            Log(gameName.getText());
-            Log(String.valueOf((int)towerNumber.getValue()));
-            Log(color.name());
+            //ihmMainScreenController.getComI().newGame(gameName.getText(),user,(int)towerNumber.getValue(),allowViewers.isSelected(),allowViewersChat.isSelected(),color);
             //ihmMainScreenController.getAttributes().put("gameName", gameName.getText());
             //ihmMainScreenController.getAttributes().put("towerNumber", String.valueOf(towerNumber.getValue()));
 
-        }
+
     }
     
 
