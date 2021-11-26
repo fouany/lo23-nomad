@@ -14,7 +14,7 @@ public interface DataToIhmMainInterface {
     GameLight getGameLight();
     Game getStoredGame(UUID gameId);
 
-    void createAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws IOException;
+    void createAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws IOException,UserException;
     void modifyAccount(String login, String pwd, String name, String profilePicture, Date birthDate)  throws IOException, ClassNotFoundException;
 
     //TODO: return boolean or exception ?
