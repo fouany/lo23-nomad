@@ -61,6 +61,7 @@ public class MessageProcessor {
      * @param message Message received from server
      */
     private void processLobbyInformationMessage(LobbyInformationMessage message) {
-        dataToCom.addConnectedUserProfile(message.players, message.games);
+        //TODO : dans message avoir gamesInLobby & gamesInPlay
+        dataToCom.addConnectedUserProfile(message.players, message.games, message.games);
     }
 }

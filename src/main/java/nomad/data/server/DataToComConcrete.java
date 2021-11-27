@@ -26,10 +26,10 @@ public class DataToComConcrete implements DataToComServerInterface {
 
         //Create a Game
         Game game = new Game(player, nbOfTowers, name, new GameParameters(spectAllowed, spectChatAllowed, hostColour));
+
+        //Add game to game In lobby
         dataServerController.getGamesController().setGame(game);
 
-        //Add Game to Lobby
-        dataServerController.getSession().getGamesInLobby().add(new GameLight(game.getGameId(),player, nbOfTowers));
 
         return game;
     }
@@ -110,8 +110,13 @@ public class DataToComConcrete implements DataToComServerInterface {
     }
 
     @Override
-    public List<GameLight> requestGameList() {
-        return dataServerController.getGamesController().getGameLightList();
+    public List<GameLight> requestGameListInLobby() {
+        return dataServerController.getGamesController().getGameLightListInLobby();
+    }
+
+    @Override
+    public List<GameLight> requestGameListInPlay() {
+        return dataServerController.getGamesController().getGameLightListInPlay();
     }
 
     @Override
@@ -135,9 +140,9 @@ public class DataToComConcrete implements DataToComServerInterface {
 
     @Override
     public void updateListGamesRemove(User oldUser){
-        for (GameLight gl : dataServerController.getGamesController().getGameLightList()){
+        for (Game gl : dataServerController.getGamesController().getAllGames().values()){
             if (gl.getHost().getId()==oldUser.getUserId()){
-                dataServerController.getGamesController().getGameLightList().remove(gl);
+                dataServerController.getGamesController().getAllGames().remove(gl);
             }
         }
     }

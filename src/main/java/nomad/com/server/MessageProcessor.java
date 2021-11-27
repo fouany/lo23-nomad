@@ -75,7 +75,7 @@ public class MessageProcessor {
      */
     private void sendLobbyInformation(Socket socket) {
         LobbyInformationMessage informationMessage = new LobbyInformationMessage(
-                (ArrayList<GameLight>) dataToCom.requestGameList(),
+                (ArrayList<GameLight>) dataToCom.requestGameListInLobby(),
                 (ArrayList<Player>) dataToCom.requestConnectedUserList()
         );
         server.sendMessage(socket, informationMessage);
