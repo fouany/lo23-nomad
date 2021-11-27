@@ -36,7 +36,8 @@ public interface DataToComServerInterface {
 
     List<Player> requestConnectedUserList();
 
-    List<GameLight> requestGameList();
+    List<GameLight> requestGameListInLobby();
+    List<GameLight> requestGameListInPlay();
 
     void updateUserListAdd(User newUser);
 

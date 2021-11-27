@@ -155,13 +155,17 @@ public class DataToComConcrete implements DataToComClientInterface {
     @Override
     // TODO : supprimer cette méthode car déjà implémentée dans updateUserSession
     // Non : On rajoute aussi la liste des Games en lobby
-    public void addConnectedUserProfile(List<Player> players, List<GameLight> games) {
+    public void addConnectedUserProfile(List<Player> players, List<GameLight> gamesInLobby, List<GameLight> gamesInPlay) {
         for (Player p : players){
             dataClientController.getSession().getConnectedUsers().add(new UserLight(p));
         }
 
-        for (GameLight gl : games){
+        for (GameLight gl : gamesInLobby){
             dataClientController.getSession().getGamesInLobby().add(gl);
+        }
+
+        for (GameLight glp : gamesInPlay){
+            dataClientController.getSession().getGamesInPlay().add(glp);
         }
     }
 

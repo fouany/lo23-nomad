@@ -32,13 +32,42 @@ public class GamesController {
     }
 
     /**
-     * Returns the game list in GameLight format
+     * Returns the game in Lobby in GameLight format :
      */
-    public List<GameLight> getGameLightList(){
-        List<GameLight> list = new ArrayList<>();
+    public List<GameLight> getGameLightListInLobby(){
+        List<GameLight> listInLobby= new ArrayList<>();
+
         for(Game game : games.values()) {
-            list.add(game.createGameLight());
+            //add to game In lobby
+            if (!game.isGameEnded() && !game.isGameLaunched()) {
+                listInLobby.add(game.createGameLight());
+            }
+
         }
-        return list;
+        return listInLobby;
+    }
+
+    /**
+     * Returns the game in Play in GameLight format :
+     */
+    public List<GameLight> getGameLightListInPlay(){
+        List<GameLight> listInPlay= new ArrayList<>();
+
+        for(Game game : games.values()) {
+            //add to game In Play
+            if (!game.isGameEnded() && game.isGameLaunched()) {
+                listInPlay.add(game.createGameLight());
+            }
+
+        }
+        return listInPlay;
+    }
+
+
+    /**
+     * @return all the game (in play and in lobby)
+     */
+    public Map<UUID,Game> getAllGames(){
+        return games;
     }
 }

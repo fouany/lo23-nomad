@@ -21,7 +21,7 @@ public interface DataToComClientInterface {
     void endGame (GameLight game, boolean gameEnded);
     void transferSavedGame (Game savedGame);
     void storeNewMessage(Message message);
-    void addConnectedUserProfile (List<Player> players, List<GameLight> games);
+    void addConnectedUserProfile (List<Player> players, List<GameLight> gamesInLobby, List<GameLight> gamesInPlay);
     void isDisconnected(UUID idUser, boolean isDeconnected);
     void gameCreated(Game game);
     void newUser(GameLight game, Player player, boolean isPlayer) throws GameException;
