@@ -8,6 +8,9 @@ import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class CreateGameController extends IhmControllerComponent {
 
@@ -28,7 +31,7 @@ public class CreateGameController extends IhmControllerComponent {
 
 
 
-
+    //Enum des couleurs pour savoir qui commence la partie
     private enum Color {
         RED,
         WHITE,
@@ -36,12 +39,8 @@ public class CreateGameController extends IhmControllerComponent {
         NULL, //if no color is clicked
     }
     private Color color = Color.NULL;
-    /*todo replace boolean with custom enum*/
 
-    //Todo CUstom textfiled for only numbers ( towernumber )
-
-
-    private IhmMainScreenController ihmMainScreenController;
+    private final IhmMainScreenController ihmMainScreenController;
 
     /**
      * Constructor that link the screen controller to the component controller
@@ -51,12 +50,10 @@ public class CreateGameController extends IhmControllerComponent {
     public CreateGameController(IhmMainScreenController screen) {
         super(screen);
         this.ihmMainScreenController = screen;
-
-
     }
 
 
-
+    //TODO Fix probleme display du layout lors du changement de scène
     public void onClickBack() {
         screenControl.changeScreen(2);
     }
@@ -68,7 +65,7 @@ public class CreateGameController extends IhmControllerComponent {
 
     }
 
-    public void onCheckColor(ActionEvent e)
+    public void onCheckColor(ActionEvent e) throws Exception
     {
         CheckBox checkbox = (CheckBox) e.getSource();
         String id = checkbox.getId();
@@ -82,30 +79,26 @@ public class CreateGameController extends IhmControllerComponent {
         }
         switch (id)
         {
-            //Todo Uncheck all boxes except the selected
             case "red" :
                 color = Color.RED;
                 break;
-
             case "white":
                 color = Color.WHITE;
                 break;
-
             case "random" :
                 color = Color.RANDOM;
                 break;
             default:
-                log("Error");
-                /*todo throw exception*/
-
+                //log("Error");
+                throw new Exception("Unknown Color") ;
         }
 
     }
 
+    //Todo Logger à reformatter/remplacer ?
     private void log(String data)
     {
-
-        System.out.println(data);
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, data);
     }
 
 
@@ -116,8 +109,6 @@ public class CreateGameController extends IhmControllerComponent {
         }
         allowViewersChat.setDisable(true);
         allowViewersChat.setSelected(false);
-
-
     }
 
 
@@ -129,7 +120,6 @@ public class CreateGameController extends IhmControllerComponent {
 
     public void displayWaitingRoom()
     {
-
         DialogController.display("Partie créée", "Votre partie a bien été créée", DialogController.DialogStatus.SUCCESS, this.ihmMainScreenController);
 
         this.ihmMainScreenController.changeScreen(4);
@@ -148,7 +138,6 @@ public class CreateGameController extends IhmControllerComponent {
             //ihmMainScreenController.getComI().newGame(gameName.getText(),user,(int)towerNumber.getValue(),allowViewers.isSelected(),allowViewersChat.isSelected(),color);
             //ihmMainScreenController.getAttributes().put("gameName", gameName.getText());
             //ihmMainScreenController.getAttributes().put("towerNumber", String.valueOf(towerNumber.getValue()));
-
 
     }
     
