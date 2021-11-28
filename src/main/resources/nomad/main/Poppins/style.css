@@ -42,11 +42,17 @@ TODO mettre les bonnes tailles d'écran a jour
    -fx-text-fill: white;
  }
 
+
  .main-bg-trans {
-   -fx-background-color: #F6F6F6;
-   -fx-text-fill: #D62828;
+     -fx-background-color: #F6F6F6;
+     -fx-text-fill: #D62828;
      -fx-border-color: #D62828;
      -fx-border-width: 2;
+ }
+
+ .main-bg-cream {
+   -fx-background-color: #EAE2B7;
+   -fx-text-fill: #003049;
  }
 
   /* latin */

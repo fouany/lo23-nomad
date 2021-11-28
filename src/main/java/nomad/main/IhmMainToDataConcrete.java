@@ -16,15 +16,24 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
     public IhmMainToDataConcrete () {
         // TODO : implement constructor
     }
-
+    /**
+     * Listeners are added on getGamesInPlay() and getGamesInLobby()
+     * in order to track all changes in both these lists of games.
+     * The parameters given to these functions are ListChangeListener
+     * both defined in the Controller class : ViewGameController.
+     * */
     @Override
     public void updateObservable(Session session) {
         session.getConnectedUsers().addListener(mainScreenController.getMenuController());
+        session.getGamesInPlay().addListener(mainScreenController.getViewGameController().gamesAsViewer);
+        session.getGamesInLobby().addListener(mainScreenController.getViewGameController().gamesAsPlayer);
+
     }
 
     @Override
     public void updateObservable(Game game) {
       // TODO : fix Observer on Observable
+
     }
 
     @Override
