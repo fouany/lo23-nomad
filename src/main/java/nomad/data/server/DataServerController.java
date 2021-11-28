@@ -1,6 +1,5 @@
 package nomad.data.server;
 
-import nomad.common.data_structure.Session;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.com.ComToDataServerInterface;
 
@@ -13,7 +12,6 @@ import java.util.UUID;
 public class DataServerController {
     private UserController userController;
     private ComToDataServerInterface comOfferedInterface;
-    private Session session;
     private GamesController gamesController;
 
     public DataServerController(UserController userController,
@@ -58,21 +56,6 @@ public class DataServerController {
      */
     public ComToDataServerInterface getComOfferedInterface() {
         return comOfferedInterface;
-    }
-
-
-    /**
-     * Gets the session.
-     */
-    public Session getSession() {
-        return session;
-    }
-
-    /**
-     * Sets the session.
-     */
-    public void setSession(Session session) {
-        this.session = session;
     }
 
     /**

@@ -16,8 +16,8 @@ public class ServerConnectionController extends IhmControllerComponent {
     public TextField serverIp;
     public TextField serverPort;
 
-    private IhmMainScreenController ihmMainScreenController;
 
+    private IhmMainScreenController ihmMainScreenController;
     public ServerConnectionController(IhmMainScreenController screen) {
         super(screen);
         ihmMainScreenController = screen;
@@ -68,6 +68,5 @@ public class ServerConnectionController extends IhmControllerComponent {
         } else {
             Logger.getLogger(ServerConnectionController.class.getName()).log(Level.INFO, "Error on Ip address or in port");
         }
-
     }
 }

@@ -19,10 +19,18 @@ public class DataToComConcrete implements DataToComServerInterface {
     }
 
     @Override
+    //Create a Game
     public Game createGame(String name, UserLight host, int nbOfTowers, boolean spectAllowed, boolean spectChatAllowed, boolean hostColour) {
+        //Create a Player
         Player player = new Player(host.getId(), host.getLogin(), null); // profile picture is null ?
+
+        //Create a Game
         Game game = new Game(player, nbOfTowers, name, new GameParameters(spectAllowed, spectChatAllowed, hostColour));
+
+        //Add game to game In lobby
         dataServerController.getGamesController().setGame(game);
+
+
         return game;
     }
 
@@ -52,18 +60,28 @@ public class DataToComConcrete implements DataToComServerInterface {
     }
 
     @Override
-    public void launchGame(GameLight game) {
+    public void launchGame(UUID gameId) {
         // Does nothing because not developped yet
     }
 
     @Override
-    public Tower saveTower(UserLight user, Tower t) {
-        return null;
+    public void saveTower(Tower t) {
+        //TODO
     }
 
     @Override
-    public Move saveMove(UserLight user, Move m) {
-        return null;
+    public void saveTile(Tile t) {
+        //TODO
+    }
+
+    @Override
+    public void saveMove(UserLight user, Move m) {
+        //TODO
+    }
+
+    @Override
+    public void saveSkip(Skip s) {
+        //TODO
     }
 
     @Override
@@ -92,8 +110,13 @@ public class DataToComConcrete implements DataToComServerInterface {
     }
 
     @Override
-    public List<GameLight> requestGameList() {
-        return dataServerController.getGamesController().getGameLightList();
+    public List<GameLight> requestGameListInLobby() {
+        return dataServerController.getGamesController().getGameLightListInLobby();
+    }
+
+    @Override
+    public List<GameLight> requestGameListInPlay() {
+        return dataServerController.getGamesController().getGameLightListInPlay();
     }
 
     @Override
@@ -117,9 +140,9 @@ public class DataToComConcrete implements DataToComServerInterface {
 
     @Override
     public void updateListGamesRemove(User oldUser){
-        for (GameLight gl : dataServerController.getGamesController().getGameLightList()){
+        for (Game gl : dataServerController.getGamesController().getAllGames().values()){
             if (gl.getHost().getId()==oldUser.getUserId()){
-                dataServerController.getGamesController().getGameLightList().remove(gl);
+                dataServerController.getGamesController().getAllGames().remove(gl);
             }
         }
     }
@@ -127,5 +150,10 @@ public class DataToComConcrete implements DataToComServerInterface {
     @Override
     public User getUserProfile(UUID idUser) {
         return dataServerController.getUser(idUser);
+    }
+
+    @Override
+    public void addOpponent(UUID gameId, UUID userId) {
+        //TODO
     }
 }

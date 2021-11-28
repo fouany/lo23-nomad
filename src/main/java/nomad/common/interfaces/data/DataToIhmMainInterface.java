@@ -14,7 +14,7 @@ public interface DataToIhmMainInterface {
     GameLight getGameLight();
     Game getStoredGame(UUID gameId);
 
-    void createAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws IOException;
+    void createAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws IOException,UserException;
     void modifyAccount(String login, String pwd, String name, String profilePicture, Date birthDate)  throws IOException, ClassNotFoundException;
 
     //TODO: return boolean or exception ?
@@ -26,4 +26,6 @@ public interface DataToIhmMainInterface {
     void addUser (UserLight user, Category category) throws CategoryException, IOException, ClassNotFoundException;
     void setPermissions(Contact updatedContact) throws CategoryException, IOException, ClassNotFoundException;
     void setPermissions(Category lastCategory,Category updatedCategory) throws CategoryException, IOException, ClassNotFoundException;
+    void enoughPlayers (GameLight game) throws GameException;
+    void rejectPlayers (GameLight game) throws GameException;
 }

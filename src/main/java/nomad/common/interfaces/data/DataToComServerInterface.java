@@ -18,11 +18,15 @@ public interface DataToComServerInterface {
 
     List<User> getUserList(GameLight game);
 
-    void launchGame(GameLight game);
+    void launchGame(UUID gameId);
 
-    Tower saveTower(UserLight user, Tower t);
+    void saveTower(Tower t);
 
-    Move saveMove(UserLight user, Move m);
+    void saveTile(Tile t);
+
+    void saveMove(UserLight user, Move m);
+
+    void saveSkip(Skip s);
 
     boolean checkGameEnded(GameLight game);
 
@@ -32,7 +36,8 @@ public interface DataToComServerInterface {
 
     List<Player> requestConnectedUserList();
 
-    List<GameLight> requestGameList();
+    List<GameLight> requestGameListInLobby();
+    List<GameLight> requestGameListInPlay();
 
     void updateUserListAdd(User newUser);
 
@@ -41,4 +46,6 @@ public interface DataToComServerInterface {
     void updateListGamesRemove(User oldUser);
 
     User getUserProfile(UUID idUser);
+
+    void addOpponent(UUID gameId, UUID userId);
 }

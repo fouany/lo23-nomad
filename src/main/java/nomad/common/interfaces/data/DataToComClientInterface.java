@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public interface DataToComClientInterface {
 
-    void updateSession(GameLight game, String name, boolean spect, boolean chatSpect);
+    void updateSession(GameLight game);
     void updateSessionGameState(UUID idGame , boolean isLaunched);
     void updateUserSession(Player player, boolean connected);
     void updateOpponent(Player player, GameLight game) throws GameException;
@@ -21,7 +21,7 @@ public interface DataToComClientInterface {
     void endGame (GameLight game, boolean gameEnded);
     void transferSavedGame (Game savedGame);
     void storeNewMessage(Message message);
-    void addConnectedUserProfile (List<Player> players, List<GameLight> games);
+    void addConnectedUserProfile (List<Player> players, List<GameLight> gamesInLobby, List<GameLight> gamesInPlay);
     void isDisconnected(UUID idUser, boolean isDeconnected);
     void gameCreated(Game game);
     void newUser(GameLight game, Player player, boolean isPlayer) throws GameException;
@@ -30,4 +30,7 @@ public interface DataToComClientInterface {
     List<UserLight> getOnlineUsers();
     //TODO UUID or boolean ?
     UUID currentUserIsPlayer();
+    void enoughPlayers(GameLight game);
+    void rejectPlayers(GameLight game);
+    UserLight getUserLight();
 }
