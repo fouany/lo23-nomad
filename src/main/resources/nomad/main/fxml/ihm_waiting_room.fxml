@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="935.0" styleClass="main-background" stylesheets="@../Poppins/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.main.controller.WaitingRoomController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="553.0" prefWidth="935.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="565.0" prefWidth="746.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="163.0" prefWidth="746.0">
+                     <children>
+                        <Label fx:id="gameName" text="Name of the game">
+                           <font>
+                              <Font size="50.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#gameUpdate" prefWidth="152.0" text="Quit the game">
+                                 <styleClass>
+                                    <String fx:value="main-button" />
+                                    <String fx:value="main-bg-red" />
+                                 </styleClass>
+                              </Button>
+                              <HBox alignment="CENTER" prefHeight="66.0" prefWidth="178.0" styleClass="waiting-room-param">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="62.0" prefWidth="91.0" text="Game id : " />
+                                    <Label fx:id="gameId" prefHeight="62.0" prefWidth="106.0" styleClass="waiting-room-param-value" text="#2566rr89" textOverrun="CLIP" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="66.0" prefWidth="178.0" styleClass="waiting-room-param">
+                                 <children>
+                                    <Label prefHeight="66.0" prefWidth="67.0" text="Towers :" />
+                                    <Label fx:id="towersNumber" prefHeight="66.0" prefWidth="28.0" styleClass="waiting-room-param-value" text="5" textOverrun="CLIP" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="66.0" prefWidth="178.0" styleClass="waiting-room-param">
+                                 <children>
+                                    <Label prefHeight="66.0" prefWidth="67.0" text="Viewers :" />
+                                    <Label fx:id="viewersNumber" prefHeight="66.0" prefWidth="33.0" styleClass="waiting-room-param-value" text="2" textOverrun="CLIP" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                     <styleClass>
+                        <String fx:value="main-container" />
+                        <String fx:value="waiting-room-top-container" />
+                     </styleClass>
+                  </VBox>
+                  <Separator prefHeight="40.0" prefWidth="746.0" visible="false" />
+                  <HBox alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="100.0" prefWidth="658.0" styleClass="main-container">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" styleClass="waiting-room-image">
+                           <image>
+                              <Image url="@../imgs/fight.png" />
+                           </image>
+                        </ImageView>
+                        <Separator orientation="VERTICAL" prefHeight="70.0" prefWidth="15.0" visible="false" />
+                        <VBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="383.0" styleClass="waiting-room-param">
+                           <children>
+                              <Label fx:id="hostName" prefHeight="24.0" prefWidth="156.0" styleClass="waiting-room-param-value" text="Jane oskour" />
+                              <Label fx:id="hostId" styleClass="waiting-room-id" text="#IDjoueur" />
+                           </children>
+                        </VBox>
+                        <Separator orientation="VERTICAL" prefHeight="68.0" prefWidth="109.0" visible="false" />
+                        <Button fx:id="hostReady" disable="true" mnemonicParsing="false" prefWidth="152.0" text="Ready">
+                           <styleClass>
+                              <String fx:value="main-button" />
+                              <String fx:value="main-bg-green" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Separator prefHeight="15.0" prefWidth="746.0" visible="false" />
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imgs/fight.png" />
+                     </image>
+                  </ImageView>
+                  <Separator prefHeight="15.0" prefWidth="746.0" visible="false" />
+                  <HBox fx:id="opponent_wait" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="100.0" prefWidth="658.0">
+                     <styleClass>
+                        <String fx:value="main-container" />
+                        <String fx:value="main-bg-red" />
+                     </styleClass>
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="838.0" styleClass="waiting-room-wait-label" text="Waiting for Opponent..." textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="opponent_container" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="100.0" prefWidth="658.0">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" styleClass="waiting-room-image">
+                           <image>
+                              <Image url="@../imgs/fight.png" />
+                           </image>
+                        </ImageView>
+                        <Separator orientation="VERTICAL" prefHeight="70.0" prefWidth="15.0" visible="false" />
+                        <VBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="383.0" styleClass="waiting-room-param">
+                           <children>
+                              <Label fx:id="opName" styleClass="waiting-room-param-value" text="Jane oskour" />
+                              <Label fx:id="opId" styleClass="waiting-room-id" text="#IDjoueur" />
+                           </children>
+                        </VBox>
+                        <Separator orientation="VERTICAL" prefHeight="70.0" prefWidth="109.0" visible="false" />
+                        <Button fx:id="opReady" disable="true" mnemonicParsing="false" prefWidth="152.0" text="Ready">
+                           <styleClass>
+                              <String fx:value="main-button" />
+                              <String fx:value="main-bg-green" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                     <styleClass>
+                        <String fx:value="main-bg-red" />
+                        <String fx:value="main-container" />
+                     </styleClass>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>

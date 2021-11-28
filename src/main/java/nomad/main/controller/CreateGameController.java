@@ -8,6 +8,9 @@ import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
+import java.util.Observable;
+import java.util.Observer;
+
 
 public class CreateGameController extends IhmControllerComponent {
 
@@ -146,8 +149,8 @@ public class CreateGameController extends IhmControllerComponent {
             UserLight user = ihmMainScreenController.getDataI().getUserLight();
 
             //ihmMainScreenController.getComI().newGame(gameName.getText(),user,(int)towerNumber.getValue(),allowViewers.isSelected(),allowViewersChat.isSelected(),color);
-            //ihmMainScreenController.getAttributes().put("gameName", gameName.getText());
-            //ihmMainScreenController.getAttributes().put("towerNumber", String.valueOf(towerNumber.getValue()));
+
+
 
 
     }
