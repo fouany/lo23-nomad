@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import nomad.common.MainApplication;
+import nomad.common.data_structure.Game;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -146,13 +147,16 @@ public abstract class IhmScreenController {
     }
 
     /**
-     * Change the current active module
+     * Change to the Game module
      */
-    public void changeModule() {
-        if (module.equals("MAIN")) {
-            mainApp.changeModule("GAME");
-        } else {
-            mainApp.changeModule("MAIN");
-        }
+    public void changeModule(Game current) {
+        mainApp.changeModule("GAME",current);
+    }
+
+    /**
+     * Change to Main module
+     */
+    public void changeModule(){
+        mainApp.changeModule("MAIN",null);
     }
 }

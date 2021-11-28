@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import nomad.com.client.ClientController;
 import nomad.com.client.ComClientToDataConcrete;
+import nomad.common.data_structure.Game;
 import nomad.common.ihm.IhmScreenController;
 import nomad.data.client.DataClientController;
 import nomad.data.client.DataToComConcrete;
@@ -78,7 +79,7 @@ public class MainApplication extends Application {
     stage = primaryStage;
     stage.setMinHeight(MIN_HEIGHT);
     stage.setMinWidth(MIN_WIDTH);
-    this.changeModule("MAIN");
+    this.changeModule("MAIN",null);
   }
 
   /**
@@ -86,8 +87,7 @@ public class MainApplication extends Application {
    * @param mode module wanted
    * @throws IOException
    */
-  public void changeModule(String mode) {
-
+  public void changeModule(String mode, Game game) {
     if (mode.equals("MAIN")) {
       screenController = ihmMainScreenController;
     } else {
