@@ -6,11 +6,10 @@ import nomad.common.interfaces.data.DataToIhmMainInterface;
 import nomad.main.controller.ServerConnectionController;
 import nomad.main.controller.MenuController;
 import nomad.main.controller.LoginController;
-
+import nomad.main.controller.ViewGameController;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 
 public class IhmMainScreenController extends IhmScreenController {
 
@@ -19,6 +18,7 @@ public class IhmMainScreenController extends IhmScreenController {
     private final String stylesheet = "Poppins/style.css";
 
     private MenuController menuController;
+    private ViewGameController viewGameController;
 
     public IhmMainScreenController(MainApplication app, DataToIhmMainInterface dataI) throws IOException {
         super(app);
@@ -33,6 +33,10 @@ public class IhmMainScreenController extends IhmScreenController {
         return menuController;
     }
 
+    public ViewGameController getViewGameController() {
+        return viewGameController;
+    }
+
     public Map<String, String> getAttributes() {
         return attributes;
     }
@@ -41,23 +45,28 @@ public class IhmMainScreenController extends IhmScreenController {
         return dataI;
     }
 
-    public void initPaths() {
+
+    public void initPaths(){
         listPaths.add("fxml/ihm_login_connection.fxml");
         listPaths.add("fxml/ihm_server_connection.fxml");
         listPaths.add("fxml/ihm_menu.fxml");
+        listPaths.add("fxml/ihm_view_game.fxml");
     }
 
     @Override
     public void initController() {
         menuController = new MenuController(this);
+        viewGameController = new ViewGameController(this);
         dictController.put(0, new LoginController(this));
         dictController.put(1, new ServerConnectionController(this));
         dictController.put(2, menuController);
+        dictController.put(3, viewGameController);
     }
 
     public void initStyles() {
         dictStyles.put(0, stylesheet);
-        dictStyles.put(2, stylesheet);
         dictStyles.put(1, stylesheet);
+        dictStyles.put(2, stylesheet);
+        dictStyles.put(3, stylesheet);
     }
 }
