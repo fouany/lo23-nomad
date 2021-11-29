@@ -1,7 +1,7 @@
 package nomad.com.client;
 
 import nomad.com.common.message.Message;
-import nomad.com.common.message.serverMessage.LocalUserDisconnectionMessage;
+import nomad.com.common.message.server_message.LocalUserDisconnectionMessage;
 import nomad.common.interfaces.data.DataToComClientInterface;
 
 import java.io.IOException;

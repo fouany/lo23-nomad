@@ -1,6 +1,5 @@
 package nomad.common.interfaces.com;
 
-import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.User;
 
 import java.util.UUID;

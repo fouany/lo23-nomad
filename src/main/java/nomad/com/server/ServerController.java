@@ -1,7 +1,7 @@
 package nomad.com.server;
 
 import nomad.com.common.message.Message;
-import nomad.com.common.message.clientMessage.UserChangedMessageBase;
+import nomad.com.common.message.client_message.UserChangedMessageBase;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.data.DataToComServerInterface;
 
@@ -83,7 +83,6 @@ public class ServerController extends Thread {
     public void broadcast(Message message) {
         for (Map.Entry<Socket, IdentifiedClient> entry : clientList.entrySet()) {
             if (entry.getValue().getUID() == null) { // Skip unidentified users
-                System.out.println(entry.getValue().getUID());
                 continue;
             }
 

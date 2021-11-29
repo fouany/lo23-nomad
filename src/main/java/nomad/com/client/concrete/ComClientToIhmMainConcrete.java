@@ -1,9 +1,8 @@
 package nomad.com.client.concrete;
 
 import nomad.com.client.ClientController;
-import nomad.com.common.message.serverMessage.GameCreationMessage;
-import nomad.com.common.message.serverMessage.LocalUserConnectionMessage;
-import nomad.com.common.message.serverMessage.NewGamePlayerMessage;
+import nomad.com.common.message.server_message.GameCreationMessage;
+import nomad.com.common.message.server_message.NewGamePlayerMessage;
 import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Player;
 import nomad.common.data_structure.Tower;
@@ -58,26 +57,26 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
 
     @Override
     public void enoughPlayers(GameLight game) {
-
+        //TODO
     }
 
     @Override
     public void rejectPlayer(GameLight game) {
-
+        //TODO
     }
 
     @Override
     public void launchGame(GameLight game) {
-
+        //TODO
     }
 
     @Override
     public void addSpecInGame(UserLight user, GameLight game) {
-
+        //TODO
     }
 
     @Override
     public void placeTower(Tower tower) {
-
+        //TODO
     }
 }

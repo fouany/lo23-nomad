@@ -5,6 +5,7 @@ import nomad.common.data_structure.UserException;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,8 +69,15 @@ public class ServerConnectionController extends IhmControllerComponent {
                 //TODO: modify account scene
                 ihmMainScreenController.getDataI().createAccount(user,password,user,"", null);
             }
-            ihmMainScreenController.getDataI().login(user, password, ip, Integer.parseInt(port));
-            screenControl.changeScreen(2);
+            try {
+                ihmMainScreenController.getDataI().login(user, password, ip, Integer.parseInt(port));
+                screenControl.changeScreen(2);
+            } catch (FileNotFoundException e) {
+                //TODO: ajouter back pour revenir
+                DialogController.display("Erreur connexion", "Veuillez vérifier votre login ou password ou les options du serveur",
+                        DialogController.DialogStatus.ERROR, this.ihmMainScreenController);
+                screenControl.changeScreen(0);
+            }
         } else {
             Logger.getLogger(ServerConnectionController.class.getName()).log(Level.INFO, "Error on Ip address or in port");
         }
