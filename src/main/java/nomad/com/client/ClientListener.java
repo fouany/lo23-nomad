@@ -1,7 +1,7 @@
 package nomad.com.client;
 
 import nomad.com.common.exception.SocketClosedException;
-import nomad.com.common.message.ComMessage;
+import nomad.com.common.message.clientMessage.BaseClientMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -45,9 +45,9 @@ public class ClientListener extends Thread {
     public void run() {
         while (listen) {
             try {
-                ComMessage message = readMessage();
+                BaseClientMessage message = readMessage();
                 if (message != null) {
-                    controller.processMessage(message);
+                    message.process(controller);
                 }
 
             } catch (IOException | ClassNotFoundException e) {
@@ -69,7 +69,7 @@ public class ClientListener extends Thread {
      * @throws ClassNotFoundException Fail to find the class of the serialized object
      * @throws SocketClosedException  Socket with the server has been closed
      */
-    private ComMessage readMessage() throws IOException, ClassNotFoundException, SocketClosedException {
+    private BaseClientMessage readMessage() throws IOException, ClassNotFoundException, SocketClosedException {
         synchronized (client) {
             if (client.isClosed()) {
                 input.close();
@@ -77,7 +77,7 @@ public class ClientListener extends Thread {
                 throw new SocketClosedException();
             }
 
-            return (ComMessage) input.readObject();
+            return (BaseClientMessage) input.readObject();
         }
     }
 }

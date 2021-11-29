@@ -1,7 +1,7 @@
 package nomad.com.client;
 
-import nomad.com.common.message.ComMessage;
-import nomad.com.common.message.LocalUserDisconnectionMessage;
+import nomad.com.common.message.Message;
+import nomad.com.common.message.serverMessage.LocalUserDisconnectionMessage;
 import nomad.common.interfaces.data.DataToComClientInterface;
 
 import java.io.IOException;
@@ -15,13 +15,17 @@ import java.util.logging.Logger;
  * ComClientController creates a socket binding on the remote server
  */
 public class ClientController {
-    private final MessageProcessor messageProcessor;
+    private final DataToComClientInterface dataToCom;
     private ClientListener listener;
+
     private ObjectOutputStream output;
     private Socket socket;
-
     public ClientController(DataToComClientInterface dataToCom) {
-        this.messageProcessor = new MessageProcessor(dataToCom);
+        this.dataToCom = dataToCom;
+    }
+
+    public DataToComClientInterface getDataToCom() {
+        return dataToCom;
     }
 
     /**
@@ -68,21 +72,12 @@ public class ClientController {
     }
 
     /**
-     * Process an incoming message from the server
-     *
-     * @param message Message transmitted by the server
-     */
-    public void processMessage(ComMessage message) {
-        messageProcessor.processMessage(message);
-    }
-
-    /**
      * Send a message to the server
      * Warning ! The socket must be initialized and connected
      *
      * @param message The message to send to the server
      */
-    public boolean sendMessage(ComMessage message) {
+    public boolean sendMessage(Message message) {
         try {
             if (socket.isClosed()) {
                 disconnect();
