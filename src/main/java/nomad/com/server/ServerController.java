@@ -30,7 +30,7 @@ public class ServerController extends Thread {
         try {
             serverSocket = new ServerSocket(port);
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Unable to create the ServerSocket");
         }
     }
 
