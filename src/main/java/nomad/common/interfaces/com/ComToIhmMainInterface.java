@@ -6,13 +6,7 @@ import nomad.common.data_structure.Tower;
 import nomad.common.data_structure.UserLight;
 
 public interface ComToIhmMainInterface {
-    enum Color {
-        RED,
-        WHITE,
-        RANDOM,
-        NULL, //if no color is clicked
-    }
-    void newGame(String name, UserLight host, int nbTowers, boolean areSpecAllowed, boolean isSpecChatAllowed, Color hostColor);
+    void newGame(String name, UserLight host, int nbTowers, boolean areSpecAllowed, boolean isSpecChatAllowed, boolean hostColor);
 
     void enoughPlayers(GameLight game);
 
