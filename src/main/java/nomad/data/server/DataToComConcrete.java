@@ -70,12 +70,11 @@ public class DataToComConcrete implements DataToComServerInterface {
         boolean bool = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].isTower();
         if (bool) {
             // There is already a tower, we throw an exception
-            TowerException towerException = new TowerException();
             throw new TowerException("A tower is already registered at those coordinates");
         }else{
             dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setTower(true);
             dataServerController.getGamesController().getGame(t.getGameId()).getMoves().add(t);
-            dataServerController.getComOfferedInterface().towerValid(t);
+            //dataServerController.getComOfferedInterface().towerValid(t);
         }
     }
 
@@ -107,20 +106,19 @@ public class DataToComConcrete implements DataToComServerInterface {
         }
         if (is_tower || !near_pileOK) {
             // There is a problem, so we throw an exception
-            PileException pileException = new PileException();
             throw new TileException("Tile not valid");
         }else{
             dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setColor(color);
             dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setHeight(height+1);
             dataServerController.getGamesController().getGame(t.getGameId()).getMoves().add(t);
-            dataServerController.getComOfferedInterface().tileValid(t);
+            //dataServerController.getComOfferedInterface().tileValid(t);
         }
     }
 
     @Override
     public void saveSkip(Skip s) {
         dataServerController.getGamesController().getGame(s.getGameId()).getMoves().add(s);
-        dataServerController.getComOfferedInterface().skipValid(s);
+        //dataServerController.getComOfferedInterface().skipValid(s);
     }
 
     @Override
@@ -185,7 +183,7 @@ public class DataToComConcrete implements DataToComServerInterface {
     public void updateListGamesRemove(User oldUser){
         for (Game gl : dataServerController.getGamesController().getAllGames().values()){
             if (gl.getHost().getId()==oldUser.getUserId()){
-                dataServerController.getGamesController().getAllGames().remove(gl);
+                dataServerController.getGamesController().getAllGames().remove(gl.getGameId());
             }
         }
     }

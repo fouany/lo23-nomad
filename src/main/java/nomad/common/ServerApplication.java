@@ -1,7 +1,7 @@
 package nomad.common;
 
 import nomad.com.server.ComToDataServerConcrete;
-import nomad.com.server.Server;
+import nomad.com.server.ServerController;
 import nomad.data.server.DataServerController;
 import nomad.data.server.DataToComConcrete;
 import nomad.data.server.GamesController;
@@ -19,7 +19,7 @@ public class ServerApplication {
                 );
 
         DataToComConcrete dataToCom = new DataToComConcrete(dataServerController);
-        Server nomadServer = new Server(12, dataToCom);
-        nomadServer.start();
+        ServerController nomadServerController = new ServerController(12, dataToCom);
+        nomadServerController.start();
     }
 }

@@ -85,6 +85,10 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     // TODO: game is already set to "launched" in updateSessionGameState,
     //  this method might only need to update the observable
+
+    /**
+     * sets the game as launched and adds the observable to the game
+     */
     public void gameLaunchEvent(){
         dataClientController.getGameController().getGame().setGameLaunched(true);
         dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
@@ -133,9 +137,14 @@ public class DataToComConcrete implements DataToComClientInterface {
         }
     }
 
+    /**
+     * adds the move to the list of moves, changes the current player, and updates the observable
+     * @param move
+     * @param user
+     */
     @Override
-    public void moveReceived(Move m, UserLight user) {
-        dataClientController.getGameController().getGame().getMoves().add(m);
+    public void moveReceived(Move move, UserLight user) {
+        dataClientController.getGameController().getGame().getMoves().add(move);
         dataClientController.getGameController().getGame().changeCurrentPlayer();
         dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
@@ -168,8 +177,9 @@ public class DataToComConcrete implements DataToComClientInterface {
     }
 
     @Override
-    // TODO : supprimer cette méthode car déjà implémentée dans updateUserSession
-    // Non : On rajoute aussi la liste des Games en lobby
+    /**
+     * adds the connected user, and updates the according lists of connected user to the games in lobby and in play
+     */
     public void addConnectedUserProfile(List<Player> players, List<GameLight> gamesInLobby, List<GameLight> gamesInPlay) {
         for (Player p : players){
             dataClientController.getSession().getConnectedUsers().add(new UserLight(p));
