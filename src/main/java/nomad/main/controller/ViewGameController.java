@@ -11,14 +11,15 @@ import nomad.main.IhmMainScreenController;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ViewGameController extends IhmControllerComponent implements Initializable {
     public CheckBox stateCheckBox;
 
-    public ListView<String> gamesViewAsViewer;
-    public ListView<String> gamesViewAsPlayer;
+    public ListView<GameLight> gamesViewAsViewer;
+    public ListView<GameLight> gamesViewAsPlayer;
 
     public ListChangeListener<GameLight> gamesAsViewer;
     public ListChangeListener<GameLight> gamesAsPlayer;
@@ -49,24 +50,32 @@ public class ViewGameController extends IhmControllerComponent implements Initia
      * the gamer listview and the viewer listview. The same goes for remove.
      * */
     public void onClickAddGame() {
-        gamesViewAsViewer.getItems().add("je suis game Viewer");
-        gamesViewAsPlayer.getItems().add("je suis game Player ");
+       // gamesViewAsViewer.getItems().add("je suis game Viewer");
+       // gamesViewAsPlayer.getItems().add("je suis game Player ");
     }
 
     public void onClickDeleteGame() {
-        gamesViewAsViewer.getItems().remove("je suis game Viewer");
-        gamesViewAsPlayer.getItems().remove("je suis game Player ");
+        //gamesViewAsViewer.getItems().remove("je suis game Viewer");
+        //gamesViewAsPlayer.getItems().remove("je suis game Player ");
     }
     /**
      * handleGame functions get the information of
      * the game selected.
      * */
     public void handleGameAsViewerListClick() {
-        Logger.getLogger(this.getClass().getName()).log(Level.INFO, gamesViewAsViewer.getSelectionModel().getSelectedItem());
+        ihmController.getComI().addSpecInGame(ihmController.getDataI().getUserLight(), gamesViewAsViewer.getSelectionModel().getSelectedItem());
+
+
     }
     public void handleGameAsPlayerListClick() {
-        Logger.getLogger(this.getClass().getName()).log(Level.INFO, gamesViewAsPlayer.getSelectionModel().getSelectedItem());
+        ihmController.getComI().addPlayerInGame(ihmController.getDataI().getPlayer(), gamesViewAsViewer.getSelectionModel().getSelectedItem());
+
     }
+
+     public GameLight getGameLight(String uuid, Boolean viewer)
+     {
+        return null;
+     }
 
     /**
      * When a user checks the box "Viewer" the viewerlist
@@ -94,16 +103,16 @@ public class ViewGameController extends IhmControllerComponent implements Initia
         gamesAsViewer = change -> {
             change.next();
             if (change.wasAdded()) {
-                for (Object game : change.getAddedSubList()) {
+                for (GameLight game : change.getAddedSubList()) {
                     Platform.runLater(() ->
-                        gamesViewAsViewer.getItems().add((game).toString()) //add a new game
+                        gamesViewAsViewer.getItems().add(game) //add a new game
                     );
 
                 }
             } else if (change.wasRemoved()) {
-                for (Object game : change.getRemoved()) {
+                for (GameLight game : change.getRemoved()) {
                     Platform.runLater(() ->
-                        gamesViewAsViewer.getItems().remove((game).toString())  //remove a game
+                        gamesViewAsViewer.getItems().remove(game)  //remove a game
                     );
                 }
             }
@@ -111,16 +120,16 @@ public class ViewGameController extends IhmControllerComponent implements Initia
         gamesAsPlayer = change -> {
             change.next();
             if (change.wasAdded()) {
-                for (Object game : change.getAddedSubList()) {
+                for (GameLight game : change.getAddedSubList()) {
                     Platform.runLater(() ->
-                        gamesViewAsPlayer.getItems().add((game).toString()) //add a new game
+                        gamesViewAsPlayer.getItems().add(game) //add a new game
                     );
 
                 }
             } else if (change.wasRemoved()) {
-                for (Object game : change.getRemoved()) {
+                for (GameLight game : change.getRemoved()) {
                     Platform.runLater(() ->
-                        gamesViewAsPlayer.getItems().remove(( game).toString())  //remove a game
+                        gamesViewAsPlayer.getItems().remove(game)  //remove a game
                     );
                 }
             }
