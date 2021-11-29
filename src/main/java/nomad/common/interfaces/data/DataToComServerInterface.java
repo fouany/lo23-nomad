@@ -16,7 +16,7 @@ public interface DataToComServerInterface {
 
     void addSpecInGame(UserLight user, GameLight game);
 
-    List<User> getUserList(GameLight game);
+    List<UserLight> getUserList(GameLight game);
 
     void launchGame(UUID gameId);
 

@@ -55,8 +55,8 @@ public class DataToComConcrete implements DataToComServerInterface {
     }
 
     @Override
-    public List<User> getUserList(GameLight game) {
-        return new ArrayList<>();
+    public List<UserLight> getUserList(GameLight game) {
+        return dataServerController.getGamesController().getGame(game.getGameId()).getSpect();
     }
 
     @Override
