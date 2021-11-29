@@ -1,10 +1,9 @@
 package nomad.game;
 
+import nomad.common.data_structure.Game;
 import nomad.common.ihm.IhmScreenController;
 import nomad.common.MainApplication;
-import nomad.game.controller.IhmGameControllerScreen1;
-import nomad.game.controller.IhmGameControllerScreen2;
-import nomad.game.controller.IhmGameControllerScreen3;
+import nomad.game.controller.GameController;
 
 import java.io.IOException;
 
@@ -14,13 +13,20 @@ import java.io.IOException;
 public class IhmGameScreenController extends IhmScreenController {
 
     /**
+     * Current game linked to the view
+     */
+    Game linkedGame;
+
+    /**
      * Contructor that set the module name and the default screen start
      * @param app
+     * @param currentGame
      * @throws IOException
      */
-    public IhmGameScreenController(MainApplication app) throws IOException {
+    public IhmGameScreenController(MainApplication app, Game currentGame) throws IOException {
         super(app);
         module = "GAME";
+        linkedGame = currentGame;
         defaultStart = 0;
         initScenes();
     }
@@ -32,15 +38,11 @@ public class IhmGameScreenController extends IhmScreenController {
 
     @Override
     public void initPaths() {
-        listPaths.add("fxml/page/ihm_game_screen_1.fxml");
-        listPaths.add("fxml/page/imh_game_screen_2.fxml");
         listPaths.add("fxml/page/main_game_view.fxml");
     }
 
     @Override
     public void initController() {
-        dictController.put(0,new IhmGameControllerScreen1(this));
-        dictController.put(1,new IhmGameControllerScreen2(this));
-        dictController.put(2,new IhmGameControllerScreen2(this));
+        dictController.put(0,new GameController(this));
     }
 }

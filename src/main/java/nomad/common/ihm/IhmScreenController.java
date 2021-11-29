@@ -156,14 +156,14 @@ public abstract class IhmScreenController {
     /**
      * Change to the Game module
      */
-    public void changeModule(Game current) {
+    public void changeModule(Game current) throws IOException {
         mainApp.changeModule("GAME",current);
     }
 
     /**
      * Change to Main module
      */
-    public void changeModule(){
+    public void changeModule() throws IOException {
         mainApp.changeModule("MAIN",null);
     }
 }

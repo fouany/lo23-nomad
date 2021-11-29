@@ -59,7 +59,6 @@ public class MainApplication extends Application {
             ihmMainToDataConcrete,
             null);
     clientController = new ClientController(dataToComConcrete);
-    ihmGameScreenController = new IhmGameScreenController(this);
     ihmMainScreenController = new IhmMainScreenController(this, dataToMainConcrete);
   }
 
@@ -75,7 +74,7 @@ public class MainApplication extends Application {
   private final int MIN_HEIGHT = 610;
 
   @Override
-  public void start(Stage primaryStage) {
+  public void start(Stage primaryStage) throws IOException {
     stage = primaryStage;
     stage.setMinHeight(MIN_HEIGHT);
     stage.setMinWidth(MIN_WIDTH);
@@ -87,10 +86,11 @@ public class MainApplication extends Application {
    * @param mode module wanted
    * @throws IOException
    */
-  public void changeModule(String mode, Game game) {
+  public void changeModule(String mode, Game game) throws IOException {
     if (mode.equals("MAIN")) {
       screenController = ihmMainScreenController;
     } else {
+      ihmGameScreenController = new IhmGameScreenController(this,game);
       screenController = ihmGameScreenController;
     }
     screenController.initIHM();
