@@ -61,7 +61,7 @@ public class DataToComConcrete implements DataToComServerInterface {
 
     @Override
     public void launchGame(UUID gameId) {
-        // Does nothing because not developped yet
+        dataServerController.getGamesController().getGame(gameId).setGameLaunched(true);
     }
 
     @Override
@@ -154,6 +154,7 @@ public class DataToComConcrete implements DataToComServerInterface {
 
     @Override
     public void addOpponent(UUID gameId, UUID userId) {
-        //TODO
+        Player p = new Player(userId, dataServerController.getUser(userId).getLogin(),  dataServerController.getUser(userId).getProfilePicture());
+        dataServerController.getGamesController().getGame(gameId).setOpponent(p);
     }
 }

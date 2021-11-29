@@ -71,4 +71,14 @@ public class ComClientToDataConcrete implements ComToDataClientInterface {
     public void getProfile(UUID idUser) {
         //TODO
     }
+
+    @Override
+    public void enoughPlayers(UUID gameId, UUID opponentId) {
+        //TODO
+    }
+
+    @Override
+    public void rejectPlayers(UUID gameId) {
+        //TODO
+    }
 }
