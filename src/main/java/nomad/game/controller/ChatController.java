@@ -1,6 +1,8 @@
 package nomad.game.controller;
 import nomad.common.data_structure.Game;
 import nomad.common.ihm.IhmScreenController;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 
 public class ChatController extends GameComponentsAbstract{
     /**
@@ -12,6 +14,9 @@ public class ChatController extends GameComponentsAbstract{
         super(screen);
     }
 
+    @FXML
+    public TextArea chat;
+
     @Override
     public void init() {
 
@@ -20,6 +25,11 @@ public class ChatController extends GameComponentsAbstract{
     @Override
     public void update(String type) {
 
-
     }
+
+    public void OnClickSend() {
+        
+    }
+
+
 }
