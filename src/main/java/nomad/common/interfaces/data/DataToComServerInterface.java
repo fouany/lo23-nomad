@@ -20,9 +20,9 @@ public interface DataToComServerInterface {
 
     void launchGame(UUID gameId);
 
-    void saveTower(Tower t);
+    void saveTower(Tower t) throws TowerException;
 
-    void saveTile(Tile t);
+    void saveTile(Tile t) throws TileException;
 
     void saveMove(UserLight user, Move m);
 

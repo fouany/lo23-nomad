@@ -97,6 +97,7 @@ public class DataToComConcrete implements DataToComClientInterface {
     public void towerValid(Tower tower, boolean valid) {
         dataClientController.getGameController().getGame().getMoves().add(tower);
         dataClientController.getGameController().getGame().changeCurrentPlayer();
+        dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
 
     /**
@@ -104,9 +105,15 @@ public class DataToComConcrete implements DataToComClientInterface {
      * @param tile
      * @param valid
      */
-    public void tileValid(Tile tile, boolean valid){
-        dataClientController.getGameController().getGame().getMoves().add(tile);
-        dataClientController.getGameController().getGame().changeCurrentPlayer();
+    public void tileValid(Tile tile, boolean valid) throws TileException {
+        if (valid){
+            dataClientController.getGameController().getGame().getMoves().add(tile);
+            dataClientController.getGameController().getGame().changeCurrentPlayer();
+            dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+        }else{
+            dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+            throw new TileException("Tile Placement not valid");
+        }
     }
 
     /**
@@ -114,15 +121,22 @@ public class DataToComConcrete implements DataToComClientInterface {
      * @param skip
      * @param valid
      */
-    public void skipValidation(Skip skip, boolean valid){
-        dataClientController.getGameController().getGame().getMoves().add(skip);
-        dataClientController.getGameController().getGame().changeCurrentPlayer();
+    public void skipValidation(Skip skip, boolean valid) throws SkipException {
+        if (valid){
+            dataClientController.getGameController().getGame().getMoves().add(skip);
+            dataClientController.getGameController().getGame().changeCurrentPlayer();
+            dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+        }else{
+            dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+            throw new SkipException("Skip not valid");
+        }
     }
 
     @Override
-    // TODO : not necessary, could be removed
     public void moveReceived(Move m, UserLight user) {
-        // TODO implementation
+        dataClientController.getGameController().getGame().getMoves().add(m);
+        dataClientController.getGameController().getGame().changeCurrentPlayer();
+        dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
 
     /**
