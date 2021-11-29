@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import nomad.common.data_structure.Game;
 import nomad.common.ihm.IhmScreenController;
+import org.w3c.dom.Text;
 
 public class PlayerInfoController extends GameComponentsAbstract {
 
@@ -21,8 +22,17 @@ public class PlayerInfoController extends GameComponentsAbstract {
     @FXML
     public TextField playerTwoName;
 
+    @FXML
     public TextField numberTower;
 
+    @FXML
+    public TextField numberTiles;
+
+    @FXML
+    public TextField conectedTowerOne;
+
+    @FXML
+    public TextField connectedTowerTwo;
 
 
     protected PlayerInfoController(IhmScreenController screen) {
@@ -34,13 +44,12 @@ public class PlayerInfoController extends GameComponentsAbstract {
         playerOneName.setText(game.getHost().getLogin());
         playerTwoName.setText(game.getOpponent().getLogin());
         numberTower.setText("Towers : "+game.getNbOfTowers()+"/5");
-    }
 
+    }
 
     @Override
-    public void update() {
+    public void update(String type) {
 
     }
-
 
 }

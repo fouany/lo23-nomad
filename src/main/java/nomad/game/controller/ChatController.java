@@ -19,7 +19,7 @@ public class ChatController extends GameComponentsAbstract{
     }
 
     @Override
-    public void update() {
+    public void update(String type) {
 
     }
 }
