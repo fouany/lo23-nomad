@@ -1,9 +1,8 @@
 package nomad.com.client.concrete;
 
 import nomad.com.client.ClientController;
-import nomad.com.common.message.serverMessage.LocalUserConnectionMessage;
+import nomad.com.common.message.server_message.LocalUserConnectionMessage;
 import nomad.common.data_structure.Game;
-import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.com.ComToDataClientInterface;
 
@@ -77,7 +76,7 @@ public class ComClientToDataConcrete implements ComToDataClientInterface {
 
     @Override
     public void enoughPlayers(UUID gameId, UUID opponentId) {
-        List<Game> games = clientController.getDataToCom().getStoredAvailableGames();
+        //TODO
     }
 
     @Override

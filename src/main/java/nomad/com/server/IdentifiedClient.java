@@ -1,6 +1,6 @@
 package nomad.com.server;
 
-import nomad.com.common.message.serverMessage.BaseServerMessage;
+import nomad.com.common.message.server_message.BaseServerMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
