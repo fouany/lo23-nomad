@@ -65,23 +65,66 @@ public class DataToComConcrete implements DataToComServerInterface {
     }
 
     @Override
-    public void saveTower(Tower t) {
-        //TODO
+    public void saveTower(Tower t) throws TowerException {
+        UUID gameID = t.getGameId();
+        boolean bool = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].isTower();
+        if (bool) {
+            // There is already a tower, we throw an exception
+            TowerException towerException = new TowerException();
+            throw new TowerException("A tower is already registered at those coordinates");
+        }else{
+            dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setTower(true);
+            dataServerController.getGamesController().getGame(t.getGameId()).getMoves().add(t);
+            dataServerController.getComOfferedInterface().towerValid(t);
+        }
     }
 
     @Override
-    public void saveTile(Tile t) {
-        //TODO
-    }
-
-    @Override
-    public void saveMove(UserLight user, Move m) {
-        //TODO
+    public void saveTile(Tile t) throws TileException {
+        UUID gameID = t.getGameId();
+        boolean color;
+        if (t.getUserId() == dataServerController.getGamesController().getGame(gameID).getHost().getId()){
+            //current player is the host
+            color = dataServerController.getGamesController().getGame(gameID).isHostColor();
+        }
+        else{
+            color = !dataServerController.getGamesController().getGame(gameID).isHostColor();
+        }
+        boolean is_tower = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].isTower();
+        int height = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].getHeight();
+        //we check if there is an adjacent pile at least as high as this one (ans owned by the current player)
+        boolean near_pileOK = false;
+        for (int x = -1; x < 2; x++){
+            for(int y = -1; y < 2; y++){
+                if(!(x == 0 && y == 0)){
+                    int height_2 = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX() + x][t.getY() + y].getHeight();
+                    boolean color_2 = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX() + x][t.getY() + y].isColor();
+                    if(height_2 >= height && color == color_2){
+                        near_pileOK = true;
+                    }
+                }
+            }
+        }
+        if (is_tower || !near_pileOK) {
+            // There is a problem, so we throw an exception
+            PileException pileException = new PileException();
+            throw new TileException("Tile not valid");
+        }else{
+            dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setColor(color);
+            dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setHeight(height+1);
+            dataServerController.getGamesController().getGame(t.getGameId()).getMoves().add(t);
+            dataServerController.getComOfferedInterface().tileValid(t);
+        }
     }
 
     @Override
     public void saveSkip(Skip s) {
-        //TODO
+        dataServerController.getGamesController().getGame(s.getGameId()).getMoves().add(s);
+        dataServerController.getComOfferedInterface().skipValid(s);
+    }
+
+    @Override
+    public void saveMove(UserLight user, Move m) {
     }
 
     @Override
