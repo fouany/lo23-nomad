@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextArea?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="container_extra_infos" stylesheets="@../../style/infos_components_style.css" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="container_extra_infos" stylesheets="@../../style/infos_components_style.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.game.controller.troller">
   <tabs>
     <Tab styleClass="tab_chat" text="Chat">
          <content>
@@ -16,7 +13,7 @@
                   <String fx:value="scroll_infos_parentscroll_infos_parent" />
                </styleClass>
                <content>
-                  <TextArea prefHeight="219.0" prefWidth="200.0" styleClass="text_infos" />
+                  <TextArea prefHeight="193.0" prefWidth="200.0" styleClass="text_infos" />
                </content>
             </ScrollPane>
          </content></Tab>
