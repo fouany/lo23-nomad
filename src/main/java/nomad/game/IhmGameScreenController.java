@@ -51,6 +51,6 @@ public class IhmGameScreenController extends IhmScreenController {
 
     @Override
     public void initController() {
-        dictController.put(0,new GameController(this));
+        dictController.put(0, new GameController(this));
     }
 }
