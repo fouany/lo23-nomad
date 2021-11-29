@@ -10,6 +10,7 @@ import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,7 +32,6 @@ public class CreateGameController extends IhmControllerComponent {
     public CheckBox allowViewers;
 
 
-    //Enum des couleurs pour savoir qui commence la partie
     @FXML
     public CheckBox allowViewersChat;
     private boolean color;
@@ -47,7 +47,6 @@ public class CreateGameController extends IhmControllerComponent {
     }
 
 
-    //TODO Fix probleme display du layout lors du changement de scène
     public void onClickBack() {
         screenControl.changeScreen(2);
     }
@@ -66,18 +65,25 @@ public class CreateGameController extends IhmControllerComponent {
         resetCheckBoxes();
         checkbox.setSelected(checked);
         if (!checked) {
-            color = true;
-            return;
+            Random random = new Random();
+            int nb;
+            nb = random.nextInt(2);
+            boolean b = !(nb==0);
+            color = b;
         }
         switch (id) {
             case "red":
                 color = true;
                 break;
             case "white":
-                color = true;
+                color = false;
                 break;
             case "random":
-                color = true;
+                Random random = new Random();
+                int nb;
+                nb = random.nextInt(2);
+                boolean b = !(nb==0);
+                color = b;
                 break;
             default:
                 //log("Error");
@@ -103,7 +109,7 @@ public class CreateGameController extends IhmControllerComponent {
 
 
     public boolean validate() {
-        return gameName.getText().equals("");
+        return !gameName.getText().equals("");
     }
 
     public void displayWaitingRoom() {

@@ -75,7 +75,7 @@ public class DataToComConcrete implements DataToComServerInterface {
         }else{
             dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setTower(true);
             dataServerController.getGamesController().getGame(t.getGameId()).getMoves().add(t);
-            dataServerController.getComOfferedInterface().towerValid(t);
+            //dataServerController.getComOfferedInterface().towerValid(t);
         }
     }
 
@@ -113,14 +113,14 @@ public class DataToComConcrete implements DataToComServerInterface {
             dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setColor(color);
             dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setHeight(height+1);
             dataServerController.getGamesController().getGame(t.getGameId()).getMoves().add(t);
-            dataServerController.getComOfferedInterface().tileValid(t);
+            //dataServerController.getComOfferedInterface().tileValid(t);
         }
     }
 
     @Override
     public void saveSkip(Skip s) {
         dataServerController.getGamesController().getGame(s.getGameId()).getMoves().add(s);
-        dataServerController.getComOfferedInterface().skipValid(s);
+        //dataServerController.getComOfferedInterface().skipValid(s);
     }
 
     @Override
