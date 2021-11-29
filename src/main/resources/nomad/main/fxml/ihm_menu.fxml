@@ -18,12 +18,7 @@
          <children>
             <HBox>
                <children>
-                  <Label text="Label">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Label>
-                  <Button mnemonicParsing="false" onMouseClicked="#logout" prefHeight="26.0" prefWidth="82.0" text="Button">
+                  <Button mnemonicParsing="false" onMouseClicked="#logout" prefHeight="26.0" prefWidth="82.0" style="-fx-font-family: 'Poppins';" styleClass="main-bg-red" text="logout">
                      <HBox.margin>
                         <Insets left="500.0" />
                      </HBox.margin>

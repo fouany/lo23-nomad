@@ -26,6 +26,7 @@ public class MenuController extends IhmControllerComponent implements ListChange
 
     public void logout() {
         this.ihmController.getDataI().logout();
+        this.ihmController.changeScreen(0);
     }
 
     public void onClickCreate() {
