@@ -5,6 +5,9 @@ import nomad.common.data_structure.GameException;
 import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Player;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class NewGameUserMessage extends BaseClientMessage {
     private final GameLight game;
     private final Player player;
@@ -21,7 +24,7 @@ public class NewGameUserMessage extends BaseClientMessage {
         try {
             controller.getDataToCom().newUser(game, player, isPlayer);
         } catch (GameException e) {
-            e.printStackTrace();
+            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Error on adding user to the game");
         }
     }
 }
