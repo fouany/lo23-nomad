@@ -43,6 +43,10 @@ public class IdentifiedClient extends Thread {
         return outputStream;
     }
 
+    public Socket getSocket() {
+        return socket;
+    }
+
     public UUID getUID() {
         return id;
     }

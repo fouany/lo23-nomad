@@ -3,6 +3,7 @@ package nomad.com.client.concrete;
 import nomad.com.client.ClientController;
 import nomad.com.common.message.serverMessage.GameCreationMessage;
 import nomad.com.common.message.serverMessage.LocalUserConnectionMessage;
+import nomad.com.common.message.serverMessage.NewGamePlayerMessage;
 import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Player;
 import nomad.common.data_structure.Tower;
@@ -35,8 +36,23 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
             throw new NullPointerException();
         }
 
-        if (!clientController.sendMessage(new GameCreationMessage(name, host, nbTowers, areSpecAllowed, isSpecChatAllowed, hostColor))) { // Connect to the remote server
+        if (!clientController.sendMessage(new GameCreationMessage(name, host, nbTowers, areSpecAllowed, isSpecChatAllowed, hostColor))) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send new game to the remote server !");
+        }
+    }
+
+    /**
+     * @param player is the player added in the game
+     * @param game is the game joined by the player
+     */
+    @Override
+    public void addPlayerInGame(Player player, GameLight game) {
+        if (player == null || game == null) {
+            throw new NullPointerException();
+        }
+
+        if (!clientController.sendMessage(new NewGamePlayerMessage(player, game))) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send new player request to the remote server !");
         }
     }
 
@@ -52,11 +68,6 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
 
     @Override
     public void launchGame(GameLight game) {
-
-    }
-
-    @Override
-    public void addPlayerInGame(Player player, GameLight game) {
 
     }
 
