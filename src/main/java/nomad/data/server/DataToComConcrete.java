@@ -74,7 +74,7 @@ public class DataToComConcrete implements DataToComServerInterface {
         }else{
             dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setTower(true);
             dataServerController.getGamesController().getGame(t.getGameId()).getMoves().add(t);
-            //dataServerController.getComOfferedInterface().towerValid(t);
+            dataServerController.getComOfferedInterface().towerValid(t);
         }
     }
 
@@ -92,6 +92,20 @@ public class DataToComConcrete implements DataToComServerInterface {
         boolean is_tower = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].isTower();
         int height = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].getHeight();
         //we check if there is an adjacent pile at least as high as this one (ans owned by the current player)
+        boolean near_pileOK = checkPile(t, height, color);
+        if (is_tower || !near_pileOK) {
+            // There is a problem, so we throw an exception
+            throw new TileException("Tile not valid");
+        }else{
+            dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setColor(color);
+            dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setHeight(height+1);
+            dataServerController.getGamesController().getGame(t.getGameId()).getMoves().add(t);
+            dataServerController.getComOfferedInterface().tileValid(t);
+        }
+    }
+
+    private boolean checkPile(Tile t, int height, boolean color){
+        UUID gameID = t.getGameId();
         boolean near_pileOK = false;
         for (int x = -1; x < 2; x++){
             for(int y = -1; y < 2; y++){
@@ -104,25 +118,17 @@ public class DataToComConcrete implements DataToComServerInterface {
                 }
             }
         }
-        if (is_tower || !near_pileOK) {
-            // There is a problem, so we throw an exception
-            throw new TileException("Tile not valid");
-        }else{
-            dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setColor(color);
-            dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setHeight(height+1);
-            dataServerController.getGamesController().getGame(t.getGameId()).getMoves().add(t);
-            //dataServerController.getComOfferedInterface().tileValid(t);
-        }
+        return near_pileOK;
     }
-
     @Override
     public void saveSkip(Skip s) {
         dataServerController.getGamesController().getGame(s.getGameId()).getMoves().add(s);
-        //dataServerController.getComOfferedInterface().skipValid(s);
+        dataServerController.getComOfferedInterface().skipValid(s);
     }
 
     @Override
     public void saveMove(UserLight user, Move m) {
+        //TODO
     }
 
     @Override
