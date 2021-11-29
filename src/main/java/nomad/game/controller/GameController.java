@@ -1,7 +1,6 @@
 package nomad.game.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import nomad.common.data_structure.Game;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.common.ihm.IhmScreenController;
@@ -35,7 +34,10 @@ public class GameController extends IhmControllerComponent implements Observer {
     @FXML
     private BoardController boardController;
 
-
+    /**
+     * Constructor of the main game controller
+     * @param screen main screen controller
+     */
     public GameController(IhmScreenController screen) {
         super(screen);
         currentGame = ((IhmGameScreenController) super.screenControl).getLinkedGame();
@@ -60,7 +62,6 @@ public class GameController extends IhmControllerComponent implements Observer {
         chatController = new ChatController(screen);
         chatController.setParentController(this);
         chatController.init(currentGame);
-
     }
 
     @Override
