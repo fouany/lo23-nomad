@@ -29,14 +29,13 @@ public class MenuController extends IhmControllerComponent implements ListChange
     }
 
     public void onClickCreate() {
-        counter++;
-        String name = "user_" + counter;
-        userList.getItems().add(name);
+        ihmController.changeScreen(3);
+
     }
 
     public void onClickJoin() {
-        // TODO : implement method
-        ihmController.changeScreen(3);
+
+        ihmController.changeScreen(5);
     }
 
     public void onClickProfile() {

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="607.0" prefWidth="935.0" styleClass="main-background" stylesheets="@../Poppins/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.main.controller.LoginController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="950.0" styleClass="main-background" stylesheets="@../Poppins/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.main.controller.LoginController">
     <children>
         <HBox alignment="CENTER" prefHeight="378.0" prefWidth="600.0">
             <children>
@@ -38,7 +38,7 @@
                         <Separator prefHeight="5.0" prefWidth="294.0" visible="false" />
                         <Button mnemonicParsing="false" onMouseClicked="#onClickSignUp" prefHeight="35.0" prefWidth="300.0" style="-fx-font-family: 'Poppins';" styleClass="main-bg-blue" text="Sign Up" textAlignment="CENTER" />
                         <Separator prefHeight="5.0" prefWidth="294.0" visible="false" />
-                        <Button mnemonicParsing="false" onMouseClicked="#onClickImportProfile" prefHeight="35.0" prefWidth="300.0" style="-fx-font-family: 'Poppins';" text="Import" textAlignment="CENTER">
+                        <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#onClickImportProfile" prefHeight="35.0" prefWidth="300.0" style="-fx-font-family: 'Poppins';" text="Import" textAlignment="CENTER">
                      <styleClass>
                         <String fx:value="main-button" />
                         <String fx:value="main-bg-trans" />

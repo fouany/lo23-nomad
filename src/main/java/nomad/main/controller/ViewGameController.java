@@ -2,16 +2,19 @@ package nomad.main.controller;
 
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
+import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import nomad.common.data_structure.GameLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ViewGameController extends IhmControllerComponent {
+public class ViewGameController extends IhmControllerComponent implements Initializable {
     public CheckBox stateCheckBox;
 
     public ListView<String> gamesViewAsViewer;
@@ -26,7 +29,7 @@ public class ViewGameController extends IhmControllerComponent {
     public ViewGameController(IhmMainScreenController ihmMainScreenController){
         super(ihmMainScreenController);
         this.ihmController = ihmMainScreenController;
-        initialize();
+
 }
     /**
      * This function is called in the class constructor.
@@ -35,42 +38,7 @@ public class ViewGameController extends IhmControllerComponent {
      * gameAsPlayer. When a change is detected the listeners react : they
      * either add a game or delete it.
      */
-    public void initialize() {
-        gamesAsViewer = change -> {
-            change.next();
-                if (change.wasAdded()) {
-                    for (Object game : change.getAddedSubList()) {
-                        Platform.runLater(() -> {
-                            gamesViewAsViewer.getItems().add(((GameLight) game).toString()); //add a new game
-                        });
 
-                    }
-                } else if (change.wasRemoved()) {
-                    for (Object game : change.getRemoved()) {
-                        Platform.runLater(() -> {
-                            gamesViewAsViewer.getItems().remove(((GameLight) game).toString());  //remove a game
-                        });
-                    }
-                }
-        };
-        gamesAsPlayer = change -> {
-            change.next();
-            if (change.wasAdded()) {
-                for (Object game : change.getAddedSubList()) {
-                    Platform.runLater(() -> {
-                        gamesViewAsPlayer.getItems().add(((GameLight) game).toString()); //add a new game
-                    });
-
-                }
-            } else if (change.wasRemoved()) {
-                for (Object game : change.getRemoved()) {
-                    Platform.runLater(() -> {
-                        gamesViewAsPlayer.getItems().remove(((GameLight) game).toString());  //remove a game
-                    });
-                }
-            }
-        };
-    }
 
     public void onClickReturnMenu() {
         this.ihmController.changeScreen(2);
@@ -107,10 +75,55 @@ public class ViewGameController extends IhmControllerComponent {
     public void changeGamesView() {
         if (stateCheckBox.isSelected()){
             gamesViewAsPlayer.setVisible(false);
+            gamesViewAsPlayer.setManaged(false);
             gamesViewAsViewer.setVisible(true);
+            gamesViewAsViewer.setManaged(true);
         }else{
             gamesViewAsPlayer.setVisible(true);
+            gamesViewAsPlayer.setManaged(true);
             gamesViewAsViewer.setVisible(false);
+            gamesViewAsViewer.setManaged(false);
         }
+    }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        gamesViewAsViewer.setVisible(false);
+        gamesViewAsViewer.setManaged(false);
+        gamesAsViewer = change -> {
+            change.next();
+            if (change.wasAdded()) {
+                for (Object game : change.getAddedSubList()) {
+                    Platform.runLater(() ->
+                        gamesViewAsViewer.getItems().add((game).toString()) //add a new game
+                    );
+
+                }
+            } else if (change.wasRemoved()) {
+                for (Object game : change.getRemoved()) {
+                    Platform.runLater(() ->
+                        gamesViewAsViewer.getItems().remove((game).toString())  //remove a game
+                    );
+                }
+            }
+        };
+        gamesAsPlayer = change -> {
+            change.next();
+            if (change.wasAdded()) {
+                for (Object game : change.getAddedSubList()) {
+                    Platform.runLater(() ->
+                        gamesViewAsPlayer.getItems().add((game).toString()) //add a new game
+                    );
+
+                }
+            } else if (change.wasRemoved()) {
+                for (Object game : change.getRemoved()) {
+                    Platform.runLater(() ->
+                        gamesViewAsPlayer.getItems().remove(( game).toString())  //remove a game
+                    );
+                }
+            }
+        };
     }
 }
