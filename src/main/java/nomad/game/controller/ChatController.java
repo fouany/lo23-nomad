@@ -1,5 +1,4 @@
 package nomad.game.controller;
-
 import nomad.common.data_structure.Game;
 import nomad.common.ihm.IhmScreenController;
 
@@ -20,6 +19,7 @@ public class ChatController extends GameComponentsAbstract{
 
     @Override
     public void update(String type) {
+
 
     }
 }

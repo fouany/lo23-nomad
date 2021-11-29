@@ -20,36 +20,7 @@
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="600.0" styleClass="container_extra_infos" stylesheets="@../../style/infos_components_style.css">
                <fx:include source="../components/logs_component.fxml" fx:id="logs_component"></fx:include>
             </VBox>
-            <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="239.0" prefWidth="600.0" styleClass="container_extra_infos" stylesheets="@../../style/infos_components_style.css" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab styleClass="tab_chat" text="Chat">
-                     <content>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
-                           <styleClass>
-                              <String fx:value="tab_chat" />
-                              <String fx:value="scroll_infos_parentscroll_infos_parent" />
-                           </styleClass>
-                           <content>
-                              <TextArea prefHeight="219.0" prefWidth="200.0" styleClass="text_infos" />
-                           </content>
-                        </ScrollPane>
-                     </content>
-                  </Tab>
-                <Tab styleClass="tab_chat" text="Players">
-                     <content>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
-                           <styleClass>
-                              <String fx:value="tab_chat" />
-                              <String fx:value="scroll_infos_parent" />
-                           </styleClass>
-                           <content>
-                              <TextArea prefHeight="219.0" prefWidth="200.0" styleClass="text_infos" />
-                           </content>
-                        </ScrollPane>
-                     </content>
-                  </Tab>
-              </tabs>
-            </TabPane>
+              <fx:include source="../components/chat_component.fxml" fx:id="chatExplication"></fx:include>
          </children>
       </VBox>
       <HBox layoutX="40.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="69.0" prefWidth="806.0">
