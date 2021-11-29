@@ -41,7 +41,8 @@ public class BoardController extends GameComponentsAbstract {
     }
 
     @Override
-    public void update() {}
+    public void update(String type) {}
+
 
     private void playMove(MouseEvent event) {
         int[] coordinates ;
