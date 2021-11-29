@@ -5,18 +5,7 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="container_extra_infos" stylesheets="@../../style/infos_components_style.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.game.controller.troller">
   <tabs>
-    <Tab styleClass="tab_chat" text="Chat">
-         <content>
-            <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
-               <styleClass>
-                  <String fx:value="tab_chat" />
-                  <String fx:value="scroll_infos_parentscroll_infos_parent" />
-               </styleClass>
-               <content>
-                  <TextArea prefHeight="193.0" prefWidth="200.0" styleClass="text_infos" />
-               </content>
-            </ScrollPane>
-         </content></Tab>
+    <Tab styleClass="tab_chat" text="Chat" />
     <Tab styleClass="tab_chat" text="Players">
          <content>
             <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
