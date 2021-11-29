@@ -30,7 +30,5 @@ public interface DataToComClientInterface {
     List<UserLight> getOnlineUsers();
     //TODO UUID or boolean ?
     UUID currentUserIsPlayer();
-    void enoughPlayers(GameLight game);
-    void rejectPlayers(GameLight game);
     UserLight getUserLight();
 }

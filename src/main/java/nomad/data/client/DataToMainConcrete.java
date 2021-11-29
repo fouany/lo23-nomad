@@ -223,12 +223,25 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
 
     @Override
     public void enoughPlayers(GameLight game) throws GameException {
-        //TODO
+        Game g = dataClientController.getGameController().getGame();
+        if (g.getOpponent()==null){
+            throw new GameException("No opponent have been added to the game yet.");
+        }
+        else{
+            dataClientController.getComToDataInterface().enoughPlayers(game.getGameId(), g.getOpponent().getId());
+        }
     }
 
     @Override
     public void rejectPlayers(GameLight game) throws GameException {
-        //TODO
+        Game g = dataClientController.getGameController().getGame();
+        if (g.getOpponent()==null){
+            throw new GameException("No opponent have been added to the game yet.");
+        }
+        else{
+            g.setOpponent(null);
+            dataClientController.getComToDataInterface().rejectPlayers(game.getGameId());
+        }
     }
 
 }

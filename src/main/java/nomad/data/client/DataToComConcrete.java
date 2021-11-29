@@ -86,7 +86,8 @@ public class DataToComConcrete implements DataToComClientInterface {
     // TODO: game is already set to "launched" in updateSessionGameState,
     //  this method might only need to update the observable
     public void gameLaunchEvent(){
-        // TODO implementation
+        dataClientController.getGameController().getGame().setGameLaunched(true);
+        dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
 
     /**
@@ -225,8 +226,9 @@ public class DataToComConcrete implements DataToComClientInterface {
             } else {
                 game.getSpect().add(new UserLight(player.getId(), player.getLogin()));
             }
+            dataClientController.getIhmGameToDataInterface().updateObservable(game);
         } else{
-            throw new GameException("Game created does not exists");
+            throw new GameException("Game does not exists");
         }
     }
 
@@ -246,16 +248,6 @@ public class DataToComConcrete implements DataToComClientInterface {
     @Override
     public UUID currentUserIsPlayer(){
         return dataClientController.getGameController().getGame().getCurrentPlayerUUID();
-    }
-
-    @Override
-    public void enoughPlayers(GameLight game) {
-        //TODO
-    }
-
-    @Override
-    public void rejectPlayers(GameLight game) {
-        //TODO
     }
 
     @Override
