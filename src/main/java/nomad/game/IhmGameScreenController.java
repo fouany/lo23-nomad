@@ -15,7 +15,7 @@ public class IhmGameScreenController extends IhmScreenController {
     /**
      * Current game linked to the view
      */
-    Game linkedGame;
+    private Game linkedGame;
 
     /**
      * Contructor that set the module name and the default screen start
@@ -29,6 +29,14 @@ public class IhmGameScreenController extends IhmScreenController {
         linkedGame = currentGame;
         defaultStart = 0;
         initScenes();
+    }
+
+    /**
+     * Get the linked game
+     * @return game
+     */
+    public Game getLinkedGame() {
+        return linkedGame;
     }
 
     @Override
