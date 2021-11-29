@@ -31,4 +31,6 @@ public interface DataToComClientInterface {
     //TODO UUID or boolean ?
     UUID currentUserIsPlayer();
     UserLight getUserLight();
+
+    void addedSpecInGame(Game game, boolean isAdded);
 }

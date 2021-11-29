@@ -255,4 +255,12 @@ public class DataToComConcrete implements DataToComClientInterface {
         return dataClientController.getUserController().getUserLight();
     }
 
+    @Override
+    public void addedSpecInGame(Game game, boolean isAdded){
+        if(isAdded){
+            dataClientController.getGameController().setGame(game);
+            dataClientController.getIhmMainToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+        }
+    }
+
 }
