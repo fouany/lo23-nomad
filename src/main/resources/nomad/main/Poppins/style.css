@@ -16,81 +16,133 @@ TODO mettre les bonnes tailles d'écran a jour
 .main-background{
     -fx-background-color:-fx-orange-gradient;
     -fx-font-family : 'Poppins'
- }
+}
 
- .main-container {
+.main-container {
     -fx-background-color: -fx-white-break;
     /* CONTAINER_SHADOW */
     -fx-padding: 16px;
-     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 2, 0, 0, 2);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 2, 0, 0, 2);
     -fx-border-radius: 4px;
- }
+}
 
 
 
- .main-textfield {
+.main-textfield {
     -fx-background-color: #FFFFFF;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 2, 0, 0, 2);
     -fx-padding: 5px;
     -fx-border-radius: 4px;
- }
+}
 
- .main-button {
+.main-button {
     -fx-border-radius: 2px;
-     -fx-pref-height: 35px;
+    -fx-pref-height: 35px;
+    -fx-text-fill: white;
     -fx-font-family : 'Poppins'
- }
 
- .main-bg-red {
-     -fx-background-color : -fx-maximum-red;
-     -fx-text-fill : white
- }
+}
 
- .main-bg-blue {
-   -fx-background-color: #003049;
-   -fx-text-fill: white;
- }
 
- .main-bg-orange {
-   -fx-background-color: #f77f00;
-   -fx-text-fill: white;
- }
 
- .main-bg-cream {
-   -fx-background-color: #EAE2B7;
-   -fx-text-fill: #003049;
- }
 
- .dialog-blur-bg {
-     -fx-background-color: rgba(196,196,196,0.44);
- }
- .dialog-bg {
-     -fx-background-color: -fx-prussian-blue;
 
-     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 2, 0, 0, 2);
- }
+.main-button:hover {
+    -fx-background-color: #467fd0;
+}
 
- .dialog-title {
-     -fx-background-color: -fx-maximum-red;
-     -fx-text-fill: white;
 
-     -fx-font-family: Poppins;
-     -fx-font-weight: 800;
-     -fx-font-size: 16px;
+.main-bg-red {
+    -fx-background-color : -fx-maximum-red;
+    -fx-text-fill : white
+}
 
- }
+.main-bg-blue {
+    -fx-background-color: #003049;
+    -fx-text-fill: white;
+}
+
+.main-bg-orange {
+    -fx-background-color: #f77f00;
+    -fx-text-fill: white;
+}
+
+.main-bg-red {
+    -fx-background-color : -fx-maximum-red;
+    -fx-text-fill : white
+}
+
+
+.main-bg-disabled {
+    -fx-background-color: #BDBDBD;
+    -fx-text-fill: #676767 ;
+}
+
+.main-bg-cream {
+    -fx-background-color: #EAE2B7;
+    -fx-text-fill: #003049;
+}
+
+.main-bg-green {
+    -fx-background-color: -fx-green;
+}
+
+.dialog-blur-bg {
+    -fx-background-color: rgba(196,196,196,0.44);
+}
+.dialog-bg {
+    -fx-background-color: -fx-prussian-blue;
+}
+
+.main-bg-disabled {
+    -fx-background-color: #BDBDBD;
+    -fx-text-fill: #676767 ;
+}
+
+.main-bg-cream {
+    -fx-background-color: #EAE2B7;
+    -fx-text-fill: #003049;
+}
+
+.main-bg-green {
+    -fx-background-color: -fx-green;
+}
+
+.dialog-blur-bg {
+    -fx-background-color: rgba(196,196,196,0.44);
+}
+.dialog-bg {
+    -fx-background-color: -fx-prussian-blue;
+
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 2, 0, 0, 2);
+}
+
+.dialog-title {
+    -fx-background-color: -fx-maximum-red;
+    -fx-text-fill: white;
+
+    -fx-font-family: Poppins;
+    -fx-font-weight: 800;
+    -fx-font-size: 16px;
+
+}
+
+.menu-title {
+    -fx-font-family: 'Marones';
+    -fx-font-size: 50px;
+}
 
 .dialog-button {
     -fx-text-fill: white;
 }
 
- .dialog-error > .dialog-title {
-     -fx-background-color: -fx-maximum-red;
- }
+.dialog-error > .dialog-title {
+    -fx-background-color: -fx-maximum-red;
+}
 
- .dialog-error > HBox > .dialog-button {
-     -fx-background-color: -fx-maximum-red;
- }
+.dialog-error > HBox > .dialog-button {
+    -fx-background-color: -fx-maximum-red;
+}
 
 .dialog-success > .dialog-title {
     -fx-background-color: -fx-green;
@@ -108,198 +160,300 @@ TODO mettre les bonnes tailles d'écran a jour
     -fx-background-color: -fx-orange;
 }
 
- .dialog-content {
-     -fx-text-fill: white;
-     -fx-font-family: Poppins;
-     -fx-padding: 5px 16px;
- }
+.dialog-content {
+    -fx-text-fill: white;
+    -fx-font-family: Poppins;
+    -fx-padding: 5px 16px;
+}
 
- /* latin */
-  @font-face {
+
+
+.waiting-room-top-container {
+    -fx-padding: 16px;
+}
+
+/* latin */
+@font-face {
     font-family: 'Marones';
-    font-style: normal;
-    font-weight: 400;
-    src: url('Marones.ttf') format('truetype');
-  }
+    src: url('./Marones.ttf');
+}
 
-  /* latin */
-  @font-face {
+
+
+.waiting-room-top-container {
+    -fx-padding: 16px;
+}
+
+
+/* latin */
+@font-face {
+    font-family: 'Marones';
+    src: url('./Marones.ttf');
+}
+
+
+.waiting-room-top-container > Label {
+    -fx-font-size: 50px;
+    -fx-font-family: 'Marones';
+}
+
+.waiting-room-param
+{
+    -fx-font-family: 'Poppins';
+    -fx-font-weight: 500;
+    -fx-font-style: normal;
+    -fx-font-size: 14px;
+}
+.waiting-room-param-value {
+    -fx-font-family: 'Poppins';
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-font-size: 17px;
+}
+
+.waiting-room-image {
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+}
+
+.waiting-room-id {
+    -fx-text-fill: gray;
+    -fx-font-weight: 500;
+    -fx-font-size: 14px;
+}
+
+.waiting-room-wait-label {
+    -fx-font-size: 20;
+    -fx-font-style: italic;
+    -fx-font-weight: 500;
+    -fx-text-fill: white;
+}
+
+
+
+
+.waiting-room-id {
+    -fx-text-fill: gray;
+    -fx-font-weight: 500;
+    -fx-font-size: 14px;
+}
+
+.waiting-room-wait-label {
+    -fx-font-size: 20;
+    -fx-font-style: italic;
+    -fx-font-weight: 500;
+    -fx-text-fill: white;
+}
+
+
+
+/* latin */
+@font-face {
     font-family: 'Poppins';
     font-style: italic;
     font-weight: 100;
-    font-display: swap;
+
     src: url('Poppins-ExtraLightItalic.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
 
-  /* latin */
-  @font-face {
+
+}
+
+
+
+
+/* latin */
+@font-face {
     font-family: 'Poppins';
     font-style: italic;
     font-weight: 200;
-    font-display: swap;
-    src: url('Poppins-ThinItalic.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
 
-  /* latin */
-  @font-face {
+    src: url('Poppins-ThinItalic.ttf') format('truetype');
+
+}
+
+
+/* latin */
+@font-face {
     font-family: 'Poppins';
     font-style: italic;
     font-weight: 300;
-    font-display: swap;
-    src: url('Poppins-LightItalic.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
 
-  /* latin */
-  @font-face {
+    src: url('Poppins-LightItalic.ttf') format('truetype');
+
+}
+
+
+/* latin */
+@font-face {
     font-family: 'Poppins';
     font-style: italic;
     font-weight: 400;
-    font-display: swap;
-    src: url('Poppins-Italic.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
 
-  /* latin */
-  @font-face {
+    src: url('Poppins-Italic.ttf') format('truetype');
+
+}
+
+
+/* latin */
+@font-face {
     font-family: 'Poppins';
     font-style: italic;
     font-weight: 500;
-    font-display: swap;
-    src: url('Poppins-MediumItalic.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
 
-  /* latin */
-  @font-face {
+    src: url('Poppins-MediumItalic.ttf') format('truetype');
+
+
+}
+
+
+/* latin */
+@font-face {
     font-family: 'Poppins';
     font-style: italic;
     font-weight: 600;
-    font-display: swap;
-    src: url('Poppins-SemiBoldItalic.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
 
-  /* latin */
-  @font-face {
+    src: url('Poppins-SemiBoldItalic.ttf') format('truetype');
+
+}
+
+
+/* latin */
+@font-face {
     font-family: 'Poppins';
     font-style: italic;
     font-weight: 700;
-    font-display: swap;
-    src: url('Poppins-BoldItalic.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
 
-  /* latin */
-  @font-face {
+    src: url('Poppins-BoldItalic.ttf') format('truetype');
+
+}
+
+
+/* latin */
+@font-face {
     font-family: 'Poppins';
     font-style: italic;
     font-weight: 800;
-    font-display: swap;
-    src: url('Poppins-ExtraBoldItalic.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
 
-  /* latin */
-  @font-face {
+    src: url('Poppins-ExtraBoldItalic.ttf') format('truetype');
+
+}
+
+
+/* latin */
+@font-face {
     font-family: 'Poppins';
     font-style: italic;
     font-weight: 900;
-    font-display: swap;
-    src: url('Poppins-BlackItalic.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
 
-  /* latin */
-  @font-face {
+    src: url('Poppins-BlackItalic.ttf') format('truetype');
+
+}
+
+
+/* latin */
+@font-face {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 100;
-    font-display: swap;
-    src: url('Poppins-ExtraLight.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
 
-  /* latin */
-  @font-face {
+    src: url('Poppins-ExtraLight.ttf') format('truetype');
+
+}
+
+
+/* latin */
+@font-face {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 200;
-    font-display: swap;
-    src: url('Poppins-Thin.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
 
-  /* latin */
-  @font-face {
+    src: url('Poppins-Thin.ttf') format('truetype');
+
+}
+
+
+/* latin */
+@font-face {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 300;
-    font-display: swap;
-    src: url('Poppins-Light.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
 
-  /* latin */
-  @font-face {
+    src: url('Poppins-Light.ttf') format('truetype');
+
+}
+
+
+
+/* latin */
+@font-face {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
-    font-display: swap;
-    src: url('Poppins-Regular.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
 
-  /* latin */
-  @font-face {
+    src: url('Poppins-Regular.ttf') format('truetype');
+
+}
+
+
+/* latin */
+@font-face {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
-    font-display: swap;
+
     src: url('Poppins-Medium.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
- 
-  /* latin */
-  @font-face {
+
+
+}
+
+
+
+
+/* latin */
+@font-face {
+
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
-    font-display: swap;
+
     src: url('Poppins-SemiBold.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
-  
-  /* latin */
-  @font-face {
-    font-family: 'Poppins';
+
+}
+
+
+/* latin */
+@font-face {
+>>>>>>> origin/feature/main/#19_waiting_room
+font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
-    font-display: swap;
-    src: url('Poppins-Bold.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
 
-  /* latin */
-  @font-face {
+    src: url('Poppins-Bold.ttf') format('truetype');
+
+}
+
+
+/* latin */
+@font-face {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 800;
-    font-display: swap;
+
     src: url('Poppins-ExtraBold.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
-  
-  /* latin */
-  @font-face {
+
+}
+
+
+
+/* latin */
+@font-face {
+
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 900;
-    font-display: swap;
-    src: url('Poppins-Black.ttf') format('truetype');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
 
- 
+    src: url('Poppins-Black.ttf') format('truetype');
+
+}
+
+

@@ -1,7 +1,7 @@
 package nomad.com.server;
 
-import nomad.com.common.message.ComMessage;
-import nomad.com.common.message.UserChangedMessage;
+import nomad.com.common.message.Message;
+import nomad.com.common.message.client_message.UserChangedMessageBase;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.data.DataToComServerInterface;
 
@@ -14,21 +14,23 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Server extends Thread {
+public class ServerController extends Thread {
 
     private final HashMap<Socket, IdentifiedClient> clientList = new HashMap<>();
     private ServerSocket serverSocket;
     private final DataToComServerInterface dataToCom;
-    private final MessageProcessor messageProcessor;
     private boolean serverRun = true;
 
-    public Server(int port, DataToComServerInterface dataToCom) {
+    public DataToComServerInterface getDataToCom() {
+        return dataToCom;
+    }
+
+    public ServerController(int port, DataToComServerInterface dataToCom) {
         this.dataToCom = dataToCom;
-        this.messageProcessor = new MessageProcessor(dataToCom, this);
         try {
             serverSocket = new ServerSocket(port);
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Unable to create the ServerSocket");
         }
     }
 
@@ -63,7 +65,7 @@ public class Server extends Thread {
      * @param client  Destination of the message
      * @param message Message to be send
      */
-    public void sendMessage(Socket client, ComMessage message) {
+    public void sendMessage(Socket client, Message message) {
         try {
             clientList.get(client).getOutputStream().writeObject(message);
         } catch (IOException e) {
@@ -78,10 +80,9 @@ public class Server extends Thread {
      *
      * @param message Message to broadcast
      */
-    public void broadcast(ComMessage message) {
+    public void broadcast(Message message) {
         for (Map.Entry<Socket, IdentifiedClient> entry : clientList.entrySet()) {
             if (entry.getValue().getUID() == null) { // Skip unidentified users
-                System.out.println(entry.getValue().getUID());
                 continue;
             }
 
@@ -112,7 +113,7 @@ public class Server extends Thread {
 
         Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Disconnected user from server !");
         if (uid != null) {
-            broadcast(new UserChangedMessage(user, false)); // announce disconnection to all clients
+            broadcast(new UserChangedMessageBase(user, false)); // announce disconnection to all clients
         }
     }
 
@@ -128,17 +129,8 @@ public class Server extends Thread {
         Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Disconnected user from server !");
         UUID uid = clientList.get(client).getUID();
         if (uid != null) {
-            broadcast(new UserChangedMessage(dataToCom.getUserProfile(uid), false)); // announce disconnection to all clients
+            broadcast(new UserChangedMessageBase(dataToCom.getUserProfile(uid), false)); // announce disconnection to all clients
         }
-    }
-
-    /**
-     * Get the MessageProcessor instance of the server
-     *
-     * @return an initialized MessageProcessor
-     */
-    public MessageProcessor getMessageProcessor() {
-        return messageProcessor;
     }
 
     /**

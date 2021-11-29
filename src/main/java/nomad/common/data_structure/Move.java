@@ -10,9 +10,9 @@ public abstract class Move implements Serializable {
     private UUID userId;
     private UUID gameId;
 
-    public Move(){}
+    protected Move(){}
 
-    public Move(Timestamp s, UUID userId, UUID gameId) {
+    protected Move(Timestamp s, UUID userId, UUID gameId) {
         this.s = s;
         this.userId = userId;
         this.gameId = gameId;

@@ -85,8 +85,13 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     // TODO: game is already set to "launched" in updateSessionGameState,
     //  this method might only need to update the observable
+
+    /**
+     * sets the game as launched and adds the observable to the game
+     */
     public void gameLaunchEvent(){
-        // TODO implementation
+        dataClientController.getGameController().getGame().setGameLaunched(true);
+        dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
 
     /**
@@ -97,6 +102,7 @@ public class DataToComConcrete implements DataToComClientInterface {
     public void towerValid(Tower tower, boolean valid) {
         dataClientController.getGameController().getGame().getMoves().add(tower);
         dataClientController.getGameController().getGame().changeCurrentPlayer();
+        dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
 
     /**
@@ -104,9 +110,15 @@ public class DataToComConcrete implements DataToComClientInterface {
      * @param tile
      * @param valid
      */
-    public void tileValid(Tile tile, boolean valid){
-        dataClientController.getGameController().getGame().getMoves().add(tile);
-        dataClientController.getGameController().getGame().changeCurrentPlayer();
+    public void tileValid(Tile tile, boolean valid) throws TileException {
+        if (valid){
+            dataClientController.getGameController().getGame().getMoves().add(tile);
+            dataClientController.getGameController().getGame().changeCurrentPlayer();
+            dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+        }else{
+            dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+            throw new TileException("Tile Placement not valid");
+        }
     }
 
     /**
@@ -114,15 +126,27 @@ public class DataToComConcrete implements DataToComClientInterface {
      * @param skip
      * @param valid
      */
-    public void skipValidation(Skip skip, boolean valid){
-        dataClientController.getGameController().getGame().getMoves().add(skip);
-        dataClientController.getGameController().getGame().changeCurrentPlayer();
+    public void skipValidation(Skip skip, boolean valid) throws SkipException {
+        if (valid){
+            dataClientController.getGameController().getGame().getMoves().add(skip);
+            dataClientController.getGameController().getGame().changeCurrentPlayer();
+            dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+        }else{
+            dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+            throw new SkipException("Skip not valid");
+        }
     }
 
+    /**
+     * adds the move to the list of moves, changes the current player, and updates the observable
+     * @param move
+     * @param user
+     */
     @Override
-    // TODO : not necessary, could be removed
-    public void moveReceived(Move m, UserLight user) {
-        // TODO implementation
+    public void moveReceived(Move move, UserLight user) {
+        dataClientController.getGameController().getGame().getMoves().add(move);
+        dataClientController.getGameController().getGame().changeCurrentPlayer();
+        dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
 
     /**
@@ -153,8 +177,9 @@ public class DataToComConcrete implements DataToComClientInterface {
     }
 
     @Override
-    // TODO : supprimer cette méthode car déjà implémentée dans updateUserSession
-    // Non : On rajoute aussi la liste des Games en lobby
+    /**
+     * adds the connected user, and updates the according lists of connected user to the games in lobby and in play
+     */
     public void addConnectedUserProfile(List<Player> players, List<GameLight> gamesInLobby, List<GameLight> gamesInPlay) {
         for (Player p : players){
             dataClientController.getSession().getConnectedUsers().add(new UserLight(p));
@@ -211,8 +236,9 @@ public class DataToComConcrete implements DataToComClientInterface {
             } else {
                 game.getSpect().add(new UserLight(player.getId(), player.getLogin()));
             }
+            dataClientController.getIhmGameToDataInterface().updateObservable(game);
         } else{
-            throw new GameException("Game created does not exists");
+            throw new GameException("Game does not exists");
         }
     }
 
@@ -232,16 +258,6 @@ public class DataToComConcrete implements DataToComClientInterface {
     @Override
     public UUID currentUserIsPlayer(){
         return dataClientController.getGameController().getGame().getCurrentPlayerUUID();
-    }
-
-    @Override
-    public void enoughPlayers(GameLight game) {
-        //TODO
-    }
-
-    @Override
-    public void rejectPlayers(GameLight game) {
-        //TODO
     }
 
     @Override

@@ -20,16 +20,19 @@ public class IhmMainScreenController extends IhmScreenController {
     private MenuController menuController;
     private CreateGameController createGameController;
     private ViewGameController viewGameController;
+    private  WaitingRoomController waitingRoomController;
 
 
-    public IhmMainScreenController(MainApplication app, DataToIhmMainInterface dataI) throws IOException {
+    public IhmMainScreenController(MainApplication app, DataToIhmMainInterface dataI, ComToIhmMainInterface comI) throws IOException {
         super(app);
         module = "MAIN";
-        defaultStart = 3;
+        defaultStart = 0;
         attributes = new HashMap<>();
         initScenes();
         this.dataI = dataI;
+        this.comI = comI;
         DialogController.initDialog(dictScenes.get(4));
+        Math.random();
         /**
          * todo ajouter l'interface com concrete
          * **/
@@ -42,6 +45,11 @@ public class IhmMainScreenController extends IhmScreenController {
 
     public MenuController getMenuController() {
         return menuController;
+    }
+
+
+    public WaitingRoomController getWaitingRoomController() {
+        return waitingRoomController;
     }
 
 
@@ -69,7 +77,10 @@ public class IhmMainScreenController extends IhmScreenController {
         listPaths.add("fxml/ihm_menu.fxml");
         listPaths.add("fxml/ihm_create_game.fxml");
         listPaths.add("fxml/ihm_dialog.fxml");
+
         listPaths.add("fxml/ihm_view_game.fxml");
+
+        listPaths.add("fxml/ihm_waiting_room.fxml");
 
     }
 
@@ -78,13 +89,22 @@ public class IhmMainScreenController extends IhmScreenController {
         menuController = new MenuController(this);
 
         createGameController = new CreateGameController(this);
+
         viewGameController = new ViewGameController(this);
+
+        waitingRoomController = new WaitingRoomController(this);
+
         dictController.put(0, new LoginController(this));
         dictController.put(1, new ServerConnectionController(this));
         dictController.put(2, menuController);
         dictController.put(3,createGameController);
         dictController.put(4, new DialogController(this));
+
         dictController.put(5, viewGameController);
+
+        dictController.put(6, waitingRoomController);
+
+
 
     }
 

@@ -196,4 +196,6 @@ public class Game extends Observable implements Serializable  {
                 ", chat=" + chat +
                 '}';
     }
+
+    public void removeOpponent() { this.opponent = null; }
 }

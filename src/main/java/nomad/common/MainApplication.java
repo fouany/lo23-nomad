@@ -3,8 +3,8 @@ package nomad.common;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import nomad.com.client.ClientController;
-import nomad.com.client.ComClientToDataConcrete;
-import nomad.common.data_structure.Game;
+import nomad.com.client.concrete.ComClientToDataConcrete;
+import nomad.com.client.concrete.ComClientToIhmMainConcrete;
 import nomad.common.ihm.IhmScreenController;
 import nomad.data.client.DataClientController;
 import nomad.data.client.DataToComConcrete;
@@ -29,6 +29,7 @@ public class MainApplication extends Application {
   private DataToComConcrete dataToComConcrete;
   private DataToGameConcrete dataToGameConcrete;
 
+  private ComClientToIhmMainConcrete comClientToIhmMainConcrete;
   private IhmMainToDataConcrete ihmMainToDataConcrete;
   private ComClientToDataConcrete comClientToDataConcrete;
 
@@ -51,8 +52,9 @@ public class MainApplication extends Application {
   public void initConcreteInterface () {
     dataToComConcrete = new DataToComConcrete();
     dataToMainConcrete = new DataToMainConcrete();
-
+    dataToGameConcrete = new DataToGameConcrete();
     ihmMainToDataConcrete = new IhmMainToDataConcrete();
+    comClientToIhmMainConcrete = new ComClientToIhmMainConcrete();
     comClientToDataConcrete = new ComClientToDataConcrete();
   }
 
@@ -61,8 +63,7 @@ public class MainApplication extends Application {
             ihmMainToDataConcrete,
             null);
     clientController = new ClientController(dataToComConcrete);
-
-    ihmMainScreenController = new IhmMainScreenController(this, dataToMainConcrete);
+    ihmMainScreenController = new IhmMainScreenController(this, dataToMainConcrete, comClientToIhmMainConcrete);
   }
 
   public void linkConcreteController (){

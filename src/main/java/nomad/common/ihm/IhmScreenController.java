@@ -152,4 +152,15 @@ public abstract class IhmScreenController {
     {
         return mainApp.getStage();
     }
+
+    /**
+     * Change the current active module
+     */
+    public void changeModule() throws IOException {
+        if (module.equals("MAIN")) {
+            mainApp.changeModule("GAME");
+        } else {
+            mainApp.changeModule("MAIN");
+        }
+    }
 }

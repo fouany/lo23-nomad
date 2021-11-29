@@ -3,17 +3,21 @@ package nomad.main.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 public class CreateGameController extends IhmControllerComponent {
 
+    private final IhmMainScreenController ihmMainScreenController;
     @FXML
     public CheckBox random;
     @FXML
@@ -26,21 +30,11 @@ public class CreateGameController extends IhmControllerComponent {
     public Slider towerNumber;
     @FXML
     public CheckBox allowViewers;
+
+
     @FXML
     public CheckBox allowViewersChat;
-
-
-
-    //Enum des couleurs pour savoir qui commence la partie
-    private enum Color {
-        RED,
-        WHITE,
-        RANDOM,
-        NULL, //if no color is clicked
-    }
-    private Color color = Color.NULL;
-
-    private final IhmMainScreenController ihmMainScreenController;
+    private boolean color;
 
     /**
      * Constructor that link the screen controller to the component controller
@@ -53,7 +47,6 @@ public class CreateGameController extends IhmControllerComponent {
     }
 
 
-    //TODO Fix probleme display du layout lors du changement de scène
     public void onClickBack() {
         screenControl.changeScreen(2);
     }
@@ -65,45 +58,48 @@ public class CreateGameController extends IhmControllerComponent {
 
     }
 
-    public void onCheckColor(ActionEvent e) throws Exception
-    {
+    public void onCheckColor(ActionEvent e) throws Exception {
         CheckBox checkbox = (CheckBox) e.getSource();
         String id = checkbox.getId();
         boolean checked = checkbox.isSelected();
         resetCheckBoxes();
         checkbox.setSelected(checked);
-        if(!checked)
-        {
-            color = Color.NULL;
-            return;
+        if (!checked) {
+            Random random = new Random();
+            int nb;
+            nb = random.nextInt(2);
+            boolean b = !(nb==0);
+            color = b;
         }
-        switch (id)
-        {
-            case "red" :
-                color = Color.RED;
+        switch (id) {
+            case "red":
+                color = true;
                 break;
             case "white":
-                color = Color.WHITE;
+                color = false;
                 break;
-            case "random" :
-                color = Color.RANDOM;
+            case "random":
+                Random random = new Random();
+                int nb;
+                nb = random.nextInt(2);
+                boolean b = !(nb==0);
+                color = b;
                 break;
             default:
                 //log("Error");
-                throw new Exception("Unknown Color") ;
+                throw new Exception("Unknown Color");
         }
 
     }
 
     //Todo Logger à reformatter/remplacer ?
-    private void log(String data)
-    {
+    private void log(String data) {
         Logger.getLogger(this.getClass().getName()).log(Level.INFO, data);
     }
 
 
     public void onCheckAllow() {
-        if(allowViewers.isSelected()) {
+        if (allowViewers.isSelected()) {
             allowViewersChat.setDisable(false);
             return;
         }
@@ -112,35 +108,30 @@ public class CreateGameController extends IhmControllerComponent {
     }
 
 
-
-
-    public boolean validate(){
-        return color != Color.NULL && !gameName.getText().equals("");
+    public boolean validate() {
+        return !gameName.getText().equals("");
     }
 
-    public void displayWaitingRoom()
-    {
+    public void displayWaitingRoom() {
         DialogController.display("Partie créée", "Votre partie a bien été créée", DialogController.DialogStatus.SUCCESS, this.ihmMainScreenController);
 
         this.ihmMainScreenController.changeScreen(4);
     }
 
     public void onClickCreateGame() {
-       if(!validate()) {
+        if (!validate()) {
             DialogController.display("Formulaire incomplet", "Veuillez renseigner tous les champs", DialogController.DialogStatus.WARNING, this.ihmMainScreenController);
             return;
-       }
-            log(gameName.getText());
-            log(String.valueOf((int)towerNumber.getValue()));
-            log(color.name());
-            UserLight user = ihmMainScreenController.getDataI().getUserLight();
+        }
+        log(gameName.getText());
+        log(String.valueOf((int) towerNumber.getValue()));
+        UserLight user = ihmMainScreenController.getDataI().getUserLight();
 
-            //ihmMainScreenController.getComI().newGame(gameName.getText(),user,(int)towerNumber.getValue(),allowViewers.isSelected(),allowViewersChat.isSelected(),color);
-            //ihmMainScreenController.getAttributes().put("gameName", gameName.getText());
-            //ihmMainScreenController.getAttributes().put("towerNumber", String.valueOf(towerNumber.getValue()));
+        ihmMainScreenController.getComI().newGame(gameName.getText(), user, (int) towerNumber.getValue(), allowViewers.isSelected(), allowViewersChat.isSelected(), color);
+        //ihmMainScreenController.getAttributes().put("gameName", gameName.getText());
+        //ihmMainScreenController.getAttributes().put("towerNumber", String.valueOf(towerNumber.getValue()));
 
     }
-    
 
 
 }

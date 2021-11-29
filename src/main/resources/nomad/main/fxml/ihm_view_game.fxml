@@ -1,21 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="main-background" stylesheets="@../../main/Poppins/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.main.controller.ViewGameController">
+
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="935.0" styleClass="main-background" stylesheets="@../Poppins/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.main.controller.ViewGameController">
    <children>
-      <HBox layoutX="142.0" layoutY="14.0" prefHeight="100.0" prefWidth="302.0" styleClass="main-container" />
-      <CheckBox fx:id="stateCheckBox" layoutX="236.0" layoutY="77.0" mnemonicParsing="false" onAction="#changeGamesView" prefHeight="23.0" prefWidth="95.0" text="Viewer mode" />
-      <Text layoutX="236.0" layoutY="53.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Available Games" wrappingWidth="95.0" />
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onClickReturnMenu" onMouseClicked="#onClickReturnMenu" text="Home" />
-      <ListView fx:id="gamesViewAsViewer" layoutX="142.0" layoutY="138.0" onMouseClicked="#handleGameAsViewerListClick" prefHeight="200.0" prefWidth="302.0" visible="false" />
-      <ListView fx:id="gamesViewAsPlayer" layoutX="142.0" layoutY="138.0" onMouseClicked="#handleGameAsPlayerListClick" prefHeight="200.0" prefWidth="302.0" />
-      <Button fx:id="addGameTestButton" layoutX="473.0" layoutY="138.0" mnemonicParsing="false" onAction="#onClickAddGame" text="Test Add" />
-      <Button fx:id="deleteGameTestButton" layoutX="473.0" layoutY="175.0" mnemonicParsing="false" onAction="#onClickDeleteGame" text="Test Delete" />
+      <VBox alignment="CENTER" prefHeight="600.0" prefWidth="566.0">
+         <children>
+            <Separator prefHeight="66.0" prefWidth="476.0" visible="false" />
+            <VBox prefHeight="160.0" prefWidth="520.0" styleClass="main-container">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="591.0" styleClass="menu-title" text="Available Games" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <CheckBox fx:id="stateCheckBox" mnemonicParsing="false" onAction="#changeGamesView" prefHeight="23.0" prefWidth="135.0" text="Viewer mode" />
+                        <Button mnemonicParsing="false" onAction="#onClickReturnMenu" onMouseClicked="#onClickReturnMenu" prefWidth="134.0" text="Go Home">
+                           <styleClass>
+                              <String fx:value="main-button" />
+                              <String fx:value="main-bg-red" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Separator prefHeight="32.0" prefWidth="566.0" visible="false" />
+            <ListView fx:id="gamesViewAsViewer" onMouseClicked="#handleGameAsViewerListClick" prefHeight="200.0" prefWidth="302.0" styleClass="main-container" visible="false" />
+            <ListView fx:id="gamesViewAsPlayer" onMouseClicked="#handleGameAsPlayerListClick" prefHeight="200.0" prefWidth="302.0" styleClass="main-container" />
+            <Separator prefHeight="32.0" prefWidth="566.0" visible="false" />
+            <HBox alignment="CENTER">
+               <children>
+                  <Button fx:id="deleteGameTestButton" mnemonicParsing="false" onAction="#onClickDeleteGame" text="Test Delete" />
+                  <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="63.0" visible="false" />
+                  <Button fx:id="addGameTestButton" mnemonicParsing="false" onAction="#onClickAddGame" text="Test Add" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </children>
-</Pane>
+</HBox>
