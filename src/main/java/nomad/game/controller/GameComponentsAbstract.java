@@ -20,7 +20,7 @@ public abstract class GameComponentsAbstract extends IhmControllerComponent {
     /**
      * Init the controlleur
      */
-    public abstract void init(Game game);
+    public abstract void init();
 
     /**
      * Update the component

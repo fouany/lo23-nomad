@@ -13,7 +13,7 @@ public class ChatController extends GameComponentsAbstract{
     }
 
     @Override
-    public void init(Game game) {
+    public void init() {
 
     }
 

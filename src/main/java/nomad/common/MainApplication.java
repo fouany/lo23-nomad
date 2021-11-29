@@ -8,6 +8,7 @@ import nomad.common.data_structure.Game;
 import nomad.common.ihm.IhmScreenController;
 import nomad.data.client.DataClientController;
 import nomad.data.client.DataToComConcrete;
+import nomad.data.client.DataToGameConcrete;
 import nomad.data.client.DataToMainConcrete;
 import nomad.game.IhmGameScreenController;
 import nomad.main.IhmMainScreenController;
@@ -26,6 +27,7 @@ public class MainApplication extends Application {
   Stage stage;
   private DataToMainConcrete dataToMainConcrete;
   private DataToComConcrete dataToComConcrete;
+  private DataToGameConcrete dataToGameConcrete;
 
   private IhmMainToDataConcrete ihmMainToDataConcrete;
   private ComClientToDataConcrete comClientToDataConcrete;
@@ -59,6 +61,7 @@ public class MainApplication extends Application {
             ihmMainToDataConcrete,
             null);
     clientController = new ClientController(dataToComConcrete);
+
     ihmMainScreenController = new IhmMainScreenController(this, dataToMainConcrete);
   }
 
@@ -78,7 +81,7 @@ public class MainApplication extends Application {
     stage = primaryStage;
     stage.setMinHeight(MIN_HEIGHT);
     stage.setMinWidth(MIN_WIDTH);
-    this.changeModule("MAIN",null);
+    this.changeModule("MAIN");
   }
 
   /**
@@ -86,11 +89,11 @@ public class MainApplication extends Application {
    * @param mode module wanted
    * @throws IOException
    */
-  public void changeModule(String mode, Game game) throws IOException {
+  public void changeModule(String mode) throws IOException {
     if (mode.equals("MAIN")) {
       screenController = ihmMainScreenController;
     } else {
-      ihmGameScreenController = new IhmGameScreenController(this,game);
+      ihmGameScreenController = new IhmGameScreenController(this, dataToGameConcrete);
       screenController = ihmGameScreenController;
     }
     screenController.initIHM();

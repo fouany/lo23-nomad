@@ -40,11 +40,12 @@ public class PlayerInfoController extends GameComponentsAbstract {
     }
 
     @Override
-    public void init(Game game) {
+    public void init() {
+        Game game = super.getGameController().getCurrentGame();
         playerOneName.setText(game.getHost().getLogin());
         playerTwoName.setText(game.getOpponent().getLogin());
         numberTower.setText("Towers : "+game.getNbOfTowers()+"/5");
-
+        //TODO update for connect / nb tiles when com implements the methods
     }
 
     @Override

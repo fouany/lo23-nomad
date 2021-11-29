@@ -1,6 +1,5 @@
 package nomad.game.controller;
 
-import nomad.common.data_structure.Game;
 import nomad.common.ihm.IhmScreenController;
 
 public class LogController extends GameComponentsAbstract{
@@ -14,7 +13,7 @@ public class LogController extends GameComponentsAbstract{
     }
 
     @Override
-    public void init(Game game) {
+    public void init() {
 
     }
 

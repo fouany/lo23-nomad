@@ -45,28 +45,36 @@ public class GameController extends IhmControllerComponent implements Observer {
 
         playerInfoController = new PlayerInfoController(screen);
         playerInfoController.setParentController(this);
-        playerInfoController.init(currentGame);
+        playerInfoController.init();
 
         boardController = new BoardController(screen);
         boardController.setParentController(this);
-        boardController.init(currentGame);
+        boardController.init();
 
         logController = new LogController(screen);
         logController.setParentController(this);
-        logController.init(currentGame);
+        logController.init();
 
         skipController = new SkipController(screen);
         skipController.setParentController(this);
-        skipController.init(currentGame);
+        skipController.init();
 
         chatController = new ChatController(screen);
         chatController.setParentController(this);
-        chatController.init(currentGame);
+        chatController.init();
     }
 
     @Override
     public void update(Observable o, Object arg) {
         System.out.println("Update on game");
         //TODO handle different type of updates => call update on the controller needed
+    }
+
+    public Game getCurrentGame() {
+        return currentGame;
+    }
+
+    public void setCurrentGame(Game currentGame) {
+        this.currentGame = currentGame;
     }
 }

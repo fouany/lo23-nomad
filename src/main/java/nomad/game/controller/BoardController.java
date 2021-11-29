@@ -14,7 +14,7 @@ public class BoardController extends GameComponentsAbstract{
     }
 
     @Override
-    public void init(Game game) {
+    public void init() {
 
     }
 

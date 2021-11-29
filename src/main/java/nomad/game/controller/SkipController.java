@@ -14,7 +14,7 @@ public class SkipController extends GameComponentsAbstract {
     }
 
     @Override
-    public void init(Game game) {
+    public void init() {
 
     }
 

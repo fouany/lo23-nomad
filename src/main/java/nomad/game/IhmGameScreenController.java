@@ -3,6 +3,7 @@ package nomad.game;
 import nomad.common.data_structure.Game;
 import nomad.common.ihm.IhmScreenController;
 import nomad.common.MainApplication;
+import nomad.data.client.DataToGameConcrete;
 import nomad.game.controller.GameController;
 
 import java.io.IOException;
@@ -12,22 +13,18 @@ import java.io.IOException;
  */
 public class IhmGameScreenController extends IhmScreenController {
 
-    /**
-     * Current game linked to the view
-     */
-    private Game linkedGame;
+    private DataToGameConcrete dataInterface;
 
     /**
      * Contructor that set the module name and the default screen start
      * @param app
-     * @param currentGame
      * @throws IOException
      */
-    public IhmGameScreenController(MainApplication app, Game currentGame) throws IOException {
+    public IhmGameScreenController(MainApplication app, DataToGameConcrete dataInterface) throws IOException {
         super(app);
         module = "GAME";
-        linkedGame = currentGame;
         defaultStart = 0;
+        this.dataInterface = dataInterface;
         initScenes();
     }
 
@@ -36,7 +33,7 @@ public class IhmGameScreenController extends IhmScreenController {
      * @return game
      */
     public Game getLinkedGame() {
-        return linkedGame;
+        return dataInterface.getGame();
     }
 
     @Override
