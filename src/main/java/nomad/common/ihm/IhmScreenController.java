@@ -6,6 +6,7 @@ package nomad.common.ihm;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 import nomad.common.MainApplication;
 import nomad.common.data_structure.Game;
 
@@ -108,6 +109,7 @@ public abstract class IhmScreenController {
      */
     protected void initScenes() throws IOException {
         for (int i = 0; i < listPaths.size() ; i++){
+            System.out.println(listPaths.get(i));
             FXMLLoader fxmlLoader = loadFile(listPaths.get(i),dictController.get(i));
             Scene scene = new Scene(fxmlLoader.load());
             if (dictStyles.containsKey(i)){
@@ -144,6 +146,11 @@ public abstract class IhmScreenController {
     public void changeScreen(int i){
         mainApp.getStage().setScene(dictScenes.get(i));
         mainApp.getStage().show();
+    }
+
+    public Stage getStage()
+    {
+        return mainApp.getStage();
     }
 
     /**
