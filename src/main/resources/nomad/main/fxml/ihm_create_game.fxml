@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="main-background" stylesheets="@../Poppins/style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.main.controller.CreateGameController">
+   <children>
+      <HBox prefHeight="59.0" prefWidth="361.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onClickBack" text="Back">
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <HBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="334.0" prefWidth="288.0" styleClass="main-container">
+               <children>
+                  <Label style="-fx-font-family: 'Marones';" text="CREATE GAME">
+                  </Label>
+                  <VBox prefHeight="292.0" prefWidth="256.0">
+                     <children>
+                        <Label style="-fx-font-family: 'Poppins';" text="Game name :">
+                        </Label>
+                        <TextField fx:id="gameName" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="266.0" promptText="Type here" style="-fx-font-family: 'Poppins';">
+                        </TextField>
+                        <Separator prefHeight="10.0" prefWidth="256.0" visible="false" />
+                        <Label style="-fx-font-family: 'Poppins';" text="Tower number :">
+                        </Label>
+                        <Slider fx:id="towerNumber" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="2.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="2.0" />
+                        <Separator prefHeight="10.0" prefWidth="256.0" visible="false" />
+                        <HBox prefHeight="50.0" prefWidth="256.0">
+                           <children>
+                              <CheckBox fx:id="red" mnemonicParsing="false" onAction="#onCheckColor" style="-fx-font-family: 'Poppins';" text="RED" />
+                              <Separator orientation="VERTICAL" prefHeight="41.0" prefWidth="35.0" visible="false" />
+                              <CheckBox fx:id="white" mnemonicParsing="false" onAction="#onCheckColor" style="-fx-font-family: 'Poppins';" text="WHITE" />
+                              <Separator orientation="VERTICAL" prefHeight="41.0" prefWidth="35.0" visible="false" />
+                              <CheckBox fx:id="random" mnemonicParsing="false" onAction="#onCheckColor" style="-fx-font-family: 'Poppins';" text="RANDOM" />
+                           </children>
+                        </HBox>
+                        <CheckBox fx:id="allowViewers" mnemonicParsing="false" onAction="#onCheckAllow" style="-fx-font-family: 'Poppins'; -fx-font-style: italic;" text="Allow viewers" />
+                        <Separator prefHeight="15.0" prefWidth="256.0" visible="false" />
+                        <CheckBox fx:id="allowViewersChat" disable="true" mnemonicParsing="false" style="-fx-font-family: 'Poppins'; -fx-font-style: italic;" text="Allow viewers to chat" />
+                        <Separator prefHeight="25.0" prefWidth="256.0" visible="false" />
+                        <Button mnemonicParsing="false" onMouseClicked="#onClickCreateGame" prefHeight="30.0" prefWidth="264.0" style="-fx-font-family: 'Poppins';" styleClass="main-bg-blue" text="Create game" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>

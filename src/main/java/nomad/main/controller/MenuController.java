@@ -36,6 +36,7 @@ public class MenuController extends IhmControllerComponent implements ListChange
 
     public void onClickJoin() {
         // TODO : implement method
+        ihmController.changeScreen(3);
     }
 
     public void onClickProfile() {
