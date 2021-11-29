@@ -14,8 +14,8 @@ public interface DataToComClientInterface {
     void handleSpectator(UserLight user, boolean isAdded);
     void gameLaunchEvent();
     void towerValid(Tower t, boolean valid);
-    void tileValid(Tile m, boolean valid);
-    void skipValidation(Skip m, boolean valid);
+    void tileValid(Tile m, boolean valid) throws TileException;
+    void skipValidation(Skip m, boolean valid) throws SkipException;
     void moveReceived(Move m, UserLight user);
 
     void endGame (GameLight game, boolean gameEnded);
@@ -30,7 +30,5 @@ public interface DataToComClientInterface {
     List<UserLight> getOnlineUsers();
     //TODO UUID or boolean ?
     UUID currentUserIsPlayer();
-    void enoughPlayers(GameLight game);
-    void rejectPlayers(GameLight game);
     UserLight getUserLight();
 }

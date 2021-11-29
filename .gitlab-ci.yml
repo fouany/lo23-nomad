@@ -1,5 +1,33 @@
 stages:
+  - build
+  - package
   - test
+
+maven-clean-compile:
+  stage: build
+  script:
+    - mvn clean
+    - mvn compile
+  artifacts:
+    untracked: true
+
+maven-jlink:
+  stage : package
+  dependencies:
+    - maven-clean-compile
+  script:
+    - mvn javafx:jlink
+    - OUTPUT_FILE=`echo nomad_${CI_COMMIT_SHORT_SHA}.zip`
+    - du -sh target/NomadTheGame
+    - strip -p --strip-unneeded target/NomadTheGame/lib/server/libjvm.so # Reduce size from 500MB to approx 20MB
+    - du -sh target/NomadTheGame
+    - 7z a -mm=LZMA -mx=9 ${OUTPUT_FILE} target/NomadTheGame
+    - echo ${CI_PROJECT_PATH}
+  artifacts:
+    name: "PackagedNomad_${CI_COMMIT_SHORT_SHA}"
+    expire_in: 48 hrs
+    paths:
+      - "*.zip"
 
 sonarqube-check:
   stage: test
@@ -13,6 +41,6 @@ sonarqube-check:
       - .sonar/cache
   script: 
     - mvn verify sonar:sonar
-  allow_failure: true
+  allow_failure: false
   only:
     - develop # or the name of your main branch

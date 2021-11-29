@@ -86,7 +86,8 @@ public class DataToComConcrete implements DataToComClientInterface {
     // TODO: game is already set to "launched" in updateSessionGameState,
     //  this method might only need to update the observable
     public void gameLaunchEvent(){
-        // TODO implementation
+        dataClientController.getGameController().getGame().setGameLaunched(true);
+        dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
 
     /**
@@ -97,6 +98,7 @@ public class DataToComConcrete implements DataToComClientInterface {
     public void towerValid(Tower tower, boolean valid) {
         dataClientController.getGameController().getGame().getMoves().add(tower);
         dataClientController.getGameController().getGame().changeCurrentPlayer();
+        dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
 
     /**
@@ -104,9 +106,15 @@ public class DataToComConcrete implements DataToComClientInterface {
      * @param tile
      * @param valid
      */
-    public void tileValid(Tile tile, boolean valid){
-        dataClientController.getGameController().getGame().getMoves().add(tile);
-        dataClientController.getGameController().getGame().changeCurrentPlayer();
+    public void tileValid(Tile tile, boolean valid) throws TileException {
+        if (valid){
+            dataClientController.getGameController().getGame().getMoves().add(tile);
+            dataClientController.getGameController().getGame().changeCurrentPlayer();
+            dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+        }else{
+            dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+            throw new TileException("Tile Placement not valid");
+        }
     }
 
     /**
@@ -114,15 +122,22 @@ public class DataToComConcrete implements DataToComClientInterface {
      * @param skip
      * @param valid
      */
-    public void skipValidation(Skip skip, boolean valid){
-        dataClientController.getGameController().getGame().getMoves().add(skip);
-        dataClientController.getGameController().getGame().changeCurrentPlayer();
+    public void skipValidation(Skip skip, boolean valid) throws SkipException {
+        if (valid){
+            dataClientController.getGameController().getGame().getMoves().add(skip);
+            dataClientController.getGameController().getGame().changeCurrentPlayer();
+            dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+        }else{
+            dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+            throw new SkipException("Skip not valid");
+        }
     }
 
     @Override
-    // TODO : not necessary, could be removed
     public void moveReceived(Move m, UserLight user) {
-        // TODO implementation
+        dataClientController.getGameController().getGame().getMoves().add(m);
+        dataClientController.getGameController().getGame().changeCurrentPlayer();
+        dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
 
     /**
@@ -211,8 +226,9 @@ public class DataToComConcrete implements DataToComClientInterface {
             } else {
                 game.getSpect().add(new UserLight(player.getId(), player.getLogin()));
             }
+            dataClientController.getIhmGameToDataInterface().updateObservable(game);
         } else{
-            throw new GameException("Game created does not exists");
+            throw new GameException("Game does not exists");
         }
     }
 
@@ -232,16 +248,6 @@ public class DataToComConcrete implements DataToComClientInterface {
     @Override
     public UUID currentUserIsPlayer(){
         return dataClientController.getGameController().getGame().getCurrentPlayerUUID();
-    }
-
-    @Override
-    public void enoughPlayers(GameLight game) {
-        //TODO
-    }
-
-    @Override
-    public void rejectPlayers(GameLight game) {
-        //TODO
     }
 
     @Override
