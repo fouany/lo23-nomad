@@ -5,38 +5,38 @@ import nomad.common.interfaces.data.DataToIhmGameInterface;
 
 public class DataToGameConcrete implements DataToIhmGameInterface  {
 
-    DataClientController dataClientController;
+    DataClientController dataClientControllerGame;
 
     public void setDataClientController(DataClientController dataClientController) {
-        this.dataClientController = dataClientController;
+        this.dataClientControllerGame = dataClientController;
     }
 
     public User getUser(){
-        return dataClientController.getUserController().getUser();
+        return dataClientControllerGame.getUserController().getUser();
     }
 
     public Player getPlayer(){
-        return dataClientController.getUserController().getPlayer();
+        return dataClientControllerGame.getUserController().getPlayer();
     }
 
     public UserLight getUserLight(){
-        return dataClientController.getUserController().getUserLight();
+        return dataClientControllerGame.getUserController().getUserLight();
     }
 
     public Game getGame(){
-        return dataClientController.getGameController().getGame();
+        return dataClientControllerGame.getGameController().getGame();
     }
 
     public GameLight getGameLight(){
-        return dataClientController.getGameLight();
+        return dataClientControllerGame.getGameLight();
     }
 
     public void setProfile(User user){
-        dataClientController.getUserController().setUser(user);
+        dataClientControllerGame.getUserController().setUser(user);
     }
 
     public void saveCurrentGame(){
-        dataClientController.getUserController().addSavedGame(getGame());
+        dataClientControllerGame.getUserController().addSavedGame(getGame());
     }
 
 }
