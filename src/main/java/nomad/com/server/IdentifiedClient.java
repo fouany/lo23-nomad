@@ -1,6 +1,6 @@
 package nomad.com.server;
 
-import nomad.com.common.message.ComMessage;
+import nomad.com.common.message.serverMessage.BaseServerMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -20,25 +20,23 @@ public class IdentifiedClient extends Thread {
      *
      * @param id Client UID
      * @param socket Socket connected to the client
-     * @param server Reference to a Server object
+     * @param serverController Reference to a Server object
      * @throws IOException Fail to register ObjectStreams
      */
-    public IdentifiedClient(UUID id, Socket socket, Server server) throws IOException {
+    public IdentifiedClient(UUID id, Socket socket, ServerController serverController) throws IOException {
         this.id = id;
         this.socket = socket;
         this.outputStream = new ObjectOutputStream(socket.getOutputStream());
         this.inputStream = new ObjectInputStream(socket.getInputStream());
-        this.messageProcessor = server.getMessageProcessor();
-        this.server = server;
+        this.serverController = serverController;
         this.connected = true;
     }
 
     private UUID id;
     private final Socket socket;
-    private final Server server;
+    private final ServerController serverController;
     private final ObjectOutputStream outputStream;
     private final ObjectInputStream inputStream;
-    private final MessageProcessor messageProcessor;
     private boolean connected;
 
     public ObjectOutputStream getOutputStream() {
@@ -64,10 +62,11 @@ public class IdentifiedClient extends Thread {
     public void run() {
         while (connected) {
             try {
-                messageProcessor.processMessage(socket, (ComMessage) inputStream.readObject());
+                BaseServerMessage message = (BaseServerMessage) inputStream.readObject();
+                message.process(socket, serverController);
             } catch (IOException | ClassNotFoundException e) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send message to client !");
-                server.disconnectClient(socket);
+                serverController.disconnectClient(socket);
                 connected = false;
             }
         }
