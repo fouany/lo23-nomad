@@ -1,4 +1,4 @@
-package nomad.com.common.message.serverMessage;
+package nomad.com.common.message.server_message;
 
 import nomad.com.common.message.Message;
 import nomad.com.server.ServerController;

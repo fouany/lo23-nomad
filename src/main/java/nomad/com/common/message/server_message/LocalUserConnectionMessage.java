@@ -1,7 +1,7 @@
-package nomad.com.common.message.serverMessage;
+package nomad.com.common.message.server_message;
 
-import nomad.com.common.message.clientMessage.UserChangedMessageBase;
-import nomad.com.common.message.clientMessage.LobbyInformationMessageBase;
+import nomad.com.common.message.client_message.UserChangedMessageBase;
+import nomad.com.common.message.client_message.LobbyInformationMessageBase;
 import nomad.com.server.ServerController;
 import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Player;

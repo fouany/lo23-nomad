@@ -1,7 +1,7 @@
 package nomad.com.client;
 
 import nomad.com.common.exception.SocketClosedException;
-import nomad.com.common.message.clientMessage.BaseClientMessage;
+import nomad.com.common.message.client_message.BaseClientMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

@@ -7,7 +7,6 @@ import nomad.common.data_structure.Tower;
 import nomad.common.interfaces.com.ComToDataServerInterface;
 
 public class ComToDataServerConcrete implements ComToDataServerInterface {
-    //ServerController serverController;
 
     @Override
     public void requestHost(Player player) {
