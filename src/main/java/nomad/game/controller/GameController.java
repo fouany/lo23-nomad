@@ -21,15 +21,46 @@ public class GameController extends IhmControllerComponent implements Observer {
      * Controlleur of the players
      */
     @FXML
-    private PlayerInfoController player_info_controller;
+    private PlayerInfoController playerInfoController;
+
+    @FXML
+    private ChatController chatController;
+
+    @FXML
+    private SkipController skipController;
+
+    @FXML
+    private LogController logController;
+
+    @FXML
+    private BoardController boardController;
+
 
     public GameController(IhmScreenController screen) {
         super(screen);
         currentGame = ((IhmGameScreenController) super.screenControl).getLinkedGame();
         currentGame.addObserver(this);
-        player_info_controller = new PlayerInfoController(screen);
-        player_info_controller.setParentController(this);
-        player_info_controller.init(currentGame);
+
+        playerInfoController = new PlayerInfoController(screen);
+        playerInfoController.setParentController(this);
+        playerInfoController.init(currentGame);
+
+        boardController = new BoardController(screen);
+        boardController.setParentController(this);
+        boardController.init(currentGame);
+
+        logController = new LogController(screen);
+        logController.setParentController(this);
+        logController.init(currentGame);
+
+        skipController = new SkipController(screen);
+        skipController.setParentController(this);
+        skipController.init(currentGame);
+
+        chatController = new ChatController(screen);
+        chatController.setParentController(this);
+        chatController.init(currentGame);
+
     }
 
     @Override
