@@ -1,11 +1,11 @@
-package nomad.com.common.message.client_message;
+package nomad.com.common.message.client_message.information;
 
 import nomad.com.client.ClientController;
+import nomad.com.common.message.client_message.BaseClientMessage;
 import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Player;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Message sent by the server to inform new users of current games and logged players or update users of changes
@@ -14,17 +14,17 @@ public class LobbyInformationMessage extends BaseClientMessage {
     /**
      * Current players on the server
      */
-    public final List<Player> players;
+    private final ArrayList<Player> players;
 
     /**
      * Current games in lobby on the server
      */
-    public final List<GameLight> gamesInLobby;
+    private final ArrayList<GameLight> gamesInLobby;
 
     /**
      * Current games in play on the server
      */
-    public final List<GameLight> gamesInPlay;
+    private final ArrayList<GameLight> gamesInPlay;
 
 
     /**

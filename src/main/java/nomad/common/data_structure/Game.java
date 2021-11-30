@@ -189,4 +189,13 @@ public class Game extends Observable implements Serializable  {
     }
 
     public void removeOpponent() { this.opponent = null; }
+
+    public List<UUID> getListOther() {
+        List<UUID> listOther = null;
+        listOther.add(this.opponent.getId());
+        for (UserLight ul : this.spect){
+            listOther.add(ul.getId());
+        }
+        return listOther;
+    }
 }

@@ -1,7 +1,7 @@
 package nomad.com.server;
 
 import nomad.com.common.message.Message;
-import nomad.com.common.message.client_message.UserChangedMessageBase;
+import nomad.com.common.message.client_message.information.UserChangedMessageBase;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.data.DataToComServerInterface;
 

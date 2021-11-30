@@ -143,7 +143,7 @@ public class DataToComConcrete implements DataToComClientInterface {
      * @param user
      */
     @Override
-    public void moveReceived(Move move, UserLight user) {
+    public void moveReceived(Move move) {
         dataClientController.getGameController().getGame().getMoves().add(move);
         dataClientController.getGameController().getGame().changeCurrentPlayer();
         dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
@@ -219,33 +219,40 @@ public class DataToComConcrete implements DataToComClientInterface {
      */
     public void gameCreated(Game game){
         dataClientController.getGameController().setGame(game);
+        dataClientController.getIhmMainToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
+
 
     /**
      * Adds an user to the game. (as spectator or opponent)
-     * @param gameLight
-     * @param player
-     * @param isPlayer
+     * @param gameID
+     * @param p
      */
-    public void newUser(GameLight gameLight, Player player, boolean isPlayer) throws GameException {
+    public void newPlayer(UUID gameID, Player p) throws GameException {
         Game game = dataClientController.getGameController().getGame();
-
-        if (game.getGameId() == gameLight.getGameId()){
-            if (isPlayer) {
-                game.setOpponent(player);
-            } else {
-                game.getSpect().add(new UserLight(player.getId(), player.getLogin()));
-            }
-            dataClientController.getIhmGameToDataInterface().updateObservable(game);
+        if (game.getGameId() == gameID){
+            game.setOpponent(p);
         } else{
-            throw new GameException("Game does not exists");
+            throw new GameException("Game created does not exists");
         }
     }
 
     @Override
-    public void newPlayer(UUID gameId, Player opponent) throws GameException {
-
+    public void newSpectator(UUID gameId, Player spec) throws GameException {
+        //TODO
     }
+
+    //TODO : V3 ajouter prise en compte de bool==FALSE
+    @Override
+    public void addedPlayerInGame(Game game, boolean isAdded) throws GameException {
+        if (isAdded){
+            dataClientController.getGameController().setGame(game);
+            dataClientController.getIhmMainToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+        }else{
+            throw new GameException("Player was refused from game");
+        }
+    }
+
 
     /**
      * Retrieves the saved games of the user.

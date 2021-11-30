@@ -1,13 +1,11 @@
 package nomad.com.client.concrete;
 
 import nomad.com.client.ClientController;
-import nomad.com.common.message.server_message.LocalUserConnectionMessage;
-import nomad.common.data_structure.Game;
+import nomad.com.common.message.server_message.information.LocalUserConnectionMessage;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.com.ComToDataClientInterface;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
