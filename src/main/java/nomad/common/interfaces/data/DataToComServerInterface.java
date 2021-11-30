@@ -10,7 +10,7 @@ public interface DataToComServerInterface {
 
     void joinGameRequest(Player player, GameLight game);
 
-    void guestAccepted(GameLight game);
+    Game guestAccepted(UUID gameId, UUID opponentId);
 
     void guestRefused(Player player);
 

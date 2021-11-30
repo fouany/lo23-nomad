@@ -109,6 +109,7 @@ public interface DataToComClientInterface {
     void gameCreated(Game game);
 
     void newUser(GameLight game, Player player, boolean isPlayer) throws GameException;
+    void newPlayer(UUID gameId, Player opponent) throws GameException;
 
     List<Game> getStoredAvailableGames();
 
