@@ -270,4 +270,11 @@ public class DataToComConcrete implements DataToComClientInterface {
         return dataClientController.getUserController().getUserLight();
     }
 
+    //TODO : V3 ajouter prise en compte de bool==FALSE
+    @Override
+    public void addedPlayerInGame(Game game, boolean isAdded) {
+        dataClientController.getGameController().setGame(game);
+        dataClientController.getIhmGameToDataInterface().updateObservable(game);
+    }
+
 }

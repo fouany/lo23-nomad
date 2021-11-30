@@ -8,6 +8,7 @@ import nomad.common.data_structure.*;
 import nomad.common.interfaces.com.ComToDataServerInterface;
 
 import java.net.Socket;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +28,7 @@ public class ComToDataServerConcrete implements ComToDataServerInterface {
     }
 
     @Override
-    public void tileValid(Tile t) {
+    public void tileValid(Tile t, List<UUID> listOther) {
         UUID userId = t.getUserId();
         Socket client = serverController.getClientSocket(userId);
         if (client == null) {
@@ -38,7 +39,7 @@ public class ComToDataServerConcrete implements ComToDataServerInterface {
     }
 
     @Override
-    public void skipValid(Skip s) {
+    public void skipValid(Skip s, List<UUID> listOther) {
         UUID userId = s.getUserId();
         Socket client = serverController.getClientSocket(userId);
         if (client == null) {
@@ -49,7 +50,7 @@ public class ComToDataServerConcrete implements ComToDataServerInterface {
     }
 
     @Override
-    public void towerValid(Tower t) {
+    public void towerValid(Tower t, List<UUID> listOther) {
         UUID userId = t.getUserId();
         Socket client = serverController.getClientSocket(userId);
         if (client == null) {

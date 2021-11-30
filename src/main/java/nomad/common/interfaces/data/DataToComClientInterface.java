@@ -103,12 +103,12 @@ public interface DataToComClientInterface {
      */
     void addConnectedUserProfile (List<Player> players, List<GameLight> gamesInLobby, List<GameLight> gamesInPlay);
 
-
     void isDisconnected(UUID idUser, boolean isDeconnected);
 
     void gameCreated(Game game);
 
     void newUser(GameLight game, Player player, boolean isPlayer) throws GameException;
+
     void newPlayer(UUID gameId, Player opponent) throws GameException;
 
     List<Game> getStoredAvailableGames();
@@ -119,4 +119,6 @@ public interface DataToComClientInterface {
     UUID currentUserIsPlayer();
 
     UserLight getUserLight();
+
+    void addedPlayerInGame (Game game, boolean isAdded);
 }
