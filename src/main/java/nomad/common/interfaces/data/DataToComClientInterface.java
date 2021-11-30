@@ -107,9 +107,9 @@ public interface DataToComClientInterface {
 
     void gameCreated(Game game);
 
-    void newUser(GameLight game, Player player, boolean isPlayer) throws GameException;
-
     void newPlayer(UUID gameId, Player opponent) throws GameException;
+
+    void newSpectator(UUID gameId, Player spec) throws GameException;
 
     List<Game> getStoredAvailableGames();
 
@@ -119,6 +119,5 @@ public interface DataToComClientInterface {
     UUID currentUserIsPlayer();
 
     UserLight getUserLight();
-
-    void addedPlayerInGame (Game game, boolean isAdded);
+    void addedPlayerInGame (Game game, boolean isAdded) throws GameException;
 }
