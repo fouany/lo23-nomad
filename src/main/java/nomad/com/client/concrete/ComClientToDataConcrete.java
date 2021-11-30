@@ -46,6 +46,11 @@ public class ComClientToDataConcrete implements ComToDataClientInterface {
         }
     }
 
+    @Override
+    public void enoughPlayers(UUID gameId, UUID opponentId) {
+        //TODO
+    }
+
     /**
      * Disconnect the local user from the local server.
      */
@@ -71,11 +76,6 @@ public class ComClientToDataConcrete implements ComToDataClientInterface {
      */
     @Override
     public void getProfile(UUID idUser) {
-        //TODO
-    }
-
-    @Override
-    public void enoughPlayers(UUID gameId, UUID opponentId) {
         //TODO
     }
 

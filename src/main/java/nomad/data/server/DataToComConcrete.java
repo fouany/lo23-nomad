@@ -40,8 +40,8 @@ public class DataToComConcrete implements DataToComServerInterface {
     }
 
     @Override
-    public void guestAccepted(GameLight game) {
-        // Does nothing because not developped yet
+    public Game guestAccepted(UUID gameId, UUID opponentId) {
+        return null;
     }
 
     @Override

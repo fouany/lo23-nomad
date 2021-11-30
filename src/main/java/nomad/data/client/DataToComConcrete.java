@@ -242,6 +242,11 @@ public class DataToComConcrete implements DataToComClientInterface {
         }
     }
 
+    @Override
+    public void newPlayer(UUID gameId, Player opponent) throws GameException {
+
+    }
+
     /**
      * Retrieves the saved games of the user.
      * @return

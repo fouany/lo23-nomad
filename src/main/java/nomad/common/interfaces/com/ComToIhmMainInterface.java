@@ -1,9 +1,6 @@
 package nomad.common.interfaces.com;
 
-import nomad.common.data_structure.GameLight;
-import nomad.common.data_structure.Player;
-import nomad.common.data_structure.Tower;
-import nomad.common.data_structure.UserLight;
+import nomad.common.data_structure.*;
 
 public interface ComToIhmMainInterface {
     void newGame(String name, UserLight host, int nbTowers, boolean areSpecAllowed, boolean isSpecChatAllowed, boolean hostColor);
@@ -12,7 +9,7 @@ public interface ComToIhmMainInterface {
 
     void rejectPlayer(GameLight game);
 
-    void launchGame(GameLight game);
+    void launchGame(Game game);
 
     void addPlayerInGame(Player player, GameLight game);
 

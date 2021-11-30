@@ -92,7 +92,7 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
             if(controller.getDataI().getUser().getUserId() == g.getHost().getId())
             {
                 controller.getDataI().enoughPlayers(controller.getDataI().getGameLight());
-                controller.getComI().launchGame(controller.getDataI().getGameLight());
+                controller.getComI().launchGame(controller.getDataI().getGame());
 
             }
 

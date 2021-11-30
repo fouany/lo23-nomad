@@ -1,12 +1,11 @@
 package nomad.common.interfaces.com;
 
-import nomad.common.data_structure.Player;
-import nomad.common.data_structure.Skip;
-import nomad.common.data_structure.Tile;
-import nomad.common.data_structure.Tower;
+import nomad.common.data_structure.*;
+
+import java.util.UUID;
 
 public interface ComToDataServerInterface {
-    void requestHost(Player player);
+    void requestHost(GameLight game, Player opponent);
 
     void towerValid(Tower t);
 
