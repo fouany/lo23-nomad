@@ -1,6 +1,7 @@
-package nomad.com.common.message.client_message;
+package nomad.com.common.message.client_message.move;
 
 import nomad.com.client.ClientController;
+import nomad.com.common.message.client_message.BaseClientMessage;
 import nomad.common.data_structure.Skip;
 import nomad.common.data_structure.SkipException;
 

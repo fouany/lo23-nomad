@@ -1,12 +1,13 @@
-package nomad.com.common.message.server_message;
+package nomad.com.common.message.server_message.game;
 
+import nomad.com.common.message.server_message.BaseServerMessage;
 import nomad.com.server.ServerController;
 import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Player;
 
 import java.net.Socket;
 
-public class NewGamePlayerServerMessage extends BaseServerMessage{
+public class NewGamePlayerServerMessage extends BaseServerMessage {
     private final Player player;
     private final GameLight game;
 

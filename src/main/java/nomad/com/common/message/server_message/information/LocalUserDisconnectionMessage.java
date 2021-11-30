@@ -1,5 +1,6 @@
-package nomad.com.common.message.server_message;
+package nomad.com.common.message.server_message.information;
 
+import nomad.com.common.message.server_message.BaseServerMessage;
 import nomad.com.server.ServerController;
 import nomad.common.data_structure.User;
 

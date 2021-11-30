@@ -36,12 +36,18 @@ public class DataToComConcrete implements DataToComServerInterface {
 
     @Override
     public void joinGameRequest(Player player, GameLight game) {
-        // Does nothing because not developped yet
+        if (dataServerController.getGamesController().getGame(game.getGameId()).getOpponent() == null){
+            dataServerController.getGamesController().getGame(game.getGameId()).setOpponent(player);
+            dataServerController.getComOfferedInterface().requestHost(game, player);
+        }
     }
 
     @Override
-    public Game guestAccepted(UUID gameId, UUID opponentId) {
-        return null;
+    public Game guestAccepted(UUID gameId, UUID opponentID) {
+        dataServerController.getGamesController().setGame(dataServerController.getGamesController().getGame(gameId));
+        UserLight ul = new UserLight(opponentID, dataServerController.getUserController().getUser(opponentID).getLogin());
+        dataServerController.getGamesController().getGame(gameId).addSpec(ul);
+        return dataServerController.getGamesController().getGame(gameId);
     }
 
     @Override
@@ -74,7 +80,7 @@ public class DataToComConcrete implements DataToComServerInterface {
         }else{
             dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setTower(true);
             dataServerController.getGamesController().getGame(t.getGameId()).getMoves().add(t);
-            dataServerController.getComOfferedInterface().towerValid(t);
+            dataServerController.getComOfferedInterface().towerValid(t, dataServerController.getGamesController().getGame(t.getGameId()).getListOther());
         }
     }
 
@@ -100,7 +106,7 @@ public class DataToComConcrete implements DataToComServerInterface {
             dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setColor(color);
             dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setHeight(height+1);
             dataServerController.getGamesController().getGame(t.getGameId()).getMoves().add(t);
-            dataServerController.getComOfferedInterface().tileValid(t);
+            dataServerController.getComOfferedInterface().tileValid(t, dataServerController.getGamesController().getGame(t.getGameId()).getListOther());
         }
     }
 
@@ -123,7 +129,7 @@ public class DataToComConcrete implements DataToComServerInterface {
     @Override
     public void saveSkip(Skip s) {
         dataServerController.getGamesController().getGame(s.getGameId()).getMoves().add(s);
-        dataServerController.getComOfferedInterface().skipValid(s);
+        dataServerController.getComOfferedInterface().skipValid(s, dataServerController.getGamesController().getGame(s.getGameId()).getListOther());
     }
 
     @Override

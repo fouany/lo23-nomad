@@ -1,6 +1,7 @@
-package nomad.com.common.message.client_message;
+package nomad.com.common.message.client_message.information;
 
 import nomad.com.client.ClientController;
+import nomad.com.common.message.client_message.BaseClientMessage;
 import nomad.common.data_structure.Player;
 import nomad.common.data_structure.User;
 

@@ -1,9 +1,9 @@
 package nomad.com.client.concrete;
 
 import nomad.com.client.ClientController;
-import nomad.com.common.message.server_message.GameCreationMessage;
-import nomad.com.common.message.server_message.LaunchGameMessage;
-import nomad.com.common.message.server_message.NewGamePlayerServerMessage;
+import nomad.com.common.message.server_message.game.GameCreationMessage;
+import nomad.com.common.message.server_message.game.LaunchGameMessage;
+import nomad.com.common.message.server_message.game.NewGamePlayerServerMessage;
 import nomad.common.data_structure.*;
 import nomad.common.interfaces.com.ComToIhmMainInterface;
 
