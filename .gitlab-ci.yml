@@ -15,6 +15,10 @@ maven-jlink:
   stage : package
   dependencies:
     - maven-clean-compile
+  needs:
+    - maven-clean-compile
+  only:
+    - tags
   script:
     - mvn javafx:jlink
     - OUTPUT_FILE=`echo nomad_${CI_COMMIT_SHORT_SHA}.zip`
