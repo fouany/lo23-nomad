@@ -15,7 +15,6 @@ public class IhmMainScreenController extends IhmScreenController {
     private Map<String, String> attributes;
     private DataToIhmMainInterface dataI;
     private ComToIhmMainInterface comI;
-    private final String stylesheet = "Poppins/style.css";
 
     private MenuController menuController;
     private CreateGameController createGameController;
@@ -109,6 +108,7 @@ public class IhmMainScreenController extends IhmScreenController {
     }
 
     public void initStyles() {
+        String stylesheet = "Poppins/style.css";
         dictStyles.put(0, stylesheet);
         dictStyles.put(1, stylesheet);
         dictStyles.put(2, stylesheet);
