@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.UUID;
@@ -191,7 +192,7 @@ public class Game extends Observable implements Serializable  {
     public void removeOpponent() { this.opponent = null; }
 
     public List<UUID> getListOther() {
-        List<UUID> listOther = null;
+        List<UUID> listOther = new ArrayList<>();
         listOther.add(this.opponent.getId());
         for (UserLight ul : this.spect){
             listOther.add(ul.getId());
