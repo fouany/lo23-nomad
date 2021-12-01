@@ -1,6 +1,6 @@
 package nomad.main.controller;
 
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,38 +8,46 @@ import javafx.scene.layout.HBox;
 import nomad.common.data_structure.Game;
 import nomad.common.data_structure.GameException;
 import nomad.common.data_structure.Player;
-import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
-import nomad.common.ihm.IhmScreenController;
 import nomad.main.IhmMainScreenController;
 
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WaitingRoomController extends IhmControllerComponent implements Initializable, Observer {
-
+    @FXML
     public Label gameName;
+    @FXML
     public Label gameId;
+    @FXML
     public Label towersNumber;
+    @FXML
     public Label viewersNumber;
+    @FXML
     public Label hostName;
+    @FXML
     public Label hostId;
+    @FXML
     public Button hostReady;
-    public HBox opponent_wait;
-    public HBox opponent_container;
+    @FXML
+    public HBox opponentWait;
+    @FXML
+    public HBox opponentContainer;
+    @FXML
     public Label opName;
+    @FXML
     public Label opId;
+    @FXML
     public Button opReady;
+
+
     private IhmMainScreenController controller;
     private Boolean passModule  = false;
     private Boolean viewInitialized = false;
-
-    private Game testgame;
 
     public WaitingRoomController(IhmMainScreenController screen) {
         super(screen);
@@ -48,25 +56,21 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        opponent_container.setVisible(false);
-        opponent_container.setManaged(false);
+        opponentContainer.setVisible(false);
+        opponentContainer.setManaged(false);
 
     }
 
-    public void onClickReady()
-    {
-
-    }
 
     public void gameUpdate(Game g) throws GameException {
 
-        if(!passModule && g.isGameLaunched())
+        if(passModule!= null && !passModule && g.isGameLaunched())
         {
-            //controller.changeModule("GAME", g);
+            //TODO change module with controller.changeModule("GAME", g)
             passModule = true;
         }
 
-        if(!viewInitialized)
+        if(viewInitialized!=null && !viewInitialized)
         {
             gameName.setText(g.getName());
             gameId.setText("#" + g.getGameId().toString());
@@ -76,14 +80,13 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
             hostId.setText("#" + g.getHost().getId());
             viewInitialized = true;
         }
-        //viewersNumber.setText(String.valueOf(testgame.getSpect().size()));
         Player opponent = g.getOpponent();
         if(opponent != null)
         {
-            opponent_wait.setVisible(false);
-            opponent_wait.setManaged(false);
-            opponent_container.setManaged(true);
-            opponent_container.setVisible(true);
+            opponentWait.setVisible(false);
+            opponentWait.setManaged(false);
+            opponentContainer.setManaged(true);
+            opponentContainer.setVisible(true);
             hostReady.setDisable(false);
             opReady.setDisable(false);
             opName.setText(opponent.getLogin());
@@ -99,10 +102,10 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
         }
         else
         {
-            opponent_container.setVisible(false);
-            opponent_container.setManaged(false);
-            opponent_wait.setManaged(true);
-            opponent_wait.setVisible(true);
+            opponentContainer.setVisible(false);
+            opponentContainer.setManaged(false);
+            opponentWait.setManaged(true);
+            opponentWait.setVisible(true);
             hostReady.setDisable(true);
             opReady.setDisable(true);
         }

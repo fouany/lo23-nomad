@@ -88,7 +88,7 @@
                      </image>
                   </ImageView>
                   <Separator prefHeight="15.0" prefWidth="746.0" visible="false" />
-                  <HBox fx:id="opponent_wait" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="100.0" prefWidth="658.0">
+                  <HBox fx:id="opponentWait" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="100.0" prefWidth="658.0">
                      <styleClass>
                         <String fx:value="main-container" />
                         <String fx:value="main-bg-red" />
@@ -97,7 +97,7 @@
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="838.0" styleClass="waiting-room-wait-label" text="Waiting for Opponent..." textAlignment="CENTER" />
                      </children>
                   </HBox>
-                  <HBox fx:id="opponent_container" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="100.0" prefWidth="658.0">
+                  <HBox fx:id="opponentContainer" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="100.0" prefWidth="658.0">
                      <children>
                         <ImageView fitHeight="70.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" styleClass="waiting-room-image">
                            <image>
