@@ -108,7 +108,7 @@ public abstract class IhmScreenController {
      */
     protected void initScenes() throws IOException {
         for (int i = 0; i < listPaths.size() ; i++){
-            System.out.println(listPaths.get(i));
+
             FXMLLoader fxmlLoader = loadFile(listPaths.get(i),dictController.get(i));
             Scene scene = new Scene(fxmlLoader.load());
             if (dictStyles.containsKey(i)){
