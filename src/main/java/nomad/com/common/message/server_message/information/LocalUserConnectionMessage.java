@@ -1,7 +1,8 @@
-package nomad.com.common.message.server_message;
+package nomad.com.common.message.server_message.information;
 
-import nomad.com.common.message.client_message.UserChangedMessageBase;
-import nomad.com.common.message.client_message.LobbyInformationMessageBase;
+import nomad.com.common.message.client_message.information.UserChangedMessageBase;
+import nomad.com.common.message.client_message.information.LobbyInformationMessage;
+import nomad.com.common.message.server_message.BaseServerMessage;
 import nomad.com.server.ServerController;
 import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Player;
@@ -26,7 +27,7 @@ public class LocalUserConnectionMessage extends BaseServerMessage {
         controller.broadcast(new UserChangedMessageBase(user, true));
 
         //Send information on games and users to newly connected client
-        LobbyInformationMessageBase informationMessage = new LobbyInformationMessageBase(
+        LobbyInformationMessage informationMessage = new LobbyInformationMessage(
                 (ArrayList<Player>) controller.getDataToCom().requestConnectedUserList(),
                 (ArrayList<GameLight>) controller.getDataToCom().requestGameListInLobby(),
                 (ArrayList<GameLight>) controller.getDataToCom().requestGameListInPlay()

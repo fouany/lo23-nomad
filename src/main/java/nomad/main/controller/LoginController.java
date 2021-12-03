@@ -1,12 +1,15 @@
 package nomad.main.controller;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
 public class LoginController extends IhmControllerComponent {
+    @FXML
     public TextField login;
+    @FXML
     public PasswordField password;
     private boolean isSignup ;
 

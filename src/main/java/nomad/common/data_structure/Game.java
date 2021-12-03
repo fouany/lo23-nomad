@@ -1,6 +1,10 @@
 package nomad.common.data_structure;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.UUID;
@@ -17,9 +21,9 @@ public class Game extends Observable implements Serializable  {
     private UUID currentPlayer;
     private boolean gameLaunched;
     private boolean gameEnded;
-    private List<Move> moves;
-    private List<UserLight> spect;
-    private List<Message> chat;
+    private ObservableList<Move> moves;
+    private ObservableList<UserLight> spect;
+    private ObservableList<Message> chat;
 
     public Game(Player host, int nbOfTowers, String name, GameParameters gameParameters) {
         this.gameId = UUID.randomUUID();
@@ -140,28 +144,16 @@ public class Game extends Observable implements Serializable  {
         this.gameEnded = gameEnded;
     }
 
-    public List<Move> getMoves() {
+    public ObservableList<Move> getMoves() {
         return moves;
     }
 
-    public void setMoves(List<Move> moves) {
-        this.moves = moves;
-    }
-
-    public List<UserLight> getSpect() {
+    public ObservableList<UserLight> getSpect() {
         return spect;
     }
 
-    public void setSpect(List<UserLight> spect) {
-        this.spect = spect;
-    }
-
-    public List<Message> getChat() {
+    public ObservableList<Message> getChat() {
         return chat;
-    }
-
-    public void setChat(List<Message> chat) {
-        this.chat = chat;
     }
 
     public void addMessage(Message message) {
@@ -198,4 +190,13 @@ public class Game extends Observable implements Serializable  {
     }
 
     public void removeOpponent() { this.opponent = null; }
+
+    public List<UUID> getListOther() {
+        List<UUID> listOther = new ArrayList<>();
+        listOther.add(this.opponent.getId());
+        for (UserLight ul : this.spect){
+            listOther.add(ul.getId());
+        }
+        return listOther;
+    }
 }
