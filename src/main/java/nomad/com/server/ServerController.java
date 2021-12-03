@@ -1,7 +1,7 @@
 package nomad.com.server;
 
 import nomad.com.common.message.Message;
-import nomad.com.common.message.client_message.UserChangedMessageBase;
+import nomad.com.common.message.client_message.information.UserChangedMessageBase;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.data.DataToComServerInterface;
 
@@ -15,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ServerController extends Thread {
-
     private final HashMap<Socket, IdentifiedClient> clientList = new HashMap<>();
     private ServerSocket serverSocket;
     private final DataToComServerInterface dataToCom;
@@ -32,6 +31,13 @@ public class ServerController extends Thread {
         } catch (IOException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Unable to create the ServerSocket");
         }
+    }
+
+    /**
+     * @return server clientList
+     */
+    public Map<Socket, IdentifiedClient> getClientList() {
+        return clientList;
     }
 
     /**
@@ -58,6 +64,22 @@ public class ServerController extends Thread {
         }
         return null;
     }
+
+    /**
+     * Get the client socket with a given ID
+     *
+     * @param userId ID of the user
+     * @return Socket associate to the user
+     */
+    public Socket getClientSocket(UUID userId) {
+        for (IdentifiedClient client : clientList.values()) {
+            if (client.getUID() == userId) {
+                return client.getSocket();
+            }
+        }
+        return null;
+    }
+
 
     /**
      * Send a message to a specified client. In case of error, the client is disconnected

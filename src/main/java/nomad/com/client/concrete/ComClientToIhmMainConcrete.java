@@ -1,12 +1,10 @@
 package nomad.com.client.concrete;
 
 import nomad.com.client.ClientController;
-import nomad.com.common.message.server_message.GameCreationMessage;
-import nomad.com.common.message.server_message.NewGamePlayerMessage;
-import nomad.common.data_structure.GameLight;
-import nomad.common.data_structure.Player;
-import nomad.common.data_structure.Tower;
-import nomad.common.data_structure.UserLight;
+import nomad.com.common.message.server_message.game.GameCreationMessage;
+import nomad.com.common.message.server_message.game.LaunchGameMessage;
+import nomad.com.common.message.server_message.game.NewGamePlayerServerMessage;
+import nomad.common.data_structure.*;
 import nomad.common.interfaces.com.ComToIhmMainInterface;
 
 import java.util.logging.Level;
@@ -47,11 +45,22 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
     @Override
     public void addPlayerInGame(Player player, GameLight game) {
         if (player == null || game == null) {
-            throw new NullPointerException();
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Null data");
         }
 
-        if (!clientController.sendMessage(new NewGamePlayerMessage(player, game))) {
+        if (!clientController.sendMessage(new NewGamePlayerServerMessage(player, game))) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send new player request to the remote server !");
+        }
+    }
+
+    @Override
+    public void launchGame(Game game) {
+        if (game == null) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Null datas");
+        }
+
+        if (!clientController.sendMessage(new LaunchGameMessage(game))) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send launch game request to the remote server !");
         }
     }
 
@@ -65,10 +74,7 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
         //TODO
     }
 
-    @Override
-    public void launchGame(GameLight game) {
-        //TODO
-    }
+
 
     @Override
     public void addSpecInGame(UserLight user, GameLight game) {

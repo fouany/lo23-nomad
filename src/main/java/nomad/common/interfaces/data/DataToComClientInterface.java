@@ -72,9 +72,8 @@ public interface DataToComClientInterface {
     /**
      * adds the move to the list of moves, changes the current player, and updates the observable
      * @param move
-     * @param user
      */
-    void moveReceived(Move move, UserLight user);
+    void moveReceived(Move move);
 
     /**
      * removes the game from the gamesInPlay from the session object and sets the game to "ended" state
@@ -103,12 +102,13 @@ public interface DataToComClientInterface {
      */
     void addConnectedUserProfile (List<Player> players, List<GameLight> gamesInLobby, List<GameLight> gamesInPlay);
 
-
     void isDisconnected(UUID idUser, boolean isDeconnected);
 
     void gameCreated(Game game);
 
-    void newUser(GameLight game, Player player, boolean isPlayer) throws GameException;
+    void newPlayer(UUID gameId, Player opponent) throws GameException;
+
+    void newSpectator(UUID gameId, Player spec) throws GameException;
 
     List<Game> getStoredAvailableGames();
 
@@ -118,4 +118,5 @@ public interface DataToComClientInterface {
     UUID currentUserIsPlayer();
 
     UserLight getUserLight();
+    void addedPlayerInGame (Game game, boolean isAdded) throws GameException;
 }

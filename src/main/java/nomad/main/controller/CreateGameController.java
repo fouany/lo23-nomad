@@ -6,10 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import nomad.com.common.exception.MainException;
 import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +38,7 @@ public class CreateGameController extends IhmControllerComponent {
     @FXML
     public CheckBox allowViewersChat;
     private boolean color;
+    private Random rand;
 
     /**
      * Constructor that link the screen controller to the component controller
@@ -44,6 +48,11 @@ public class CreateGameController extends IhmControllerComponent {
     public CreateGameController(IhmMainScreenController screen) {
         super(screen);
         this.ihmMainScreenController = screen;
+        try {
+            this.rand = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            Logger.getLogger(CreateGameController.class.getName()).log(Level.SEVERE,"Random Color failed");
+        }
     }
 
 
@@ -58,17 +67,16 @@ public class CreateGameController extends IhmControllerComponent {
 
     }
 
-    public void onCheckColor(ActionEvent e) throws Exception {
+    public void onCheckColor(ActionEvent e) throws MainException {
         CheckBox checkbox = (CheckBox) e.getSource();
         String id = checkbox.getId();
         boolean checked = checkbox.isSelected();
         resetCheckBoxes();
         checkbox.setSelected(checked);
         if (!checked) {
-            Random random = new Random();
             int nb;
-            nb = random.nextInt(2);
-            boolean b = !(nb==0);
+            nb = rand.nextInt(2);
+            boolean b = nb!=0 ;
             color = b;
         }
         switch (id) {
@@ -79,15 +87,13 @@ public class CreateGameController extends IhmControllerComponent {
                 color = false;
                 break;
             case "random":
-                Random random = new Random();
                 int nb;
-                nb = random.nextInt(2);
-                boolean b = !(nb==0);
+                nb = rand.nextInt(2);
+                boolean b = nb!=0;
                 color = b;
                 break;
             default:
-                //log("Error");
-                throw new Exception("Unknown Color");
+                throw new MainException("Unknown Color");
         }
 
     }
@@ -128,8 +134,7 @@ public class CreateGameController extends IhmControllerComponent {
         UserLight user = ihmMainScreenController.getDataI().getUserLight();
 
         ihmMainScreenController.getComI().newGame(gameName.getText(), user, (int) towerNumber.getValue(), allowViewers.isSelected(), allowViewersChat.isSelected(), color);
-        //ihmMainScreenController.getAttributes().put("gameName", gameName.getText());
-        //ihmMainScreenController.getAttributes().put("towerNumber", String.valueOf(towerNumber.getValue()));
+
 
     }
 

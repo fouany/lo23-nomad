@@ -1,5 +1,6 @@
 package nomad.main.controller;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import nomad.common.data_structure.UserException;
 import nomad.common.ihm.IhmControllerComponent;
@@ -14,7 +15,9 @@ import java.util.regex.Pattern;
 
 public class ServerConnectionController extends IhmControllerComponent {
 
+    @FXML
     public TextField serverIp;
+    @FXML
     public TextField serverPort;
 
 
@@ -24,7 +27,7 @@ public class ServerConnectionController extends IhmControllerComponent {
         ihmMainScreenController = screen;
     }
 
-    private boolean IpFormatIsValid(String ip) {
+    private boolean ipFormatIsValid(String ip) {
         String zeroTo255
                 = "(\\d{1,2}|([01])\\"
                 + "d{2}|2[0-4]\\d|25[0-5])";
@@ -61,7 +64,7 @@ public class ServerConnectionController extends IhmControllerComponent {
         String ip = serverIp.getText();
         String port = serverPort.getText();
 
-        if (IpFormatIsValid(ip) && portFormatIsValid(port)) {
+        if (ipFormatIsValid(ip) && portFormatIsValid(port)) {
             String user = ihmMainScreenController.getAttributes().get("login");
             String password = ihmMainScreenController.getAttributes().get("password");
             boolean signup =  Boolean.parseBoolean(ihmMainScreenController.getAttributes().get("isSignup"));
