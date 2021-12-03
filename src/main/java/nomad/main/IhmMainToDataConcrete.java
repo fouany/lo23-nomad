@@ -34,6 +34,7 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
     public void updateObservable(Game game) {
         if(!game.isGameLaunched() && game.getOpponent() == null) //game just has been created
         {
+            System.out.println("Bonjour");
             mainScreenController.getCreateGameController().displayWaitingRoom();
             game.addObserver(mainScreenController.getWaitingRoomController());
         }

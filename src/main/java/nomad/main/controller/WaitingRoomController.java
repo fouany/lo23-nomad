@@ -116,6 +116,7 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
     public void update(Observable observable, Object o) {
 
         Game g = (Game)o;
+        System.out.println("22");
         try
         {
             gameUpdate(g);

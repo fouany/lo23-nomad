@@ -68,6 +68,7 @@ public class MainApplication extends Application {
     dataToComConcrete.setController(dataClientController);
     dataToMainConcrete.setController(dataClientController);
 
+    comClientToIhmMainConcrete.setClientController(clientController);
     ihmMainToDataConcrete.setController(ihmMainScreenController);
     comClientToDataConcrete.setController(clientController);
   }

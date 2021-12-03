@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
+import nomad.common.data_structure.Game;
 import nomad.common.data_structure.GameLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
@@ -67,6 +68,8 @@ public class ViewGameController extends IhmControllerComponent implements Initia
 
     }
     public void handleGameAsPlayerListClick() {
+        System.out.println(gamesViewAsViewer.getSelectionModel().getSelectedItem().toString());
+        System.out.println(ihmController.getDataI().getPlayer());
         ihmController.getComI().addPlayerInGame(ihmController.getDataI().getPlayer(), gamesViewAsViewer.getSelectionModel().getSelectedItem());
 
     }
@@ -89,29 +92,65 @@ public class ViewGameController extends IhmControllerComponent implements Initia
         }
     }
 
-    private ListChangeListener<GameLight> processLisetener(ListChangeListener.Change<? extends GameLight> change) {
+  /*  private ListChangeListener<GameLight> processListener(ListChangeListener.Change change) {
+        change.
         change.next();
         if (change.wasAdded()) {
-            for (GameLight game : change.getAddedSubList()) {
+            for (Object game : change.getAddedSubList()) {
                 Platform.runLater(() ->
-                        gamesViewAsViewer.getItems().add(game) //add a new game
+                        gamesViewAsViewer.getItems().add((GameLight) game) //add a new game
                 );
 
             }
         } else if (change.wasRemoved()) {
-            for (GameLight game : change.getRemoved()) {
+            for (Object game : change.getRemoved()) {
                 Platform.runLater(() ->
-                        gamesViewAsViewer.getItems().remove(game)  //remove a game
+                        gamesViewAsViewer.getItems().remove( game)  //remove a game
                 );
             }
         }
         return (ListChangeListener<GameLight>) change;
-    }
+    }*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         gamesViewAsViewer.setVisible(false);
         gamesViewAsViewer.setManaged(false);
-        gamesAsViewer = this::processLisetener;
-        gamesAsPlayer = this::processLisetener;
+
+        gamesAsViewer = change -> {
+            change.next();
+            if (change.wasAdded()) {
+                for (GameLight game : change.getAddedSubList()) {
+                    Platform.runLater(() ->
+                            gamesViewAsViewer.getItems().add(game) //add a new game
+                    );
+
+                }
+            } else if (change.wasRemoved()) {
+                for (Object game : change.getRemoved()) {
+                    Platform.runLater(() ->
+                            gamesViewAsViewer.getItems().remove( game)  //remove a game
+                    );
+                }
+            }
+        };
+
+        //gamesAsViewer = this::processListener;
+        gamesAsPlayer = change -> {
+            change.next();
+            if (change.wasAdded()) {
+                for (GameLight game : change.getAddedSubList()) {
+                    Platform.runLater(() ->
+                            gamesViewAsPlayer.getItems().add(game) //add a new game
+                    );
+
+                }
+            } else if (change.wasRemoved()) {
+                for (Object game : change.getRemoved()) {
+                    Platform.runLater(() ->
+                            gamesViewAsPlayer.getItems().remove( game)  //remove a game
+                    );
+                }
+            }
+        };
     }
 }
