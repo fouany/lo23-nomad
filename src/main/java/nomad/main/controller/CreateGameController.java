@@ -1,6 +1,7 @@
 package nomad.main.controller;
 
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -119,9 +120,14 @@ public class CreateGameController extends IhmControllerComponent {
     }
 
     public void displayWaitingRoom() {
-        DialogController.display("Partie créée", "Votre partie a bien été créée", DialogController.DialogStatus.SUCCESS, this.ihmMainScreenController);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                DialogController.display("Partie créée", "Votre partie a bien été créée", DialogController.DialogStatus.SUCCESS, ihmMainScreenController);
 
-        this.ihmMainScreenController.changeScreen(4);
+                ihmMainScreenController.changeScreen(6);
+            }
+        });
     }
 
     public void onClickCreateGame() {

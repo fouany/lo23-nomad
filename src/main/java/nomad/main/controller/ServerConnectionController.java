@@ -8,6 +8,7 @@ import nomad.main.IhmMainScreenController;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -43,6 +44,8 @@ public class ServerConnectionController extends IhmControllerComponent {
         return matcher.matches();
     }
 
+    /*todo handle login already exist*/
+
     /**
      * Check if a given string is a valid port number (0 < port < 65536)
      *
@@ -69,16 +72,27 @@ public class ServerConnectionController extends IhmControllerComponent {
             String password = ihmMainScreenController.getAttributes().get("password");
             boolean signup =  Boolean.parseBoolean(ihmMainScreenController.getAttributes().get("isSignup"));
             if (signup) {
-                //TODO: modify account scene
-                ihmMainScreenController.getDataI().createAccount(user,password,user,"", null);
+
+                try {
+                    ihmMainScreenController.getDataI().createAccount(user,password,user,"", null);
+                }
+                catch (UserException e)
+                {
+                    DialogController.display("Erreur", e.getMessage(), DialogController.DialogStatus.ERROR, ihmMainScreenController);
+                    return;
+                }
             }
             try {
+
+                /**todo add connectException  **/
                 ihmMainScreenController.getDataI().login(user, password, ip, Integer.parseInt(port));
                 screenControl.changeScreen(2);
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException | ConnectException | UserException e) {
+
+
                 //TODO: ajouter back pour revenir
-                DialogController.display("Erreur connexion", "Veuillez vérifier votre login ou password ou les options du serveur",
-                        DialogController.DialogStatus.ERROR, this.ihmMainScreenController);
+               DialogController.display("Erreur connexion", e.getMessage(),
+                       DialogController.DialogStatus.ERROR, this.ihmMainScreenController);
                 screenControl.changeScreen(0);
             }
         } else {
