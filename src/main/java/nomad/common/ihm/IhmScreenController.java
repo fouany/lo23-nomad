@@ -8,6 +8,7 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nomad.common.MainApplication;
+import nomad.common.data_structure.Game;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -155,7 +156,7 @@ public abstract class IhmScreenController {
     /**
      * Change the current active module
      */
-    public void changeModule() {
+    public void changeModule() throws IOException {
         if (module.equals("MAIN")) {
             mainApp.changeModule("GAME");
         } else {

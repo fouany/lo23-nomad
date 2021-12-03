@@ -33,7 +33,7 @@ public class ViewGameController extends IhmControllerComponent implements Initia
         super(ihmMainScreenController);
         this.ihmController = ihmMainScreenController;
 
-}
+    }
     /**
      * This function is called in the class constructor.
      * In order to notice the changes for both gamesInLobby and gamesInPlay
@@ -52,7 +52,8 @@ public class ViewGameController extends IhmControllerComponent implements Initia
      * the gamer listview and the viewer listview. The same goes for remove.
      * */
     public void onClickAddGame() {
-        //was used to tests
+        // gamesViewAsViewer.getItems().add("je suis game Viewer");
+        // gamesViewAsPlayer.getItems().add("je suis game Player ");
     }
 
     public void onClickDeleteGame() {
@@ -72,6 +73,11 @@ public class ViewGameController extends IhmControllerComponent implements Initia
         System.out.println(ihmController.getDataI().getPlayer());
         ihmController.getComI().addPlayerInGame(ihmController.getDataI().getPlayer(), gamesViewAsViewer.getSelectionModel().getSelectedItem());
 
+    }
+
+    public GameLight getGameLight(String uuid, Boolean viewer)
+    {
+        return null;
     }
 
     /**
@@ -115,7 +121,6 @@ public class ViewGameController extends IhmControllerComponent implements Initia
     public void initialize(URL location, ResourceBundle resources) {
         gamesViewAsViewer.setVisible(false);
         gamesViewAsViewer.setManaged(false);
-
         gamesAsViewer = change -> {
             change.next();
             if (change.wasAdded()) {
@@ -126,15 +131,13 @@ public class ViewGameController extends IhmControllerComponent implements Initia
 
                 }
             } else if (change.wasRemoved()) {
-                for (Object game : change.getRemoved()) {
+                for (GameLight game : change.getRemoved()) {
                     Platform.runLater(() ->
-                            gamesViewAsViewer.getItems().remove( game)  //remove a game
+                            gamesViewAsViewer.getItems().remove(game)  //remove a game
                     );
                 }
             }
         };
-
-        //gamesAsViewer = this::processListener;
         gamesAsPlayer = change -> {
             change.next();
             if (change.wasAdded()) {
@@ -145,9 +148,9 @@ public class ViewGameController extends IhmControllerComponent implements Initia
 
                 }
             } else if (change.wasRemoved()) {
-                for (Object game : change.getRemoved()) {
+                for (GameLight game : change.getRemoved()) {
                     Platform.runLater(() ->
-                            gamesViewAsPlayer.getItems().remove( game)  //remove a game
+                            gamesViewAsPlayer.getItems().remove(game)  //remove a game
                     );
                 }
             }

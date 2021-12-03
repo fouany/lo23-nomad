@@ -67,10 +67,10 @@ TODO mettre les bonnes tailles d'écran a jour
     -fx-text-fill: white;
 }
 
- .main-bg-red {
-     -fx-background-color : -fx-maximum-red;
-     -fx-text-fill : white
- }
+.main-bg-red {
+    -fx-background-color : -fx-maximum-red;
+    -fx-text-fill : white
+}
 
 
 .main-bg-disabled {
@@ -94,25 +94,25 @@ TODO mettre les bonnes tailles d'écran a jour
     -fx-background-color: -fx-prussian-blue;
 }
 
- .main-bg-disabled {
-     -fx-background-color: #BDBDBD;
-     -fx-text-fill: #676767 ;
- }
+.main-bg-disabled {
+    -fx-background-color: #BDBDBD;
+    -fx-text-fill: #676767 ;
+}
 
- .main-bg-cream {
-   -fx-background-color: #EAE2B7;
-   -fx-text-fill: #003049;
- }
+.main-bg-cream {
+    -fx-background-color: #EAE2B7;
+    -fx-text-fill: #003049;
+}
 
- .main-bg-green {
-     -fx-background-color: -fx-green;
- }
+.main-bg-green {
+    -fx-background-color: -fx-green;
+}
 
- .dialog-blur-bg {
-     -fx-background-color: rgba(196,196,196,0.44);
- }
- .dialog-bg {
-     -fx-background-color: -fx-prussian-blue;
+.dialog-blur-bg {
+    -fx-background-color: rgba(196,196,196,0.44);
+}
+.dialog-bg {
+    -fx-background-color: -fx-prussian-blue;
 
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 2, 0, 0, 2);
 }
@@ -180,16 +180,16 @@ TODO mettre les bonnes tailles d'écran a jour
 
 
 
- .waiting-room-top-container {
-     -fx-padding: 16px;
- }
+.waiting-room-top-container {
+    -fx-padding: 16px;
+}
 
 
- /* latin */
-  @font-face {
+/* latin */
+@font-face {
     font-family: 'Marones';
     src: url('./Marones.ttf');
-  }
+}
 
 
 .waiting-room-top-container > Label {
@@ -256,7 +256,7 @@ TODO mettre les bonnes tailles d'écran a jour
     src: url('Poppins-ExtraLightItalic.ttf') format('truetype');
 
 
-  }
+}
 
 
 
@@ -269,7 +269,7 @@ TODO mettre les bonnes tailles d'écran a jour
 
     src: url('Poppins-ThinItalic.ttf') format('truetype');
 
-  }
+}
 
 
 /* latin */
@@ -280,7 +280,7 @@ TODO mettre les bonnes tailles d'écran a jour
 
     src: url('Poppins-LightItalic.ttf') format('truetype');
 
-  }
+}
 
 
 /* latin */
@@ -291,7 +291,7 @@ TODO mettre les bonnes tailles d'écran a jour
 
     src: url('Poppins-Italic.ttf') format('truetype');
 
-  }
+}
 
 
 /* latin */
@@ -303,7 +303,7 @@ TODO mettre les bonnes tailles d'écran a jour
     src: url('Poppins-MediumItalic.ttf') format('truetype');
 
 
-  }
+}
 
 
 /* latin */
@@ -314,7 +314,7 @@ TODO mettre les bonnes tailles d'écran a jour
 
     src: url('Poppins-SemiBoldItalic.ttf') format('truetype');
 
-  }
+}
 
 
 /* latin */
@@ -325,7 +325,7 @@ TODO mettre les bonnes tailles d'écran a jour
 
     src: url('Poppins-BoldItalic.ttf') format('truetype');
 
-  }
+}
 
 
 /* latin */
@@ -336,7 +336,7 @@ TODO mettre les bonnes tailles d'écran a jour
 
     src: url('Poppins-ExtraBoldItalic.ttf') format('truetype');
 
-  }
+}
 
 
 /* latin */
@@ -347,7 +347,7 @@ TODO mettre les bonnes tailles d'écran a jour
 
     src: url('Poppins-BlackItalic.ttf') format('truetype');
 
-  }
+}
 
 
 /* latin */
@@ -358,7 +358,7 @@ TODO mettre les bonnes tailles d'écran a jour
 
     src: url('Poppins-ExtraLight.ttf') format('truetype');
 
-  }
+}
 
 
 /* latin */
@@ -369,7 +369,7 @@ TODO mettre les bonnes tailles d'écran a jour
 
     src: url('Poppins-Thin.ttf') format('truetype');
 
-  }
+}
 
 
 /* latin */
@@ -380,7 +380,7 @@ TODO mettre les bonnes tailles d'écran a jour
 
     src: url('Poppins-Light.ttf') format('truetype');
 
-  }
+}
 
 
 
@@ -392,7 +392,7 @@ TODO mettre les bonnes tailles d'écran a jour
 
     src: url('Poppins-Regular.ttf') format('truetype');
 
-  }
+}
 
 
 /* latin */
@@ -408,9 +408,9 @@ TODO mettre les bonnes tailles d'écran a jour
 
 
 
- 
-  /* latin */
-  @font-face {
+
+/* latin */
+@font-face {
 
     font-family: 'Poppins';
     font-style: normal;
@@ -421,16 +421,16 @@ TODO mettre les bonnes tailles d'écran a jour
 }
 
 
-  /* latin */
-  @font-face {
+/* latin */
+@font-face {
 >>>>>>> origin/feature/main/#19_waiting_room
-    font-family: 'Poppins';
+font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
 
     src: url('Poppins-Bold.ttf') format('truetype');
 
-  }
+}
 
 
 /* latin */
@@ -444,9 +444,9 @@ TODO mettre les bonnes tailles d'écran a jour
 }
 
 
-  
-  /* latin */
-  @font-face {
+
+/* latin */
+@font-face {
 
     font-family: 'Poppins';
     font-style: normal;
@@ -454,6 +454,6 @@ TODO mettre les bonnes tailles d'écran a jour
 
     src: url('Poppins-Black.ttf') format('truetype');
 
-  }
+}
 
 

@@ -38,12 +38,6 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
             mainScreenController.getCreateGameController().displayWaitingRoom();
             game.addObserver(mainScreenController.getWaitingRoomController());
         }
-
-
-
-
-      // TODO : fix Observer on Observable
-
     }
 
     @Override
