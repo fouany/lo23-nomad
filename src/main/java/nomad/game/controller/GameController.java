@@ -1,7 +1,11 @@
 package nomad.game.controller;
 
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import nomad.common.data_structure.Game;
+import nomad.common.data_structure.Message;
+import nomad.common.data_structure.Move;
+import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.common.ihm.IhmScreenController;
 import nomad.game.IhmGameScreenController;
@@ -39,9 +43,31 @@ public class GameController extends IhmControllerComponent implements Observer {
      * @param screen main screen controller
      */
     public GameController(IhmScreenController screen) {
+
         super(screen);
         currentGame = ((IhmGameScreenController) super.screenControl).getLinkedGame();
         currentGame.addObserver(this);
+
+        currentGame.getMoves().addListener(new ListChangeListener<Move>() {
+            @Override
+            public void onChanged(Change<? extends Move> c) {
+                System.out.println("Changement sur les mooves à gérer coté IHM");
+            }
+        });
+
+        currentGame.getSpect().addListener(new ListChangeListener<UserLight>() {
+            @Override
+            public void onChanged(Change<? extends UserLight> c) {
+                System.out.println("Changement sur les spects");
+            }
+        });
+
+        currentGame.getChat().addListener(new ListChangeListener<Message>() {
+            @Override
+            public void onChanged(Change<? extends Message> c) {
+                System.out.println("Changement sur le chat");
+            }
+        });
 
         playerInfoController = new PlayerInfoController(screen);
         playerInfoController.setParentController(this);
