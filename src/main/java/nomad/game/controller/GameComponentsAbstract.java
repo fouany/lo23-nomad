@@ -1,8 +1,7 @@
 package nomad.game.controller;
 
-import nomad.common.data_structure.Game;
 import nomad.common.ihm.IhmControllerComponent;
-import nomad.common.ihm.IhmScreenController;
+import nomad.game.IhmGameScreenController;
 
 public abstract class GameComponentsAbstract extends IhmControllerComponent {
 
@@ -13,7 +12,7 @@ public abstract class GameComponentsAbstract extends IhmControllerComponent {
      *
      * @param screen
      */
-    protected GameComponentsAbstract(IhmScreenController screen) {
+    protected GameComponentsAbstract(IhmGameScreenController screen) {
         super(screen);
     }
 

@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 import nomad.com.client.ClientController;
 import nomad.com.client.concrete.ComClientToDataConcrete;
 import nomad.com.client.concrete.ComClientToIhmMainConcrete;
+import nomad.com.client.concrete.ComToIhmGameConcrete;
 import nomad.common.ihm.IhmScreenController;
 import nomad.data.client.DataClientController;
 import nomad.data.client.DataToComConcrete;
@@ -38,6 +39,7 @@ public class MainApplication extends Application {
   private IhmMainScreenController ihmMainScreenController;
   private IhmGameScreenController ihmGameScreenController;
   private IhmScreenController screenController;
+  private ComToIhmGameConcrete comToGameConcrete;
 
   public MainApplication() {
     initConcreteInterface();
@@ -53,6 +55,7 @@ public class MainApplication extends Application {
     dataToComConcrete = new DataToComConcrete();
     dataToMainConcrete = new DataToMainConcrete();
     dataToGameConcrete = new DataToGameConcrete();
+    comToGameConcrete = new ComToIhmGameConcrete();
     ihmMainToDataConcrete = new IhmMainToDataConcrete();
     comClientToIhmMainConcrete = new ComClientToIhmMainConcrete();
     comClientToDataConcrete = new ComClientToDataConcrete();
@@ -95,7 +98,7 @@ public class MainApplication extends Application {
     if (mode.equals("MAIN")) {
       screenController = ihmMainScreenController;
     } else {
-      ihmGameScreenController = new IhmGameScreenController(this, dataToGameConcrete);
+      ihmGameScreenController = new IhmGameScreenController(this, dataToGameConcrete, comToGameConcrete);
       screenController = ihmGameScreenController;
     }
     screenController.initIHM();

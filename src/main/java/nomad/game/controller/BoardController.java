@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import nomad.common.ihm.IhmScreenController;
+import nomad.game.IhmGameScreenController;
 
 public class BoardController extends GameComponentsAbstract {
     /**
@@ -13,7 +13,7 @@ public class BoardController extends GameComponentsAbstract {
      *
      * @param screen
      */
-    protected BoardController(IhmScreenController screen) {
+    protected BoardController(IhmGameScreenController screen) {
         super(screen);
     }
 
