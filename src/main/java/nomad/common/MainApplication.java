@@ -8,6 +8,7 @@ import nomad.com.client.concrete.ComClientToIhmMainConcrete;
 import nomad.common.ihm.IhmScreenController;
 import nomad.data.client.DataClientController;
 import nomad.data.client.DataToComConcrete;
+import nomad.data.client.DataToGameConcrete;
 import nomad.data.client.DataToMainConcrete;
 import nomad.game.IhmGameScreenController;
 import nomad.main.IhmMainScreenController;
@@ -26,6 +27,8 @@ public class MainApplication extends Application {
   Stage stage;
   private DataToMainConcrete dataToMainConcrete;
   private DataToComConcrete dataToComConcrete;
+  private DataToGameConcrete dataToGameConcrete;
+
   private ComClientToIhmMainConcrete comClientToIhmMainConcrete;
   private IhmMainToDataConcrete ihmMainToDataConcrete;
   private ComClientToDataConcrete comClientToDataConcrete;
@@ -49,7 +52,7 @@ public class MainApplication extends Application {
   public void initConcreteInterface () {
     dataToComConcrete = new DataToComConcrete();
     dataToMainConcrete = new DataToMainConcrete();
-
+    dataToGameConcrete = new DataToGameConcrete();
     ihmMainToDataConcrete = new IhmMainToDataConcrete();
     comClientToIhmMainConcrete = new ComClientToIhmMainConcrete();
     comClientToDataConcrete = new ComClientToDataConcrete();
@@ -60,7 +63,6 @@ public class MainApplication extends Application {
             ihmMainToDataConcrete,
             null);
     clientController = new ClientController(dataToComConcrete);
-    ihmGameScreenController = new IhmGameScreenController(this);
     ihmMainScreenController = new IhmMainScreenController(this, dataToMainConcrete, comClientToIhmMainConcrete);
   }
 
@@ -77,7 +79,7 @@ public class MainApplication extends Application {
   private final int MIN_HEIGHT = 610;
 
   @Override
-  public void start(Stage primaryStage) {
+  public void start(Stage primaryStage) throws IOException {
     stage = primaryStage;
     stage.setMinHeight(MIN_HEIGHT);
     stage.setMinWidth(MIN_WIDTH);
@@ -89,11 +91,11 @@ public class MainApplication extends Application {
    * @param mode module wanted
    * @throws IOException
    */
-  public void changeModule(String mode) {
-
+  public void changeModule(String mode) throws IOException {
     if (mode.equals("MAIN")) {
       screenController = ihmMainScreenController;
     } else {
+      ihmGameScreenController = new IhmGameScreenController(this, dataToGameConcrete);
       screenController = ihmGameScreenController;
     }
     screenController.initIHM();
