@@ -52,7 +52,7 @@ public class DataToComConcrete implements DataToComClientInterface {
      */
     // TODO : pas besoin du booleen !
     public void updateUserSession(Player player, boolean connected){
-        if (player.getId() == dataClientController.getUserController().getUser().getUserId()) {
+        if (player.getId().equals(dataClientController.getUserController().getUser().getUserId())){
             return;
         }
         dataClientController.getSession().getConnectedUsers().add(new UserLight(player.getId(), player.getLogin()));
@@ -66,7 +66,7 @@ public class DataToComConcrete implements DataToComClientInterface {
      */
     public void updateOpponent(Player player, GameLight gameLight) throws GameException {
         dataClientController.getSession().getGameInLobbyById(gameLight.getGameId());
-        if (gameLight.getGameId() == dataClientController.getGameController().getGame().getGameId()){
+        if (gameLight.getGameId().equals(dataClientController.getGameController().getGame().getGameId())){
             dataClientController.getGameController().getGame().setOpponent(player);
         } else {
             throw new GameException("Game Id does not exist");
@@ -201,7 +201,7 @@ public class DataToComConcrete implements DataToComClientInterface {
     // TODO : changer signature : pas besoin du booleen
     public void isDisconnected(UUID userId, boolean isDeconnected){
         List<UserLight> connectedUsers = dataClientController.getSession().getConnectedUsers();
-        connectedUsers.removeIf((UserLight u) -> u.getId() == userId);
+        connectedUsers.removeIf((UserLight u) -> u.getId().equals(userId));
     }
 
     /**
