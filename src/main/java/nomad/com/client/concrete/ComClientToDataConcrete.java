@@ -46,7 +46,7 @@ public class ComClientToDataConcrete implements ComToDataClientInterface {
 
     @Override
     public void enoughPlayers(UUID gameId, UUID opponentId) {
-        //TODO
+        
     }
 
     /**
