@@ -6,6 +6,7 @@ import nomad.common.data_structure.Message;
 import nomad.common.data_structure.UserLight;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
+import nomad.common.ihm.IhmScreenController;
 import nomad.data.client.DataToGameConcrete;
 import nomad.game.IhmGameScreenController;
 
@@ -14,15 +15,14 @@ import java.util.UUID;
 
 
 public class ChatController extends GameComponentsAbstract{
-    private IhmGameScreenController ihmGameScreenController;
+
     /**
      * Constructor that link the screen controller to the component controller
      *
      * @param screen
      */
-    protected ChatController(IhmGameScreenController screen) {
+    protected ChatController(IhmScreenController screen) {
         super(screen);
-        this.ihmGameScreenController = screen;
     }
 
     @FXML
@@ -45,6 +45,7 @@ public class ChatController extends GameComponentsAbstract{
     public void OnClickSend() {
         String content = message.getText();
         if(content.isBlank()){
+            IhmGameScreenController ihmGameScreenController = (IhmGameScreenController)super.screenControl;
             DataToGameConcrete dataInterface = ihmGameScreenController.getDataInterface();
             UserLight userLight = dataInterface.getUserLight();
             UUID idGame = dataInterface.getGame().getGameId();
