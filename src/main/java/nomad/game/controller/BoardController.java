@@ -14,7 +14,7 @@ public class BoardController extends GameComponentsAbstract {
      *
      * @param screen
      */
-    protected BoardController(IhmGameScreenController screen) {
+    protected BoardController(IhmScreenController screen) {
         super(screen);
     }
 

@@ -3,6 +3,7 @@ package nomad.game.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import nomad.common.data_structure.Game;
+import nomad.common.ihm.IhmScreenController;
 import nomad.game.IhmGameScreenController;
 
 public class PlayerInfoController extends GameComponentsAbstract {
@@ -34,7 +35,7 @@ public class PlayerInfoController extends GameComponentsAbstract {
     public TextField connectedTowerTwo;
 
 
-    protected PlayerInfoController(IhmGameScreenController screen) {
+    protected PlayerInfoController(IhmScreenController screen) {
         super(screen);
     }
 
