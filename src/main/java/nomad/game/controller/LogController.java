@@ -1,6 +1,6 @@
 package nomad.game.controller;
 
-import nomad.game.IhmGameScreenController;
+import nomad.common.ihm.IhmScreenController;
 
 public class LogController extends GameComponentsAbstract{
     /**
@@ -8,7 +8,7 @@ public class LogController extends GameComponentsAbstract{
      *
      * @param screen
      */
-    protected LogController(IhmGameScreenController screen) {
+    protected LogController(IhmScreenController screen) {
         super(screen);
     }
 

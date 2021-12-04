@@ -178,12 +178,18 @@ public class DataToComConcrete implements DataToComServerInterface {
     }
 
     /**
-     * Removes a Player from the connected Users List
+     * Removes a Player from the connected Users List and removes all Games in Lobby he created
      * @param userId
      */
 
+    //TODO Removes all game from the User or just the first?
     @Override
     public User updateUserListRemove(UUID userId) {
+        for (GameLight gl : dataServerController.getGamesController().getGameLightListInLobby()){
+            if (gl.getHost().getId()== userId){
+                dataServerController.getGamesController().removeGame(gl.getGameId());
+            }
+        }
         return dataServerController.getUserController().removeUser(userId);
     }
     /**
@@ -191,6 +197,7 @@ public class DataToComConcrete implements DataToComServerInterface {
      * @param oldUser
      */
 
+    //TODO marche surement pas, cf méthode updateListRemove
     @Override
     public void updateListGamesRemove(User oldUser){
         for (Game gl : dataServerController.getGamesController().getAllGames().values()){

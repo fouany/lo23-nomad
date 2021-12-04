@@ -1,4 +1,5 @@
 package nomad.game.controller;
+
 import javafx.scene.control.TextField;
 import nomad.com.client.concrete.ComToIhmGameConcrete;
 import nomad.common.data_structure.Message;
@@ -26,6 +27,7 @@ public class ChatController extends GameComponentsAbstract{
 
     @FXML
     public TextArea chat;
+
 
     @FXML
     public TextField message;

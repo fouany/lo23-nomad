@@ -7,6 +7,7 @@ import nomad.common.data_structure.Message;
 import nomad.common.data_structure.Move;
 import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
+import nomad.common.ihm.IhmScreenController;
 import nomad.game.IhmGameScreenController;
 
 import java.util.Observable;
@@ -41,7 +42,7 @@ public class GameController extends IhmControllerComponent implements Observer {
      * Constructor of the main game controller
      * @param screen main screen controller
      */
-    public GameController(IhmGameScreenController screen) {
+    public GameController(IhmScreenController screen) {
 
         super(screen);
         currentGame = ((IhmGameScreenController) super.screenControl).getLinkedGame();
