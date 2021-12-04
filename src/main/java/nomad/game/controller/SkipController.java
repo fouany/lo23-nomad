@@ -1,6 +1,7 @@
 package nomad.game.controller;
 
 
+import nomad.common.ihm.IhmScreenController;
 import nomad.game.IhmGameScreenController;
 
 public class SkipController extends GameComponentsAbstract {
@@ -9,7 +10,7 @@ public class SkipController extends GameComponentsAbstract {
      *
      * @param screen
      */
-    protected SkipController(IhmGameScreenController screen) {
+    protected SkipController(IhmScreenController screen) {
         super(screen);
     }
 
