@@ -110,7 +110,8 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
             {
                 controller.getDataI().enoughPlayers(controller.getDataI().getGameLight());
                 Logger.getAnonymousLogger().log(Level.INFO, "coucou");
-                //controller.getComI().launchGame(controller.getDataI().getGame());
+                DialogController.display("Todo", "Wait", DialogController.DialogStatus.WARNING, controller);
+                controller.getComI().launchGame(controller.getDataI().getGame());
 
             }
 

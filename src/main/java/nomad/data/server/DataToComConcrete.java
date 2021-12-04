@@ -45,8 +45,9 @@ public class DataToComConcrete implements DataToComServerInterface {
     @Override
     public Game guestAccepted(UUID gameId, UUID opponentID) {
         dataServerController.getGamesController().setGame(dataServerController.getGamesController().getGame(gameId));
-        UserLight ul = new UserLight(opponentID, dataServerController.getUserController().getUser(opponentID).getLogin());
-        dataServerController.getGamesController().getGame(gameId).addSpec(ul);
+
+        Player p = new Player(opponentID, dataServerController.getUser(opponentID).getLogin(), dataServerController.getUser(opponentID).getProfilePicture());
+        dataServerController.getGamesController().getGame(gameId).setOpponent(p);
         return dataServerController.getGamesController().getGame(gameId);
     }
 

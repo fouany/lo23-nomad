@@ -31,6 +31,6 @@ public class EnoughPlayerMessage extends BaseServerMessage {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to get client socket");
             }
             // TODO : Que faire après avec les spectateurs ? Le DS n'est pas adapté
-        }
+        }*/
     }
 }
