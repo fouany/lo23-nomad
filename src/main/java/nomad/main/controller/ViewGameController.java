@@ -5,14 +5,19 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
+
 import javafx.scene.control.ListView;
-import nomad.common.data_structure.Game;
+
 import nomad.common.data_structure.GameLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
+import nomad.main.utils.GameCell;
+
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ViewGameController extends IhmControllerComponent implements Initializable {
     @FXML
@@ -68,9 +73,7 @@ public class ViewGameController extends IhmControllerComponent implements Initia
 
     }
     public void handleGameAsPlayerListClick() {
-        System.out.println(gamesViewAsViewer.getSelectionModel().getSelectedItem().toString());
-        System.out.println(ihmController.getDataI().getPlayer());
-        ihmController.getComI().addPlayerInGame(ihmController.getDataI().getPlayer(), gamesViewAsViewer.getSelectionModel().getSelectedItem());
+        ihmController.getComI().addPlayerInGame(ihmController.getDataI().getPlayer(), gamesViewAsPlayer.getSelectionModel().getSelectedItem());
 
     }
 
@@ -92,65 +95,42 @@ public class ViewGameController extends IhmControllerComponent implements Initia
         }
     }
 
-  /*  private ListChangeListener<GameLight> processListener(ListChangeListener.Change change) {
-        change.
-        change.next();
-        if (change.wasAdded()) {
-            for (Object game : change.getAddedSubList()) {
-                Platform.runLater(() ->
-                        gamesViewAsViewer.getItems().add((GameLight) game) //add a new game
-                );
+    public ListChangeListener<GameLight> getListChangeListener(ListView<GameLight> viewList)
+    {
+        return change -> {
+            while (change.next()) {
+                if (change.wasAdded()) {
+                    for (GameLight game : change.getAddedSubList()) {
+                        Logger.getAnonymousLogger().log(Level.INFO, "Game added event");
+                        Platform.runLater(() ->
+                                viewList.getItems().add(game) //add a new game
+                        );
 
+                    }
+                } else if (change.wasRemoved()) {
+                    for (GameLight game : change.getRemoved()) {
+                        Platform.runLater(() ->
+                                viewList.getItems().remove(game)  //remove a game
+                        );
+                    }
+                }
             }
-        } else if (change.wasRemoved()) {
-            for (Object game : change.getRemoved()) {
-                Platform.runLater(() ->
-                        gamesViewAsViewer.getItems().remove( game)  //remove a game
-                );
-            }
-        }
-        return (ListChangeListener<GameLight>) change;
-    }*/
+        };
+    }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         gamesViewAsViewer.setVisible(false);
         gamesViewAsViewer.setManaged(false);
 
-        gamesAsViewer = change -> {
-            change.next();
-            if (change.wasAdded()) {
-                for (GameLight game : change.getAddedSubList()) {
-                    Platform.runLater(() ->
-                            gamesViewAsViewer.getItems().add(game) //add a new game
-                    );
+        gamesViewAsViewer.setCellFactory(gameLightListView -> new GameCell(ihmController));
+        gamesViewAsPlayer.setCellFactory(gameLightListView -> new GameCell(ihmController));
 
-                }
-            } else if (change.wasRemoved()) {
-                for (Object game : change.getRemoved()) {
-                    Platform.runLater(() ->
-                            gamesViewAsViewer.getItems().remove( game)  //remove a game
-                    );
-                }
-            }
-        };
 
-        //gamesAsViewer = this::processListener;
-        gamesAsPlayer = change -> {
-            change.next();
-            if (change.wasAdded()) {
-                for (GameLight game : change.getAddedSubList()) {
-                    Platform.runLater(() ->
-                            gamesViewAsPlayer.getItems().add(game) //add a new game
-                    );
+        gamesAsViewer = getListChangeListener(gamesViewAsViewer);
 
-                }
-            } else if (change.wasRemoved()) {
-                for (Object game : change.getRemoved()) {
-                    Platform.runLater(() ->
-                            gamesViewAsPlayer.getItems().remove( game)  //remove a game
-                    );
-                }
-            }
-        };
+
+        gamesAsPlayer = getListChangeListener(gamesViewAsPlayer);
     }
 }

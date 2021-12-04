@@ -1,6 +1,7 @@
 package nomad.main;
 
 import nomad.common.data_structure.Game;
+import nomad.common.data_structure.GameException;
 import nomad.common.data_structure.Session;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.main.IhmMainToDataInterface;
@@ -34,8 +35,16 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
     public void updateObservable(Game game) {
         if(!game.isGameLaunched() && game.getOpponent() == null) //game just has been created
         {
-            System.out.println("Bonjour");
+
             mainScreenController.getCreateGameController().displayWaitingRoom();
+            try
+            {
+                mainScreenController.getWaitingRoomController().gameUpdate(game);
+            }
+            catch (GameException e)
+            {
+              /*todo handle game exception*/
+            }
             game.addObserver(mainScreenController.getWaitingRoomController());
         }
 

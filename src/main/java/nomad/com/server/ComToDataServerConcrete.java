@@ -28,6 +28,10 @@ public class ComToDataServerConcrete implements ComToDataServerInterface {
         serverController.sendMessage(client, new NewGamePlayerClientMessage(game.getGameId(), opponent));
     }
 
+    public void setServerController(ServerController serverController) {
+        this.serverController = serverController;
+    }
+
     @Override
     public void tileValid(Tile t, List<UUID> listOther) {
         UUID userId = t.getUserId();

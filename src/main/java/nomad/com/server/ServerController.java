@@ -141,6 +141,7 @@ public class ServerController extends Thread {
 
     public void disconnectClient(Socket client) {
         clientList.get(client).stopClientCommunication(); // Stop client communication thread
+        /*todo remove client after getting uuid...*/
         clientList.remove(client); // Remove client from identified clients list
         try {
             client.close();

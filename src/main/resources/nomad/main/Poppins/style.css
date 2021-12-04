@@ -67,6 +67,10 @@ TODO mettre les bonnes tailles d'écran a jour
     -fx-text-fill: white;
 }
 
+.main-text-orange {
+    -fx-text-fill:  -fx-orange;
+}
+
  .main-bg-red {
      -fx-background-color : -fx-maximum-red;
      -fx-text-fill : white
@@ -229,7 +233,43 @@ TODO mettre les bonnes tailles d'écran a jour
     -fx-text-fill: white;
 }
 
+.list-cell:filled:selected {
+    -fx-background-color: -fx-background ;
+    -fx-background-insets: 0 ;
+}
 
+.game-cell-container {
+    -fx-background-color: -fx-prussian-blue;
+    -fx-background-radius: 4px;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 2, 0, 0, 2);
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 14px;
+
+}
+
+.game-cell-name {
+    -fx-font-weight: 900;
+    -fx-font-style: italic;
+    -fx-text-fill: -fx-maximum_yellow;
+}
+
+.game-cell-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+}
+
+.game-cell-player {
+    -fx-font-size: 13px;
+    -fx-font-weight: 900;
+    -fx-font-style: italic;
+    -fx-text-fill: white;
+}
+
+.game-cell-id {
+    -fx-text-fill: #C1C1C1;
+    -fx-font-size: 12px;
+}
 
 
 .waiting-room-id {
