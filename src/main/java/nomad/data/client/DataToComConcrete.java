@@ -140,7 +140,6 @@ public class DataToComConcrete implements DataToComClientInterface {
     /**
      * adds the move to the list of moves, changes the current player, and updates the observable
      * @param move
-     * @param user
      */
     @Override
     public void moveReceived(Move move) {
