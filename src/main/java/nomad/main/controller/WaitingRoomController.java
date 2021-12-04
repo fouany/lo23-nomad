@@ -12,6 +12,7 @@ import nomad.common.data_structure.Player;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
@@ -73,7 +74,13 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
         if(passModule!= null && !passModule && g.isGameLaunched())
         {
             //TODO change module with controller.changeModule("GAME", g)
-            controller.changeModule();
+           try {
+               controller.changeModule();
+               return;
+           }
+           catch (IOException e) {
+               e.printStackTrace();
+           }
             passModule = true;
         }
 
@@ -99,10 +106,11 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
             opName.setText(opponent.getLogin());
             opId.setText(String.valueOf(opponent.getId()));
             DialogController.display("Todo", "Modal accepter/refuser", DialogController.DialogStatus.WARNING, controller);
-            if(controller.getDataI().getUser().getUserId() == g.getHost().getId())
+            if(controller.getDataI().getUser().getUserId().equals(g.getHost().getId()))
             {
                 controller.getDataI().enoughPlayers(controller.getDataI().getGameLight());
-                controller.getComI().launchGame(controller.getDataI().getGame());
+                Logger.getAnonymousLogger().log(Level.INFO, "coucou");
+                //controller.getComI().launchGame(controller.getDataI().getGame());
 
             }
 

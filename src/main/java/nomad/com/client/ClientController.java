@@ -77,7 +77,7 @@ public class ClientController {
      *
      * @param message The message to send to the server
      */
-    public boolean sendMessage(Message message) {
+    public boolean  sendMessage(Message message) {
         try {
             if (socket.isClosed()) {
                 disconnect();

@@ -1,10 +1,14 @@
 package nomad.main;
 
+import javafx.application.Platform;
 import nomad.common.data_structure.Game;
 import nomad.common.data_structure.GameException;
 import nomad.common.data_structure.Session;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.main.IhmMainToDataInterface;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class IhmMainToDataConcrete implements IhmMainToDataInterface {
 
@@ -33,6 +37,7 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
 
     @Override
     public void updateObservable(Game game) {
+        Logger.getAnonymousLogger().log(Level.INFO, "Call");
         if(!game.isGameLaunched() && game.getOpponent() == null) //game just has been created
         {
 
@@ -46,6 +51,18 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
               /*todo handle game exception*/
             }
             game.addObserver(mainScreenController.getWaitingRoomController());
+
+        }
+        else {
+                Platform.runLater(() -> {
+                    try {
+                        mainScreenController.getWaitingRoomController().gameUpdate(game);
+                    } catch (GameException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+            Logger.getAnonymousLogger().log(Level.INFO, "Call 2 ");
         }
     }
 

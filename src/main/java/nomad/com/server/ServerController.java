@@ -73,7 +73,7 @@ public class ServerController extends Thread {
      */
     public Socket getClientSocket(UUID userId) {
         for (IdentifiedClient client : clientList.values()) {
-            if (client.getUID() == userId) {
+            if (client.getUID().equals(userId)) {
                 return client.getSocket();
             }
         }
@@ -141,7 +141,7 @@ public class ServerController extends Thread {
 
     public void disconnectClient(Socket client) {
         clientList.get(client).stopClientCommunication(); // Stop client communication thread
-        /*todo remove client after getting uuid...*/
+        UUID uid = clientList.get(client).getUID();
         clientList.remove(client); // Remove client from identified clients list
         try {
             client.close();
@@ -150,7 +150,7 @@ public class ServerController extends Thread {
         }
 
         Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Disconnected user from server !");
-        UUID uid = clientList.get(client).getUID();
+
         if (uid != null) {
             broadcast(new UserChangedMessageBase(dataToCom.getUserProfile(uid), false)); // announce disconnection to all clients
         }

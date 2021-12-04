@@ -6,6 +6,8 @@ import nomad.com.server.ServerController;
 import nomad.common.data_structure.Game;
 import nomad.common.data_structure.UserLight;
 
+import nomad.com.common.message.client_message.game.NotifyNewGame;
+
 import java.net.Socket;
 
 /**
