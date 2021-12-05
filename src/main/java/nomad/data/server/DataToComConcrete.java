@@ -45,8 +45,9 @@ public class DataToComConcrete implements DataToComServerInterface {
     @Override
     public Game guestAccepted(UUID gameId, UUID opponentID) {
         dataServerController.getGamesController().setGame(dataServerController.getGamesController().getGame(gameId));
-        UserLight ul = new UserLight(opponentID, dataServerController.getUserController().getUser(opponentID).getLogin());
-        dataServerController.getGamesController().getGame(gameId).addSpec(ul);
+
+        Player p = new Player(opponentID, dataServerController.getUser(opponentID).getLogin(), dataServerController.getUser(opponentID).getProfilePicture());
+        dataServerController.getGamesController().getGame(gameId).setOpponent(p);
         return dataServerController.getGamesController().getGame(gameId);
     }
 
@@ -88,7 +89,7 @@ public class DataToComConcrete implements DataToComServerInterface {
     public void saveTile(Tile t) throws TileException {
         UUID gameID = t.getGameId();
         boolean color;
-        if (t.getUserId() == dataServerController.getGamesController().getGame(gameID).getHost().getId()){
+        if (t.getUserId().equals(dataServerController.getGamesController().getGame(gameID).getHost().getId())){
             //current player is the host
             color = dataServerController.getGamesController().getGame(gameID).isHostColor();
         }
@@ -186,7 +187,7 @@ public class DataToComConcrete implements DataToComServerInterface {
     @Override
     public User updateUserListRemove(UUID userId) {
         for (GameLight gl : dataServerController.getGamesController().getGameLightListInLobby()){
-            if (gl.getHost().getId()== userId){
+            if (gl.getHost().getId().equals(userId)){
                 dataServerController.getGamesController().removeGame(gl.getGameId());
             }
         }
@@ -201,7 +202,7 @@ public class DataToComConcrete implements DataToComServerInterface {
     @Override
     public void updateListGamesRemove(User oldUser){
         for (Game gl : dataServerController.getGamesController().getAllGames().values()){
-            if (gl.getHost().getId()==oldUser.getUserId()){
+            if (gl.getHost().getId().equals(oldUser.getUserId())){
                 dataServerController.getGamesController().getAllGames().remove(gl.getGameId());
             }
         }

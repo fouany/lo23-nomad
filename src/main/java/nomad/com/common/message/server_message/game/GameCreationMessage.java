@@ -1,10 +1,13 @@
 package nomad.com.common.message.server_message.game;
 
 import nomad.com.common.message.client_message.game.GameCreatedMessage;
+import nomad.com.common.message.client_message.game.NotifyNewGame;
 import nomad.com.common.message.server_message.BaseServerMessage;
 import nomad.com.server.ServerController;
 import nomad.common.data_structure.Game;
 import nomad.common.data_structure.UserLight;
+
+import nomad.com.common.message.client_message.game.NotifyNewGame;
 
 import java.net.Socket;
 
@@ -56,5 +59,7 @@ public class GameCreationMessage extends BaseServerMessage {
         Game game = controller.getDataToCom().createGame(name, host, nbTowers, areSpecAllowed, isSpecChatAllowed, hostColor);
         GameCreatedMessage gameCreatedMessage = new GameCreatedMessage(game);
         controller.sendMessage(socket, gameCreatedMessage);
+        NotifyNewGame notifyNewGame = new NotifyNewGame(game);
+        controller.broadcast(notifyNewGame);
     }
 }

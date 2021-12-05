@@ -6,21 +6,19 @@ import nomad.common.data_structure.Game;
 import nomad.common.data_structure.GameLight;
 
 /**
- * Message to sent to the client when a game is created
+ * Use to notify that a new game has been created
  */
-public class GameCreatedMessage extends BaseClientMessage {
-    /**
-     * The created game
-     */
-    private final Game game;
+public class NotifyNewGame extends BaseClientMessage {
+    private Game game;
 
-    public GameCreatedMessage(Game game) {
+    public NotifyNewGame(Game game){
         this.game = game;
     }
 
     @Override
     public void process(ClientController controller) {
-        controller.getDataToCom().gameCreated(game);
+        /*todo todo*/
+        controller.getDataToCom().updateSession(new GameLight(game.getGameId(), game.getHost(), game.getNbOfTowers()));
 
     }
 }
