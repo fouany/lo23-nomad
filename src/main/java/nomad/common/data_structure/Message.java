@@ -3,8 +3,9 @@ package nomad.common.data_structure;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.UUID;
+import java.util.Observable;
 
-public class Message implements Serializable {
+public class Message extends Observable implements Serializable {
 
     private UserLight sender;
     private UUID gameId;
