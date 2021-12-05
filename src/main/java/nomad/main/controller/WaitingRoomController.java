@@ -1,5 +1,6 @@
 package nomad.main.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import nomad.common.data_structure.Player;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
@@ -61,12 +63,24 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
 
     }
 
+    public void quitGame(ActionEvent e)
+    {
+       /*todo add interface to quit the game*/
+    }
+
 
     public void gameUpdate(Game g) throws GameException {
 
         if(passModule!= null && !passModule && g.isGameLaunched())
         {
             //TODO change module with controller.changeModule("GAME", g)
+           try {
+               controller.changeModule();
+               return;
+           }
+           catch (IOException e) {
+               e.printStackTrace();
+           }
             passModule = true;
         }
 
@@ -92,9 +106,11 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
             opName.setText(opponent.getLogin());
             opId.setText(String.valueOf(opponent.getId()));
             DialogController.display("Todo", "Modal accepter/refuser", DialogController.DialogStatus.WARNING, controller);
-            if(controller.getDataI().getUser().getUserId() == g.getHost().getId())
+            if(controller.getDataI().getUser().getUserId().equals(g.getHost().getId()))
             {
                 controller.getDataI().enoughPlayers(controller.getDataI().getGameLight());
+                Logger.getAnonymousLogger().log(Level.INFO, "coucou");
+                DialogController.display("Todo", "Wait", DialogController.DialogStatus.WARNING, controller);
                 controller.getComI().launchGame(controller.getDataI().getGame());
 
             }
@@ -116,7 +132,7 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
     public void update(Observable observable, Object o) {
 
         Game g = (Game)o;
-        System.out.println("22");
+
         try
         {
             gameUpdate(g);

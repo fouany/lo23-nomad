@@ -1,5 +1,6 @@
 package nomad.com.common.message.server_message.game;
 
+import nomad.com.common.message.client_message.game.PlayerAddedInGame;
 import nomad.com.common.message.server_message.BaseServerMessage;
 import nomad.com.server.ServerController;
 import nomad.common.data_structure.Game;
@@ -23,14 +24,17 @@ public class EnoughPlayerMessage extends BaseServerMessage {
 
     @Override
     public void process(Socket socket, ServerController controller) {
+        Socket opponentSocket = controller.getClientSocket(opponentId);
         Game game = controller.getDataToCom().guestAccepted(gameId, opponentId);
-        List<UserLight> spectators = game.getSpect();
+        controller.sendMessage(opponentSocket, new PlayerAddedInGame(game, true));
+
+        /*List<UserLight> spectators = game.getSpect();
         for (UserLight spec : spectators) {
             Socket client = controller.getClientSocket(spec.getId());
             if (client == null) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to get client socket");
             }
             // TODO : Que faire après avec les spectateurs ? Le DS n'est pas adapté
-        }
+        }*/
     }
 }
