@@ -41,7 +41,7 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
         if(!game.isGameLaunched() && game.getOpponent() == null) //game just has been created
         {
 
-            mainScreenController.getCreateGameController().displayWaitingRoom();
+            mainScreenController.getCreateGameController().displayWaitingRoom(game);
             try
             {
                 mainScreenController.getWaitingRoomController().gameUpdate(game);
@@ -53,7 +53,8 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
             game.addObserver(mainScreenController.getWaitingRoomController());
 
         }
-        else {
+        else if(!game.isGameLaunched() && game.getOpponent() != null) {
+            mainScreenController.getCreateGameController().displayWaitingRoom(game);
                 Platform.runLater(() -> {
                     try {
                         mainScreenController.getWaitingRoomController().gameUpdate(game);
