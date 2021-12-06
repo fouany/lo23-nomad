@@ -97,6 +97,7 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
         Player opponent = g.getOpponent();
         if(opponent != null)
         {
+
             opponentWait.setVisible(false);
             opponentWait.setManaged(false);
             opponentContainer.setManaged(true);
@@ -105,15 +106,18 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
             opReady.setDisable(false);
             opName.setText(opponent.getLogin());
             opId.setText(String.valueOf(opponent.getId()));
-            DialogController.display("Todo", "Modal accepter/refuser", DialogController.DialogStatus.WARNING, controller);
-            if(controller.getDataI().getUser().getUserId().equals(g.getHost().getId()))
-            {
-                controller.getDataI().enoughPlayers(controller.getDataI().getGameLight());
-                Logger.getAnonymousLogger().log(Level.INFO, "coucou");
-                DialogController.display("Todo", "Wait", DialogController.DialogStatus.WARNING, controller);
-                controller.getComI().launchGame(controller.getDataI().getGame());
+           if(g.getHost().getId().equals(controller.getDataI().getPlayer().getId()))
+           {
+               DialogController.display("Todo", "Modal accepter/refuser", DialogController.DialogStatus.WARNING, controller);
+               if(controller.getDataI().getUser().getUserId().equals(g.getHost().getId()))
+               {
+                   controller.getDataI().enoughPlayers(controller.getDataI().getGameLight());
+                   Logger.getAnonymousLogger().log(Level.INFO, "coucou");
+                   DialogController.display("Todo", "Wait", DialogController.DialogStatus.WARNING, controller);
+                   controller.getComI().launchGame(controller.getDataI().getGame());
 
-            }
+               }
+           }
 
         }
         else

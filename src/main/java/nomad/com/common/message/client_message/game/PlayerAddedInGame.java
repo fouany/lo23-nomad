@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PlayerAddedInGame extends BaseClientMessage {
-    private Game game;
+    private final Game game;
     private boolean isValid;
 
     public PlayerAddedInGame(Game game, boolean isValid) {
@@ -20,6 +20,7 @@ public class PlayerAddedInGame extends BaseClientMessage {
     @Override
     public void process(ClientController controller) {
         try {
+
             controller.getDataToCom().addedPlayerInGame(game, isValid);
         } catch (GameException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to add player in game");
