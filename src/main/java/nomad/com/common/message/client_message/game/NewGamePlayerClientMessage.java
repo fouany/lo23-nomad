@@ -21,6 +21,7 @@ public class NewGamePlayerClientMessage extends BaseClientMessage {
     @Override
     public void process(ClientController controller) {
         try {
+
             controller.getDataToCom().newPlayer(gameId, player);
         } catch (GameException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Error on adding user to the game");
