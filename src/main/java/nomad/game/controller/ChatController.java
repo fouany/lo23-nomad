@@ -4,9 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import nomad.com.client.concrete.ComToIhmGameConcrete;
-import nomad.common.data_structure.Game;
-import nomad.common.data_structure.Message;
-import nomad.common.data_structure.UserLight;
+import nomad.common.data_structure.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import nomad.common.ihm.IhmScreenController;
@@ -87,7 +85,12 @@ public class ChatController extends GameComponentsAbstract{
     }
 
     public void handleListViewClick(){
-
+        IhmGameScreenController ihmGameScreenController = (IhmGameScreenController)super.screenControl;
+        DataToGameConcrete dataInterface = ihmGameScreenController.getDataInterface();
+        User user = dataInterface.getUser();
+        String profilePicture = user.getProfilePicture();
+        ProfileStat profileStats = user.getProfileStat();
+        String login = user.getLogin();
     }
 
 }
