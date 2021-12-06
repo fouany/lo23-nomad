@@ -234,6 +234,7 @@ public class DataToComConcrete implements DataToComClientInterface {
         if (game.getGameId().equals(gameID)){
             game.setOpponent(p);
             dataClientController.getIhmMainToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+            /*todo use custom method*/
         } else{
             throw new GameException("Game created does not exists");
         }

@@ -35,6 +35,8 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
 
     }
 
+    /*todo add custom method newPLayerAskingToJoin*/
+
     @Override
     public void updateObservable(Game game) {
         Logger.getAnonymousLogger().log(Level.INFO, "Call");

@@ -16,6 +16,7 @@ public class EnoughPlayerMessage extends BaseServerMessage {
     private final UUID gameId;
     private final UUID opponentId;
 
+
     public EnoughPlayerMessage(UUID gameId, UUID opponentId) {
         this.gameId = gameId;
         this.opponentId = opponentId;
@@ -26,8 +27,7 @@ public class EnoughPlayerMessage extends BaseServerMessage {
     public void process(Socket socket, ServerController controller) {
         Socket opponentSocket = controller.getClientSocket(opponentId);
         Game game = controller.getDataToCom().guestAccepted(gameId, opponentId);
-        Logger.getAnonymousLogger().log(Level.INFO, game.toString());
-        PlayerAddedInGame playerAddedInGame = new PlayerAddedInGame(game, true);
+        PlayerAddedInGame playerAddedInGame = new PlayerAddedInGame(game, true,game.getOpponent());
         controller.sendMessage(opponentSocket,playerAddedInGame);
 
         /*List<UserLight> spectators = game.getSpect();
