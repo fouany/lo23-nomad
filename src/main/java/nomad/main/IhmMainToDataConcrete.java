@@ -51,7 +51,6 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
               /*todo handle game exception*/
             }
             game.addObserver(mainScreenController.getWaitingRoomController());
-
         }
         else if(!game.isGameLaunched() && game.getOpponent() != null) {
             mainScreenController.getCreateGameController().displayWaitingRoom(game);
