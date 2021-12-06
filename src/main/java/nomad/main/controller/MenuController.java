@@ -27,6 +27,13 @@ public class MenuController extends IhmControllerComponent implements ListChange
     public void logout() {
         this.ihmController.getDataI().logout();
         this.ihmController.changeScreen(0);
+        if (this.ihmController.getSession() != null) {
+            this.ihmController.getSession().getConnectedUsers().removeListener(this);
+        }
+        if (this.ihmController.getViewGameController() != null) {
+            this.ihmController.getSession().getGamesInPlay().removeListener(ihmController.getViewGameController().gamesAsViewer);
+            this.ihmController.getSession().getGamesInLobby().removeListener(ihmController.getViewGameController().gamesAsPlayer);
+        }
     }
 
     public void onClickCreate() {
