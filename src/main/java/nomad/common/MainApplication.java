@@ -13,6 +13,7 @@ import nomad.data.client.DataToComConcrete;
 import nomad.data.client.DataToGameConcrete;
 import nomad.data.client.DataToMainConcrete;
 import nomad.game.IhmGameScreenController;
+import nomad.game.IhmGameToDataConcrete;
 import nomad.main.IhmMainScreenController;
 import nomad.main.IhmMainToDataConcrete;
 
@@ -62,13 +63,14 @@ public class MainApplication extends Application {
     ihmMainToDataConcrete = new IhmMainToDataConcrete();
     comClientToIhmMainConcrete = new ComClientToIhmMainConcrete();
     comClientToDataConcrete = new ComClientToDataConcrete();
-    //ihmGameToDataConcrete = new IhmGameToDataConcrete();
+    ihmGameToDataConcrete = new IhmGameToDataConcrete();
   }
 
   public void initController () throws IOException {
     dataClientController = new DataClientController(comClientToDataConcrete,
             ihmMainToDataConcrete,
-            null);
+            ihmGameToDataConcrete);
+    dataToGameConcrete.setDataClientController(dataClientController);
     clientController = new ClientController(dataToComConcrete);
     ihmMainScreenController = new IhmMainScreenController(this, dataToMainConcrete, comClientToIhmMainConcrete);
   }

@@ -10,4 +10,5 @@ module nomadapp {
     exports nomad.main.controller;
     exports nomad.game.controller;
     exports nomad.common;
+    opens nomad.game.controller to javafx.fxml;
 }

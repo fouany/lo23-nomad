@@ -49,7 +49,7 @@ public class ChatController extends GameComponentsAbstract{
         chat.appendText(newMessage);
     }
 
-    public void OnClickSend() {
+    public void onClickSend() {
         String content = message.getText();
         if(!content.isBlank()){
             IhmGameScreenController ihmGameScreenController = (IhmGameScreenController)super.screenControl;
