@@ -1,8 +1,10 @@
 package nomad.game.controller;
 
 import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import nomad.com.client.concrete.ComToIhmGameConcrete;
+import nomad.common.data_structure.Game;
 import nomad.common.data_structure.Message;
 import nomad.common.data_structure.UserLight;
 import javafx.fxml.FXML;
@@ -12,6 +14,7 @@ import nomad.data.client.DataToGameConcrete;
 import nomad.game.IhmGameScreenController;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -30,14 +33,33 @@ public class ChatController extends GameComponentsAbstract{
     @FXML
     public TextField message;
 
+    @FXML
+    public ListView viewers;
+
     @Override
     public void init() {
-
+        IhmGameScreenController ihmGameScreenController = (IhmGameScreenController)super.screenControl;
+        DataToGameConcrete dataInterface = ihmGameScreenController.getDataInterface();
+        Game game = dataInterface.getGame();
+        ObservableList<UserLight> viewerList = game.getSpect();
+        ListView<UserLight> listView = new ListView<UserLight>(viewerList);
     }
 
     @Override
-    public void update(String type){}
+    public void update(String type, Object value){
+        if(type=="Message"){
+            Message message = (Message)value;
+            updateChat(message);
+        }else if(type=="UserLight"){
+            UserLight user = (UserLight) value;
+            updateUserList(user);
+        }
+    }
 
+    public void updateUserList(UserLight user){
+        String login = user.getLogin();
+        viewers.getItems().add(login);
+    }
 
     public void updateChat(Message message) {
         //Message message = messages.get(messages.size()-1);
@@ -63,4 +85,9 @@ public class ChatController extends GameComponentsAbstract{
             comInterface.transmissionCom(message);
         }
     }
+
+    public void handleListViewClick(){
+
+    }
+
 }

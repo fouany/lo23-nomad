@@ -26,7 +26,7 @@ public abstract class GameComponentsAbstract extends IhmControllerComponent {
      * Update the component
      * @param type type of update
      */
-    public abstract void update(String type);
+    public abstract void update(String type, Object value);
 
     /**
      * Set the parent controller

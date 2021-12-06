@@ -21,7 +21,7 @@ public class SkipController extends GameComponentsAbstract {
     public void init() {}
 
     @Override
-    public void update(String type) {}
+    public void update(String type, Object value) {}
 
     private void skipMove() {
         GameController gameController = getGameController() ;
