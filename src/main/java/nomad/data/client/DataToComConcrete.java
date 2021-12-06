@@ -5,6 +5,8 @@ import nomad.common.interfaces.data.DataToComClientInterface;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DataToComConcrete implements DataToComClientInterface {
 
@@ -246,6 +248,7 @@ public class DataToComConcrete implements DataToComClientInterface {
     public void addedPlayerInGame(Game game, boolean isAdded) throws GameException {
         if (isAdded){
             dataClientController.getGameController().setGame(game);
+            Logger.getAnonymousLogger().log(Level.INFO, game.toString());
             dataClientController.getIhmMainToDataInterface().updateObservable(dataClientController.getGameController().getGame());
         }else{
             throw new GameException("Player was refused from game");
