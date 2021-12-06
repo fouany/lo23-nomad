@@ -1,5 +1,6 @@
 package nomad.game.controller;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
 import nomad.com.client.concrete.ComToIhmGameConcrete;
 import nomad.common.data_structure.Message;
@@ -21,13 +22,10 @@ public class ChatController extends GameComponentsAbstract{
      *
      * @param screen
      */
-    protected ChatController(IhmScreenController screen) {
-        super(screen);
-    }
+    protected ChatController(IhmScreenController screen) {super(screen);}
 
     @FXML
     public TextArea chat;
-
 
     @FXML
     public TextField message;
@@ -38,13 +36,22 @@ public class ChatController extends GameComponentsAbstract{
     }
 
     @Override
-    public void update(String type) {
+    public void update(String type){}
 
+
+    public void updateChat(Message message) {
+        //Message message = messages.get(messages.size()-1);
+        UserLight sender = message.getSender();
+        String senderLogin = sender.getLogin();
+        Timestamp time = message.getTime();
+        String content = message.getContent();
+        String newMessage = senderLogin+"    "+content+"    "+time+"\n";
+        chat.appendText(newMessage);
     }
 
     public void OnClickSend() {
         String content = message.getText();
-        if(content.isBlank()){
+        if(!content.isBlank()){
             IhmGameScreenController ihmGameScreenController = (IhmGameScreenController)super.screenControl;
             DataToGameConcrete dataInterface = ihmGameScreenController.getDataInterface();
             UserLight userLight = dataInterface.getUserLight();
