@@ -16,13 +16,9 @@ import java.util.logging.Logger;
 
 public class ServerController extends Thread {
     private final HashMap<Socket, IdentifiedClient> clientList = new HashMap<>();
-    private ServerSocket serverSocket;
     private final DataToComServerInterface dataToCom;
+    private ServerSocket serverSocket;
     private boolean serverRun = true;
-
-    public DataToComServerInterface getDataToCom() {
-        return dataToCom;
-    }
 
     public ServerController(int port, DataToComServerInterface dataToCom) {
         this.dataToCom = dataToCom;
@@ -31,6 +27,10 @@ public class ServerController extends Thread {
         } catch (IOException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Unable to create the ServerSocket");
         }
+    }
+
+    public DataToComServerInterface getDataToCom() {
+        return dataToCom;
     }
 
     /**

@@ -5,9 +5,9 @@ import nomad.com.common.message.client_message.BaseClientMessage;
 import nomad.common.data_structure.GameException;
 import nomad.common.data_structure.Player;
 
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.UUID;
 
 public class NewGamePlayerClientMessage extends BaseClientMessage {
     private final UUID gameId;

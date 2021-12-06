@@ -6,5 +6,6 @@ import nomad.com.server.ServerController;
 import java.net.Socket;
 
 public abstract class BaseServerMessage extends Message {
-    public void process(Socket socket, ServerController controller) {}
+    public void process(Socket socket, ServerController controller) {
+    }
 }

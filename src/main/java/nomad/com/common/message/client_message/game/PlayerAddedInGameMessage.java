@@ -9,30 +9,32 @@ import nomad.common.data_structure.Player;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PlayerAddedInGame extends BaseClientMessage {
+public class PlayerAddedInGameMessage extends BaseClientMessage {
     public final Game game;
-    private boolean isValid;
     public final Player opponent;
+    private final boolean isValid;
 
-    public PlayerAddedInGame(Game game, boolean isValid) {
+    public PlayerAddedInGameMessage(Game game, boolean isValid) {
         this.game = game;
         this.isValid = isValid;
         this.opponent = null;
     }
 
+
     /**
-     * Nouveau contructeur pour fixer le bug de l'atrribut opponent qui passe a nul lors de l'envoi
-     * ajout d'un objet opponent pour relier les deux bou coté client
+     * Constructor to fix game opponent issue. The opponent wasn't sent and was null
+     * Adding opponent in the constructor allows to set the opponent before sending the game
+     * To fix if possible
+     *
+     * @param game     is the game
+     * @param isValid  is set to check if adding player is ready
+     * @param opponent is the game opponent
      */
-
-
-    public PlayerAddedInGame(Game game, boolean isValid, Player opponent) {
+    public PlayerAddedInGameMessage(Game game, boolean isValid, Player opponent) {
         this.game = game;
         this.isValid = isValid;
         this.opponent = opponent;
     }
-
-
 
 
     @Override
@@ -44,5 +46,4 @@ public class PlayerAddedInGame extends BaseClientMessage {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to add player in game");
         }
     }
-    /*todo fix one day bug with opponent*/
 }
