@@ -21,9 +21,11 @@ public class Game extends Observable implements Serializable  {
     private UUID currentPlayer;
     private boolean gameLaunched;
     private boolean gameEnded;
+    private int nbOfTilesPlayed;
     private ObservableList<Move> moves;
     private ObservableList<UserLight> spect;
     private ObservableList<Message> chat;
+    private List<Tower> towers;
 
     public Game(Player host, int nbOfTowers, String name, GameParameters gameParameters) {
         this.gameId = UUID.randomUUID();
@@ -33,6 +35,26 @@ public class Game extends Observable implements Serializable  {
         this.board = new Board();
         this.currentPlayer = host.getId();
         this.gameParameters = gameParameters;
+        this.nbOfTilesPlayed = 0;
+        moves = FXCollections.observableArrayList();
+        spect = FXCollections.observableArrayList();
+        chat = FXCollections.observableArrayList();
+        towers = new ArrayList<Tower>();
+    }
+
+    public int getNbOfTilesPlayed() {
+        return nbOfTilesPlayed;
+    }
+
+    public void addMove(Move m){
+        moves.add(m);
+        if ( m instanceof Tower ){
+            towers.add((Tower) m);
+            board.updateBoard((Tower) m);
+        } else if (m instanceof Tile){
+            nbOfTilesPlayed ++;
+            board.updateBoard((Tile) m);
+        }
     }
 
     public UUID getGameId() {

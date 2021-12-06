@@ -29,6 +29,15 @@ public class Board implements Serializable {
         this.gameBoard = gameBoard;
     }
 
+    public void updateBoard(Tower t){
+        gameBoard[t.getX()][t.getY()].setTower(true);
+    }
+
+    public void updateBoard(Tile t){
+        gameBoard[t.getX()][t.getY()].incrementHeight();
+        gameBoard[t.getX()][t.getY()].setColor(t.isColor());
+    }
+
     @Override
     public String toString() {
         return "Board{" +
