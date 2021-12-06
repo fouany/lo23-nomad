@@ -27,7 +27,7 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
         session.getConnectedUsers().addListener(mainScreenController.getMenuController());
         session.getGamesInPlay().addListener(mainScreenController.getViewGameController().gamesAsViewer);
         session.getGamesInLobby().addListener(mainScreenController.getViewGameController().gamesAsPlayer);
-
+        mainScreenController.setSession(session);
     }
 
     @Override

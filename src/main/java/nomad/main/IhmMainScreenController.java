@@ -1,5 +1,6 @@
 package nomad.main;
 
+import nomad.common.data_structure.Session;
 import nomad.common.ihm.IhmScreenController;
 import nomad.common.MainApplication;
 import nomad.common.interfaces.com.ComToIhmMainInterface;
@@ -20,7 +21,15 @@ public class IhmMainScreenController extends IhmScreenController {
     private CreateGameController createGameController;
     private ViewGameController viewGameController;
     private  WaitingRoomController waitingRoomController;
+    private Session session;
 
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public Session getSession() {
+        return session;
+    }
 
     public IhmMainScreenController(MainApplication app, DataToIhmMainInterface dataI, ComToIhmMainInterface comI) throws IOException {
         super(app);
