@@ -87,7 +87,14 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
 
     @Override
     public void updateAcceptOpponent(Game game) {
-        mainScreenController.getCreateGameController().displayWaitingRoom(game);
+        if(mainScreenController.getDataI().getUser().getUserId().equals(game.getHost().getId()))
+        {
+            mainScreenController.getCreateGameController().displayWaitingRoom(game);
+        }
+        else {
+            Platform.runLater(() -> mainScreenController.getViewGameController().acceptedInGame());
+        }
+
         Platform.runLater(() -> {
             try {
                 mainScreenController.getWaitingRoomController().gameUpdate(game);

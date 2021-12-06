@@ -121,20 +121,18 @@ public class CreateGameController extends IhmControllerComponent {
     }
 
     public void displayWaitingRoom(Game game) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                if(game.getHost().getId().equals(ihmMainScreenController.getDataI().getPlayer().getId()))
-                {
-                    DialogController.display("Partie créée", "Votre partie a bien été créée", DialogController.DialogStatus.SUCCESS, ihmMainScreenController);
+        Platform.runLater(() -> {
+            if(game.getHost().getId().equals(ihmMainScreenController.getDataI().getPlayer().getId()))
+            {
+                DialogController.display("Partie créée", "Votre partie a bien été créée", DialogController.DialogStatus.SUCCESS, ihmMainScreenController);
 
-                }
-                else {
-                    DialogController.display("Match accepté", "Vous avez été accepté comme opposant", DialogController.DialogStatus.SUCCESS, ihmMainScreenController);
-
-                }
-                ihmMainScreenController.changeScreen(6);
             }
+            else {
+
+                DialogController.display("Match accepté", "Vous avez été accepté comme opposant", DialogController.DialogStatus.SUCCESS, ihmMainScreenController);
+
+            }
+            ihmMainScreenController.changeScreen(6);
         });
     }
 

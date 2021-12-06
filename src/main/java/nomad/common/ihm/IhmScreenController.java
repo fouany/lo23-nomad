@@ -8,7 +8,7 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nomad.common.MainApplication;
-import nomad.common.data_structure.Game;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -146,6 +146,7 @@ public abstract class IhmScreenController {
     public void changeScreen(int i){
         mainApp.getStage().setScene(dictScenes.get(i));
         mainApp.getStage().getScene().getWindow().setWidth( mainApp.getStage().getScene().getWindow().getWidth() + 0.001);
+        mainApp.getStage().getScene().getWindow().setWidth( mainApp.getStage().getScene().getWindow().getWidth() - 0.001);
 
         mainApp.getStage().show();
     }

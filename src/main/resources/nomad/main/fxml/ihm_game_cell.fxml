@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <HBox fx:id="container" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="500.0" prefHeight="69.0" styleClass="game-cell-container" stylesheets="@../Poppins/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="gameName" maxWidth="100.0" prefWidth="100.0" styleClass="game-cell-name" text="Game Name" />
@@ -28,7 +27,7 @@
          </styleClass>
       </Label>
       <Separator orientation="VERTICAL" prefHeight="37.0" prefWidth="20.0" visible="false" />
-      <Button mnemonicParsing="false" prefWidth="74.0" text="Join">
+      <Button mnemonicParsing="false" onAction="#joinGame" prefWidth="74.0" text="Join">
          <styleClass>
             <String fx:value="main-button" />
             <String fx:value="main-bg-green" />

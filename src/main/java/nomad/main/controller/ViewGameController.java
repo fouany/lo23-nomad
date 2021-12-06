@@ -1,6 +1,7 @@
 package nomad.main.controller;
 
 import javafx.application.Platform;
+
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,6 +9,7 @@ import javafx.scene.control.CheckBox;
 
 import javafx.scene.control.ListView;
 
+import javafx.scene.layout.AnchorPane;
 import nomad.common.data_structure.GameLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
@@ -30,6 +32,9 @@ public class ViewGameController extends IhmControllerComponent implements Initia
     public ListChangeListener<GameLight> gamesAsViewer;
     @FXML
     public ListChangeListener<GameLight> gamesAsPlayer;
+    
+    @FXML
+    public AnchorPane waitingPane;
 
 
     private IhmMainScreenController ihmController;
@@ -73,10 +78,26 @@ public class ViewGameController extends IhmControllerComponent implements Initia
 
     }
     public void handleGameAsPlayerListClick() {
-        ihmController.getComI().addPlayerInGame(ihmController.getDataI().getPlayer(), gamesViewAsPlayer.getSelectionModel().getSelectedItem());
+        //ihmController.getComI().addPlayerInGame(ihmController.getDataI().getPlayer(), gamesViewAsPlayer.getSelectionModel().getSelectedItem());
 
     }
 
+    public void acceptedInGame()
+    {
+        freeIhm();
+        DialogController.display("Match accepté", "Vous avez été accepté comme opposant", DialogController.DialogStatus.SUCCESS, ihmController);
+        ihmController.changeScreen(6);
+    }
+
+    public void blockIhm()
+    {
+        waitingPane.setVisible(true);
+    }
+
+    public void freeIhm()
+    {
+        waitingPane.setVisible(false);
+    }
     /**
      * When a user checks the box "Viewer" the viewerlist
      * is made visible and the gamerList is made unvisible.
@@ -126,6 +147,8 @@ public class ViewGameController extends IhmControllerComponent implements Initia
 
         gamesViewAsViewer.setCellFactory(gameLightListView -> new GameCell(ihmController));
         gamesViewAsPlayer.setCellFactory(gameLightListView -> new GameCell(ihmController));
+
+
 
 
         gamesAsViewer = getListChangeListener(gamesViewAsViewer);
