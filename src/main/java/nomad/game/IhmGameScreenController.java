@@ -26,11 +26,12 @@ public class IhmGameScreenController extends IhmScreenController {
      */
     public IhmGameScreenController(MainApplication app, DataToGameConcrete dataInterface, ComToIhmGameConcrete comInterface) throws IOException {
         super(app);
-        this.comInterface = comInterface;
         module = "GAME";
         defaultStart = 0;
+        this.comInterface = comInterface;
         this.dataInterface = dataInterface;
         initScenes();
+        initListenerGame();
     }
 
     /**
@@ -40,7 +41,11 @@ public class IhmGameScreenController extends IhmScreenController {
     public Game getLinkedGame() {
         return dataInterface.getGame();
     }
-    
+
+    public void initListenerGame(){
+        ((GameController)dictController.get(0)).initListener();
+    }
+
     public DataToGameConcrete getDataInterface(){
         return dataInterface;
     }

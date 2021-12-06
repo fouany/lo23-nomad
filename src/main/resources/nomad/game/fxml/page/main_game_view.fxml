@@ -11,12 +11,12 @@
                 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="600.0" styleClass="container_extra_infos" stylesheets="@../../style/infos_components_style.css">
                     <fx:include source="../components/logs_component.fxml" fx:id="logs_component"></fx:include>
                 </VBox>
-                <fx:include source="../components/chat_component.fxml" fx:id="chatExplication"></fx:include>
+                <fx:include source="../components/chat_component.fxml" fx:id="chat_explication"></fx:include>
             </children>
         </VBox>
         <HBox layoutX="40.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="69.0" prefWidth="806.0">
-            <fx:include source="../components/ihm_game_player.fxml" fx:id="playerInfoController"></fx:include>
+            <fx:include source="../components/ihm_game_player.fxml" fx:id="player_info_controller"></fx:include>
         </HBox>
-        <fx:include source="../components/board.fxml" fx:id="boardController"></fx:include>
+        <fx:include source="../components/board.fxml" fx:id="board_controller"></fx:include>
     </children>
 </Pane>

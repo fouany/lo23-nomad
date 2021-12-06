@@ -43,8 +43,10 @@ public class GameController extends IhmControllerComponent implements Observer {
      * @param screen main screen controller
      */
     public GameController(IhmScreenController screen) {
-
         super(screen);
+    }
+
+    public void initListener(){
         currentGame = ((IhmGameScreenController) super.screenControl).getLinkedGame();
         currentGame.addObserver(this);
 
@@ -69,23 +71,23 @@ public class GameController extends IhmControllerComponent implements Observer {
             }
         });
 
-        playerInfoController = new PlayerInfoController(screen);
+        playerInfoController = new PlayerInfoController(super.screenControl);
         playerInfoController.setParentController(this);
         playerInfoController.init();
 
-        boardController = new BoardController(screen);
+        boardController = new BoardController(super.screenControl);
         boardController.setParentController(this);
         boardController.init();
 
-        logController = new LogController(screen);
+        logController = new LogController(super.screenControl);
         logController.setParentController(this);
         logController.init();
 
-        skipController = new SkipController(screen);
+        skipController = new SkipController(super.screenControl);
         skipController.setParentController(this);
         skipController.init();
 
-        chatController = new ChatController(screen);
+        chatController = new ChatController(super.screenControl);
         chatController.setParentController(this);
         chatController.init();
     }
