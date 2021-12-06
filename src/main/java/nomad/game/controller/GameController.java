@@ -18,10 +18,10 @@ public class GameController extends IhmControllerComponent implements Observer {
     /**
      * Current game
      */
-    private Game currentGame;
+    private Game currentGame ;
 
     /**
-     * Controlleur of the players
+     * Controller of the players
      */
     @FXML
     private PlayerInfoController playerInfoController;
