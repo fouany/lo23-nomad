@@ -1,5 +1,6 @@
 package nomad.main.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -66,6 +67,8 @@ public class ServerConnectionController extends IhmControllerComponent implement
         return portNumber > 0 && portNumber < 65536;
     }
 
+
+
     public void onClickConnection() throws IOException, UserException, ClassNotFoundException {
         String ip = serverIp.getText();
         String port = serverPort.getText();
@@ -108,5 +111,10 @@ public class ServerConnectionController extends IhmControllerComponent implement
 
         serverIp.setText("127.0.0.1");
         serverPort.setText("12");
+    }
+
+    public void backToLogin(ActionEvent actionEvent) {
+
+        ihmMainScreenController.changeScreen(0);
     }
 }
