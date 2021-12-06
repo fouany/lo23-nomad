@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Game extends Observable implements Serializable  {
 
@@ -135,6 +137,9 @@ public class Game extends Observable implements Serializable  {
 
     public void setGameLaunched(boolean gameLaunched) {
         this.gameLaunched = gameLaunched;
+        // Those force updates should not be here (could be link to a sync problem from the modal)
+        setChanged();
+        notifyObservers();
     }
 
     public boolean isGameEnded() {
