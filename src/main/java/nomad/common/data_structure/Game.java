@@ -39,7 +39,7 @@ public class Game extends Observable implements Serializable  {
         moves = FXCollections.observableArrayList();
         spect = FXCollections.observableArrayList();
         chat = FXCollections.observableArrayList();
-        towers = new ArrayList<Tower>();
+        towers = new ArrayList<>();
     }
 
     public int getNbOfTilesPlayed() {
