@@ -68,6 +68,11 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
        /*todo add interface to quit the game*/
     }
 
+    public void acceptOrRejectOpponent(Game game)
+    {
+
+    }
+
 
     public void gameUpdate(Game g) throws GameException {
 
@@ -93,6 +98,7 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
             hostName.setText(g.getHost().getLogin());
             hostId.setText("#" + g.getHost().getId());
             viewInitialized = true;
+           // viewersNumber.setText(String.valueOf(g.getSpect().size()));
         }
         Player opponent = g.getOpponent();
         if(opponent != null)

@@ -70,6 +70,35 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
     }
 
     @Override
+    public void updateGameCreated(Game game) {
+
+            mainScreenController.getCreateGameController().displayWaitingRoom(game);
+            try
+            {
+                mainScreenController.getWaitingRoomController().gameUpdate(game);
+            }
+            catch (GameException e)
+            {
+                /*todo handle game exception*/
+            }
+            game.addObserver(mainScreenController.getWaitingRoomController());
+
+
+    }
+
+    @Override
+    public void updateAcceptOpponent(Game game) {
+        mainScreenController.getCreateGameController().displayWaitingRoom(game);
+        Platform.runLater(() -> {
+            try {
+                mainScreenController.getWaitingRoomController().gameUpdate(game);
+            } catch (GameException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @Override
     public void updateObservable(User user) {
       // TODO : fix Observer on Observable
     }

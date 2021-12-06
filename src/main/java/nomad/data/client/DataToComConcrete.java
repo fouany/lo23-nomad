@@ -94,6 +94,7 @@ public class DataToComConcrete implements DataToComClientInterface {
     public void gameLaunchEvent(){
         dataClientController.getGameController().getGame().setGameLaunched(true);
         dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+
     }
 
     /**
@@ -220,7 +221,7 @@ public class DataToComConcrete implements DataToComClientInterface {
      */
     public void gameCreated(Game game){
         dataClientController.getGameController().setGame(game);
-        dataClientController.getIhmMainToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+        dataClientController.getIhmMainToDataInterface().updateGameCreated(dataClientController.getGameController().getGame());
     }
 
 
@@ -233,7 +234,7 @@ public class DataToComConcrete implements DataToComClientInterface {
         Game game = dataClientController.getGameController().getGame();
         if (game.getGameId().equals(gameID)){
             game.setOpponent(p);
-            dataClientController.getIhmMainToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+            dataClientController.getIhmMainToDataInterface().updateAcceptOpponent(dataClientController.getGameController().getGame());
             /*todo use custom method*/
         } else{
             throw new GameException("Game created does not exists");
@@ -250,8 +251,8 @@ public class DataToComConcrete implements DataToComClientInterface {
     public void addedPlayerInGame(Game game, boolean isAdded) throws GameException {
         if (isAdded){
             dataClientController.getGameController().setGame(game);
-            Logger.getAnonymousLogger().log(Level.INFO, game.toString());
-            dataClientController.getIhmMainToDataInterface().updateObservable(dataClientController.getGameController().getGame());
+
+            dataClientController.getIhmMainToDataInterface().updateAcceptOpponent(dataClientController.getGameController().getGame());
         }else{
             throw new GameException("Player was refused from game");
         }

@@ -33,7 +33,8 @@ public class Game extends Observable implements Serializable  {
         this.board = new Board();
         this.currentPlayer = host.getId();
         this.gameParameters = gameParameters;
-        this.spect = null;
+        //this.spect = FXCollections.observableArrayList();
+
     }
 
     public UUID getGameId() {
