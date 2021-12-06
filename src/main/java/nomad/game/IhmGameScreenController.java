@@ -40,8 +40,7 @@ public class IhmGameScreenController extends IhmScreenController {
     public Game getLinkedGame() {
         return dataInterface.getGame();
     }
-
-
+    
     public DataToGameConcrete getDataInterface(){
         return dataInterface;
     }

@@ -93,8 +93,6 @@ public class DataToComConcrete implements DataToComClientInterface {
      */
     public void gameLaunchEvent(){
         dataClientController.getGameController().getGame().setGameLaunched(true);
-        dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
-
     }
 
     /**

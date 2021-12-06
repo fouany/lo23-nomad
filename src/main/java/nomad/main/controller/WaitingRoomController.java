@@ -75,9 +75,15 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
 
 
     public void gameUpdate(Game g) throws GameException {
+        Logger.getAnonymousLogger().log(Level.INFO, "Game Update");
+
+        if (g.isGameLaunched()){
+            Logger.getAnonymousLogger().log(Level.INFO, "Game is launch");
+        }
 
         if(passModule!= null && !passModule && g.isGameLaunched())
         {
+            Logger.getAnonymousLogger().log(Level.INFO, "Try to launch the game");
             //TODO change module with controller.changeModule("GAME", g)
            try {
                controller.changeModule();
@@ -112,6 +118,7 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
             opReady.setDisable(false);
             opName.setText(opponent.getLogin());
             opId.setText(String.valueOf(opponent.getId()));
+
            if(g.getHost().getId().equals(controller.getDataI().getPlayer().getId()))
            {
                DialogController.display("Todo", "Modal accepter/refuser", DialogController.DialogStatus.WARNING, controller);
@@ -121,7 +128,6 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
                    Logger.getAnonymousLogger().log(Level.INFO, "coucou");
                    DialogController.display("Todo", "Wait", DialogController.DialogStatus.WARNING, controller);
                    controller.getComI().launchGame(controller.getDataI().getGame());
-
                }
            }
 
@@ -141,10 +147,10 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
     @Override
     public void update(Observable observable, Object o) {
 
-        Game g = (Game)o;
-
+        Logger.getAnonymousLogger().log(Level.INFO, "First Update");
         try
         {
+            Game g = (Game)observable;
             gameUpdate(g);
         }
         catch (GameException err)

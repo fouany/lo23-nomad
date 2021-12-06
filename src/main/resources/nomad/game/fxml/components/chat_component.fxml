@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
@@ -25,8 +25,8 @@
                                 </AnchorPane>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                     <children>
-                                        <TextField layoutX="7.0" layoutY="2.0" prefHeight="25.0" prefWidth="144.0" />
-                                        <Button layoutX="152.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="43.0" text="Send" onMouseClicked="#OnClickSend" />
+                                        <TextField fx:id="message" layoutX="7.0" layoutY="2.0" prefHeight="25.0" prefWidth="144.0" />
+                                        <Button layoutX="152.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#OnClickSend" prefHeight="25.0" prefWidth="43.0" text="Send" />
                                     </children>
                                 </AnchorPane>
                             </items>
@@ -35,16 +35,12 @@
                 </AnchorPane>
             </content>
         </Tab>
-        <Tab styleClass="tab_chat" text="Players">
+        <Tab styleClass="tab_chat" text="Users">
             <content>
                 <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
-                    <styleClass>
-                        <String fx:value="tab_chat" />
-                        <String fx:value="scroll_infos_parent" />
-                    </styleClass>
-                    <content>
-                        <TextArea prefHeight="219.0" prefWidth="200.0" styleClass="text_infos" />
-                    </content>
+               <content>
+                  <ListView prefHeight="221.0" prefWidth="200.0" styleClass="tab_chat" stylesheets="@../../style/infos_components_style.css" />
+               </content>
                 </ScrollPane>
             </content></Tab>
     </tabs>
