@@ -6,7 +6,6 @@ import nomad.com.common.message.server_message.information.LocalUserConnectionMe
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.com.ComToDataClientInterface;
 
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.UUID;
 import java.util.logging.Level;
