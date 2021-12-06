@@ -1,6 +1,7 @@
 package nomad.com.client.concrete;
 
 import nomad.com.client.ClientController;
+import nomad.com.common.message.server_message.chat.ChatMessage;
 import nomad.com.common.message.server_message.move.SaveTileMoveMessage;
 import nomad.com.common.message.server_message.move.SaveSkipMoveMessage;
 import nomad.com.common.message.server_message.move.SaveTowerMoveMessage;
@@ -21,7 +22,7 @@ public class ComToIhmGameConcrete implements ComToIhmGameInterface {
 
     @Override
     public void transmissionCom(Message msg) {
-        //TODO
+        //clientController.sendMessage(new ChatMessage(msg, game));
     }
 
     @Override
