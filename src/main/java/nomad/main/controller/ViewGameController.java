@@ -32,7 +32,7 @@ public class ViewGameController extends IhmControllerComponent implements Initia
     public ListChangeListener<GameLight> gamesAsViewer;
     @FXML
     public ListChangeListener<GameLight> gamesAsPlayer;
-    
+
     @FXML
     public AnchorPane waitingPane;
 
