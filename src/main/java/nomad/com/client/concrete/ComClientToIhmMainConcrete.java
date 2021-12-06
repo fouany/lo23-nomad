@@ -4,6 +4,7 @@ import nomad.com.client.ClientController;
 import nomad.com.common.message.server_message.game.GameCreationMessage;
 import nomad.com.common.message.server_message.game.LaunchGameMessage;
 import nomad.com.common.message.server_message.game.NewGamePlayerServerMessage;
+import nomad.com.common.message.server_message.game.NewGameSpectatorServerMessage;
 import nomad.common.data_structure.*;
 import nomad.common.interfaces.com.ComToIhmMainInterface;
 
@@ -74,11 +75,15 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
         //TODO
     }
 
-
-
     @Override
     public void addSpecInGame(UserLight user, GameLight game) {
-        //TODO
+        if (user == null || game == null) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Null data");
+        }
+
+        if (!clientController.sendMessage(new NewGameSpectatorServerMessage(user, game))) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send new spectator request to the remote server !");
+        }
     }
 
     @Override

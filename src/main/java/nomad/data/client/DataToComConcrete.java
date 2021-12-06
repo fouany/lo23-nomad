@@ -238,7 +238,7 @@ public class DataToComConcrete implements DataToComClientInterface {
     }
 
     @Override
-    public void newSpectator(UUID gameId, Player spec) throws GameException {
+    public void newSpectator(UUID gameId, UserLight spec) throws GameException {
         //TODO
     }
 
