@@ -145,6 +145,8 @@ public abstract class IhmScreenController {
      */
     public void changeScreen(int i){
         mainApp.getStage().setScene(dictScenes.get(i));
+        mainApp.getStage().getScene().getWindow().setWidth( mainApp.getStage().getScene().getWindow().getWidth() + 0.001);
+
         mainApp.getStage().show();
     }
 
