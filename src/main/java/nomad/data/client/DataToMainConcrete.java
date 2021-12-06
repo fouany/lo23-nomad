@@ -3,8 +3,13 @@ package nomad.data.client;
 import nomad.common.data_structure.*;
 import nomad.common.interfaces.data.DataToIhmMainInterface;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.NoSuchFileException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.UUID;
 
@@ -43,10 +48,11 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
         //Verify information
         if (login.isEmpty() || pwd.isEmpty() || name.isEmpty()){
             throw new UserException("Some user information is not empty");
-
         }
-            //Create User
-            User u = new User(new UserInfo(login, pwd, name, profilePicture, birthDate));
+
+        //Create User
+        String passwordHash = hashPassword(pwd);
+        User u = new User(new UserInfo(login, passwordHash, name, profilePicture, birthDate));
 
             //Verify there is not already a file with this login
             try {
@@ -58,7 +64,39 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
             }
             //if there is already a user with this login
             throw new UserException("Login already exist");
+    }
 
+    /**
+     * hashes the password so it is stored safely in the user file
+     * @param password
+     * @return
+     */
+    public String hashPassword(String password){
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        byte[] encodedHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+        return castHashToString(encodedHash);
+    }
+
+    /**
+     * casts the encoded hash (in bytes []) into a String, so it matches the type of password attribute String
+     * @param encodedHash
+     * @return
+     */
+    public String castHashToString(byte [] encodedHash){
+        StringBuilder hexString = new StringBuilder(2 * encodedHash.length);
+        for (int i = 0; i < encodedHash.length; i++) {
+            String hex = Integer.toHexString(0xff & encodedHash[i]);
+            if(hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return hexString.toString();
     }
 
     /**
@@ -69,23 +107,38 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      * @param profilePicture picture modified
      * @param birthDate date of Birth modified
      * @throws IOException error writing or reading file
-     * @throws ClassNotFoundException class not found
      */
-    public void modifyAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws IOException, ClassNotFoundException {
+    public void modifyAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws IOException {
+
+        if (login.isEmpty()) try {
+            throw new UserException("Login is empty or not valid");
+        } catch (UserException e) {
+            e.printStackTrace();
+        }
+
+        // stores the old login in order to update the name of the file
+        String oldLogin = getUser().getLogin();
+
+        // retrieves the current user from the DataClientController
         User newUser = getUser();
+        // updates the profile information
         newUser.setLogin(login);
-        newUser.setPassword(pwd);
+        newUser.setPassword(hashPassword(pwd));
         newUser.setName(name);
         newUser.setProfilePicture(profilePicture);
         newUser.setBirthDate(birthDate);
-        try {
-            dataClientController.updateProfileFile(newUser);
-        } finally {
-            dataClientController.getUserController().setUser(newUser);
+
+        if (!oldLogin.equals(login)) {
+            File fileToDelete = new File(dataClientController.getPathProfile());
+            // deletion of file, in order to create a new one with updated details
+            if (!fileToDelete.delete())
+                throw new NoSuchFileException("No such file exception, please check the path");
+            // sets the new path if the login is different
+            dataClientController.setPath(login);
         }
+        // updated information is written in the file with previous given path
+        dataClientController.write(newUser);
     }
-
-
 
     /**
      * @param path
@@ -110,7 +163,7 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      * Login
      * @param login login of the user
      * @param password password of the user
-     * @param ip IP adress of the server
+     * @param ip IP address of the server
      * @param port Port of the user
      * @throws UserException User not found
      * @throws IOException Error in writing or reading file
@@ -167,14 +220,13 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      * @param category new category
      * @throws CategoryException Category already exist
      * @throws IOException Error writing or reading file
-     * @throws ClassNotFoundException Class not found
      */
-    public void createCategory(Category category) throws CategoryException, IOException, ClassNotFoundException {
+    public void createCategory(Category category) throws CategoryException, IOException {
         //1- Create category
         dataClientController.getUserController().createCategory(category);
 
         //2- Update Profile
-        dataClientController.updateProfileFile(getUser() );
+        dataClientController.write(getUser());
     }
 
     /**
@@ -183,14 +235,13 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      * @param category Category
      * @throws CategoryException Category doesn't exist
      * @throws IOException Error writing or reading file
-     * @throws ClassNotFoundException Class not found
      */
-    public void addUser(UserLight user, Category category) throws CategoryException, IOException, ClassNotFoundException {
+    public void addUser(UserLight user, Category category) throws CategoryException, IOException {
         //1- Add user to a category
         dataClientController.getUserController().addUser(user, category);
 
         //2- Update profile
-        dataClientController.updateProfileFile(getUser());
+        dataClientController.write(getUser());
     }
 
     /**
@@ -198,26 +249,24 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      * @param updatedContact Contact updated (with new permissions)
      * @throws CategoryException New Category not found
      * @throws IOException Error in writing or reading file
-     * @throws ClassNotFoundException Class not found
      */
-    public void setPermissions(Contact updatedContact) throws CategoryException, IOException, ClassNotFoundException {
+    public void setPermissions(Contact updatedContact) throws CategoryException, IOException {
         dataClientController.getUserController().setPermissions(updatedContact);
-        dataClientController.updateProfileFile(getUser());
+        dataClientController.write(getUser());
     }
 
     /**
-     * Uptade category Permission
+     * Update category Permission
      * @param lastCategory Category without new permissions
      * @param updatedCategory Category updated
      * @throws CategoryException Category without new permissions not found
      * @throws IOException Error in writing or reading
-     * @throws ClassNotFoundException Class not found
      */
-    public void setPermissions(Category lastCategory, Category updatedCategory) throws CategoryException, IOException, ClassNotFoundException {
+    public void setPermissions(Category lastCategory, Category updatedCategory) throws CategoryException, IOException {
         //1- Set category permission
         dataClientController.getUserController().setPermissions(lastCategory, updatedCategory);
         //2- Update profile
-        dataClientController.updateProfileFile(getUser());
+        dataClientController.write(getUser());
     }
 
     @Override

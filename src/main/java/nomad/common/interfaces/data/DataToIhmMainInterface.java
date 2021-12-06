@@ -15,17 +15,17 @@ public interface DataToIhmMainInterface {
     Game getStoredGame(UUID gameId);
 
     void createAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws IOException,UserException;
-    void modifyAccount(String login, String pwd, String name, String profilePicture, Date birthDate)  throws IOException, ClassNotFoundException;
+    void modifyAccount(String login, String pwd, String name, String profilePicture, Date birthDate)  throws IOException;
 
     //TODO: return boolean or exception ?
     void addAccount(String path) throws IOException, ClassNotFoundException;
     void login(String login, String password, String ip, int port) throws UserException,IOException, ClassNotFoundException;
     void logout();
     User getProfileInfos (UUID idUserLight);
-    void createCategory (Category category) throws CategoryException, IOException, ClassNotFoundException;
-    void addUser (UserLight user, Category category) throws CategoryException, IOException, ClassNotFoundException;
-    void setPermissions(Contact updatedContact) throws CategoryException, IOException, ClassNotFoundException;
-    void setPermissions(Category lastCategory,Category updatedCategory) throws CategoryException, IOException, ClassNotFoundException;
+    void createCategory (Category category) throws CategoryException, IOException;
+    void addUser (UserLight user, Category category) throws CategoryException, IOException;
+    void setPermissions(Contact updatedContact) throws CategoryException, IOException;
+    void setPermissions(Category lastCategory,Category updatedCategory) throws CategoryException, IOException;
     void enoughPlayers (GameLight game) throws GameException;
     void rejectPlayers (GameLight game) throws GameException;
 }
