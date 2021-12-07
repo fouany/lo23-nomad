@@ -67,11 +67,6 @@ public class ServerConnectionController extends IhmControllerComponent {
         if (ipFormatIsValid(ip) && portFormatIsValid(port)) {
             String user = ihmMainScreenController.getAttributes().get("login");
             String password = ihmMainScreenController.getAttributes().get("password");
-            boolean signup =  Boolean.parseBoolean(ihmMainScreenController.getAttributes().get("isSignup"));
-            if (signup) {
-                //TODO: modify account scene
-                ihmMainScreenController.getDataI().createAccount(user,password,user,"", null);
-            }
             try {
                 ihmMainScreenController.getDataI().login(user, password, ip, Integer.parseInt(port));
                 screenControl.changeScreen(2);
