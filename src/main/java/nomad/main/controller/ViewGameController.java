@@ -1,17 +1,25 @@
 package nomad.main.controller;
 
 import javafx.application.Platform;
+
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
+
 import javafx.scene.control.ListView;
+
+import javafx.scene.layout.AnchorPane;
 import nomad.common.data_structure.GameLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
+import nomad.main.utils.GameCell;
+
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ViewGameController extends IhmControllerComponent implements Initializable {
     @FXML
@@ -24,6 +32,9 @@ public class ViewGameController extends IhmControllerComponent implements Initia
     public ListChangeListener<GameLight> gamesAsViewer;
     @FXML
     public ListChangeListener<GameLight> gamesAsPlayer;
+
+    @FXML
+    public AnchorPane waitingPane;
 
 
     private IhmMainScreenController ihmController;
@@ -67,10 +78,26 @@ public class ViewGameController extends IhmControllerComponent implements Initia
 
     }
     public void handleGameAsPlayerListClick() {
-        ihmController.getComI().addPlayerInGame(ihmController.getDataI().getPlayer(), gamesViewAsViewer.getSelectionModel().getSelectedItem());
+        //ihmController.getComI().addPlayerInGame(ihmController.getDataI().getPlayer(), gamesViewAsPlayer.getSelectionModel().getSelectedItem());
 
     }
 
+    public void acceptedInGame()
+    {
+        freeIhm();
+        DialogController.display("Match accepté", "Vous avez été accepté comme opposant", DialogController.DialogStatus.SUCCESS, ihmController);
+        ihmController.changeScreen(6);
+    }
+
+    public void blockIhm()
+    {
+        waitingPane.setVisible(true);
+    }
+
+    public void freeIhm()
+    {
+        waitingPane.setVisible(false);
+    }
     /**
      * When a user checks the box "Viewer" the viewerlist
      * is made visible and the gamerList is made unvisible.
@@ -89,29 +116,44 @@ public class ViewGameController extends IhmControllerComponent implements Initia
         }
     }
 
-    private ListChangeListener<GameLight> processLisetener(ListChangeListener.Change<? extends GameLight> change) {
-        change.next();
-        if (change.wasAdded()) {
-            for (GameLight game : change.getAddedSubList()) {
-                Platform.runLater(() ->
-                        gamesViewAsViewer.getItems().add(game) //add a new game
-                );
+    public ListChangeListener<GameLight> getListChangeListener(ListView<GameLight> viewList)
+    {
+        return change -> {
+            while (change.next()) {
+                if (change.wasAdded()) {
+                    for (GameLight game : change.getAddedSubList()) {
+                        Logger.getAnonymousLogger().log(Level.INFO, "Game added event");
+                        Platform.runLater(() ->
+                                viewList.getItems().add(game) //add a new game
+                        );
 
+                    }
+                } else if (change.wasRemoved()) {
+                    for (GameLight game : change.getRemoved()) {
+                        Platform.runLater(() ->
+                                viewList.getItems().remove(game)  //remove a game
+                        );
+                    }
+                }
             }
-        } else if (change.wasRemoved()) {
-            for (GameLight game : change.getRemoved()) {
-                Platform.runLater(() ->
-                        gamesViewAsViewer.getItems().remove(game)  //remove a game
-                );
-            }
-        }
-        return (ListChangeListener<GameLight>) change;
+        };
     }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         gamesViewAsViewer.setVisible(false);
         gamesViewAsViewer.setManaged(false);
-        gamesAsViewer = this::processLisetener;
-        gamesAsPlayer = this::processLisetener;
+
+        gamesViewAsViewer.setCellFactory(gameLightListView -> new GameCell(ihmController));
+        gamesViewAsPlayer.setCellFactory(gameLightListView -> new GameCell(ihmController));
+
+
+
+
+        gamesAsViewer = getListChangeListener(gamesViewAsViewer);
+
+
+        gamesAsPlayer = getListChangeListener(gamesViewAsPlayer);
     }
 }

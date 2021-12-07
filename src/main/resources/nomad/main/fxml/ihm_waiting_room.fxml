@@ -25,7 +25,7 @@
                         </Label>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false"  prefWidth="152.0" text="Quit the game">
+                              <Button mnemonicParsing="false" onAction="#quitGame" prefWidth="152.0" text="Quit the game">
                                  <styleClass>
                                     <String fx:value="main-button" />
                                     <String fx:value="main-bg-red" />

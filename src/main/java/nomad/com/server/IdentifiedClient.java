@@ -11,15 +11,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Store informations required for communication with client
+ * Store information required for communication with client
  */
 public class IdentifiedClient extends Thread {
 
+    private final Socket socket;
+    private final ServerController serverController;
+    private final ObjectOutputStream outputStream;
+    private final ObjectInputStream inputStream;
+    private UUID id;
+    private boolean connected;
     /**
      * Build IdentifiedClient object and initialize in/out streams with the client
      *
-     * @param id Client UID
-     * @param socket Socket connected to the client
+     * @param id               Client UID
+     * @param socket           Socket connected to the client
      * @param serverController Reference to a Server object
      * @throws IOException Fail to register ObjectStreams
      */
@@ -31,13 +37,6 @@ public class IdentifiedClient extends Thread {
         this.serverController = serverController;
         this.connected = true;
     }
-
-    private UUID id;
-    private final Socket socket;
-    private final ServerController serverController;
-    private final ObjectOutputStream outputStream;
-    private final ObjectInputStream inputStream;
-    private boolean connected;
 
     public ObjectOutputStream getOutputStream() {
         return outputStream;
