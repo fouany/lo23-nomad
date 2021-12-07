@@ -6,43 +6,67 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="935.0" styleClass="main-background" stylesheets="@../Poppins/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.main.controller.ViewGameController">
+<StackPane styleClass="main-background" stylesheets="@../Poppins/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.main.controller.ViewGameController">
    <children>
-      <VBox alignment="CENTER" prefHeight="600.0" prefWidth="566.0">
+      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="935.0">
          <children>
-            <Separator prefHeight="66.0" prefWidth="476.0" visible="false" />
-            <VBox prefHeight="160.0" prefWidth="520.0" styleClass="main-container">
+            <VBox alignment="CENTER" prefHeight="600.0" prefWidth="566.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="591.0" styleClass="menu-title" text="Available Games" />
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <Separator prefHeight="66.0" prefWidth="476.0" visible="false" />
+                  <VBox prefHeight="160.0" prefWidth="520.0" styleClass="main-container">
                      <children>
-                        <CheckBox fx:id="stateCheckBox" mnemonicParsing="false" onAction="#changeGamesView" prefHeight="23.0" prefWidth="135.0" text="Viewer mode" />
-                        <Button mnemonicParsing="false" onAction="#onClickReturnMenu" onMouseClicked="#onClickReturnMenu" prefWidth="134.0" text="Go Home">
-                           <styleClass>
-                              <String fx:value="main-button" />
-                              <String fx:value="main-bg-red" />
-                           </styleClass>
-                        </Button>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="591.0" styleClass="menu-title" text="Available Games" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <CheckBox fx:id="stateCheckBox" mnemonicParsing="false" onAction="#changeGamesView" prefHeight="23.0" prefWidth="135.0" text="Viewer mode" />
+                              <Button mnemonicParsing="false" onAction="#onClickReturnMenu" onMouseClicked="#onClickReturnMenu" prefWidth="134.0" text="Go Home">
+                                 <styleClass>
+                                    <String fx:value="main-button" />
+                                    <String fx:value="main-bg-red" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Separator prefHeight="32.0" prefWidth="566.0" visible="false" />
+                  <ListView fx:id="gamesViewAsViewer" prefHeight="200.0" prefWidth="302.0" styleClass="main-container" visible="false" />
+                  <ListView fx:id="gamesViewAsPlayer" onMouseClicked="#handleGameAsPlayerListClick" prefHeight="200.0" prefWidth="302.0" styleClass="main-container" />
+                  <Separator prefHeight="32.0" prefWidth="566.0" visible="false" />
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Button fx:id="deleteGameTestButton" mnemonicParsing="false" onAction="#onClickDeleteGame" text="Test Delete" />
+                        <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="63.0" visible="false" />
+                        <Button fx:id="addGameTestButton" mnemonicParsing="false" onAction="#onClickAddGame" text="Test Add" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <Separator prefHeight="32.0" prefWidth="566.0" visible="false" />
-            <ListView fx:id="gamesViewAsViewer" onMouseClicked="#handleGameAsViewerListClick" prefHeight="200.0" prefWidth="302.0" styleClass="main-container" visible="false" />
-            <ListView fx:id="gamesViewAsPlayer" onMouseClicked="#handleGameAsPlayerListClick" prefHeight="200.0" prefWidth="302.0" styleClass="main-container" />
-            <Separator prefHeight="32.0" prefWidth="566.0" visible="false" />
-            <HBox alignment="CENTER">
-               <children>
-                  <Button fx:id="deleteGameTestButton" mnemonicParsing="false" onAction="#onClickDeleteGame" text="Test Delete" />
-                  <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="63.0" visible="false" />
-                  <Button fx:id="addGameTestButton" mnemonicParsing="false" onAction="#onClickAddGame" text="Test Add" />
-               </children>
-            </HBox>
          </children>
-      </VBox>
+      </HBox>
+      <AnchorPane fx:id="waitingPane" opacity="0.46" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" visible="false">
+         <children>
+            <VBox alignment="CENTER" prefHeight="600.0" prefWidth="935.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label focusTraversable="false" styleClass="game-cell-name" text="Waiting approval">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
    </children>
-</HBox>
+</StackPane>

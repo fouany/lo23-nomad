@@ -4,9 +4,11 @@ module nomadapp {
     requires javafx.controls;
     requires javafx.fxml;
 
-    exports nomad.common.data_structure;
+    exports nomad.main.utils to javafx.fxml;
+    opens nomad.main.utils to javafx.fxml;
     exports nomad.common.ihm;
     exports nomad.main.controller;
     exports nomad.game.controller;
     exports nomad.common;
+    opens nomad.game.controller to javafx.fxml;
 }
