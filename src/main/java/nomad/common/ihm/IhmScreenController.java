@@ -6,6 +6,7 @@ package nomad.common.ihm;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import nomad.common.MainApplication;
 
@@ -51,7 +52,7 @@ public abstract class IhmScreenController {
     /**
      * Dict of all the scenes of the current module
      */
-    protected HashMap<Integer,Scene> dictScenes = new HashMap<>();
+    protected HashMap<Integer, Pane> dictScenes = new HashMap<>();
 
     /**
      * Init all styles for the current module
@@ -70,9 +71,10 @@ public abstract class IhmScreenController {
 
     /**
      * Main constructor that initialize all controllers / paths and styles of the module
+     *
      * @param app main application
      */
-    protected IhmScreenController(MainApplication app){
+    protected IhmScreenController(MainApplication app) {
         mainApp = app;
         initController();
         initPaths();
@@ -80,21 +82,21 @@ public abstract class IhmScreenController {
     }
 
     /**
-     * Call when we initialize the current module
+     * Initialize a module and change the root node in scene
      */
-    public void initIHM(){
-        //Retrive the current dimensions of the stage
-        double width = mainApp.getStage().getWidth();
-        double height = mainApp.getStage().getHeight();
-        mainApp.getStage().setTitle("Nomad - "+module);
-        mainApp.getStage().setScene(dictScenes.get(defaultStart));
-        mainApp.getStage().setHeight(height);
-        mainApp.getStage().setWidth(width);
+    public void initIHM() {
+        mainApp.getStage().setTitle("Nomad - " + module);
+        if (mainApp.getStage().getScene() == null) { // No scene, initialize it with correct root
+            mainApp.getStage().setScene(new Scene(dictScenes.get(defaultStart)));
+        } else { // Change root node of scene
+            mainApp.getStage().getScene().setRoot(dictScenes.get(defaultStart));
+        }
         mainApp.getStage().show();
     }
 
     /**
      * Use to get the url of a fxml file
+     *
      * @param path path the file
      * @return the URL
      * @throws NullPointerException on unexisting path
@@ -105,27 +107,29 @@ public abstract class IhmScreenController {
 
     /**
      * Init all the scenes in the scene dict
+     *
      * @throws IOException
      */
     protected void initScenes() throws IOException {
-        for (int i = 0; i < listPaths.size() ; i++){
+        for (int i = 0; i < listPaths.size(); i++) {
 
-            FXMLLoader fxmlLoader = loadFile(listPaths.get(i),dictController.get(i));
-            Scene scene = new Scene(fxmlLoader.load());
-            if (dictStyles.containsKey(i)){
-                scene.getStylesheets().add(getFxmlUrl(dictStyles.get(i)));
+            FXMLLoader fxmlLoader = loadFile(listPaths.get(i), dictController.get(i));
+            Pane pane = fxmlLoader.load();
+            if (dictStyles.containsKey(i)) {
+                pane.getStylesheets().add(getFxmlUrl(dictStyles.get(i)));
             }
-            dictScenes.put(i,scene);
+            dictScenes.put(i, pane);
         }
     }
 
     /**
      * Load a scene with the linked controller
-     * @param url url of the scene
+     *
+     * @param url                 url of the scene
      * @param interfaceController controller to linked
      * @return
      */
-    public FXMLLoader loadFile(String url, IhmControllerComponent interfaceController){
+    public FXMLLoader loadFile(String url, IhmControllerComponent interfaceController) {
         try {
             return new FXMLLoader(
                     this.getClass().getResource(url),
@@ -141,18 +145,17 @@ public abstract class IhmScreenController {
 
     /**
      * Change the current screen (with a scene of the current module)
+     *
      * @param i
      */
-    public void changeScreen(int i){
-        mainApp.getStage().setScene(dictScenes.get(i));
-        mainApp.getStage().getScene().getWindow().setWidth( mainApp.getStage().getScene().getWindow().getWidth() + 0.001);
-        mainApp.getStage().getScene().getWindow().setWidth( mainApp.getStage().getScene().getWindow().getWidth() - 0.001);
-
+    public void changeScreen(int i) {
+        mainApp.getStage().getScene().setRoot(dictScenes.get(i));
+        //mainApp.getStage().getScene().getWindow().setWidth( mainApp.getStage().getScene().getWindow().getWidth() + 0.001);
+        //mainApp.getStage().getScene().getWindow().setWidth( mainApp.getStage().getScene().getWindow().getWidth() - 0.001);
         mainApp.getStage().show();
     }
 
-    public Stage getStage()
-    {
+    public Stage getStage() {
         return mainApp.getStage();
     }
 

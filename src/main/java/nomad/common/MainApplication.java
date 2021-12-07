@@ -24,108 +24,112 @@ import java.io.IOException;
  */
 public class MainApplication extends Application {
 
-  /**
-   * Current stage
-   */
-  Stage stage;
-  private DataToMainConcrete dataToMainConcrete;
-  private DataToComConcrete dataToComConcrete;
-  private DataToGameConcrete dataToGameConcrete;
+    /**
+     * Current stage
+     */
+    Stage stage;
+    private DataToMainConcrete dataToMainConcrete;
+    private DataToComConcrete dataToComConcrete;
+    private DataToGameConcrete dataToGameConcrete;
 
-  private ComClientToIhmMainConcrete comClientToIhmMainConcrete;
-  private IhmMainToDataConcrete ihmMainToDataConcrete;
-  private ComClientToDataConcrete comClientToDataConcrete;
+    private ComClientToIhmMainConcrete comClientToIhmMainConcrete;
+    private IhmMainToDataConcrete ihmMainToDataConcrete;
+    private ComClientToDataConcrete comClientToDataConcrete;
 
-  private DataClientController dataClientController;
-  private ClientController clientController;
-  private IhmMainScreenController ihmMainScreenController;
-  private IhmGameScreenController ihmGameScreenController;
-  private IhmScreenController screenController;
-  private ComToIhmGameConcrete comToGameConcrete;
+    private DataClientController dataClientController;
+    private ClientController clientController;
+    private IhmMainScreenController ihmMainScreenController;
+    private IhmGameScreenController ihmGameScreenController;
+    private IhmScreenController screenController;
+    private ComToIhmGameConcrete comToGameConcrete;
 
-  private IhmGameToDataInterface ihmGameToDataConcrete;
+    private IhmGameToDataInterface ihmGameToDataConcrete;
 
-  public MainApplication() {
-    initConcreteInterface();
-    try {
-      initController();
-    } catch (IOException e) {
-      e.printStackTrace();
+    public MainApplication() {
+        initConcreteInterface();
+        try {
+            initController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        linkConcreteController();
     }
-    linkConcreteController();
-  }
 
-  public void initConcreteInterface () {
-    dataToComConcrete = new DataToComConcrete();
-    dataToMainConcrete = new DataToMainConcrete();
-    dataToGameConcrete = new DataToGameConcrete();
-    comToGameConcrete = new ComToIhmGameConcrete();
-    ihmMainToDataConcrete = new IhmMainToDataConcrete();
-    comClientToIhmMainConcrete = new ComClientToIhmMainConcrete();
-    comClientToDataConcrete = new ComClientToDataConcrete();
-    ihmGameToDataConcrete = new IhmGameToDataConcrete();
-  }
-
-  public void initController () throws IOException {
-    dataClientController = new DataClientController(comClientToDataConcrete,
-            ihmMainToDataConcrete,
-            ihmGameToDataConcrete);
-    dataToGameConcrete.setDataClientController(dataClientController);
-    clientController = new ClientController(dataToComConcrete);
-    ihmMainScreenController = new IhmMainScreenController(this, dataToMainConcrete, comClientToIhmMainConcrete);
-  }
-
-  public void linkConcreteController (){
-    dataToComConcrete.setController(dataClientController);
-    dataToMainConcrete.setController(dataClientController);
-
-
-    comClientToIhmMainConcrete.setClientController(clientController);
-    ihmMainToDataConcrete.setController(ihmMainScreenController);
-    comClientToDataConcrete.setController(clientController);
-  }
-
-  private final int MIN_WIDTH= 935;
-  private final int MIN_HEIGHT = 610;
-
-  @Override
-  public void start(Stage primaryStage) throws IOException {
-    stage = primaryStage;
-    stage.setMinHeight(MIN_HEIGHT);
-    stage.setMinWidth(MIN_WIDTH);
-    this.changeModule("MAIN");
-  }
-
-  /**
-   * Change the current module (Main of Game)
-   * @param mode module wanted
-   * @throws IOException
-   */
-  public void changeModule(String mode) throws IOException {
-    if (mode.equals("MAIN")) {
-      screenController = ihmMainScreenController;
-    } else {
-      ihmGameScreenController = new IhmGameScreenController(this, dataToGameConcrete, comToGameConcrete);
-      screenController = ihmGameScreenController;
+    public void initConcreteInterface() {
+        dataToComConcrete = new DataToComConcrete();
+        dataToMainConcrete = new DataToMainConcrete();
+        dataToGameConcrete = new DataToGameConcrete();
+        comToGameConcrete = new ComToIhmGameConcrete();
+        ihmMainToDataConcrete = new IhmMainToDataConcrete();
+        comClientToIhmMainConcrete = new ComClientToIhmMainConcrete();
+        comClientToDataConcrete = new ComClientToDataConcrete();
+        ihmGameToDataConcrete = new IhmGameToDataConcrete();
     }
-    screenController.initIHM();
-  }
 
-  /**
-   * Get the current stage
-   * @return the stage
-   */
-  public Stage getStage(){
-    return stage;
-  }
+    public void initController() throws IOException {
+        dataClientController = new DataClientController(comClientToDataConcrete,
+                ihmMainToDataConcrete,
+                ihmGameToDataConcrete);
+        dataToGameConcrete.setDataClientController(dataClientController);
+        clientController = new ClientController(dataToComConcrete);
+        ihmMainScreenController = new IhmMainScreenController(this, dataToMainConcrete, comClientToIhmMainConcrete);
+    }
 
-  /**
-   * Entry point of the application
-   * @param args
-   */
-  public static void main(String[] args) {
-    launch(args);
-  }
+    public void linkConcreteController() {
+        dataToComConcrete.setController(dataClientController);
+        dataToMainConcrete.setController(dataClientController);
+
+
+        comClientToIhmMainConcrete.setClientController(clientController);
+        ihmMainToDataConcrete.setController(ihmMainScreenController);
+        comClientToDataConcrete.setController(clientController);
+    }
+
+    private final int MIN_WIDTH = 935;
+    private final int MIN_HEIGHT = 610;
+
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        stage = primaryStage;
+
+        stage.setMinHeight(MIN_HEIGHT);
+        stage.setMinWidth(MIN_WIDTH);
+        this.changeModule("MAIN");
+    }
+
+    /**
+     * Change the current module (Main of Game)
+     *
+     * @param mode module wanted
+     * @throws IOException
+     */
+    public void changeModule(String mode) throws IOException {
+        if (mode.equals("MAIN")) {
+            screenController = ihmMainScreenController;
+        } else {
+            ihmGameScreenController = new IhmGameScreenController(this, dataToGameConcrete, comToGameConcrete);
+            screenController = ihmGameScreenController;
+        }
+        screenController.initIHM();
+    }
+
+    /**
+     * Get the current stage
+     *
+     * @return the stage
+     */
+    public Stage getStage() {
+        return stage;
+    }
+
+    /**
+     * Entry point of the application
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
 
 
 }
