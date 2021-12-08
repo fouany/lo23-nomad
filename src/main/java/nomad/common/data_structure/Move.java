@@ -3,9 +3,8 @@ package nomad.common.data_structure;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.UUID;
-import java.util.Observable;
 
-public abstract class Move extends Observable implements Serializable {
+public abstract class Move implements Serializable {
 
     private Timestamp s;
     private UUID userId;

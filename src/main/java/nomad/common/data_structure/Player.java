@@ -1,10 +1,9 @@
 package nomad.common.data_structure;
 
 import java.io.Serializable;
-import java.util.Observable;
 import java.util.UUID;
 
-public class Player extends Observable implements Serializable {
+public class Player implements Serializable {
 
     private UUID id;
     private String login;

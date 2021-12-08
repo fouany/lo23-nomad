@@ -1,8 +1,6 @@
 package nomad.main.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import nomad.common.data_structure.UserException;
 import nomad.common.ihm.IhmControllerComponent;
@@ -10,15 +8,12 @@ import nomad.main.IhmMainScreenController;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.ConnectException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ServerConnectionController extends IhmControllerComponent implements Initializable {
+public class ServerConnectionController extends IhmControllerComponent {
 
     @FXML
     public TextField serverIp;
@@ -48,8 +43,6 @@ public class ServerConnectionController extends IhmControllerComponent implement
         return matcher.matches();
     }
 
-    /*todo handle login already exist*/
-
     /**
      * Check if a given string is a valid port number (0 < port < 65536)
      *
@@ -67,8 +60,6 @@ public class ServerConnectionController extends IhmControllerComponent implement
         return portNumber > 0 && portNumber < 65536;
     }
 
-
-
     public void onClickConnection() throws IOException, UserException, ClassNotFoundException {
         String ip = serverIp.getText();
         String port = serverPort.getText();
@@ -78,43 +69,20 @@ public class ServerConnectionController extends IhmControllerComponent implement
             String password = ihmMainScreenController.getAttributes().get("password");
             boolean signup =  Boolean.parseBoolean(ihmMainScreenController.getAttributes().get("isSignup"));
             if (signup) {
-
-                try {
-                    ihmMainScreenController.getDataI().createAccount(user,password,user,"", null);
-                }
-                catch (UserException e)
-                {
-                    DialogController.display("Erreur", e.getMessage(), DialogController.DialogStatus.ERROR, ihmMainScreenController);
-                    return;
-                }
+                //TODO: modify account scene
+                ihmMainScreenController.getDataI().createAccount(user,password,user,"", null);
             }
             try {
-
-                /**todo add connectException  **/
                 ihmMainScreenController.getDataI().login(user, password, ip, Integer.parseInt(port));
                 screenControl.changeScreen(2);
-            } catch (FileNotFoundException | ConnectException | UserException e) {
-
-
+            } catch (FileNotFoundException e) {
                 //TODO: ajouter back pour revenir
-               DialogController.display("Erreur connexion", e.getMessage(),
-                       DialogController.DialogStatus.ERROR, this.ihmMainScreenController);
+                DialogController.display("Erreur connexion", "Veuillez vérifier votre login ou password ou les options du serveur",
+                        DialogController.DialogStatus.ERROR, this.ihmMainScreenController);
                 screenControl.changeScreen(0);
             }
         } else {
             Logger.getLogger(ServerConnectionController.class.getName()).log(Level.INFO, "Error on Ip address or in port");
         }
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        serverIp.setText("127.0.0.1");
-        serverPort.setText("12");
-    }
-
-    public void backToLogin(ActionEvent actionEvent) {
-
-        ihmMainScreenController.changeScreen(0);
     }
 }

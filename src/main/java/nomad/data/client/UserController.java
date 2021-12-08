@@ -42,7 +42,7 @@ public class UserController extends Observable {
         for (Game game:
              this.user.getSavedGames()) {
 
-            if (game.getGameId().equals(gameID)){
+            if (game.getGameId()==gameID){
                 return game;
             }
         }
@@ -59,7 +59,7 @@ public class UserController extends Observable {
             UUID lastContact = contact.getUser().getId();
             UUID newContact = contact.getUser().getId();
 
-            if (lastContact.equals(newContact)){
+            if (lastContact==newContact){
                 c.setCategory(contact.getCategory());
                 return;
             }

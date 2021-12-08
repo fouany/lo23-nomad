@@ -15,8 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ComToDataServerConcrete implements ComToDataServerInterface {
-    private static final String ERROR_SOCKET = "Failed to get client socket";
     ServerController serverController;
+    private static final String ERROR_SOCKET = "Failed to get client socket";
 
     @Override
     public void requestHost(GameLight game, Player opponent) {
@@ -26,10 +26,6 @@ public class ComToDataServerConcrete implements ComToDataServerInterface {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ERROR_SOCKET);
         }
         serverController.sendMessage(client, new NewGamePlayerClientMessage(game.getGameId(), opponent));
-    }
-
-    public void setServerController(ServerController serverController) {
-        this.serverController = serverController;
     }
 
     @Override

@@ -1,14 +1,12 @@
 package nomad.main.controller;
 
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import nomad.com.common.exception.MainException;
-import nomad.common.data_structure.Game;
 import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
@@ -120,20 +118,10 @@ public class CreateGameController extends IhmControllerComponent {
         return !gameName.getText().equals("");
     }
 
-    public void displayWaitingRoom(Game game) {
-        Platform.runLater(() -> {
-            if(game.getHost().getId().equals(ihmMainScreenController.getDataI().getPlayer().getId()))
-            {
-                DialogController.display("Partie créée", "Votre partie a bien été créée", DialogController.DialogStatus.SUCCESS, ihmMainScreenController);
+    public void displayWaitingRoom() {
+        DialogController.display("Partie créée", "Votre partie a bien été créée", DialogController.DialogStatus.SUCCESS, this.ihmMainScreenController);
 
-            }
-            else {
-
-                DialogController.display("Match accepté", "Vous avez été accepté comme opposant", DialogController.DialogStatus.SUCCESS, ihmMainScreenController);
-
-            }
-            ihmMainScreenController.changeScreen(6);
-        });
+        this.ihmMainScreenController.changeScreen(4);
     }
 
     public void onClickCreateGame() {
