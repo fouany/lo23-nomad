@@ -20,7 +20,6 @@ public class ServerApplication {
 
         DataToComConcrete dataToCom = new DataToComConcrete(dataServerController);
         ServerController nomadServerController = new ServerController(12, dataToCom);
-        comToData.setServerController(nomadServerController);
         nomadServerController.start();
     }
 }

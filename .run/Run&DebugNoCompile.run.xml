@@ -1,7 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run &amp; Debug (w/o compilation)" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="nomad.Main" />
-    <module name="nomad" />
-    <method v="2" />
-  </configuration>
-</component>

@@ -5,6 +5,7 @@ import nomad.com.common.message.client_message.game.GameStateChangeMessage;
 import nomad.com.common.message.server_message.BaseServerMessage;
 import nomad.com.server.ServerController;
 import nomad.common.data_structure.Game;
+import nomad.common.data_structure.UserLight;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -28,7 +29,9 @@ public class LaunchGameMessage extends BaseServerMessage {
         List<UUID> userIds = new ArrayList<>();
         userIds.add(game.getHost().getId());
         userIds.add(game.getOpponent().getId());
-        // TODO : Update spec view
+        for (UserLight user : game.getSpect()) {
+            userIds.add(user.getId());
+        }
         for (UUID id : userIds) {
             Socket client = controller.getClientSocket(id);
             if (socket != null) {

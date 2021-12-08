@@ -13,27 +13,6 @@ TODO mettre les bonnes tailles d'écran a jour
     -fx-orange-gradient : linear-gradient(to top right, #F77F00 , #FCBF49);
 }
 
-.check-box .box {
-    -fx-background-color: transparent;
-    -fx-border-color: -fx-maximum-red;
-    -fx-border-width: 2px;
-    -fx-background-radius: 2px;
-    -fx-border-radius: 2px;
-    -fx-pref-width: 25px;
-    -fx-pref-height: 25px;
-}
-.check-box .mark {
-    -fx-shape: "M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z";
-    -fx-pref-width: 10px;
-    -fx-pref-height: 10px;
-}
-.check-box:selected .box {
-    -fx-background-color: -fx-maximum-red;
-}
-.check-box:selected .mark {
-    -fx-background-color: white;
-}
-
 .main-background{
     -fx-background-color:-fx-orange-gradient;
     -fx-font-family : 'Poppins'
@@ -86,10 +65,6 @@ TODO mettre les bonnes tailles d'écran a jour
 .main-bg-orange {
     -fx-background-color: #f77f00;
     -fx-text-fill: white;
-}
-
-.main-text-orange {
-    -fx-text-fill:  -fx-orange;
 }
 
  .main-bg-red {
@@ -254,43 +229,7 @@ TODO mettre les bonnes tailles d'écran a jour
     -fx-text-fill: white;
 }
 
-.list-cell:filled:selected {
-    -fx-background-color: -fx-background ;
-    -fx-background-insets: 0 ;
-}
 
-.game-cell-container {
-    -fx-background-color: -fx-prussian-blue;
-    -fx-background-radius: 4px;
-    -fx-padding: 10px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 2, 0, 0, 2);
-    -fx-font-family: 'Poppins';
-    -fx-font-size: 14px;
-
-}
-
-.game-cell-name {
-    -fx-font-weight: 900;
-    -fx-font-style: italic;
-    -fx-text-fill: -fx-maximum_yellow;
-}
-
-.game-cell-label {
-    -fx-font-size: 12px;
-    -fx-text-fill: white;
-}
-
-.game-cell-player {
-    -fx-font-size: 13px;
-    -fx-font-weight: 900;
-    -fx-font-style: italic;
-    -fx-text-fill: white;
-}
-
-.game-cell-id {
-    -fx-text-fill: #C1C1C1;
-    -fx-font-size: 12px;
-}
 
 
 .waiting-room-id {

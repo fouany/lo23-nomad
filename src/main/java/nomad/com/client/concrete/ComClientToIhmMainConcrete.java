@@ -32,6 +32,7 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
         if (host == null) {
             throw new NullPointerException();
         }
+
         if (!clientController.sendMessage(new GameCreationMessage(name, host, nbTowers, areSpecAllowed, isSpecChatAllowed, hostColor))) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send new game to the remote server !");
         }
