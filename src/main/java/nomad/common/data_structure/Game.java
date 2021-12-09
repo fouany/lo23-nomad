@@ -3,6 +3,7 @@ package nomad.common.data_structure;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +36,9 @@ public class Game extends Observable implements Serializable  {
         this.board = new Board();
         this.currentPlayer = host.getId();
         this.gameParameters = gameParameters;
-        //this.spect = FXCollections.observableArrayList();
-
+        this.spect = FXCollections.observableArrayList(new ArrayList<>());
+        this.moves = FXCollections.observableArrayList(new ArrayList<>());
+        this.chat = FXCollections.observableArrayList(new ArrayList<>());
     }
 
     public UUID getGameId() {
@@ -47,9 +49,15 @@ public class Game extends Observable implements Serializable  {
         this.gameId = gameId;
     }
 
+    public GameParameters getGameParameters() {
+        return gameParameters;
+    }
+
     public Player getHost() {
         return host;
     }
+
+
 
     public void setHost(Player host) {
         this.host = host;
@@ -155,12 +163,24 @@ public class Game extends Observable implements Serializable  {
         return moves;
     }
 
+    public void setMoves(ObservableList<Move> moves) {
+        this.moves = moves;
+    }
+
     public ObservableList<UserLight> getSpect() {
         return spect;
     }
 
+    public void setSpect(ObservableList<UserLight> spect) {
+        this.spect = spect;
+    }
+
     public ObservableList<Message> getChat() {
         return chat;
+    }
+
+    public void setChat(ObservableList<Message> chat) {
+        this.chat = chat;
     }
 
     public void addMessage(Message message) {
@@ -205,5 +225,9 @@ public class Game extends Observable implements Serializable  {
             listOther.add(ul.getId());
         }
         return listOther;
+    }
+
+    public GameSerializable getGameSerializable() {
+        return new GameSerializable(this);
     }
 }
