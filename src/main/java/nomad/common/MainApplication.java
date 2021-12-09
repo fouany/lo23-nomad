@@ -14,6 +14,8 @@ import nomad.main.IhmMainScreenController;
 import nomad.main.IhmMainToDataConcrete;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Main application
@@ -40,8 +42,8 @@ public class MainApplication extends Application {
     initConcreteInterface();
     try {
       initController();
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (Exception e) {
+      Logger.getLogger(MainApplication.class.getName()).log(Level.WARNING, "Error caused by {0}.", e.toString());
     }
     linkConcreteController();
   }
