@@ -4,14 +4,15 @@ import nomad.com.client.ClientController;
 import nomad.com.common.message.client_message.BaseClientMessage;
 import nomad.common.data_structure.Game;
 import nomad.common.data_structure.GameLight;
+import nomad.common.data_structure.GameSerializable;
 
 /**
  * Use to notify that a new game has been created
  */
 public class NotifyNewGameMessage extends BaseClientMessage {
-    private final Game game;
+    private final GameSerializable game;
 
-    public NotifyNewGameMessage(Game game){
+    public NotifyNewGameMessage(GameSerializable game){
         this.game = game;
     }
 
