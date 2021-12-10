@@ -5,10 +5,7 @@ import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,9 +21,11 @@ public class Game extends Observable implements Serializable  {
     private UUID currentPlayer;
     private boolean gameLaunched;
     private boolean gameEnded;
+    private int nbOfTilesPlayed;
     private ObservableList<Move> moves;
     private ObservableList<UserLight> spect;
     private ObservableList<Message> chat;
+    private ObservableList<Tower> towers;
 
     public Game(Player host, int nbOfTowers, String name, GameParameters gameParameters) {
         this.gameId = UUID.randomUUID();
@@ -36,10 +35,13 @@ public class Game extends Observable implements Serializable  {
         this.board = new Board();
         this.currentPlayer = host.getId();
         this.gameParameters = gameParameters;
+        this.nbOfTilesPlayed=0;
         this.spect = FXCollections.observableArrayList(new ArrayList<>());
         this.moves = FXCollections.observableArrayList(new ArrayList<>());
         this.chat = FXCollections.observableArrayList(new ArrayList<>());
+        this.towers = FXCollections.observableArrayList(new ArrayList<>());
     }
+
 
     public UUID getGameId() {
         return gameId;
@@ -176,7 +178,7 @@ public class Game extends Observable implements Serializable  {
     }
 
     public ObservableList<Message> getChat() {
-        return chat;
+        return this.chat;
     }
 
     public void setChat(ObservableList<Message> chat) {
@@ -230,4 +232,15 @@ public class Game extends Observable implements Serializable  {
     public GameSerializable getGameSerializable() {
         return new GameSerializable(this);
     }
+
+    public int getNbOfTilesPlayed() { return this.nbOfTilesPlayed;}
+
+    public ObservableList<Tower> getTowers() { return this.towers;
+    }
+
+    public void setTowers(ObservableList<Tower> towers) {
+        this.towers = towers;
+    }
+
+    public void setNbOfTilesPlayed(int nbOfTilesPlayed) { this.nbOfTilesPlayed = nbOfTilesPlayed; }
 }

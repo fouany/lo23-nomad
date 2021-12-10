@@ -20,9 +20,11 @@ public class GameSerializable extends Observable implements Serializable {
     private UUID currentPlayer;
     private boolean gameLaunched;
     private boolean gameEnded;
+    private int nbOfTilesPlayed;
     private List<Move> moves;
     private List<UserLight> spect;
     private List<Message> chat;
+    private List<Tower> towers;
 
     public GameSerializable(Game g) {
         this.gameId = g.getGameId();
@@ -35,9 +37,11 @@ public class GameSerializable extends Observable implements Serializable {
         this.currentPlayer=g.getCurrentPlayerUUID();
         this.gameLaunched = g.isGameLaunched();
         this.gameEnded = g.isGameEnded();
+        this.nbOfTilesPlayed = g.getNbOfTilesPlayed();
         this.moves = g.getMoves().stream().collect(Collectors.toList());
         this.spect = g.getSpect().stream().collect(Collectors.toList());
         this.chat = g.getChat().stream().collect(Collectors.toList());
+        this.towers = g.getTowers().stream().collect(Collectors.toList());
     }
 
     public Game getGame(){
@@ -46,9 +50,11 @@ public class GameSerializable extends Observable implements Serializable {
         g.setOpponent(this.opponent);
         g.setBoard(this.board);
         g.setCurrentPlayer(this.currentPlayer);
+        g.setNbOfTilesPlayed(this.nbOfTilesPlayed);
         g.setMoves(FXCollections.observableArrayList(this.moves));
         g.setSpect(FXCollections.observableArrayList(this.spect));
         g.setChat(FXCollections.observableArrayList(this.chat));
+        g.setTowers(FXCollections.observableArrayList(this.towers));
         return g;
     }
 
