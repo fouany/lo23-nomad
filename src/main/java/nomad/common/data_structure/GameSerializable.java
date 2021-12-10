@@ -63,6 +63,10 @@ public class GameSerializable extends Observable implements Serializable {
     public Player getHost() {
         return host;
     }
+
+    public Player getOpponent() {
+        return opponent;
+    }
 }
 
 

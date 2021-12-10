@@ -5,6 +5,7 @@ import nomad.com.common.message.client_message.game.GameStateChangeMessage;
 import nomad.com.common.message.server_message.BaseServerMessage;
 import nomad.com.server.ServerController;
 import nomad.common.data_structure.Game;
+import nomad.common.data_structure.GameSerializable;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -14,9 +15,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LaunchGameMessage extends BaseServerMessage {
-    private final Game game;
+    private final GameSerializable game;
 
-    public LaunchGameMessage(Game game) {
+    public LaunchGameMessage(GameSerializable game) {
         this.game = game;
     }
 
