@@ -249,7 +249,6 @@ public class DataToComConcrete implements DataToComClientInterface {
     public void addedPlayerInGame(Game game, boolean isAdded) throws GameException {
         if (isAdded){
             dataClientController.getGameController().setGame(game);
-
             dataClientController.getIhmMainToDataInterface().updateAcceptOpponent(dataClientController.getGameController().getGame());
         }else{
             throw new GameException("Player was refused from game");

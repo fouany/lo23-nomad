@@ -32,7 +32,6 @@ public class DataToComConcrete implements DataToComServerInterface {
         //Add game to game In lobby
         dataServerController.getGamesController().setGame(game);
 
-
         return game;
     }
 
