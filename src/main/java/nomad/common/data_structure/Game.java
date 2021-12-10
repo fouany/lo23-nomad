@@ -170,7 +170,7 @@ public class Game extends Observable implements Serializable  {
     }
 
     public ObservableList<UserLight> getSpect() {
-        return spect;
+        return this.spect;
     }
 
     public void setSpect(ObservableList<UserLight> spect) {
