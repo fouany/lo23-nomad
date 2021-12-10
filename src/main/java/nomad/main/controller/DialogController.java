@@ -31,6 +31,7 @@ public class DialogController extends IhmControllerComponent {
         ERROR
 }
     private static Pane dialogPane = null;
+    private static Scene scene = null;
 
 
 public static void display(String title, String content, DialogStatus status , IhmScreenController controller)
@@ -40,7 +41,11 @@ public static void display(String title, String content, DialogStatus status , I
     Stage primaryStage = controller.getStage();
     stage.initModality(Modality.APPLICATION_MODAL);
     stage.initStyle(StageStyle.UNDECORATED);
-    stage.getScene().setRoot(DialogController.dialogPane);
+    if(DialogController.scene == null)
+    {
+        DialogController.scene = new Scene(DialogController.dialogPane);
+    }
+    stage.setScene(DialogController.scene);
     stage.initOwner(primaryStage);
     // Calculate the center position of the parent Stage
     double centerXPosition = primaryStage.getX() + primaryStage.getWidth()/2d;
