@@ -3,6 +3,7 @@ package nomad.main.controller;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -29,7 +30,8 @@ public class DialogController extends IhmControllerComponent {
         WARNING,
         ERROR
 }
-    private static Scene dialogScene = null;
+    private static Pane dialogPane = null;
+    private static Scene scene = null;
 
 
 public static void display(String title, String content, DialogStatus status , IhmScreenController controller)
@@ -39,7 +41,11 @@ public static void display(String title, String content, DialogStatus status , I
     Stage primaryStage = controller.getStage();
     stage.initModality(Modality.APPLICATION_MODAL);
     stage.initStyle(StageStyle.UNDECORATED);
-    stage.setScene(DialogController.dialogScene);
+    if(DialogController.scene == null)
+    {
+        DialogController.scene = new Scene(DialogController.dialogPane);
+    }
+    stage.setScene(DialogController.scene);
     stage.initOwner(primaryStage);
     // Calculate the center position of the parent Stage
     double centerXPosition = primaryStage.getX() + primaryStage.getWidth()/2d;
@@ -54,13 +60,13 @@ public static void display(String title, String content, DialogStatus status , I
         stage.setY(centerYPosition - stage.getHeight()/2d - 50);
         stage.show();
     });
-    Button button = (Button) dialogScene.lookup("#dimiss");
-    Label titleL = (Label) dialogScene.lookup("#title");
+    Button button = (Button) dialogPane.lookup("#dimiss");
+    Label titleL = (Label) dialogPane.lookup("#title");
     titleL.setText(title);
-    Label contentL = (Label) dialogScene.lookup("#content");
+    Label contentL = (Label) dialogPane.lookup("#content");
     contentL.setText(content);
 
-    VBox container = (VBox) dialogScene.lookup("#container");
+    VBox container = (VBox) dialogPane.lookup("#container");
 
     switch (status)
     {
@@ -85,8 +91,8 @@ public static void display(String title, String content, DialogStatus status , I
 
 }
 
-public static void initDialog(Scene scene)
+public static void initDialog(Pane pane)
 {
-    DialogController.dialogScene = scene;
+    DialogController.dialogPane = pane;
 }
 }
