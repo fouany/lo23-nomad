@@ -1,7 +1,7 @@
 package nomad.com.common.message.server_message.chat;
 
 import nomad.com.common.message.server_message.BaseServerMessage;
-import nomad.com.common.message.client_message.chat.ChatSpreadMessage;
+import nomad.com.common.message.client_message.chat.ChatIncomingMessageMessage;
 import nomad.com.server.ServerController;
 import nomad.common.data_structure.Game;
 import nomad.common.data_structure.Message;
@@ -17,38 +17,25 @@ import java.util.logging.Logger;
 /**
  * Chat Message sent by user
  */
-public class ChatMessage extends BaseServerMessage {
+public class SendChatMessageMessage extends BaseServerMessage {
 
     /**
      * message
      */
     private final Message message;
 
-    private final Game game;
-
-
     /**
      * Constructor
-     * @param message
-     * @param game
+     * @param message is the the message sent by the user
      */
-    public ChatMessage(Message message, Game game) {
+    public SendChatMessageMessage(Message message) {
         this.message = message;
-        this.game = game;
     }
 
-    /**
-     * Process method
-     * @param controller
-     */
     @Override
     public void process(Socket socket, ServerController controller) {
-        try {
-            // Store message on com server
-            //controller.getDataToCom().storeNewMessage(message);
-        } catch (Error e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Error on storing a message");
-        }
+        controller.getDataToCom().storeMessage(message);
+        Game game = controller.getDataToCom().getStoredGame(message.getGameId());
 
         // Get all game user ids and send the game launched message
         List<UUID> userIds = new ArrayList<>();
@@ -60,7 +47,7 @@ public class ChatMessage extends BaseServerMessage {
         for (UUID id : userIds) {
             Socket client = controller.getClientSocket(id);
             if (client != null) {
-                controller.sendMessage(client, new ChatSpreadMessage(message, game));
+                controller.sendMessage(client, new ChatIncomingMessageMessage(message));
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Not able to find user socket");
             }

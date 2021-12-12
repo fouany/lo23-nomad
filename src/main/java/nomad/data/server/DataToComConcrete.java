@@ -155,8 +155,8 @@ public class DataToComConcrete implements DataToComServerInterface {
     }
 
     @Override
-    public void storeMessage(UUID gameId, Message message) {
-        dataServerController.getGamesController().getGame(gameId).addMessage(message);
+    public void storeMessage(Message message) {
+        dataServerController.getGamesController().getGame(message.getGameId()).addMessage(message);
     }
 
     @Override
