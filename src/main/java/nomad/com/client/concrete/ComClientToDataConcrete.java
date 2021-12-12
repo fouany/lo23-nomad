@@ -3,6 +3,7 @@ package nomad.com.client.concrete;
 import nomad.com.client.ClientController;
 import nomad.com.common.message.client_message.game.RejectPlayerMessage;
 import nomad.com.common.message.server_message.game.EnoughPlayerMessage;
+import nomad.com.common.message.server_message.game.GetSavedGameMessage;
 import nomad.com.common.message.server_message.information.GetProfileMessage;
 import nomad.com.common.message.server_message.information.LocalUserConnectionMessage;
 import nomad.common.data_structure.User;
@@ -63,11 +64,11 @@ public class ComClientToDataConcrete implements ComToDataClientInterface {
     /**
      * Ask the server to retrieve the replay of a specified game.
      *
-     * @param game The identifier of the game to retrieve.
+     * @param gameId The identifier of the game to retrieve.
      */
     @Override
-    public void askForSave(UUID game) {
-        //TODO
+    public void askForSave(UUID gameId) {
+        clientController.sendMessage(new GetSavedGameMessage(gameId));
     }
 
     /**
