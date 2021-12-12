@@ -18,8 +18,6 @@ import nomad.main.IhmMainScreenController;
 import nomad.main.IhmMainToDataConcrete;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Main application
@@ -73,7 +71,7 @@ public class MainApplication extends Application {
                 ihmMainToDataConcrete,
                 ihmGameToDataConcrete);
         dataToGameConcrete.setDataClientController(dataClientController);
-        clientController = new ClientController(dataToComConcrete);
+        clientController = new ClientController(dataToComConcrete, ihmMainToCom);
         ihmMainScreenController = new IhmMainScreenController(this, dataToMainConcrete, comClientToIhmMainConcrete);
     }
 
