@@ -6,8 +6,6 @@ import nomad.common.interfaces.data.DataToComServerInterface;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Concretization of the Ihm Com interface.
@@ -97,11 +95,11 @@ public class DataToComConcrete implements DataToComServerInterface {
         else{
             color = !dataServerController.getGamesController().getGame(gameID).isHostColor();
         }
-        boolean is_tower = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].isTower();
+        boolean isTower = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].isTower();
         int height = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].getHeight();
         //we check if there is an adjacent pile at least as high as this one (ans owned by the current player)
-        boolean near_pileOK = checkPile(t, height, color);
-        if (is_tower || !near_pileOK) {
+        boolean nearPileOK = checkPile(t, height, color);
+        if (isTower || !nearPileOK) {
             // There is a problem, so we throw an exception
             throw new TileException("Tile not valid");
         }else{
@@ -114,19 +112,19 @@ public class DataToComConcrete implements DataToComServerInterface {
 
     private boolean checkPile(Tile t, int height, boolean color){
         UUID gameID = t.getGameId();
-        boolean near_pileOK = false;
+        boolean nearPileOK = false;
         for (int x = -1; x < 2; x++){
             for(int y = -1; y < 2; y++){
                 if(!(x == 0 && y == 0)){
-                    int height_2 = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX() + x][t.getY() + y].getHeight();
-                    boolean color_2 = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX() + x][t.getY() + y].isColor();
-                    if(height_2 >= height && color == color_2){
-                        near_pileOK = true;
+                    int height2 = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX() + x][t.getY() + y].getHeight();
+                    boolean color2 = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX() + x][t.getY() + y].isColor();
+                    if(height2 >= height && color == color2){
+                        nearPileOK = true;
                     }
                 }
             }
         }
-        return near_pileOK;
+        return nearPileOK;
     }
     @Override
     public void saveSkip(Skip s) {

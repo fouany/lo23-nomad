@@ -3,11 +3,8 @@ package nomad.common.data_structure;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Game extends Observable implements Serializable  {
 

@@ -51,6 +51,8 @@ public class GameSerializable extends Observable implements Serializable {
         g.setBoard(this.board);
         g.setCurrentPlayer(this.currentPlayer);
         g.setNbOfTilesPlayed(this.nbOfTilesPlayed);
+        g.setGameLaunched(this.gameLaunched);
+        g.setGameEnded(this.gameEnded);
         g.setMoves(FXCollections.observableArrayList(this.moves));
         g.setSpect(FXCollections.observableArrayList(this.spect));
         g.setChat(FXCollections.observableArrayList(this.chat));

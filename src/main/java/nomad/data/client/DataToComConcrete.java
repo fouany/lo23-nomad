@@ -5,8 +5,6 @@ import nomad.common.interfaces.data.DataToComClientInterface;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DataToComConcrete implements DataToComClientInterface {
 
