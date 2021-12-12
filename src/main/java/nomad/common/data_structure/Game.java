@@ -244,8 +244,6 @@ public class Game extends Observable implements Serializable  {
         return new GameSerializable(this);
     }
 
-    public int getNbOfTilesPlayed() { return this.nbOfTilesPlayed;}
-
     public ObservableList<Tower> getTowers() { return this.towers;
     }
 
