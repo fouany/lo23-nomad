@@ -3,6 +3,7 @@ package nomad.com.client;
 import nomad.com.common.message.Message;
 import nomad.com.common.message.server_message.information.LocalUserDisconnectionMessage;
 import nomad.common.interfaces.data.DataToComClientInterface;
+import nomad.common.interfaces.main.IhmMainToComInterface;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -16,17 +17,24 @@ import java.util.logging.Logger;
  */
 public class ClientController {
     private final DataToComClientInterface dataToCom;
+
+    private final IhmMainToComInterface ihmMainToCom;
     private ClientListener listener;
 
     private ObjectOutputStream output;
     private Socket socket;
 
-    public ClientController(DataToComClientInterface dataToCom) {
+    public ClientController(DataToComClientInterface dataToCom, IhmMainToComInterface ihmMainToCom) {
         this.dataToCom = dataToCom;
+        this.ihmMainToCom = ihmMainToCom;
     }
 
     public DataToComClientInterface getDataToCom() {
         return dataToCom;
+    }
+
+    public IhmMainToComInterface getIhmMainToCom() {
+        return ihmMainToCom;
     }
 
     /**

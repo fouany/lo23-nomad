@@ -1,7 +1,9 @@
 package nomad.com.client.concrete;
 
 import nomad.com.client.ClientController;
+import nomad.com.common.message.client_message.game.RejectPlayerMessage;
 import nomad.com.common.message.server_message.game.EnoughPlayerMessage;
+import nomad.com.common.message.server_message.information.GetProfileMessage;
 import nomad.com.common.message.server_message.information.LocalUserConnectionMessage;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.com.ComToDataClientInterface;
@@ -71,15 +73,15 @@ public class ComClientToDataConcrete implements ComToDataClientInterface {
     /**
      * Retrieve the profile of a given remote user from the server.
      *
-     * @param idUser the unique identifier of the user profile to recover.
+     * @param userId the unique identifier of the user profile to recover.
      */
     @Override
-    public void getProfile(UUID idUser) {
-        //TODO
+    public void getProfile(UUID userId) {
+        clientController.sendMessage(new GetProfileMessage(userId));
     }
 
     @Override
     public void rejectPlayers(UUID gameId) {
-        //TODO
+        clientController.sendMessage(new RejectPlayerMessage(gameId));
     }
 }
