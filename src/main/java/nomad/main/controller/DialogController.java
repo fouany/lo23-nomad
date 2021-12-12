@@ -1,6 +1,6 @@
 package nomad.main.controller;
 
-import javafx.application.Platform;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,7 +18,7 @@ public class DialogController extends IhmControllerComponent {
     /**
      * Constructor that link the screen controller to the component controller
      *
-     * @param screen
+     * @param screen ihmScreenController used for initialisation
      */
     public DialogController(IhmMainScreenController screen) {
         super(screen);
@@ -33,6 +33,13 @@ public class DialogController extends IhmControllerComponent {
     private static Pane dialogPane = null;
     private static Scene scene = null;
 
+    /**
+     * Display a dialog and block the exectution thread until action from the client
+     * @param title title of the dialog
+     * @param content content of the dialog
+     * @param status type of the dialog (SUCCESS, WARNING, ERROR, QUESTION)
+     * @param controller controller who has the hand on the stage
+     */
     public static void display(String title, String content, DialogStatus status, IhmScreenController controller) {
             Stage stage = new Stage();
             Stage primaryStage = controller.getStage();
@@ -84,6 +91,10 @@ public class DialogController extends IhmControllerComponent {
             stage.showAndWait();
     }
 
+    /**
+     * attach javafx component to the dialogController
+     * @param pane dialog pane loaded in the ihmScreenController
+     */
     public static void initDialog(Pane pane) {
         DialogController.dialogPane = pane;
     }

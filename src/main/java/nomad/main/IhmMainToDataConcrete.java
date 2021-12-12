@@ -7,9 +7,6 @@ import nomad.common.data_structure.Session;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.main.IhmMainToDataInterface;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class IhmMainToDataConcrete implements IhmMainToDataInterface {
 
     private IhmMainScreenController mainScreenController;
@@ -38,32 +35,19 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
 
     /*todo add custom method newPLayerAskingToJoin*/
 
+    /**
+     * DO NOT USE THIS FUNCTION (OUTDATED)
+     * @param game
+     */
     @Override
     public void updateObservable(Game game) {
-        Logger.getAnonymousLogger().log(Level.INFO, "Call");
-        if (!game.isGameLaunched() && game.getOpponent() == null) //game just has been created
-        {
-            mainScreenController.getCreateGameController().displayWaitingRoom(game);
-            try {
-                mainScreenController.getWaitingRoomController().gameUpdate(game);
-            } catch (GameException e) {
-                /*todo handle game exception*/
-            }
-            game.addObserver(mainScreenController.getWaitingRoomController());
-        } else if (!game.isGameLaunched() && game.getOpponent() != null) {
-            mainScreenController.getCreateGameController().displayWaitingRoom(game);
-            Platform.runLater(() -> {
-                try {
-                    mainScreenController.getWaitingRoomController().gameUpdate(game);
-                } catch (GameException e) {
-                    e.printStackTrace();
-                }
-            });
-
-            Logger.getAnonymousLogger().log(Level.INFO, "Call 2 ");
-        }
+        //todo remove function
     }
 
+    /**
+     * game created notification
+     * @param game
+     */
     @Override
     public void updateGameCreated(Game game) {
 
@@ -78,11 +62,12 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
 
     }
 
+    /**
+     * accept notification for the opponent
+     * @param game
+     */
     @Override
     public void updateAcceptOpponent(Game game) {
-       /* if (mainScreenController.getDataI().getUser().getUserId().equals(game.getOpponent().getId())) {
-            mainScreenController.getCreateGameController().displayWaitingRoom(game);
-        }*/
         if(mainScreenController.getDataI().getUser().getUserId().equals(game.getOpponent().getId())) {
             Platform.runLater(() ->
             {

@@ -38,6 +38,10 @@ public class GameCell extends ListCell<GameLight> {
         loadFXML(controller);
     }
 
+    /**
+     * load fxml component for the game cell
+     * @param controller use to locate and load the ressource
+     */
     private void loadFXML(IhmMainScreenController controller) {
         try {
 
@@ -52,6 +56,11 @@ public class GameCell extends ListCell<GameLight> {
 
         }
     }
+
+    /**
+     * ask host to join the game
+     * @param e javafx event
+     */
     @FXML
     public void joinGame(ActionEvent e)
     {

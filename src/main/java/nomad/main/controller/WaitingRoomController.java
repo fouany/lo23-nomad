@@ -56,12 +56,23 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
         controller = screen;
     }
 
+    /**
+     * initialize javafx component (used to ensure we are in the good thread)
+     * @param location
+     * @param resources
+     */
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         opponentContainer.setVisible(false);
         opponentContainer.setManaged(false);
 
     }
+
+    /**
+     * function called when player quit the game before the start
+     * @param e
+     */
 
     public void quitGame(ActionEvent e) {
         /*todo add interface to quit the game*/
@@ -114,7 +125,6 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
         viewersNumber.setText("0");
         hostName.setText(g.getHost().getLogin());
         hostId.setText("#" + g.getHost().getId());
-        // viewersNumber.setText(String.valueOf(g.getSpect().size()));
         viewInitialized = true;
     }
 
@@ -177,6 +187,11 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
 
     }
 
+    /**
+     * Function called on game modification
+     * @param observable in this case, a game object observed by WaintingRoomController
+     * @param o
+     */
     @Override
     public void update(Observable observable, Object o) {
 
