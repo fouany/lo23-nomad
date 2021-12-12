@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.UUID;
+import java.util.*;
 
 public class Game extends Observable implements Serializable  {
 
@@ -25,7 +22,7 @@ public class Game extends Observable implements Serializable  {
     private ObservableList<Move> moves;
     private ObservableList<UserLight> spect;
     private ObservableList<Message> chat;
-    private List<Tower> towers;
+    private ObservableList<Tower> towers;
 
     public Game(Player host, int nbOfTowers, String name, GameParameters gameParameters) {
         this.gameId = UUID.randomUUID();
@@ -35,11 +32,11 @@ public class Game extends Observable implements Serializable  {
         this.board = new Board();
         this.currentPlayer = host.getId();
         this.gameParameters = gameParameters;
-        this.nbOfTilesPlayed = 0;
-        moves = FXCollections.observableArrayList();
-        spect = FXCollections.observableArrayList();
-        chat = FXCollections.observableArrayList();
-        towers = new ArrayList<>();
+        this.nbOfTilesPlayed=0;
+        this.spect = FXCollections.observableArrayList(new ArrayList<>());
+        this.moves = FXCollections.observableArrayList(new ArrayList<>());
+        this.chat = FXCollections.observableArrayList(new ArrayList<>());
+        this.towers = FXCollections.observableArrayList(new ArrayList<>());
     }
 
     public int getNbOfTilesPlayed() {
@@ -65,9 +62,15 @@ public class Game extends Observable implements Serializable  {
         this.gameId = gameId;
     }
 
+    public GameParameters getGameParameters() {
+        return gameParameters;
+    }
+
     public Player getHost() {
         return host;
     }
+
+
 
     public void setHost(Player host) {
         this.host = host;
@@ -156,6 +159,9 @@ public class Game extends Observable implements Serializable  {
 
     public void setGameLaunched(boolean gameLaunched) {
         this.gameLaunched = gameLaunched;
+        // Those force updates should not be here (could be link to a sync problem from the modal)
+        setChanged();
+        notifyObservers();
     }
 
     public boolean isGameEnded() {
@@ -170,12 +176,24 @@ public class Game extends Observable implements Serializable  {
         return moves;
     }
 
+    public void setMoves(ObservableList<Move> moves) {
+        this.moves = moves;
+    }
+
     public ObservableList<UserLight> getSpect() {
-        return spect;
+        return this.spect;
+    }
+
+    public void setSpect(ObservableList<UserLight> spect) {
+        this.spect = spect;
     }
 
     public ObservableList<Message> getChat() {
-        return chat;
+        return this.chat;
+    }
+
+    public void setChat(ObservableList<Message> chat) {
+        this.chat = chat;
     }
 
     public void addMessage(Message message) {
@@ -221,4 +239,17 @@ public class Game extends Observable implements Serializable  {
         }
         return listOther;
     }
+
+    public GameSerializable getGameSerializable() {
+        return new GameSerializable(this);
+    }
+
+    public ObservableList<Tower> getTowers() { return this.towers;
+    }
+
+    public void setTowers(ObservableList<Tower> towers) {
+        this.towers = towers;
+    }
+
+    public void setNbOfTilesPlayed(int nbOfTilesPlayed) { this.nbOfTilesPlayed = nbOfTilesPlayed; }
 }

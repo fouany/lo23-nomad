@@ -20,7 +20,7 @@ public class IhmMainScreenController extends IhmScreenController {
     private MenuController menuController;
     private CreateGameController createGameController;
     private ViewGameController viewGameController;
-    private  WaitingRoomController waitingRoomController;
+    private WaitingRoomController waitingRoomController;
     private Session session;
 
     public void setSession(Session session) {
@@ -34,20 +34,16 @@ public class IhmMainScreenController extends IhmScreenController {
     public IhmMainScreenController(MainApplication app, DataToIhmMainInterface dataI, ComToIhmMainInterface comI) throws IOException {
         super(app);
         module = "MAIN";
-        defaultStart = 0;
+        defaultStart = ControllerIndex.LOGIN.index;
         attributes = new HashMap<>();
-        initScenes();
+        initPanes();
         this.dataI = dataI;
         this.comI = comI;
-        DialogController.initDialog(dictScenes.get(4));
-        Math.random();
-        /**
-         * todo ajouter l'interface com concrete
-         * **/
+        DialogController.initDialog(paneDict.get(4));
+        // TODO : ajouter l'interface com concrete
     }
 
-    public ComToIhmMainInterface getComI()
-    {
+    public ComToIhmMainInterface getComI() {
         return comI;
     }
 
@@ -55,72 +51,57 @@ public class IhmMainScreenController extends IhmScreenController {
         return menuController;
     }
 
-
     public WaitingRoomController getWaitingRoomController() {
         return waitingRoomController;
     }
 
-
-    public CreateGameController getCreateGameController(){return  createGameController;}
+    public CreateGameController getCreateGameController() {
+        return createGameController;
+    }
 
     public ViewGameController getViewGameController() {
         return viewGameController;
     }
 
-
     public Map<String, String> getAttributes() {
         return attributes;
     }
-
-
 
     public DataToIhmMainInterface getDataI() {
         return dataI;
     }
 
-
-    public void initPaths(){
+    public void initPaths() {
         listPaths.add("fxml/ihm_login_connection.fxml");
         listPaths.add("fxml/ihm_server_connection.fxml");
         listPaths.add("fxml/ihm_menu.fxml");
         listPaths.add("fxml/ihm_create_game.fxml");
         listPaths.add("fxml/ihm_dialog.fxml");
-
         listPaths.add("fxml/ihm_view_game.fxml");
-
         listPaths.add("fxml/ihm_waiting_room.fxml");
-
     }
 
     @Override
     public void initController() {
         menuController = new MenuController(this);
-
         createGameController = new CreateGameController(this);
-
         viewGameController = new ViewGameController(this);
-
         waitingRoomController = new WaitingRoomController(this);
 
-        dictController.put(0, new LoginController(this));
-        dictController.put(1, new ServerConnectionController(this));
-        dictController.put(2, menuController);
-        dictController.put(3,createGameController);
-        dictController.put(4, new DialogController(this));
-
-        dictController.put(5, viewGameController);
-
-        dictController.put(6, waitingRoomController);
-
-
-
+        controllerDict.put(ControllerIndex.LOGIN.index, new LoginController(this));
+        controllerDict.put(ControllerIndex.SERVER_CONNECTION.index, new ServerConnectionController(this));
+        controllerDict.put(ControllerIndex.MENU.index, menuController);
+        controllerDict.put(ControllerIndex.CREATE_GAME.index, createGameController);
+        controllerDict.put(ControllerIndex.DIALOG.index, new DialogController(this));
+        controllerDict.put(ControllerIndex.VIEW_GAME.index, viewGameController);
+        controllerDict.put(ControllerIndex.WAITING_ROOM.index, waitingRoomController);
     }
 
     public void initStyles() {
         String stylesheet = "Poppins/style.css";
-        dictStyles.put(0, stylesheet);
-        dictStyles.put(1, stylesheet);
-        dictStyles.put(2, stylesheet);
-        dictStyles.put(3, stylesheet);
+        styleDict.put(0, stylesheet);
+        styleDict.put(1, stylesheet);
+        styleDict.put(2, stylesheet);
+        styleDict.put(3, stylesheet);
     }
 }

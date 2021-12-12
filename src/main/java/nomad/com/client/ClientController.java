@@ -20,6 +20,7 @@ public class ClientController {
 
     private ObjectOutputStream output;
     private Socket socket;
+
     public ClientController(DataToComClientInterface dataToCom) {
         this.dataToCom = dataToCom;
     }

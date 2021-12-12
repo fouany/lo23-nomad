@@ -7,5 +7,11 @@ import nomad.common.data_structure.User;
 public interface IhmMainToDataInterface {
   void updateObservable(Session session);
   void updateObservable(Game game);
+
+  void updateGameCreated(Game game);
+
+  void updateAcceptOpponent(Game game);
+
+
   void updateObservable(User user);
 }
