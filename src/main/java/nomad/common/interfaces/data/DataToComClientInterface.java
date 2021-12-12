@@ -90,7 +90,7 @@ public interface DataToComClientInterface {
 
     /**
      * adds the message to the chat of the game
-     * @param message
+     * @param message message to add
      */
     void storeNewMessage(Message message);
 

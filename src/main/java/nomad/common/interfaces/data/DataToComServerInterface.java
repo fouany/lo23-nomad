@@ -32,7 +32,11 @@ public interface DataToComServerInterface {
 
     Game getStoredGame(UUID gameId);
 
-    void storeMessage(UUID gameId, Message message);
+    /**
+     * store a message
+     * @param message message to store
+     */
+    void storeMessage(Message message);
 
     List<Player> requestConnectedUserList();
 

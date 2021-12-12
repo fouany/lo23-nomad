@@ -168,7 +168,7 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * adds the message to the chat of the game
-     * @param message
+     * @param message message to add
      */
     public void storeNewMessage(Message message){
         dataClientController.getGameController().getGame().getChat().add(message);
