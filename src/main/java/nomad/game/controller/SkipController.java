@@ -13,7 +13,7 @@ public class SkipController extends GameComponentsAbstract {
      *
      * @param screen
      */
-    protected SkipController(IhmScreenController screen) {
+    public SkipController(IhmScreenController screen) {
         super(screen) ;
     }
 

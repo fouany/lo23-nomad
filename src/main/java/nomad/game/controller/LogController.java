@@ -8,7 +8,7 @@ public class LogController extends GameComponentsAbstract{
      *
      * @param screen
      */
-    protected LogController(IhmScreenController screen) {
+    public LogController(IhmScreenController screen) {
         super(screen);
     }
 

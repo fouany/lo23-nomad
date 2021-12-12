@@ -1,6 +1,5 @@
 package nomad.game.controller;
 
-import nomad.common.data_structure.Game;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.common.ihm.IhmScreenController;
 

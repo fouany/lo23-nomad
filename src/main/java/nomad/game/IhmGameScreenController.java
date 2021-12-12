@@ -6,7 +6,7 @@ import nomad.common.data_structure.Game;
 import nomad.common.ihm.IhmScreenController;
 import nomad.common.MainApplication;
 import nomad.data.client.DataToGameConcrete;
-import nomad.game.controller.GameController;
+import nomad.game.controller.*;
 
 import java.io.IOException;
 
@@ -27,10 +27,10 @@ public class IhmGameScreenController extends IhmScreenController {
     public IhmGameScreenController(MainApplication app, DataToGameConcrete dataInterface, ComToIhmGameConcrete comInterface) throws IOException {
         super(app);
         module = "GAME";
-        defaultStart = 0;
+        defaultStart = ControllerIndex.GAME.index;
         this.comInterface = comInterface;
         this.dataInterface = dataInterface;
-        initScenes();
+        initPanes();
         initListenerGame();
     }
 
@@ -43,7 +43,7 @@ public class IhmGameScreenController extends IhmScreenController {
     }
 
     public void initListenerGame(){
-        ((GameController)dictController.get(0)).initListener();
+        ((GameController) controllerDict.get(0)).initListener();
     }
 
     public DataToGameConcrete getDataInterface(){
@@ -61,11 +61,21 @@ public class IhmGameScreenController extends IhmScreenController {
 
     @Override
     public void initPaths() {
-        listPaths.add("fxml/page/main_game_view.fxml");
+        listPaths.add("fxml/page/game_view.fxml");
+        listPaths.add("fxml/components/player_info.fxml");
+        listPaths.add("fxml/components/board.fxml");
+        listPaths.add("fxml/components/log.fxml");
+        listPaths.add("fxml/components/skip_turn.fxml");
+        listPaths.add("fxml/components/chat.fxml");
     }
 
     @Override
     public void initController() {
-        dictController.put(0, new GameController(this));
+        controllerDict.put(ControllerIndex.GAME.index, new GameController(this));
+        controllerDict.put(ControllerIndex.PLAYER_INFO.index, new PlayerInfoController(this));
+        controllerDict.put(ControllerIndex.BOARD.index, new BoardController(this));
+        controllerDict.put(ControllerIndex.LOG.index, new LogController(this));
+        controllerDict.put(ControllerIndex.SKIP.index, new SkipController(this));
+        controllerDict.put(ControllerIndex.CHAT.index, new ChatController(this));
     }
 }

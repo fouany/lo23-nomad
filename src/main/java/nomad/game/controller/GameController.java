@@ -8,6 +8,7 @@ import nomad.common.data_structure.Move;
 import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.common.ihm.IhmScreenController;
+import nomad.game.ControllerIndex;
 import nomad.game.IhmGameScreenController;
 
 import java.util.Observable;
@@ -38,56 +39,50 @@ public class GameController extends IhmControllerComponent implements Observer {
     @FXML
     private BoardController boardController;
 
+    private IhmGameScreenController gameScreen;
+
     /**
      * Constructor of the main game controller
      * @param screen main screen controller
      */
     public GameController(IhmScreenController screen) {
         super(screen);
+        gameScreen = (IhmGameScreenController) screen;
     }
 
     public void initListener(){
-        currentGame = ((IhmGameScreenController) super.screenControl).getLinkedGame();
+        currentGame = gameScreen.getLinkedGame();
         currentGame.addObserver(this);
 
-        currentGame.getMoves().addListener(new ListChangeListener<Move>() {
-            @Override
-            public void onChanged(Change<? extends Move> c) {
-                System.out.println("Changement sur les mooves à gérer coté IHM");
-            }
-        });
+        currentGame.getMoves().addListener(
+                (ListChangeListener<Move>) c -> System.out.println("Changement sur les mooves à gérer coté IHM")
+        );
 
-        currentGame.getSpect().addListener(new ListChangeListener<UserLight>() {
-            @Override
-            public void onChanged(Change<? extends UserLight> c) {
-                System.out.println("Changement sur les spects");
-            }
-        });
+        currentGame.getSpect().addListener(
+                (ListChangeListener<UserLight>) c -> System.out.println("Changement sur les spects")
+        );
 
-        currentGame.getChat().addListener(new ListChangeListener<Message>() {
-            @Override
-            public void onChanged(Change<? extends Message> c) {
-                System.out.println("Changement sur le chat");
-            }
-        });
+        currentGame.getChat().addListener(
+                (ListChangeListener<Message>) c -> System.out.println("Changement sur le chat")
+        );
 
-        playerInfoController = new PlayerInfoController(super.screenControl);
+        playerInfoController = (PlayerInfoController) gameScreen.getController(ControllerIndex.PLAYER_INFO.index);
         playerInfoController.setParentController(this);
         playerInfoController.init();
 
-        boardController = new BoardController(super.screenControl);
+        boardController = (BoardController) gameScreen.getController(ControllerIndex.BOARD.index);
         boardController.setParentController(this);
         boardController.init();
 
-        logController = new LogController(super.screenControl);
+        logController = (LogController) gameScreen.getController(ControllerIndex.LOG.index);
         logController.setParentController(this);
         logController.init();
 
-        skipController = new SkipController(super.screenControl);
+        skipController = (SkipController) gameScreen.getController(ControllerIndex.SKIP.index);
         skipController.setParentController(this);
         skipController.init();
 
-        chatController = new ChatController(super.screenControl);
+        chatController = (ChatController) gameScreen.getController(ControllerIndex.CHAT.index);
         chatController.setParentController(this);
         chatController.init();
     }

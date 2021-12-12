@@ -20,12 +20,12 @@ public class BoardController extends GameComponentsAbstract {
      *
      * @param screen
      */
-    protected BoardController(IhmScreenController screen) {
+    public BoardController(IhmScreenController screen) {
         super(screen);
     }
 
     @FXML
-    private GridPane gameBoard ;
+    private GridPane gameBoard;
 
     @FXML
     private int[] getCoordinates(MouseEvent event) {
@@ -47,7 +47,9 @@ public class BoardController extends GameComponentsAbstract {
     }
 
     @Override
-    public void update(String type) {}
+    public void update(String type) {
+        // TODO : implement board update
+    }
 
     private void playMove(MouseEvent event) {
 

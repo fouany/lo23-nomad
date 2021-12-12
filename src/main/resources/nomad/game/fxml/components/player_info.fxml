@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="69.0" prefWidth="806.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.game.controller.PlayerInfoController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="69.0" prefWidth="806.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.game.controller.PlayerInfoController">
     <children>
         <Pane prefHeight="69.0" prefWidth="254.0" style="-fx-background-color: #003049;">
             <children>
@@ -18,7 +15,7 @@
                 <ImageView fitHeight="69.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-radius: 50%;" />
                 <VBox layoutX="70.0" prefHeight="70.0" prefWidth="184.0">
                     <children>
-                        <TextField alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Player : " fx:id="playerOneName">
+                        <TextField fx:id="playerOneName" alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Player : ">
                             <font>
                                 <Font size="15.0" />
                             </font></TextField>
@@ -35,7 +32,7 @@
             <children>
                 <VBox prefHeight="70.0" prefWidth="167.0">
                     <children>
-                        <TextField alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Towers : 0/5" fx:id="numberTower">
+                        <TextField fx:id="numberTower" alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Towers : 0/5">
                             <font>
                                 <Font size="15.0" />
                             </font></TextField>
@@ -52,7 +49,7 @@
             <children>
                 <VBox prefHeight="70.0" prefWidth="184.0">
                     <children>
-                        <TextField alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Player : ">
+                        <TextField fx:id="playerTwoName" alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Player : ">
                             <font>
                                 <Font size="15.0" />
                             </font></TextField>

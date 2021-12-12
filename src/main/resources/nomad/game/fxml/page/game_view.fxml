@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="679.0"
+      prefWidth="1101.0" styleClass="main_view_game" stylesheets="@../../style/global_game_style.css"
+      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="nomad.game.controller.GameController">
+    <VBox layoutX="869.0" layoutY="117.0" prefHeight="500.0" prefWidth="200.0">
+        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+              prefHeight="403.0" prefWidth="600.0" styleClass="container_extra_infos"
+              stylesheets="@../../style/infos_components_style.css">
+            <fx:include source="../components/log.fxml" fx:id="logs_component"/>
+        </VBox>
+        <fx:include source="../components/chat.fxml" fx:id="chat_explication"/>
+    </VBox>
+    <HBox layoutX="40.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+          minWidth="-Infinity" prefHeight="69.0" prefWidth="806.0">
+        <fx:include source="../components/player_info.fxml" fx:id="player_info_controller"/>
+    </HBox>
+    <fx:include source="../components/board.fxml" fx:id="board_controller"/>
+</Pane>

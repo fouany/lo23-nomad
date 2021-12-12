@@ -22,7 +22,7 @@ public class ChatController extends GameComponentsAbstract{
      *
      * @param screen
      */
-    protected ChatController(IhmScreenController screen) {super(screen);}
+    public ChatController(IhmScreenController screen) {super(screen);}
 
     @FXML
     public TextArea chat;

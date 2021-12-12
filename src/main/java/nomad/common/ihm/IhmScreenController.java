@@ -3,8 +3,10 @@ package nomad.common.ihm;
 
 // JavaFX imports
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -42,17 +44,22 @@ public abstract class IhmScreenController {
     /**
      * Dict of all the style of the current module
      */
-    protected HashMap<Integer, String> dictStyles = new HashMap<>();
+    protected HashMap<Integer, String> styleDict = new HashMap<>();
 
     /**
      * Dict of all the controllers of the current module
      */
-    protected HashMap<Integer, IhmControllerComponent> dictController = new HashMap<>();
+    protected HashMap<Integer, IhmControllerComponent> controllerDict = new HashMap<>();
 
     /**
-     * Dict of all the scenes of the current module
+     * Dict of all the panes of the current module
      */
-    protected HashMap<Integer, Pane> dictScenes = new HashMap<>();
+    protected HashMap<Integer, Pane> paneDict = new HashMap<>();
+
+    /**
+     * Dict of non-pane elements of the module
+     */
+    protected HashMap<Integer, Node> nodeDict = new HashMap<>();
 
     /**
      * Init all styles for the current module
@@ -85,13 +92,15 @@ public abstract class IhmScreenController {
      * Initialize a module and change the root node in scene
      */
     public void initIHM() {
-        mainApp.getStage().setTitle("Nomad - " + module);
-        if (mainApp.getStage().getScene() == null) { // No scene, initialize it with correct root
-            mainApp.getStage().setScene(new Scene(dictScenes.get(defaultStart)));
-        } else { // Change root node of scene
-            mainApp.getStage().getScene().setRoot(dictScenes.get(defaultStart));
-        }
-        mainApp.getStage().show();
+        Platform.runLater(() -> {
+            mainApp.getStage().setTitle("Nomad - " + module);
+            if (mainApp.getStage().getScene() == null) { // No scene, initialize it with correct root
+                mainApp.getStage().setScene(new Scene(paneDict.get(defaultStart)));
+            } else { // Change root node of scene
+                mainApp.getStage().getScene().setRoot(paneDict.get(defaultStart));
+            }
+            mainApp.getStage().show();
+        });
     }
 
     /**
@@ -106,19 +115,26 @@ public abstract class IhmScreenController {
     }
 
     /**
-     * Init all the scenes in the scene dict
+     * Init all the panes in the panes dict
      *
      * @throws IOException
      */
-    protected void initScenes() throws IOException {
+    protected void initPanes() throws IOException {
         for (int i = 0; i < listPaths.size(); i++) {
-
-            FXMLLoader fxmlLoader = loadFile(listPaths.get(i), dictController.get(i));
-            Pane pane = fxmlLoader.load();
-            if (dictStyles.containsKey(i)) {
-                pane.getStylesheets().add(getFxmlUrl(dictStyles.get(i)));
+            FXMLLoader fxmlLoader = loadFile(listPaths.get(i), controllerDict.get(i));
+            Pane pane;
+            Node node = fxmlLoader.load();
+            try {
+                pane = (Pane) node; // node might not be a Pane
+            } catch (ClassCastException e) {
+                nodeDict.put(i, node);
+                return;
             }
-            dictScenes.put(i, pane);
+
+            paneDict.put(i, pane);
+            if (styleDict.containsKey(i)) {
+                pane.getStylesheets().add(getFxmlUrl(styleDict.get(i)));
+            }
         }
     }
 
@@ -149,14 +165,16 @@ public abstract class IhmScreenController {
      * @param i
      */
     public void changeScreen(int i) {
-        mainApp.getStage().getScene().setRoot(dictScenes.get(i));
-        //mainApp.getStage().getScene().getWindow().setWidth( mainApp.getStage().getScene().getWindow().getWidth() + 0.001);
-        //mainApp.getStage().getScene().getWindow().setWidth( mainApp.getStage().getScene().getWindow().getWidth() - 0.001);
+        mainApp.getStage().getScene().setRoot(paneDict.get(i));
         mainApp.getStage().show();
     }
 
     public Stage getStage() {
         return mainApp.getStage();
+    }
+
+    public IhmControllerComponent getController(int i) {
+        return controllerDict.get(i);
     }
 
     /**

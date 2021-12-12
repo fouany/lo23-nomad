@@ -5,7 +5,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="806.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0"
+      prefWidth="806.0" xmlns="http://javafx.com/javafx/17">
    <children>
       <Separator minHeight="42.0" opacity="0.0" prefWidth="342.0" />
       <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="42.0" prefWidth="124.0" style="-fx-background-color: #003049; -fx-background-radius: 0;" text="Skip Turn" textAlignment="CENTER" textFill="WHITE">

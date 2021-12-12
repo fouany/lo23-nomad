@@ -34,14 +34,17 @@ public class PlayerInfoController extends GameComponentsAbstract {
     @FXML
     public TextField connectedTowerTwo;
 
+    private IhmScreenController gameScreen;
 
-    protected PlayerInfoController(IhmScreenController screen) {
+
+    public PlayerInfoController(IhmScreenController screen) {
         super(screen);
+        gameScreen = screen;
     }
 
     @Override
     public void init() {
-        Game game = super.getGameController().getCurrentGame();
+        Game game = getGameController().getCurrentGame();
         playerOneName.setText(game.getHost().getLogin());
         playerTwoName.setText(game.getOpponent().getLogin());
         numberTower.setText("Towers : "+game.getNbOfTowers()+"/5");
