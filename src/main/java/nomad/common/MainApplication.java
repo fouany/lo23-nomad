@@ -18,6 +18,8 @@ import nomad.main.IhmMainScreenController;
 import nomad.main.IhmMainToDataConcrete;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Main application

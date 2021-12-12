@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Board implements Serializable {
 
-    private final int boardDimensions = 13;
+    private final static int boardDimensions = 13;
     private Case[][] gameBoard;
 
     public Board(){
@@ -27,6 +27,15 @@ public class Board implements Serializable {
 
     public void setGameBoard(Case[][] gameBoard) {
         this.gameBoard = gameBoard;
+    }
+
+    public void updateBoard(Tower t){
+        gameBoard[t.getX()][t.getY()].setTower(true);
+    }
+
+    public void updateBoard(Tile t){
+        gameBoard[t.getX()][t.getY()].incrementHeight();
+        gameBoard[t.getX()][t.getY()].setColor(t.isColor());
     }
 
     @Override

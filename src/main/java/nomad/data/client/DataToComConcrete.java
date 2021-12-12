@@ -99,7 +99,7 @@ public class DataToComConcrete implements DataToComClientInterface {
      * @param valid
      */
     public void towerValid(Tower tower, boolean valid) {
-        dataClientController.getGameController().getGame().getMoves().add(tower);
+        dataClientController.getGameController().getGame().addMove(tower);
         dataClientController.getGameController().getGame().changeCurrentPlayer();
         dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
@@ -111,7 +111,7 @@ public class DataToComConcrete implements DataToComClientInterface {
      */
     public void tileValid(Tile tile, boolean valid) throws TileException {
         if (valid){
-            dataClientController.getGameController().getGame().getMoves().add(tile);
+            dataClientController.getGameController().getGame().addMove(tile);
             dataClientController.getGameController().getGame().changeCurrentPlayer();
             dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
         }else{
@@ -127,7 +127,7 @@ public class DataToComConcrete implements DataToComClientInterface {
      */
     public void skipValidation(Skip skip, boolean valid) throws SkipException {
         if (valid){
-            dataClientController.getGameController().getGame().getMoves().add(skip);
+            dataClientController.getGameController().getGame().addMove(skip);
             dataClientController.getGameController().getGame().changeCurrentPlayer();
             dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
         }else{
@@ -142,7 +142,7 @@ public class DataToComConcrete implements DataToComClientInterface {
      */
     @Override
     public void moveReceived(Move move) {
-        dataClientController.getGameController().getGame().getMoves().add(move);
+        dataClientController.getGameController().getGame().addMove(move);
         dataClientController.getGameController().getGame().changeCurrentPlayer();
         dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }

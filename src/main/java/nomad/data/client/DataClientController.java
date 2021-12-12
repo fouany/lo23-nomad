@@ -112,17 +112,4 @@ public class DataClientController {
             return (User) ois.readObject();
         }
     }
-
-    public void updateProfileFile(User newUser) throws IOException, ClassNotFoundException {
-        //1- Get all user
-        User user = this.read(newUser.getLogin());
-
-        //2- Modify the user connected
-        if (user.getUserId().equals(this.userController.getUser().getUserId())) {
-            this.getUserController().setUser(newUser);
-        }
-
-        //3 - Write the user with the user modified in the profile file
-        this.write(user);
-    }
 }

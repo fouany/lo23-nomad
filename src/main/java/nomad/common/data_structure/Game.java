@@ -39,6 +39,20 @@ public class Game extends Observable implements Serializable  {
         this.towers = FXCollections.observableArrayList(new ArrayList<>());
     }
 
+    public int getNbOfTilesPlayed() {
+        return nbOfTilesPlayed;
+    }
+
+    public void addMove(Move m){
+        moves.add(m);
+        if ( m instanceof Tower ){
+            towers.add((Tower) m);
+            board.updateBoard((Tower) m);
+        } else if (m instanceof Tile){
+            nbOfTilesPlayed ++;
+            board.updateBoard((Tile) m);
+        }
+    }
 
     public UUID getGameId() {
         return gameId;
