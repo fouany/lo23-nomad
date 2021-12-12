@@ -1,10 +1,12 @@
 package nomad.game;
 
+
+import nomad.com.client.concrete.ComToIhmGameConcrete;
+import nomad.common.data_structure.Game;
 import nomad.common.ihm.IhmScreenController;
 import nomad.common.MainApplication;
-import nomad.game.controller.IhmGameControllerScreen1;
-import nomad.game.controller.IhmGameControllerScreen2;
-import nomad.game.controller.IhmGameControllerScreen3;
+import nomad.data.client.DataToGameConcrete;
+import nomad.game.controller.*;
 
 import java.io.IOException;
 
@@ -13,16 +15,43 @@ import java.io.IOException;
  */
 public class IhmGameScreenController extends IhmScreenController {
 
+    private DataToGameConcrete dataInterface;
+    private ComToIhmGameConcrete comInterface;
+
     /**
      * Contructor that set the module name and the default screen start
      * @param app
+     * @param comInterface
      * @throws IOException
      */
-    public IhmGameScreenController(MainApplication app) throws IOException {
+    public IhmGameScreenController(MainApplication app, DataToGameConcrete dataInterface, ComToIhmGameConcrete comInterface) throws IOException {
         super(app);
         module = "GAME";
-        defaultStart = 0;
-        initScenes();
+        defaultStart = ControllerIndex.GAME.index;
+        this.comInterface = comInterface;
+        this.dataInterface = dataInterface;
+        initPanes();
+        initListenerGame();
+    }
+
+    /**
+     * Get the linked game
+     * @return game
+     */
+    public Game getLinkedGame() {
+        return dataInterface.getGame();
+    }
+
+    public void initListenerGame(){
+        ((GameController) controllerDict.get(0)).initListener();
+    }
+
+    public DataToGameConcrete getDataInterface(){
+        return dataInterface;
+    }
+
+    public ComToIhmGameConcrete getComInterface(){
+        return comInterface;
     }
 
     @Override
@@ -32,15 +61,21 @@ public class IhmGameScreenController extends IhmScreenController {
 
     @Override
     public void initPaths() {
-        listPaths.add("fxml/page/ihm_game_screen_1.fxml");
-        listPaths.add("fxml/page/imh_game_screen_2.fxml");
-        listPaths.add("fxml/page/main_game_view.fxml");
+        listPaths.add("fxml/page/game_view.fxml");
+        listPaths.add("fxml/components/player_info.fxml");
+        listPaths.add("fxml/components/board.fxml");
+        listPaths.add("fxml/components/log.fxml");
+        listPaths.add("fxml/components/skip_turn.fxml");
+        listPaths.add("fxml/components/chat.fxml");
     }
 
     @Override
     public void initController() {
-        dictController.put(0,new IhmGameControllerScreen1(this));
-        dictController.put(1,new IhmGameControllerScreen2(this));
-        dictController.put(2,new IhmGameControllerScreen2(this));
+        controllerDict.put(ControllerIndex.GAME.index, new GameController(this));
+        controllerDict.put(ControllerIndex.PLAYER_INFO.index, new PlayerInfoController(this));
+        controllerDict.put(ControllerIndex.BOARD.index, new BoardController(this));
+        controllerDict.put(ControllerIndex.LOG.index, new LogController(this));
+        controllerDict.put(ControllerIndex.SKIP.index, new SkipController(this));
+        controllerDict.put(ControllerIndex.CHAT.index, new ChatController(this));
     }
 }

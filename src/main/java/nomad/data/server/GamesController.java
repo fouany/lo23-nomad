@@ -70,4 +70,8 @@ public class GamesController {
     public Map<UUID,Game> getAllGames(){
         return games;
     }
+
+    public void removeGame(UUID gameId){
+        this.games.remove(gameId);
+    }
 }

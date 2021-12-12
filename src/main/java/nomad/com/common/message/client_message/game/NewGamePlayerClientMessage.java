@@ -5,9 +5,9 @@ import nomad.com.common.message.client_message.BaseClientMessage;
 import nomad.common.data_structure.GameException;
 import nomad.common.data_structure.Player;
 
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.UUID;
 
 public class NewGamePlayerClientMessage extends BaseClientMessage {
     private final UUID gameId;
@@ -21,6 +21,7 @@ public class NewGamePlayerClientMessage extends BaseClientMessage {
     @Override
     public void process(ClientController controller) {
         try {
+
             controller.getDataToCom().newPlayer(gameId, player);
         } catch (GameException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Error on adding user to the game");

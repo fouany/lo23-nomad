@@ -1,6 +1,7 @@
 package nomad.com.common.message.server_message.game;
 
 import nomad.com.common.message.client_message.game.GameCreatedMessage;
+import nomad.com.common.message.client_message.game.NotifyNewGameMessage;
 import nomad.com.common.message.server_message.BaseServerMessage;
 import nomad.com.server.ServerController;
 import nomad.common.data_structure.Game;
@@ -54,7 +55,9 @@ public class GameCreationMessage extends BaseServerMessage {
     @Override
     public void process(Socket socket, ServerController controller) {
         Game game = controller.getDataToCom().createGame(name, host, nbTowers, areSpecAllowed, isSpecChatAllowed, hostColor);
-        GameCreatedMessage gameCreatedMessage = new GameCreatedMessage(game);
+        GameCreatedMessage gameCreatedMessage = new GameCreatedMessage(game.getGameSerializable());
         controller.sendMessage(socket, gameCreatedMessage);
+        NotifyNewGameMessage notifyNewGameMessage = new NotifyNewGameMessage(game.getGameSerializable());
+        controller.broadcast(notifyNewGameMessage);
     }
 }

@@ -3,11 +3,15 @@ package nomad.common.ihm;
 
 // JavaFX imports
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import nomad.common.MainApplication;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,17 +44,22 @@ public abstract class IhmScreenController {
     /**
      * Dict of all the style of the current module
      */
-    protected HashMap<Integer, String> dictStyles = new HashMap<>();
+    protected HashMap<Integer, String> styleDict = new HashMap<>();
 
     /**
      * Dict of all the controllers of the current module
      */
-    protected HashMap<Integer, IhmControllerComponent> dictController = new HashMap<>();
+    protected HashMap<Integer, IhmControllerComponent> controllerDict = new HashMap<>();
 
     /**
-     * Dict of all the scenes of the current module
+     * Dict of all the panes of the current module
      */
-    protected HashMap<Integer,Scene> dictScenes = new HashMap<>();
+    protected HashMap<Integer, Pane> paneDict = new HashMap<>();
+
+    /**
+     * Dict of non-pane elements of the module
+     */
+    protected HashMap<Integer, Node> nodeDict = new HashMap<>();
 
     /**
      * Init all styles for the current module
@@ -69,9 +78,10 @@ public abstract class IhmScreenController {
 
     /**
      * Main constructor that initialize all controllers / paths and styles of the module
+     *
      * @param app main application
      */
-    protected IhmScreenController(MainApplication app){
+    protected IhmScreenController(MainApplication app) {
         mainApp = app;
         initController();
         initPaths();
@@ -79,21 +89,23 @@ public abstract class IhmScreenController {
     }
 
     /**
-     * Call when we initialize the current module
+     * Initialize a module and change the root node in scene
      */
-    public void initIHM(){
-        //Retrive the current dimensions of the stage
-        double width = mainApp.getStage().getWidth();
-        double height = mainApp.getStage().getHeight();
-        mainApp.getStage().setTitle("Nomad - "+module);
-        mainApp.getStage().setScene(dictScenes.get(defaultStart));
-        mainApp.getStage().setHeight(height);
-        mainApp.getStage().setWidth(width);
-        mainApp.getStage().show();
+    public void initIHM() {
+        Platform.runLater(() -> {
+            mainApp.getStage().setTitle("Nomad - " + module);
+            if (mainApp.getStage().getScene() == null) { // No scene, initialize it with correct root
+                mainApp.getStage().setScene(new Scene(paneDict.get(defaultStart)));
+            } else { // Change root node of scene
+                mainApp.getStage().getScene().setRoot(paneDict.get(defaultStart));
+            }
+            mainApp.getStage().show();
+        });
     }
 
     /**
      * Use to get the url of a fxml file
+     *
      * @param path path the file
      * @return the URL
      * @throws NullPointerException on unexisting path
@@ -103,28 +115,37 @@ public abstract class IhmScreenController {
     }
 
     /**
-     * Init all the scenes in the scene dict
+     * Init all the panes in the panes dict
+     *
      * @throws IOException
      */
-    protected void initScenes() throws IOException {
-        for (int i = 0; i < listPaths.size() ; i++){
-
-            FXMLLoader fxmlLoader = loadFile(listPaths.get(i),dictController.get(i));
-            Scene scene = new Scene(fxmlLoader.load());
-            if (dictStyles.containsKey(i)){
-                scene.getStylesheets().add(getFxmlUrl(dictStyles.get(i)));
+    protected void initPanes() throws IOException {
+        for (int i = 0; i < listPaths.size(); i++) {
+            FXMLLoader fxmlLoader = loadFile(listPaths.get(i), controllerDict.get(i));
+            Pane pane;
+            Node node = fxmlLoader.load();
+            try {
+                pane = (Pane) node; // node might not be a Pane
+            } catch (ClassCastException e) {
+                nodeDict.put(i, node);
+                return;
             }
-            dictScenes.put(i,scene);
+
+            paneDict.put(i, pane);
+            if (styleDict.containsKey(i)) {
+                pane.getStylesheets().add(getFxmlUrl(styleDict.get(i)));
+            }
         }
     }
 
     /**
      * Load a scene with the linked controller
-     * @param url url of the scene
+     *
+     * @param url                 url of the scene
      * @param interfaceController controller to linked
      * @return
      */
-    public FXMLLoader loadFile(String url, IhmControllerComponent interfaceController){
+    public FXMLLoader loadFile(String url, IhmControllerComponent interfaceController) {
         try {
             return new FXMLLoader(
                     this.getClass().getResource(url),
@@ -140,22 +161,26 @@ public abstract class IhmScreenController {
 
     /**
      * Change the current screen (with a scene of the current module)
+     *
      * @param i
      */
-    public void changeScreen(int i){
-        mainApp.getStage().setScene(dictScenes.get(i));
+    public void changeScreen(int i) {
+        mainApp.getStage().getScene().setRoot(paneDict.get(i));
         mainApp.getStage().show();
     }
 
-    public Stage getStage()
-    {
+    public Stage getStage() {
         return mainApp.getStage();
+    }
+
+    public IhmControllerComponent getController(int i) {
+        return controllerDict.get(i);
     }
 
     /**
      * Change the current active module
      */
-    public void changeModule() {
+    public void changeModule() throws IOException {
         if (module.equals("MAIN")) {
             mainApp.changeModule("GAME");
         } else {
