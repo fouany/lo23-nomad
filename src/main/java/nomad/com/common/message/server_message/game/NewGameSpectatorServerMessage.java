@@ -23,9 +23,13 @@ public class NewGameSpectatorServerMessage extends BaseServerMessage {
 
     @Override
     public void process(Socket socket, ServerController controller) {
-        controller.getDataToCom().addSpecInGame(userLight, game);
+        // Add new spectator in server
+        controller.sendMessage(socket, new AddingSpectatorInServerMessage(userLight, game));
 
-        // Add new spectator to game
+        // Handing new spectator
+        controller.sendMessage(socket, new HandleNewSpectatorInGameClientMessage(userLight));
+
+        // Add new spectator to other client
         List<UserLight> userList = controller.getDataToCom().getUserList(game);
         for (UserLight user : userList) {
             Socket client = controller.getClientSocket(user.getId());
@@ -35,8 +39,5 @@ public class NewGameSpectatorServerMessage extends BaseServerMessage {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Not able to find user socket");
             }
         }
-
-        // Handing new spectator
-        controller.sendMessage(socket, new HandleNewSpectatorInGameClientMessage(userLight));
     }
 }
