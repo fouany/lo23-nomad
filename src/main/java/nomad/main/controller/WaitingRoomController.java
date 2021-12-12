@@ -48,7 +48,7 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
 
 
     private IhmMainScreenController controller;
-    private Boolean passModule  = false;
+    private Boolean passModule = false;
     private Boolean viewInitialized = false;
 
     public WaitingRoomController(IhmMainScreenController screen) {
@@ -63,23 +63,21 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
 
     }
 
-    public void quitGame(ActionEvent e)
-    {
-       /*todo add interface to quit the game*/
+    public void quitGame(ActionEvent e) {
+        /*todo add interface to quit the game*/
     }
 
     /**
      * Handle acceptation or rejection of opponent NOTE : yet it just accept by default
+     *
      * @param g Game listened by main
      * @throws GameException
      */
 
     public void acceptOrRejectOpponent(Game g) throws GameException {
-        if(g.getHost().getId().equals(controller.getDataI().getPlayer().getId()))
-        {
+        if (g.getHost().getId().equals(controller.getDataI().getPlayer().getId())) {
             DialogController.display("Todo", "Modal accepter/refuser", DialogController.DialogStatus.WARNING, controller);
-            if(controller.getDataI().getUser().getUserId().equals(g.getHost().getId()))
-            {
+            if (controller.getDataI().getUser().getUserId().equals(g.getHost().getId())) {
                 controller.getDataI().enoughPlayers(controller.getDataI().getGameLight());
                 Logger.getAnonymousLogger().log(Level.INFO, "coucou");
                 DialogController.display("Todo", "Click dimiss to start the game (wait opponent click on the dialog 'Partie rejoint')", DialogController.DialogStatus.WARNING, controller);
@@ -90,30 +88,26 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
 
     /**
      * function called when game is started, used to pass module to GAME
-     *
      */
 
-    private void startTheGame()
-    {
+    private void startTheGame() {
         Logger.getAnonymousLogger().log(Level.INFO, "Try to launch the game");
 
         try {
             controller.changeModule();
             passModule = true;
-
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
      * Initialize view after game creation or game join
+     *
      * @param g
      */
 
-    private void initializeView(Game g)
-    {
+    private void initializeView(Game g) {
         gameName.setText(g.getName());
         gameId.setText("#" + g.getGameId().toString());
         towersNumber.setText(String.valueOf(g.getNbOfTowers()));
@@ -126,12 +120,11 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
 
     /**
      * Handle opponent game (if opponent is null, show waiting container)
+     *
      * @param opponent the opponent
      */
-    private void handleOpponent(Player opponent)
-    {
-        if(opponent == null)
-        {
+    private void handleOpponent(Player opponent) {
+        if (opponent == null) {
             opponentContainer.setVisible(false);
             opponentContainer.setManaged(false);
             opponentWait.setManaged(true);
@@ -153,6 +146,7 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
 
     /**
      * function called on observable object update
+     *
      * @param g Game listened by main
      * @throws GameException
      */
@@ -160,30 +154,26 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
     public void gameUpdate(Game g) throws GameException {
         Logger.getAnonymousLogger().log(Level.INFO, "Game Update");
 
-        if (g.isGameLaunched()){
+        if (g.isGameLaunched()) {
             Logger.getAnonymousLogger().log(Level.INFO, "Game is launch");
         }
 
-        if(passModule!= null && !passModule && g.isGameLaunched())
-        {
+        if (!passModule && g.isGameLaunched()) {
             startTheGame();
+            return;
         }
 
-        if(viewInitialized!=null && !viewInitialized)
-        {
+
+        if (viewInitialized != null && !viewInitialized) {
             initializeView(g);
 
         }
 
-
         Player opponent = g.getOpponent();
         handleOpponent(opponent);
-        if(opponent != null)
-        {
+        if (opponent != null) {
             acceptOrRejectOpponent(g);
-
         }
-
 
     }
 
@@ -191,13 +181,12 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
     public void update(Observable observable, Object o) {
 
         Logger.getAnonymousLogger().log(Level.INFO, "First Update");
-        try
-        {
-            Game g = (Game)observable;
-            gameUpdate(g);
-        }
-        catch (GameException err)
-        {
+        try {
+            Game g = (Game) observable;
+            if (g.isGameLaunched() && !passModule) { // Execution happen in game module
+                gameUpdate(g);
+            }
+        } catch (GameException err) {
             Logger.getLogger(WaitingRoomController.class.getName()).log(Level.SEVERE, err.getMessage());
         }
     }

@@ -53,7 +53,7 @@ public class CreateGameController extends IhmControllerComponent {
         try {
             this.rand = SecureRandom.getInstanceStrong();
         } catch (NoSuchAlgorithmException e) {
-            Logger.getLogger(CreateGameController.class.getName()).log(Level.SEVERE,"Random Color failed");
+            Logger.getLogger(CreateGameController.class.getName()).log(Level.SEVERE, "Random Color failed");
         }
     }
 
@@ -78,7 +78,7 @@ public class CreateGameController extends IhmControllerComponent {
         if (!checked) {
             int nb;
             nb = rand.nextInt(2);
-            boolean b = nb!=0 ;
+            boolean b = nb != 0;
             color = b;
         }
         switch (id) {
@@ -91,7 +91,7 @@ public class CreateGameController extends IhmControllerComponent {
             case "random":
                 int nb;
                 nb = rand.nextInt(2);
-                boolean b = nb!=0;
+                boolean b = nb != 0;
                 color = b;
                 break;
             default:
@@ -122,15 +122,10 @@ public class CreateGameController extends IhmControllerComponent {
 
     public void displayWaitingRoom(Game game) {
         Platform.runLater(() -> {
-            if(game.getHost().getId().equals(ihmMainScreenController.getDataI().getPlayer().getId()))
-            {
+            if (game.getHost().getId().equals(ihmMainScreenController.getDataI().getPlayer().getId())) {
                 DialogController.display("Partie créée", "Votre partie a bien été créée", DialogController.DialogStatus.SUCCESS, ihmMainScreenController);
-
-            }
-            else {
-
+            } else {
                 DialogController.display("Match accepté", "Vous avez été accepté comme opposant", DialogController.DialogStatus.SUCCESS, ihmMainScreenController);
-
             }
             ihmMainScreenController.changeScreen(6);
         });

@@ -18,15 +18,16 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
         this.mainScreenController = mainScreenController;
     }
 
-    public IhmMainToDataConcrete () {
+    public IhmMainToDataConcrete() {
         // TODO : implement constructor
     }
+
     /**
      * Listeners are added on getGamesInPlay() and getGamesInLobby()
      * in order to track all changes in both these lists of games.
      * The parameters given to these functions are ListChangeListener
      * both defined in the Controller class : ViewGameController.
-     * */
+     */
     @Override
     public void updateObservable(Session session) {
         session.getConnectedUsers().addListener(mainScreenController.getMenuController());
@@ -40,29 +41,24 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
     @Override
     public void updateObservable(Game game) {
         Logger.getAnonymousLogger().log(Level.INFO, "Call");
-        if(!game.isGameLaunched() && game.getOpponent() == null) //game just has been created
+        if (!game.isGameLaunched() && game.getOpponent() == null) //game just has been created
         {
-
             mainScreenController.getCreateGameController().displayWaitingRoom(game);
-            try
-            {
+            try {
                 mainScreenController.getWaitingRoomController().gameUpdate(game);
-            }
-            catch (GameException e)
-            {
-              /*todo handle game exception*/
+            } catch (GameException e) {
+                /*todo handle game exception*/
             }
             game.addObserver(mainScreenController.getWaitingRoomController());
-        }
-        else if(!game.isGameLaunched() && game.getOpponent() != null) {
+        } else if (!game.isGameLaunched() && game.getOpponent() != null) {
             mainScreenController.getCreateGameController().displayWaitingRoom(game);
-                Platform.runLater(() -> {
-                    try {
-                        mainScreenController.getWaitingRoomController().gameUpdate(game);
-                    } catch (GameException e) {
-                        e.printStackTrace();
-                    }
-                });
+            Platform.runLater(() -> {
+                try {
+                    mainScreenController.getWaitingRoomController().gameUpdate(game);
+                } catch (GameException e) {
+                    e.printStackTrace();
+                }
+            });
 
             Logger.getAnonymousLogger().log(Level.INFO, "Call 2 ");
         }
@@ -71,28 +67,28 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
     @Override
     public void updateGameCreated(Game game) {
 
-            mainScreenController.getCreateGameController().displayWaitingRoom(game);
-            try
-            {
-                mainScreenController.getWaitingRoomController().gameUpdate(game);
-            }
-            catch (GameException e)
-            {
-                /*todo handle game exception*/
-            }
-            game.addObserver(mainScreenController.getWaitingRoomController());
+        mainScreenController.getCreateGameController().displayWaitingRoom(game);
+        try {
+            mainScreenController.getWaitingRoomController().gameUpdate(game);
+        } catch (GameException e) {
+            /*todo handle game exception*/
+        }
+        game.addObserver(mainScreenController.getWaitingRoomController());
 
 
     }
 
     @Override
     public void updateAcceptOpponent(Game game) {
-        if(mainScreenController.getDataI().getUser().getUserId().equals(game.getHost().getId()))
-        {
+       /* if (mainScreenController.getDataI().getUser().getUserId().equals(game.getOpponent().getId())) {
             mainScreenController.getCreateGameController().displayWaitingRoom(game);
-        }
-        else {
-            Platform.runLater(() -> mainScreenController.getViewGameController().acceptedInGame());
+        }*/
+        if(mainScreenController.getDataI().getUser().getUserId().equals(game.getOpponent().getId())) {
+            Platform.runLater(() ->
+            {
+                mainScreenController.getViewGameController().acceptedInGame();
+                game.addObserver(mainScreenController.getWaitingRoomController());
+            });
         }
 
         Platform.runLater(() -> {
@@ -106,6 +102,6 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
 
     @Override
     public void updateObservable(User user) {
-      // TODO : fix Observer on Observable
+        // TODO : fix Observer on Observable
     }
 }

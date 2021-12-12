@@ -34,7 +34,6 @@ public class DialogController extends IhmControllerComponent {
     private static Scene scene = null;
 
     public static void display(String title, String content, DialogStatus status, IhmScreenController controller) {
-        Platform.runLater(() -> {
             Stage stage = new Stage();
             Stage primaryStage = controller.getStage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -83,7 +82,6 @@ public class DialogController extends IhmControllerComponent {
             }
             button.setOnAction(e -> stage.close());
             stage.showAndWait();
-        });
     }
 
     public static void initDialog(Pane pane) {
