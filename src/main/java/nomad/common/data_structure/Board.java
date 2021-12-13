@@ -5,13 +5,13 @@ import java.util.Arrays;
 
 public class Board implements Serializable {
 
-    private final static int boardDimensions = 13;
+    private final static int BOARDDIMENSIONS = 13;
     private Case[][] gameBoard;
 
     public Board(){
         gameBoard = new Case[13][13];
-        for(int i = 0; i < boardDimensions; i++){
-            for(int j = 0; j < boardDimensions; j++){
+        for(int i = 0; i < BOARDDIMENSIONS; i++){
+            for(int j = 0; j < BOARDDIMENSIONS; j++){
                 gameBoard[i][j] = new Case(i, j, 0, false, false);
             }
         }

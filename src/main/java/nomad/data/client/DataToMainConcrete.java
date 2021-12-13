@@ -7,7 +7,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -65,6 +68,9 @@ public class DataToMainConcrete implements DataToIhmMainInterface {
 
         //Create User
         String passwordHash = hashPassword(pwd);
+        if (passwordHash == null){
+            throw new UserException("Password not properly hashed");
+        }
         User u = new User(new UserInfo(login, passwordHash, name, profilePicture, birthDate));
 
         //Verify there is not already a file with this login
@@ -90,11 +96,12 @@ public class DataToMainConcrete implements DataToIhmMainInterface {
         MessageDigest digest = null;
         try {
             digest = MessageDigest.getInstance("SHA-256");
+            byte[] encodedHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            return castHashToString(encodedHash);
         } catch (NoSuchAlgorithmException e) {
             Logger.getLogger(DataToMainConcrete.class.getName()).log(Level.WARNING, "Error caused by {0}.", e.toString());
         }
-        byte[] encodedHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-        return castHashToString(encodedHash);
+        return (null);
     }
 
     /**
@@ -125,7 +132,7 @@ public class DataToMainConcrete implements DataToIhmMainInterface {
      * @param birthDate      date of Birth modified
      * @throws IOException error writing or reading file
      */
-    public void modifyAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws IOException {
+    public void modifyAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws  NoSuchFileException, DirectoryNotEmptyException, IOException, UserException {
 
         if (login.isEmpty()) try {
             throw new UserException("Login is empty or not valid");
@@ -140,16 +147,17 @@ public class DataToMainConcrete implements DataToIhmMainInterface {
         User newUser = getUser();
         // updates the profile information
         newUser.setLogin(login);
-        newUser.setPassword(hashPassword(pwd));
+        String password =hashPassword(pwd);
+        if (password == null){
+            throw new UserException("Password couldn't be hashed properly");
+        }
+        newUser.setPassword(password);
         newUser.setName(name);
         newUser.setProfilePicture(profilePicture);
         newUser.setBirthDate(birthDate);
 
         if (!oldLogin.equals(login)) {
-            File fileToDelete = new File(oldLogin);
-            // deletion of file, in order to create a new one with updated details
-            if (!fileToDelete.delete())
-                throw new NoSuchFileException("No such file exception, please check the path");
+            Files.delete(Paths.get(oldLogin));
         }
         // updated information is written in the file with previous given path
         dataClientController.write(newUser);
