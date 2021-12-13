@@ -40,7 +40,7 @@ public class ChatController extends GameComponentsAbstract{
         DataToGameConcrete dataInterface = ihmGameScreenController.getDataInterface();
         Game game = dataInterface.getGame();
         ObservableList<UserLight> viewerList = game.getSpect();
-        ListView<UserLight> listView = new ListView<UserLight>(viewerList);
+        viewers = new ListView<UserLight>(viewerList);
     }
 
     @Override
@@ -55,8 +55,7 @@ public class ChatController extends GameComponentsAbstract{
     }
 
     public void updateUserList(UserLight user){
-        String login = user.getLogin();
-        viewers.getItems().add(login);
+        viewers.getItems().add(user);
     }
 
     public void updateChat(Message message) {
