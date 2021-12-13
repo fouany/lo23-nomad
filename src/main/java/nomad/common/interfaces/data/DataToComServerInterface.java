@@ -36,7 +36,7 @@ public interface DataToComServerInterface {
      * store a message
      * @param message message to store
      */
-    void storeMessage(Message message);
+    void storeMessage(Message message) throws MessageException;
 
     List<Player> requestConnectedUserList();
 
