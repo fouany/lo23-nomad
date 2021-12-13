@@ -45,6 +45,11 @@ public interface DataToComServerInterface {
 
     void updateListGamesRemove(User oldUser);
 
+    /**
+     * get profile of an user
+     * @param idUser : id of the user
+     * @return User
+     */
     User getUserProfile(UUID idUser);
 
     void addOpponent(UUID gameId, UUID userId);
