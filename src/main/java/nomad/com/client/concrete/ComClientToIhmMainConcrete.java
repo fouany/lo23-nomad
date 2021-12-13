@@ -55,25 +55,14 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
     @Override
     public void launchGame(Game game) {
         if (game == null) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Null datas");
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Game is null");
+            return;
         }
 
         if (!clientController.sendMessage(new LaunchGameMessage(game.getGameSerializable()))) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send launch game request to the remote server !");
         }
     }
-
-    @Override
-    public void enoughPlayers(GameLight game) {
-        //TODO
-    }
-
-    @Override
-    public void rejectPlayer(GameLight game) {
-        //TODO
-    }
-
-
 
     @Override
     public void addSpecInGame(UserLight user, GameLight game) {
