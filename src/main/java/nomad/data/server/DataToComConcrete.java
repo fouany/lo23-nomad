@@ -163,7 +163,16 @@ public class DataToComConcrete implements DataToComServerInterface {
      * store a message
      * @param message message to store
      */
-    public void storeMessage(Message message) {
+    public void storeMessage(Message message) throws MessageException {
+        int gamePresent = 0;
+        for (GameLight gl : dataServerController.getGamesController().getGameLightListInPlay()){
+            if (gl.getGameId().equals(message.getGameId())){
+                gamePresent = 1;
+            }
+        }
+        if (gamePresent == 0){
+            throw new MessageException("The message was sent to a game that doesn't exist anymore");
+        }
         dataServerController.getGamesController().getGame(message.getGameId()).addMessage(message);
     }
 

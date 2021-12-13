@@ -5,6 +5,7 @@ import nomad.com.common.message.client_message.chat.ChatIncomingMessageMessage;
 import nomad.com.server.ServerController;
 import nomad.common.data_structure.Game;
 import nomad.common.data_structure.Message;
+import nomad.common.data_structure.MessageException;
 import nomad.common.data_structure.UserLight;
 
 import java.net.Socket;
@@ -34,7 +35,11 @@ public class SendChatMessageMessage extends BaseServerMessage {
 
     @Override
     public void process(Socket socket, ServerController controller) {
-        controller.getDataToCom().storeMessage(message);
+        try{
+            controller.getDataToCom().storeMessage(message);
+        } catch (MessageException e) {
+            e.printStackTrace();
+        }
         Game game = controller.getDataToCom().getStoredGame(message.getGameId());
 
         // Get all game user ids and send the game launched message
