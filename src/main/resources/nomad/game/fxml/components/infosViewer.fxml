@@ -7,22 +7,21 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.75" prefWidth="776.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.game.controller.InfoViewerController">
    <children>
-      <VBox prefHeight="464.75" prefWidth="776.0" spacing="30.0">
+      <VBox prefHeight="464.75" prefWidth="776.0" spacing="30.0" styleClass="tab_chat" stylesheets="@../../style/infos_components_style.css">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Viewer" textAlignment="CENTER" translateX="370.0" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 35px;" text="Viewer" textAlignment="CENTER" translateX="335.0" />
             <Circle fill="DODGERBLUE" radius="77.5" stroke="BLACK" strokeType="INSIDE" translateX="310.5" />
             <HBox prefHeight="107.0" prefWidth="776.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Stats :" translateX="10.0" wrappingWidth="32.90509033203125" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Victory : " translateX="194.0" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Defeat : " translateX="388.0" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Draw :" translateX="588.0" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 25px;" text="Stats :" translateX="40.0" wrappingWidth="73.90509033203125" />
+                  <Text fill="#0abc18" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 25px;" text="Victory : " translateX="135.0" />
+                  <Text fill="#fc0101" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 25px;" text="Defeat : " translateX="260.0" />
+                  <Text fill="#ff8800" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 25px;" text="Draw :" translateX="360.0" />
                </children>
             </HBox>
-            <Button mnemonicParsing="false" text="Close" translateX="365.6" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="121.0" text="Close" translateX="327.6" translateY="-35.0" />
          </children>
       </VBox>
    </children>
