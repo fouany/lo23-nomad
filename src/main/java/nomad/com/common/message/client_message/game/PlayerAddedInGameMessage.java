@@ -42,7 +42,6 @@ public class PlayerAddedInGameMessage extends BaseClientMessage {
     public void process(ClientController controller) {
         try {
             Game game = gameSerializable.getGame();
-            game.setOpponent(opponent);
             controller.getDataToCom().addedPlayerInGame(game, isValid);
         } catch (GameException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to add player in game");
