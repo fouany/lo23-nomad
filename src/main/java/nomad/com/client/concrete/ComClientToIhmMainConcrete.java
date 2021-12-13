@@ -1,6 +1,7 @@
 package nomad.com.client.concrete;
 
 import nomad.com.client.ClientController;
+import nomad.com.common.message.server_message.game.AddSpecInGameMessage;
 import nomad.com.common.message.server_message.game.GameCreationMessage;
 import nomad.com.common.message.server_message.game.LaunchGameMessage;
 import nomad.com.common.message.server_message.game.NewGamePlayerServerMessage;
@@ -39,7 +40,7 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
 
     /**
      * @param player is the player added in the game
-     * @param game is the game joined by the player
+     * @param game   is the game joined by the player
      */
     @Override
     public void addPlayerInGame(Player player, GameLight game) {
@@ -54,8 +55,10 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
 
     @Override
     public void launchGame(Game game) {
+        
         if (game == null) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Null datas");
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Game is null");
+            return;
         }
 
         if (!clientController.sendMessage(new LaunchGameMessage(game.getGameSerializable()))) {
@@ -64,24 +67,9 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
     }
 
     @Override
-    public void enoughPlayers(GameLight game) {
-        //TODO
-    }
-
-    @Override
-    public void rejectPlayer(GameLight game) {
-        //TODO
-    }
-
-
-
-    @Override
     public void addSpecInGame(UserLight user, GameLight game) {
-        //TODO
-    }
-
-    @Override
-    public void placeTower(Tower tower) {
-        //TODO
+        if (!clientController.sendMessage(new AddSpecInGameMessage(user, game))) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to add spec in game !");
+        }
     }
 }

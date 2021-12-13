@@ -2,8 +2,8 @@ package nomad.com.client.concrete;
 
 import nomad.com.client.ClientController;
 import nomad.com.common.message.server_message.chat.SendChatMessageMessage;
-import nomad.com.common.message.server_message.move.SaveTileMoveMessage;
 import nomad.com.common.message.server_message.move.SaveSkipMoveMessage;
+import nomad.com.common.message.server_message.move.SaveTileMoveMessage;
 import nomad.com.common.message.server_message.move.SaveTowerMoveMessage;
 import nomad.common.data_structure.*;
 import nomad.common.interfaces.com.ComToIhmGameInterface;
@@ -13,11 +13,6 @@ public class ComToIhmGameConcrete implements ComToIhmGameInterface {
 
     public void setController(ClientController clientController) {
         this.clientController = clientController;
-    }
-
-    @Override
-    public void checkGameEnd(GameLight game) {
-        //TODO
     }
 
     @Override
