@@ -1,6 +1,7 @@
 package nomad.com.client.concrete;
 
 import nomad.com.client.ClientController;
+import nomad.com.common.message.server_message.game.AddSpecInGameMessage;
 import nomad.com.common.message.server_message.game.GameCreationMessage;
 import nomad.com.common.message.server_message.game.LaunchGameMessage;
 import nomad.com.common.message.server_message.game.NewGamePlayerServerMessage;
@@ -66,7 +67,9 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
 
     @Override
     public void addSpecInGame(UserLight user, GameLight game) {
-        //TODO
+        if (!clientController.sendMessage(new AddSpecInGameMessage(user, game))) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to add spec in game !");
+        }
     }
 
     @Override
