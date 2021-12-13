@@ -30,12 +30,12 @@ public class InfoViewerController extends GameComponentsAbstract {
         String profilePicture = user.getProfilePicture();
         ProfileStat profileStats = user.getProfileStat();
         String login = user.getLogin();
+        InfoViewerController.infoViewerControllerScene = ihmGameScreenController.getStage().getScene();
+
     }
 
     private static Scene infoViewerControllerScene = null;
 
-    //init scene?
-    //public static void initInfoViewerController(Scene scene) { infoViewerController.infoViewerControllerScene = scene; }
 
     @Override
     public void update(String type, Object value) {
