@@ -87,11 +87,17 @@ public interface DataToComClientInterface {
 
     /**
      * removes the game from the gamesInPlay from the session object and sets the game to "ended" state
-     *
-     * @param gameLight
-     * @param gameEnded
+     * @param idGame
+     * @param winner
+     * @param lastMove
      */
-    void endGame(GameLight gameLight, boolean gameEnded);
+    void endGame (UUID idGame, UUID winner, Move lastMove);
+
+    /**
+     * removes the game from the gamesInPlay from the session object and sets the game to "ended" state
+     * @param gameId
+     */
+    void removeFinishedGame (UUID gameId);
 
     /**
      * adds the game to the saved games of the user

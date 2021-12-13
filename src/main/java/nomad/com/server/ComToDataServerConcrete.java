@@ -82,4 +82,9 @@ public class ComToDataServerConcrete implements ComToDataServerInterface {
             serverController.sendMessage(socket, new SendOtherPlayersMoveMessage(t));
         }
     }
+
+    @Override
+    public void gameOver(UUID idGame, List<UUID> users, Move lastMove, UUID winner){
+        //TODO
+    }
 }
