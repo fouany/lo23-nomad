@@ -49,10 +49,14 @@ public class DataToComConcrete implements DataToComServerInterface {
         dataServerController.getGamesController().getGame(gameId).setOpponent(p);
         return dataServerController.getGamesController().getGame(gameId);
     }
-
+    /*Checks that no opponent is associated with the player*/
     @Override
     public void guestRefused(Player player) {
-        // Does nothing because not developped yet
+        for (Game g : dataServerController.getGamesController().getAllGames().values()) {
+            if (g.getOpponent()==player){
+                dataServerController.getGamesController().getGame(g.getGameId()).removeOpponent();
+            }
+        }
     }
 
     @Override
