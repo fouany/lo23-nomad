@@ -27,7 +27,7 @@ public class DataClientController {
     public DataClientController(ComToDataClientInterface comToDataInterface,
                                 IhmMainToDataInterface ihmMainToDataInterface,
                                 IhmGameToDataInterface ihmGameToDataInterface) {
-        this.path = "test"; // path might change !
+        this.path = ""; // path might change !
         this.gameController = new GameController(null);
         this.userController = new UserController(null);
         this.ihmMainToDataInterface = ihmMainToDataInterface;
@@ -95,8 +95,8 @@ public class DataClientController {
     public void write(User user) throws IOException {
         // le try to open file at the beginning and close it at the end
         try (
-            FileOutputStream fos = new FileOutputStream(user.getLogin());
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            FileOutputStream fos = new FileOutputStream(path + user.getLogin());
+            ObjectOutputStream oos = new ObjectOutputStream(fos)
         ){
             oos.writeObject(user);
             oos.flush();
@@ -107,7 +107,7 @@ public class DataClientController {
         // le try to open file at the beginning and close it at the end
         try (
             FileInputStream fis = new FileInputStream(path);
-            ObjectInputStream ois = new ObjectInputStream(fis);
+            ObjectInputStream ois = new ObjectInputStream(fis)
         ) {
             return (User) ois.readObject();
         }
