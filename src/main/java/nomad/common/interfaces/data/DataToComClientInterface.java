@@ -1,6 +1,7 @@
 package nomad.common.interfaces.data;
 
 import nomad.common.data_structure.*;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -8,12 +9,14 @@ public interface DataToComClientInterface {
 
     /**
      * adds a new game in the lobby
+     *
      * @param gameLight
      */
     void updateSession(GameLight gameLight);
 
     /**
      * Change the State of Game in Session
+     *
      * @param gameId
      * @param gameLaunched
      */
@@ -21,6 +24,7 @@ public interface DataToComClientInterface {
 
     /**
      * adds a user light to the connected user of the session object
+     *
      * @param player
      * @param connected
      */
@@ -28,6 +32,7 @@ public interface DataToComClientInterface {
 
     /**
      * updates the opponent of the game
+     *
      * @param player
      * @param game
      * @throws GameException
@@ -36,6 +41,7 @@ public interface DataToComClientInterface {
 
     /**
      * adds a user light to the spectator's list of the game
+     *
      * @param userLight
      * @param isAdded
      */
@@ -48,6 +54,7 @@ public interface DataToComClientInterface {
 
     /**
      * adds the move to the list of moves of the game and changes the current player
+     *
      * @param tower
      * @param valid
      */
@@ -55,6 +62,7 @@ public interface DataToComClientInterface {
 
     /**
      * adds the move to the list of moves of the game and changes the current player
+     *
      * @param tile
      * @param valid
      * @throws TileException
@@ -63,6 +71,7 @@ public interface DataToComClientInterface {
 
     /**
      * adds the move to the list of moves of the game and changes the current player
+     *
      * @param skip
      * @param valid
      * @throws SkipException
@@ -71,36 +80,41 @@ public interface DataToComClientInterface {
 
     /**
      * adds the move to the list of moves, changes the current player, and updates the observable
+     *
      * @param move
      */
     void moveReceived(Move move);
 
     /**
      * removes the game from the gamesInPlay from the session object and sets the game to "ended" state
+     *
      * @param gameLight
      * @param gameEnded
      */
-    void endGame (GameLight gameLight, boolean gameEnded);
+    void endGame(GameLight gameLight, boolean gameEnded);
 
     /**
      * adds the game to the saved games of the user
+     *
      * @param savedGame
      */
-    void transferSavedGame (Game savedGame);
+    void transferSavedGame(Game savedGame);
 
     /**
      * adds the message to the chat of the game
+     *
      * @param message message to add
      */
     void storeNewMessage(Message message);
 
     /**
      * adds the connected user, and updates the according lists of connected user to the games in lobby and in play
+     *
      * @param players
      * @param gamesInLobby
      * @param gamesInPlay
      */
-    void addConnectedUserProfile (List<Player> players, List<GameLight> gamesInLobby, List<GameLight> gamesInPlay);
+    void addConnectedUserProfile(List<Player> players, List<GameLight> gamesInLobby, List<GameLight> gamesInPlay);
 
     void isDisconnected(UUID idUser, boolean isDeconnected);
 
@@ -118,5 +132,8 @@ public interface DataToComClientInterface {
     UUID currentUserIsPlayer();
 
     UserLight getUserLight();
-    void addedPlayerInGame (Game game, boolean isAdded) throws GameException;
+
+    void addedPlayerInGame(Game game, boolean isAdded) throws GameException;
+
+    void addedSpecInGame(Game game, boolean isAdded);
 }

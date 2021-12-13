@@ -16,6 +16,6 @@ public class UpdateSpecListMessage extends BaseClientMessage {
 
     @Override
     public void process(ClientController controller) {
-        // TODO
+        controller.getDataToCom().handleSpectator(user, isAdded);
     }
 }
