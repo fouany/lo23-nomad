@@ -79,8 +79,9 @@ public class ViewGameController extends IhmControllerComponent implements Initia
     }
     public void handleGameAsPlayerListClick() {
         //ihmController.getComI().addPlayerInGame(ihmController.getDataI().getPlayer(), gamesViewAsPlayer.getSelectionModel().getSelectedItem());
-
+        // TODO outdated, new lauch is in gamecell
     }
+
 
     public void acceptedInGame()
     {
@@ -88,6 +89,13 @@ public class ViewGameController extends IhmControllerComponent implements Initia
         DialogController.display("Match accepté", "Vous avez été accepté comme opposant", DialogController.DialogStatus.SUCCESS, ihmController);
         ihmController.changeScreen(6);
     }
+
+    public void refusedInGame() {
+        freeIhm();
+        DialogController.display("Match refusé", "Vous n'avez pas été accepté comme opposant", DialogController.DialogStatus.ERROR, ihmController);
+    }
+
+
 
     public void blockIhm()
     {
@@ -157,3 +165,6 @@ public class ViewGameController extends IhmControllerComponent implements Initia
         gamesAsPlayer = getListChangeListener(gamesViewAsPlayer);
     }
 }
+
+
+

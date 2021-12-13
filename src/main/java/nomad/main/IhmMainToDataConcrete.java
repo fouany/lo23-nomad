@@ -62,20 +62,8 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
 
     }
 
-    /**
-     * accept notification for the opponent
-     * @param game
-     */
     @Override
-    public void updateAcceptOpponent(Game game) {
-        if(mainScreenController.getDataI().getUser().getUserId().equals(game.getOpponent().getId())) {
-            Platform.runLater(() ->
-            {
-                mainScreenController.getViewGameController().acceptedInGame();
-                game.addObserver(mainScreenController.getWaitingRoomController());
-            });
-        }
-
+    public void askApproval(Game game) {
         Platform.runLater(() -> {
             try {
                 mainScreenController.getWaitingRoomController().gameUpdate(game);
@@ -83,6 +71,42 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
                 e.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public void updateRejectOpponent(Game game) {
+        if(!isHost(game)) {
+            Platform.runLater(() ->
+            {
+                mainScreenController.getViewGameController().refusedInGame();
+            });
+        }
+    }
+
+    private boolean isHost(Game game)
+    {
+        return game.getHost().getId().equals(mainScreenController.getDataI().getPlayer().getId());
+    }
+    /**
+     * accept notification for the opponent
+     * @param game
+     */
+    @Override
+    public void updateAcceptOpponent(Game game) {
+        if(!isHost(game)) {
+            Platform.runLater(() ->
+            {
+                mainScreenController.getViewGameController().acceptedInGame();
+                game.addObserver(mainScreenController.getWaitingRoomController());
+                try {
+                    mainScreenController.getWaitingRoomController().gameUpdate(game);
+                } catch (GameException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
+
     }
 
     @Override
