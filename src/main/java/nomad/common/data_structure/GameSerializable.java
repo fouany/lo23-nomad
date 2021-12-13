@@ -1,7 +1,6 @@
 package nomad.common.data_structure;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.io.Serializable;
 import java.util.List;
@@ -29,12 +28,12 @@ public class GameSerializable extends Observable implements Serializable {
     public GameSerializable(Game g) {
         this.gameId = g.getGameId();
         this.host = g.getHost();
-        this.opponent =g.getOpponent();
-        this.nbOfTowers= g.getNbOfTowers();
+        this.opponent = g.getOpponent();
+        this.nbOfTowers = g.getNbOfTowers();
         this.name = g.getName();
         this.gameParameters = g.getGameParameters();
         this.board = g.getBoard();
-        this.currentPlayer=g.getCurrentPlayerUUID();
+        this.currentPlayer = g.getCurrentPlayerUUID();
         this.gameLaunched = g.isGameLaunched();
         this.gameEnded = g.isGameEnded();
         this.nbOfTilesPlayed = g.getNbOfTilesPlayed();
@@ -44,8 +43,8 @@ public class GameSerializable extends Observable implements Serializable {
         this.towers = g.getTowers().stream().collect(Collectors.toList());
     }
 
-    public Game getGame(){
-        Game g = new Game(this.host, this.nbOfTowers,this.name, this.gameParameters);
+    public Game getGame() {
+        Game g = new Game(this.host, this.nbOfTowers, this.name, this.gameParameters);
         g.setGameId(this.gameId);
         g.setOpponent(this.opponent);
         g.setBoard(this.board);
