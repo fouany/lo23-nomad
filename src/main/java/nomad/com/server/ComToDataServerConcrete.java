@@ -1,6 +1,8 @@
 package nomad.com.server;
 
+import nomad.com.common.message.client_message.game.EndGameMessage;
 import nomad.com.common.message.client_message.game.NewGamePlayerClientMessage;
+import nomad.com.common.message.client_message.game.RemoveGameMessage;
 import nomad.com.common.message.client_message.move.SendOtherPlayersMoveMessage;
 import nomad.com.common.message.client_message.move.ValidateSkipMoveMessage;
 import nomad.com.common.message.client_message.move.ValidateTileMoveMessage;
@@ -85,6 +87,17 @@ public class ComToDataServerConcrete implements ComToDataServerInterface {
 
     @Override
     public void gameOver(UUID idGame, List<UUID> users, Move lastMove, UUID winner){
-        //TODO
+        EndGameMessage endGameMessage = new EndGameMessage(idGame,winner,lastMove);
+        RemoveGameMessage removeGameMessage = new RemoveGameMessage(idGame);
+        for (UUID id : users) {
+            Socket socket = serverController.getClientSocket(id);
+            if (socket == null) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ERROR_SOCKET);
+            }
+            serverController.sendMessage(socket, endGameMessage);
+        }
+        for (Socket client : serverController.getClientList().keySet()){
+            serverController.sendMessage(client, removeGameMessage);
+        }
     }
 }
