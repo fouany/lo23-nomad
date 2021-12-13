@@ -12,7 +12,7 @@ public interface ComToDataClientInterface {
 
     void logout();
 
-    void getProfile(UUID idUser);
+    User getProfile(UUID idUser);
 
     void enoughPlayers(UUID gameId, UUID opponentId);
 

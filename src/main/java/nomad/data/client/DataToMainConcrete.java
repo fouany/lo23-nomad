@@ -205,14 +205,20 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
         dataClientController.getComToDataInterface().logout();
     }
 
-    //TODO: COM getProfileInfos()
-
     /**
+     * get the profile if another user
      * @param idUserLight id of the User
      * @return User
      */
     public User getProfileInfos(UUID idUserLight){
-        return null; // TODO : implement and call getProfile in ComClientToData
+        //1- Get the profile of the user
+        User u = dataClientController.getComToDataInterface().getProfile(idUserLight);
+
+        //2- Hide password
+        u.setPassword(null);
+
+        //3- return user
+        return u;
     }
 
     /**

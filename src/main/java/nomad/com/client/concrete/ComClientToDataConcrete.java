@@ -74,8 +74,9 @@ public class ComClientToDataConcrete implements ComToDataClientInterface {
      * @param idUser the unique identifier of the user profile to recover.
      */
     @Override
-    public void getProfile(UUID idUser) {
+    public User getProfile(UUID idUser) {
         //TODO
+        return null;
     }
 
     @Override

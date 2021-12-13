@@ -273,6 +273,11 @@ public class DataToComConcrete implements DataToComClientInterface {
     }
 
     @Override
+    /**
+     * get profile of an user
+     * @param idUser : id of the user
+     * @return User
+     */
     public UserLight getUserLight() {
         return dataClientController.getUserController().getUserLight();
     }
