@@ -249,6 +249,7 @@ public class DataToComConcrete implements DataToComClientInterface {
             dataClientController.getGameController().setGame(game);
             dataClientController.getIhmMainToDataInterface().updateAcceptOpponent(dataClientController.getGameController().getGame());
         }else{
+            dataClientController.getIhmMainToDataInterface().updateAcceptOpponent(dataClientController.getGameController().getGame());
             throw new GameException("Player was refused from game");
         }
     }
