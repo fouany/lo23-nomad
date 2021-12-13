@@ -8,7 +8,7 @@ import nomad.common.data_structure.User;
 /**
  * Message broadcast by the server to all users to update a change of user
  */
-public class UserChangedMessageBase extends BaseClientMessage {
+public class UserChangedMessage extends BaseClientMessage {
     /**
      * The user concerned by changes
      */
@@ -25,7 +25,7 @@ public class UserChangedMessageBase extends BaseClientMessage {
      * @param user        The user (dis)connecting
      * @param isConnected True for a connection, false for a disconnection
      */
-    public UserChangedMessageBase(User user, boolean isConnected) {
+    public UserChangedMessage(User user, boolean isConnected) {
         this.user = user;
         this.isConnected = isConnected;
     }
