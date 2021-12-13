@@ -25,6 +25,6 @@ public class EnoughPlayerMessage extends BaseServerMessage {
         Game game = controller.getDataToCom().guestAccepted(gameId, opponentId);
         PlayerAddedInGameMessage playerAddedInGameMessage = new PlayerAddedInGameMessage(game.getGameSerializable(), true);
         controller.sendMessage(opponentSocket, playerAddedInGameMessage);
-        // TODO : Update game for spec
+
     }
 }

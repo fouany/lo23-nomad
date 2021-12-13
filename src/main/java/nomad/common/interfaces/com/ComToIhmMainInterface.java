@@ -10,6 +10,4 @@ public interface ComToIhmMainInterface {
     void addPlayerInGame(Player player, GameLight game);
 
     void addSpecInGame(UserLight user, GameLight game);
-
-    void placeTower(Tower tower);
 }

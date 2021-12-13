@@ -40,7 +40,7 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
 
     /**
      * @param player is the player added in the game
-     * @param game is the game joined by the player
+     * @param game   is the game joined by the player
      */
     @Override
     public void addPlayerInGame(Player player, GameLight game) {
@@ -71,10 +71,5 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
         if (!clientController.sendMessage(new AddSpecInGameMessage(user, game))) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to add spec in game !");
         }
-    }
-
-    @Override
-    public void placeTower(Tower tower) {
-        //TODO
     }
 }
