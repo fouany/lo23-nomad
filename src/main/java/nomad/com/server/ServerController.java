@@ -1,7 +1,7 @@
 package nomad.com.server;
 
 import nomad.com.common.message.Message;
-import nomad.com.common.message.client_message.information.UserChangedMessageBase;
+import nomad.com.common.message.client_message.information.UserChangedMessage;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.data.DataToComServerInterface;
 
@@ -135,7 +135,7 @@ public class ServerController extends Thread {
 
         Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Disconnected user from server !");
         if (uid != null) {
-            broadcast(new UserChangedMessageBase(user, false)); // announce disconnection to all clients
+            broadcast(new UserChangedMessage(user, false)); // announce disconnection to all clients
         }
     }
 
@@ -152,7 +152,7 @@ public class ServerController extends Thread {
         Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Disconnected user from server !");
 
         if (uid != null) {
-            broadcast(new UserChangedMessageBase(dataToCom.getUserProfile(uid), false)); // announce disconnection to all clients
+            broadcast(new UserChangedMessage(dataToCom.getUserProfile(uid), false)); // announce disconnection to all clients
         }
     }
 

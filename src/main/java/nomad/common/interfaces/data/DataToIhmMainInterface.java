@@ -36,9 +36,8 @@ public interface DataToIhmMainInterface {
     /**
      * get the profile of another user
      * @param idUserLight id of the User
-     * @return User
      */
-    User getProfileInfos (UUID idUserLight);
+    void getProfileInfos (UUID idUserLight);
 
     void createCategory (Category category) throws CategoryException, IOException;
     void addUser (UserLight user, Category category) throws CategoryException, IOException;
