@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -11,14 +12,18 @@
    <children>
       <VBox prefHeight="464.75" prefWidth="776.0" spacing="30.0" styleClass="tab_chat" stylesheets="@../../style/infos_components_style.css">
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 35px;" text="Viewer" textAlignment="CENTER" translateX="335.0" />
+            <Label fx:id="name" prefHeight="45.0" prefWidth="85.0" style="-fx-font-size: 30;" text="Name" textFill="WHITE" translateX="347.0" translateY="20.0" />
             <Circle fill="DODGERBLUE" radius="77.5" stroke="BLACK" strokeType="INSIDE" translateX="310.5" />
             <HBox prefHeight="107.0" prefWidth="776.0">
                <children>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 25px;" text="Stats :" translateX="40.0" wrappingWidth="73.90509033203125" />
+                  <Label fx:id="score" prefHeight="10.0" prefWidth="11.0" style="-fx-font-size: 20;" text="0" textFill="WHITE" translateX="45.0" translateY="5.0" />
                   <Text fill="#0abc18" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 25px;" text="Victory : " translateX="135.0" />
                   <Text fill="#fc0101" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 25px;" text="Defeat : " translateX="260.0" />
                   <Text fill="#ff8800" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 25px;" text="Draw :" translateX="360.0" />
+                  <Label fx:id="victory" prefHeight="10.0" prefWidth="11.0" style="-fx-font-size: 20;" text="0" textFill="#0abc18" translateX="-20.0" translateY="5.0" />
+                  <Label fx:id="defeat" prefHeight="10.0" prefWidth="11.0" style="-fx-font-size: 20;" text="0" textFill="#fc0101" translateX="180.0" translateY="5.0" />
+                  <Label fx:id="draw" prefHeight="10.0" prefWidth="11.0" style="-fx-font-size: 20;" text="0" textFill="#ff8800" translateX="345.0" translateY="5.0" />
                </children>
             </HBox>
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="121.0" text="Close" translateX="327.6" translateY="-35.0" />
