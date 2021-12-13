@@ -140,7 +140,6 @@ public class DataToComConcrete implements DataToComClientInterface {
     /**
      * adds the move to the list of moves, changes the current player, and updates the observable
      * @param move
-     * @param user
      */
     @Override
     public void moveReceived(Move move) {
@@ -151,13 +150,20 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * removes the game from the gamesInPlay from the session object and sets the game to "ended" state
-     * @param gameLight
-     * @param gameEnded
+     * @param idGame
+     * @param winner
+     * @param lastMove
      */
-    public void endGame(GameLight gameLight, boolean gameEnded){
-        GameLight gameToRemove = dataClientController.getSession().getGameInPlayById(gameLight.getGameId());
-        dataClientController.getSession().getGamesInPlay().remove(gameToRemove);
-        dataClientController.getGameController().getGame().setGameEnded(gameEnded);
+    public void endGame(UUID idGame, UUID winner, Move lastMove){
+        //TODO
+    }
+
+    /**
+     *
+     * @param gameId
+     */
+    public void removeFinishedGame (UUID gameId){
+        //TODO
     }
 
     /**

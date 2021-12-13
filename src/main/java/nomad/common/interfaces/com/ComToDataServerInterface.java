@@ -14,4 +14,6 @@ public interface ComToDataServerInterface {
     void tileValid(Tile t, List<UUID> listOther);
 
     void skipValid (Skip s, List<UUID> listOther);
+
+    void gameOver(UUID idGame, List<UUID> users, Move lastMove, UUID winner);
 }
