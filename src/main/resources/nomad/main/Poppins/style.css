@@ -39,6 +39,10 @@ TODO mettre les bonnes tailles d'écran a jour
     -fx-font-family : 'Poppins'
 }
 
+.main-bg-white {
+    -fx-background-color: white;
+}
+
 .main-container {
     -fx-background-color: -fx-white-break;
     /* CONTAINER_SHADOW */

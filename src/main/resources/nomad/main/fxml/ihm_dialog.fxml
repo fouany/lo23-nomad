@@ -13,11 +13,24 @@
       <Label fx:id="content" alignment="TOP_LEFT" prefHeight="77.0" prefWidth="321.0" styleClass="dialog-content" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel nisl eu dui tincidunt maximus. Sed nisi neque, elementum at sapien sed, " wrapText="true" />
       <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="321.0">
          <children>
-            <Button fx:id="dimiss" mnemonicParsing="false" prefHeight="45.0" prefWidth="94.0" text="Dimiss">
+            <Button fx:id="non" mnemonicParsing="false" prefHeight="45.0" prefWidth="94.0" style="-fx-background-color: #D62828;" text="NON" visible="false">
+               <styleClass>
+                  <String fx:value="dialog-button" />
+                  <String fx:value="main-button" />
+               </styleClass>
+            </Button>
+            <Separator orientation="VERTICAL" prefHeight="42.0" prefWidth="12.0" visible="false" />
+            <Button fx:id="oui" mnemonicParsing="false" prefHeight="45.0" prefWidth="94.0" style="-fx-background-color: #27AE60;" text="OUI" visible="false">
                <styleClass>
                   <String fx:value="dialog-button" />
                   <String fx:value="main-button" />
                </styleClass></Button>
+            <Button fx:id="dimiss" mnemonicParsing="false" prefHeight="45.0" prefWidth="94.0" text="Dimiss">
+               <styleClass>
+                  <String fx:value="dialog-button" />
+                  <String fx:value="main-button" />
+               </styleClass>
+            </Button>
             <Separator orientation="VERTICAL" prefHeight="42.0" prefWidth="12.0" visible="false" />
          </children>
       </HBox>

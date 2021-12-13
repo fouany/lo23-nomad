@@ -58,7 +58,7 @@
                      </styleClass>
                   </VBox>
                   <Separator prefHeight="40.0" prefWidth="746.0" visible="false" />
-                  <HBox alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="100.0" prefWidth="658.0" styleClass="main-container">
+                  <HBox fx:id="hostContainer" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="100.0" prefWidth="658.0">
                      <children>
                         <ImageView fitHeight="70.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" styleClass="waiting-room-image">
                            <image>
@@ -80,6 +80,10 @@
                            </styleClass>
                         </Button>
                      </children>
+                     <styleClass>
+                        <String fx:value="main-container" />
+                        <String fx:value="main-bg-white" />
+                     </styleClass>
                   </HBox>
                   <Separator prefHeight="15.0" prefWidth="746.0" visible="false" />
                   <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
@@ -120,8 +124,8 @@
                         </Button>
                      </children>
                      <styleClass>
-                        <String fx:value="main-bg-red" />
                         <String fx:value="main-container" />
+                        <String fx:value="main-bg-red" />
                      </styleClass>
                   </HBox>
                </children>

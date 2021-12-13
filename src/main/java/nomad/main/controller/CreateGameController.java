@@ -53,7 +53,7 @@ public class CreateGameController extends IhmControllerComponent {
         try {
             this.rand = SecureRandom.getInstanceStrong();
         } catch (NoSuchAlgorithmException e) {
-            Logger.getLogger(CreateGameController.class.getName()).log(Level.SEVERE, "Random Color failed");
+            Logger.getLogger(CreateGameController.class.getName()).log(Level.SEVERE,"Random Color failed");
         }
     }
 
@@ -78,7 +78,7 @@ public class CreateGameController extends IhmControllerComponent {
         if (!checked) {
             int nb;
             nb = rand.nextInt(2);
-            boolean b = nb != 0;
+            boolean b = nb!=0 ;
             color = b;
         }
         switch (id) {
@@ -91,7 +91,7 @@ public class CreateGameController extends IhmControllerComponent {
             case "random":
                 int nb;
                 nb = rand.nextInt(2);
-                boolean b = nb != 0;
+                boolean b = nb!=0;
                 color = b;
                 break;
             default:

@@ -6,6 +6,8 @@ import nomad.common.interfaces.data.DataToComServerInterface;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Concretization of the Ihm Com interface.

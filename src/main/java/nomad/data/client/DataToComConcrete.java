@@ -5,6 +5,8 @@ import nomad.common.interfaces.data.DataToComClientInterface;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DataToComConcrete implements DataToComClientInterface {
 
@@ -252,7 +254,7 @@ public class DataToComConcrete implements DataToComClientInterface {
         Game game = dataClientController.getGameController().getGame();
         if (game.getGameId().equals(gameID)) {
             game.setOpponent(p);
-            dataClientController.getIhmMainToDataInterface().updateAcceptOpponent(dataClientController.getGameController().getGame());
+            dataClientController.getIhmMainToDataInterface().askApproval(dataClientController.getGameController().getGame());
             /*todo use custom method*/
         } else {
             throw new GameException("Game created does not exists");
@@ -270,8 +272,8 @@ public class DataToComConcrete implements DataToComClientInterface {
         if (isAdded) {
             dataClientController.getGameController().setGame(game);
             dataClientController.getIhmMainToDataInterface().updateAcceptOpponent(dataClientController.getGameController().getGame());
-        } else {
-            dataClientController.getIhmMainToDataInterface().updateAcceptOpponent(dataClientController.getGameController().getGame());
+        }else{
+            dataClientController.getIhmMainToDataInterface().updateRejectOpponent(dataClientController.getGameController().getGame());
             throw new GameException("Player was refused from game");
         }
     }

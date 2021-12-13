@@ -12,6 +12,9 @@ public interface IhmMainToDataInterface {
 
   void updateAcceptOpponent(Game game);
 
+  void askApproval(Game game);
+
+  void updateRejectOpponent(Game game);
 
   void updateObservable(User user);
 }
