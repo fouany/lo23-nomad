@@ -15,7 +15,7 @@ public interface DataToIhmMainInterface {
     Game getStoredGame(UUID gameId);
 
     void createAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws IOException,UserException;
-    void modifyAccount(String login, String pwd, String name, String profilePicture, Date birthDate)  throws IOException;
+    void modifyAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws IOException, UserException;
 
     /**
      * Imports a profile by reading a file given by a path and creates the account of the imported user/profile
