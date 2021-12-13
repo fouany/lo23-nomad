@@ -17,8 +17,19 @@ public interface DataToIhmMainInterface {
     void createAccount(String login, String pwd, String name, String profilePicture, Date birthDate) throws IOException,UserException;
     void modifyAccount(String login, String pwd, String name, String profilePicture, Date birthDate)  throws IOException;
 
-    //TODO: return boolean or exception ?
-    void addAccount(String path) throws IOException, ClassNotFoundException;
+    /**
+     * Imports a profile by reading a file given by a path and creates the account of the imported user/profile
+     * @param path
+     * @throws IOException error writing and reading file
+     * @throws ClassNotFoundException class not found
+     */
+    void addAccount(String path) throws IOException, ClassNotFoundException, UserException;
+
+    /**
+     * Exports a User and its respective data to a file specified by the path
+     * @param exportPath
+     */
+    void exportProfile(String exportPath) throws IOException;
     void login(String login, String password, String ip, int port) throws UserException,IOException, ClassNotFoundException;
     void logout();
 

@@ -130,31 +130,34 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
         newUser.setBirthDate(birthDate);
 
         if (!oldLogin.equals(login)) {
-            File fileToDelete = new File(dataClientController.getPathProfile());
+            File fileToDelete = new File(oldLogin);
             // deletion of file, in order to create a new one with updated details
             if (!fileToDelete.delete())
                 throw new NoSuchFileException("No such file exception, please check the path");
-            // sets the new path if the login is different
-            dataClientController.setPath(login);
         }
         // updated information is written in the file with previous given path
         dataClientController.write(newUser);
     }
 
     /**
+     * Imports a profile by reading a file given by a path and creates the account of the imported user/profile
      * @param path
      * @throws IOException error writing and reading file
      * @throws ClassNotFoundException class not found
      */
-    // TODO : return boolean or exception ??
-    public void addAccount(String path) throws IOException, ClassNotFoundException {
-        //try to read file
-        User newUser = null;
-        try{
-            newUser = dataClientController.read(path);
-        } finally {
-            //try to read the file with all the user and the new user
-            dataClientController.write(newUser);
+    public void addAccount(String path) throws IOException, ClassNotFoundException, UserException {
+        User u =null;
+        try {
+            // Reading the user information from the file selected by the user
+           u = dataClientController.read(path);
+        }finally {
+            if (u != null) {
+                // Creating the account of the user
+                createAccount(u.getLogin(), u.getPassword(), u.getName(), u.getProfilePicture(), u.getBirthDate());
+
+                //write user
+                dataClientController.write(u);
+            }
         }
     }
 
@@ -172,9 +175,9 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
      */
     public void login(String login, String password, String ip, int port) throws UserException, IOException, ClassNotFoundException {
         //1 - Verify account exists else throw exception
-        dataClientController.setPath(login);
-        User u = dataClientController.read(dataClientController.getPathProfile());
-        if ((u.getLogin().equals(login)) && (u.getPassword().equals(password))) {
+        dataClientController.setPath("");
+        User u = dataClientController.read(login);
+        if ((u.getLogin().equals(login)) && (u.getPassword().equals(hashPassword(password)))) {
             dataClientController.getUserController().setUser(u);
             //2 Make sure the right port and IP is saved in user
             if (ip != null){
@@ -300,51 +303,32 @@ public class DataToMainConcrete  implements DataToIhmMainInterface {
     }
 
 
-    /**
-     * Imports a profile by reading a file given by a path and creates the account of the imported user/profile
-     * @param importPath
-     */
-    public void importProfile(String importPath){
-        try {
-            // Reading the user information from the file selected by the user
-            User u = dataClientController.read(importPath);
-
-            if (u != null) {
-                // Creating the account of the user
-                createAccount(u.getLogin(), u.getPassword(), u.getName(), u.getProfilePicture(), u.getBirthDate());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException | UserException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Exports a User and its respective data to a file specified by the path
      * @param exportPath
      */
-    public void export(String exportPath){
+    public void exportProfile(String exportPath) throws IOException {
         // Retrieve the user and the respective data
         User user = dataClientController.getUserController().getUser();
+
         // Setting the path for the file to export
         dataClientController.setPath(exportPath);
 
+        //Verify there is not already a file with this login
         try {
-            //Verify there is not already a file with this login
-            try {
                 dataClientController.read(user.getLogin());
-            } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
                 //if there is no file => create one
                 dataClientController.write(user);
                 dataClientController.setPath(""); // to ensure a clean path for further import/export
                 return;
-            }
-            //if there is already a user with this login
-            throw new UserException("File already exist");
-        } catch (UserException | IOException e) {
-            e.printStackTrace();
         }
+
+        //if there is already a user with this login
+        throw new IOException("File already exist");
+
+
     }
 
 }
