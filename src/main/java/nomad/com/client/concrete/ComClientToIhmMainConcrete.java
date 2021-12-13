@@ -55,6 +55,7 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
 
     @Override
     public void launchGame(Game game) {
+        
         if (game == null) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Game is null");
             return;

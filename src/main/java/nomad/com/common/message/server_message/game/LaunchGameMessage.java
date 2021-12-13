@@ -4,7 +4,6 @@ import nomad.com.common.message.client_message.game.GameLaunchedMessage;
 import nomad.com.common.message.client_message.game.GameStateChangeMessage;
 import nomad.com.common.message.server_message.BaseServerMessage;
 import nomad.com.server.ServerController;
-import nomad.common.data_structure.Game;
 import nomad.common.data_structure.GameSerializable;
 
 import java.net.Socket;
