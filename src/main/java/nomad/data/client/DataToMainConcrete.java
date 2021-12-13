@@ -12,6 +12,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DataToMainConcrete implements DataToIhmMainInterface {
 
@@ -89,7 +91,7 @@ public class DataToMainConcrete implements DataToIhmMainInterface {
         try {
             digest = MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            Logger.getLogger(DataToMainConcrete.class.getName()).log(Level.WARNING, "Error caused by {0}.", e.toString());
         }
         byte[] encodedHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
         return castHashToString(encodedHash);
@@ -128,7 +130,7 @@ public class DataToMainConcrete implements DataToIhmMainInterface {
         if (login.isEmpty()) try {
             throw new UserException("Login is empty or not valid");
         } catch (UserException e) {
-            e.printStackTrace();
+            Logger.getLogger(DataToMainConcrete.class.getName()).log(Level.WARNING, "Error caused by {0}.", e.toString());
         }
 
         // stores the old login in order to update the name of the file
