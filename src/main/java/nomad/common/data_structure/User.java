@@ -109,6 +109,7 @@ public class User extends Observable implements Serializable {
     }
 
     public void addSavedGame(Game game){ this.savedGames.add(game); }
+    public void removeSavedGame(Game game) {this.savedGames.remove(game);}
     public void addUser(UserLight user, Category category) throws CategoryException {
         for (Category c:this.categoryList
              ) {

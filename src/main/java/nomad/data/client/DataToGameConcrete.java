@@ -3,6 +3,8 @@ package nomad.data.client;
 import nomad.common.data_structure.*;
 import nomad.common.interfaces.data.DataToIhmGameInterface;
 
+import java.io.IOException;
+
 public class DataToGameConcrete implements DataToIhmGameInterface  {
 
     DataClientController dataClientControllerGame;
@@ -35,8 +37,24 @@ public class DataToGameConcrete implements DataToIhmGameInterface  {
         dataClientControllerGame.getUserController().setUser(user);
     }
 
-    public void saveCurrentGame(){
-        dataClientControllerGame.getUserController().addSavedGame(getGame());
-    }
+    /**
+     * save the current game
+     * @throws IOException error in file writing
+     */
+    @Override
+    public void saveCurrentGame() throws IOException {
+        //Modify the user file : add the game
+        try{
+                //add the game to the game saved
+                dataClientControllerGame.getUserController().addSavedGame(getGame());
+
+                //write changes in the local file
+                dataClientControllerGame.write(dataClientControllerGame.getUserController().getUser());
+            } catch (IOException e) {
+                //error : game no saved
+                dataClientControllerGame.getUserController().removeSavedGame(getGame());
+                throw e;
+            }
+        }
 
 }

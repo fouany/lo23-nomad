@@ -37,6 +37,8 @@ public class UserController extends Observable {
         this.user.addSavedGame(game);
     }
 
+    public void removeSavedGame(Game game) {this.user.removeSavedGame(game);}
+
 
     public Game getGameStored(UUID gameID){
         for (Game game:
