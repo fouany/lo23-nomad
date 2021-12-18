@@ -121,6 +121,12 @@ public class DataToComConcrete implements DataToComServerInterface {
             dataServerController.getGamesController().getGame(t.getGameId()).addMove(t);
             dataServerController.getComOfferedInterface().tileValid(t, dataServerController.getGamesController().getGame(t.getGameId()).getListOther());
         }
+
+        UUID winner = dataServerController.checkGameEndedAfterTile(dataServerController.getGamesController().getGame(gameID), t.getUserId());
+        if(winner != null){
+            dataServerController.getComOfferedInterface().gameOver(gameID, dataServerController.getUsersUUIDs(gameID), t, winner);
+            dataServerController.getGamesController().getAllGames().remove(gameID);
+        }
     }
 
     private boolean checkPile(Tile t, int height, boolean color){
@@ -141,18 +147,19 @@ public class DataToComConcrete implements DataToComServerInterface {
     }
     @Override
     public void saveSkip(Skip s) {
-        dataServerController.getGamesController().getGame(s.getGameId()).addMove(s);
+        Game g = dataServerController.getGamesController().getGame(s.getGameId());
+        g.addMove(s);
         dataServerController.getComOfferedInterface().skipValid(s, dataServerController.getGamesController().getGame(s.getGameId()).getListOther());
+        UUID potentialWinner = dataServerController.checkGameEndedAfterSkip(g);
+        if(potentialWinner != null){
+            dataServerController.getComOfferedInterface().gameOver(g.getGameId(), dataServerController.getUsersUUIDs(g.getGameId()), s, potentialWinner);
+            dataServerController.getGamesController().getAllGames().remove(g.getGameId());
+        }
     }
 
     @Override
     public void saveMove(UserLight user, Move m) {
         //TODO
-    }
-
-    @Override
-    public boolean checkGameEnded(GameLight game) {
-        return false;
     }
 
     @Override
