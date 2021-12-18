@@ -18,7 +18,6 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * adds a new game in the lobby
-     *
      * @param gameLight
      */
     //TODO : Modifier diagramme de sequence : a quoi servent les paramètre name, spect et spectatorChat
@@ -28,7 +27,6 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * Change the State of Game in Session
-     *
      * @param gameId
      * @param gameLaunched
      */
@@ -51,7 +49,6 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * adds a user light to the connected user of the session object
-     *
      * @param player
      * @param connected
      */
@@ -65,7 +62,6 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * updates the opponent of the game
-     *
      * @param player
      * @param gameLight
      * @throws GameException
@@ -81,7 +77,6 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * adds a user light to the spectator's list of the game
-     *
      * @param userLight
      * @param isAdded
      */
@@ -102,7 +97,6 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * adds the move to the list of moves of the game and changes the current player
-     *
      * @param tower
      * @param valid
      */
@@ -114,7 +108,6 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * adds the move to the list of moves of the game and changes the current player
-     *
      * @param tile
      * @param valid
      */
@@ -131,7 +124,6 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * adds the move to the list of moves of the game and changes the current player
-     *
      * @param skip
      * @param valid
      */
@@ -148,7 +140,6 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * adds the move to the list of moves, changes the current player, and updates the observable
-     *
      * @param move
      */
     @Override
@@ -158,27 +149,37 @@ public class DataToComConcrete implements DataToComClientInterface {
         dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
 
-    /**
-     * removes the game from the gamesInPlay from the session object and sets the game to "ended" state
-     * @param idGame
-     * @param winner
-     * @param lastMove
-     */
-    public void endGame(UUID idGame, UUID winner, Move lastMove){
-        //TODO
+    @Override
+    public void endGame(UUID gameId, UUID winner, Move lastMove) {
+        GameLight gameToRemove = dataClientController.getSession().getGameInPlayById(gameId);
+        dataClientController.getSession().getGamesInPlay().remove(gameToRemove);
+        dataClientController.getGameController().getGame().setGameEnded(true);
+        UUID loserID = dataClientController.getGameController().getGame().getOpponent().getId();
+        //Checking if the user was a player in the game or just a spectator
+        if (dataClientController.getUserController().getUser().getUserId().equals(winner) || dataClientController.getUserController().getUser().getUserId().equals(loserID)) {
+            int gamesAlreadyPlayed = dataClientController.getUserController().getUser().getProfileStat().getGamesPlayed();
+            dataClientController.getUserController().getUser().getProfileStat().setGamesPlayed(gamesAlreadyPlayed + 1);
+            if (dataClientController.getUserController().getUser().getUserId().equals(winner)) {
+                int gamesAlreadyWon = dataClientController.getUserController().getUser().getProfileStat().getGamesWon();
+                dataClientController.getUserController().getUser().getProfileStat().setGamesWon(gamesAlreadyWon + 1);
+            } else {
+                int gamesAlreadyLost = dataClientController.getUserController().getUser().getProfileStat().getGamesLost();
+                dataClientController.getUserController().getUser().getProfileStat().setGamesLost(gamesAlreadyLost + 1);
+            }
+        }
+        dataClientController.getIhmGameToDataInterface().gameEnded(winner, lastMove);
     }
 
-    /**
-     *
-     * @param gameId
-     */
-    public void removeFinishedGame (UUID gameId){
-        //TODO
+    @Override
+    public void removeFinishedGame(UUID gameId) {
+        GameLight gameToRemove = dataClientController.getSession().getGameInPlayById(gameId);
+        dataClientController.getSession().getGamesInPlay().remove(gameToRemove);
+        dataClientController.getGameController().getGame().setGameEnded(true);
+        dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
 
     /**
      * adds the game to the saved games of the user
-     *
      * @param game
      */
     public void transferSavedGame(Game game) {
@@ -187,8 +188,7 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * adds the message to the chat of the game
-     *
-     * @param message message to add
+     * @param message
      */
     public void storeNewMessage(Message message) {
         dataClientController.getGameController().getGame().getChat().add(message);
@@ -214,8 +214,7 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * Remove an user from the connected users of the session object
-     *
-     * @param userId        UID of the user to remove
+     * @param userId UID of the user to remove
      * @param isDeconnected Not used
      */
     // TODO : changer signature : pas besoin du booleen
@@ -226,7 +225,6 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * Retrieve all the online users
-     *
      * @return List of connected users
      */
     public List<UserLight> getOnlineUsers() {
@@ -235,7 +233,6 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * Set the game (created by the server) in the GameController.
-     *
      * @param game
      */
     public void gameCreated(Game game) {
@@ -246,7 +243,6 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * Adds an user to the game. (as spectator or opponent)
-     *
      * @param gameID
      * @param p
      */
@@ -281,7 +277,6 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * Retrieves the saved games of the user.
-     *
      * @return
      */
     public List<Game> getStoredAvailableGames() {
@@ -290,7 +285,6 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * returns the UUID of the player currently playing
-     *
      * @return
      */
     //TODO : modifier diag : type retour UUID et non pas booleen

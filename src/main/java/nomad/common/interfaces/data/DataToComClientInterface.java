@@ -9,14 +9,12 @@ public interface DataToComClientInterface {
 
     /**
      * adds a new game in the lobby
-     *
      * @param gameLight
      */
     void updateSession(GameLight gameLight);
 
     /**
      * Change the State of Game in Session
-     *
      * @param gameId
      * @param gameLaunched
      */
@@ -24,7 +22,6 @@ public interface DataToComClientInterface {
 
     /**
      * adds a user light to the connected user of the session object
-     *
      * @param player
      * @param connected
      */
@@ -32,7 +29,6 @@ public interface DataToComClientInterface {
 
     /**
      * updates the opponent of the game
-     *
      * @param player
      * @param game
      * @throws GameException
@@ -41,7 +37,6 @@ public interface DataToComClientInterface {
 
     /**
      * adds a user light to the spectator's list of the game
-     *
      * @param userLight
      * @param isAdded
      */
@@ -54,7 +49,6 @@ public interface DataToComClientInterface {
 
     /**
      * adds the move to the list of moves of the game and changes the current player
-     *
      * @param tower
      * @param valid
      */
@@ -62,7 +56,6 @@ public interface DataToComClientInterface {
 
     /**
      * adds the move to the list of moves of the game and changes the current player
-     *
      * @param tile
      * @param valid
      * @throws TileException
@@ -71,7 +64,6 @@ public interface DataToComClientInterface {
 
     /**
      * adds the move to the list of moves of the game and changes the current player
-     *
      * @param skip
      * @param valid
      * @throws SkipException
@@ -80,7 +72,6 @@ public interface DataToComClientInterface {
 
     /**
      * adds the move to the list of moves, changes the current player, and updates the observable
-     *
      * @param move
      */
     void moveReceived(Move move);
@@ -101,7 +92,6 @@ public interface DataToComClientInterface {
 
     /**
      * adds the game to the saved games of the user
-     *
      * @param savedGame
      */
     void transferSavedGame(Game savedGame);
@@ -115,7 +105,6 @@ public interface DataToComClientInterface {
 
     /**
      * adds the connected user, and updates the according lists of connected user to the games in lobby and in play
-     *
      * @param players
      * @param gamesInLobby
      * @param gamesInPlay

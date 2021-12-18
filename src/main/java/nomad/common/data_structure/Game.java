@@ -208,6 +208,13 @@ public class Game extends Observable implements Serializable  {
         return new GameLight(gameId, host, nbOfTowers);
     }
 
+    public boolean areAllTowersConnected(){
+
+
+
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Game{" +

@@ -28,8 +28,6 @@ public interface DataToComServerInterface {
 
     void saveSkip(Skip s);
 
-    boolean checkGameEnded(GameLight game);
-
     Game getStoredGame(UUID gameId);
 
     /**

@@ -1,6 +1,9 @@
 package nomad.common.interfaces.game;
 
 import nomad.common.data_structure.Game;
+import nomad.common.data_structure.Move;
+
+import java.util.UUID;
 
 /**
  * Expose methods of the {@code nomad.game} package to {@code nomad.data}.
@@ -14,4 +17,6 @@ public interface IhmGameToDataInterface {
      * @param game The {@code Game} object to be updated by data module.
      */
     void updateObservable(Game game);
+
+    public void gameEnded(UUID winner, Move lastMove);
 }
