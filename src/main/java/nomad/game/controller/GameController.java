@@ -8,7 +8,6 @@ import nomad.common.data_structure.Move;
 import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.common.ihm.IhmScreenController;
-import nomad.game.ControllerIndex;
 import nomad.game.IhmGameScreenController;
 
 import java.util.Observable;
@@ -50,7 +49,7 @@ public class GameController extends IhmControllerComponent implements Observer {
         gameScreen = (IhmGameScreenController) screen;
     }
 
-    public void initListener(){
+    public void instanciateControllers(){
         currentGame = gameScreen.getLinkedGame();
         currentGame.addObserver(this);
 
@@ -66,24 +65,28 @@ public class GameController extends IhmControllerComponent implements Observer {
                 (ListChangeListener<Message>) c -> System.out.println("Changement sur le chat")
         );
 
-        playerInfoController = (PlayerInfoController) gameScreen.getController(ControllerIndex.PLAYER_INFO.index);
+        playerInfoController = (PlayerInfoController) gameScreen.getController(PlayerInfoController.class);
         playerInfoController.setParentController(this);
-        playerInfoController.init();
 
-        boardController = (BoardController) gameScreen.getController(ControllerIndex.BOARD.index);
+        boardController = (BoardController) gameScreen.getController(BoardController.class);
         boardController.setParentController(this);
-        boardController.init();
 
-        logController = (LogController) gameScreen.getController(ControllerIndex.LOG.index);
+        logController = (LogController) gameScreen.getController(LogController.class);
         logController.setParentController(this);
-        logController.init();
 
-        skipController = (SkipController) gameScreen.getController(ControllerIndex.SKIP.index);
+        skipController = (SkipController) gameScreen.getController(SkipController.class);
         skipController.setParentController(this);
-        skipController.init();
 
-        chatController = (ChatController) gameScreen.getController(ControllerIndex.CHAT.index);
+        chatController = (ChatController) gameScreen.getController(ChatController.class);
         chatController.setParentController(this);
+    }
+
+    public void initControllers()
+    {
+        playerInfoController.init();
+        boardController.init();
+        logController.init();
+        skipController.init();
         chatController.init();
     }
 

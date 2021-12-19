@@ -28,12 +28,11 @@ public class BoardController extends GameComponentsAbstract {
     private GridPane gameBoard;
 
     @FXML
-    private int[] getCoordinates(MouseEvent event) {
+    public void getCoordinates(MouseEvent event) {
         int[] coordinates = new int[2] ;
         Node source = (Node) event.getTarget() ;
         coordinates[0] = GridPane.getColumnIndex(source) ;
         coordinates[1] = GridPane.getRowIndex(source) ;
-        return coordinates ;
     }
 
     @Override
@@ -56,8 +55,8 @@ public class BoardController extends GameComponentsAbstract {
         /** ----- 1. IS MOVE VALID ??? ----- **/
 
         // GET CLICK COORDINATES
-        int[] coordinates ;
-        coordinates = getCoordinates(event) ;
+        int[] coordinates = {0, 0} ;
+        //coordinates = getCoordinates(event) ;
         int i = coordinates[0] ;
         int j = coordinates[1] ;
 
@@ -147,5 +146,4 @@ public class BoardController extends GameComponentsAbstract {
             }
         }
     }
-
 }

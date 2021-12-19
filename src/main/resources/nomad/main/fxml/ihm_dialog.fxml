@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="container" alignment="TOP_CENTER" maxWidth="-Infinity" prefHeight="150.0" prefWidth="321.0" stylesheets="@../Poppins/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="container" alignment="TOP_CENTER" maxWidth="-Infinity" prefHeight="150.0" prefWidth="321.0" stylesheets="@../Poppins/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.main.controller.DialogController">
    <children>
       <Label fx:id="title" alignment="CENTER" prefHeight="36.0" prefWidth="321.0" styleClass="dialog-title" text="Title" textAlignment="CENTER" />
       <Label fx:id="content" alignment="TOP_LEFT" prefHeight="77.0" prefWidth="321.0" styleClass="dialog-content" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel nisl eu dui tincidunt maximus. Sed nisi neque, elementum at sapien sed, " wrapText="true" />

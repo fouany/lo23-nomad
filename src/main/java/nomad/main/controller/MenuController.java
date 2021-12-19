@@ -26,7 +26,7 @@ public class MenuController extends IhmControllerComponent implements ListChange
 
     public void logout() {
         this.ihmController.getDataI().logout();
-        this.ihmController.changeScreen(0);
+        this.ihmController.changeScreen(LoginController.class);
         if (this.ihmController.getSession() != null) {
             this.ihmController.getSession().getConnectedUsers().removeListener(this);
         }
@@ -37,12 +37,11 @@ public class MenuController extends IhmControllerComponent implements ListChange
     }
 
     public void onClickCreate() {
-        ihmController.changeScreen(3);
-
+        ihmController.changeScreen(CreateGameController.class);
     }
 
     public void onClickJoin() {
-        ihmController.changeScreen(5);
+        ihmController.changeScreen(ViewGameController.class);
     }
 
     public void onClickProfile() {
