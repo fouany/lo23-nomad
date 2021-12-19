@@ -22,6 +22,7 @@ public class IhmMainScreenController extends IhmScreenController {
     private ViewGameController viewGameController;
     private WaitingRoomController waitingRoomController;
     private Session session;
+    private ModifyProfileController profileController;
 
     public void setSession(Session session) {
         this.session = session;
@@ -30,6 +31,7 @@ public class IhmMainScreenController extends IhmScreenController {
     public Session getSession() {
         return session;
     }
+
 
     public IhmMainScreenController(MainApplication app, DataToIhmMainInterface dataI, ComToIhmMainInterface comI) throws IOException {
         super(app);
@@ -70,7 +72,7 @@ public class IhmMainScreenController extends IhmScreenController {
     public DataToIhmMainInterface getDataI() {
         return dataI;
     }
-
+    public ModifyProfileController getProfileController(){return profileController;}
     public void initPaths() {
         listPaths.add("fxml/ihm_login_connection.fxml");
         listPaths.add("fxml/ihm_server_connection.fxml");
@@ -79,6 +81,7 @@ public class IhmMainScreenController extends IhmScreenController {
         listPaths.add("fxml/ihm_dialog.fxml");
         listPaths.add("fxml/ihm_view_game.fxml");
         listPaths.add("fxml/ihm_waiting_room.fxml");
+        listPaths.add("fxml/ihm_modify_profile.fxml");
     }
 
     @Override
@@ -87,7 +90,7 @@ public class IhmMainScreenController extends IhmScreenController {
         createGameController = new CreateGameController(this);
         viewGameController = new ViewGameController(this);
         waitingRoomController = new WaitingRoomController(this);
-
+        profileController = new ModifyProfileController(this);
         controllerDict.put(LoginController.class, new LoginController(this));
         controllerDict.put(ServerConnectionController.class, new ServerConnectionController(this));
         controllerDict.put(MenuController.class, menuController);
@@ -95,6 +98,7 @@ public class IhmMainScreenController extends IhmScreenController {
         controllerDict.put(DialogController.class, new DialogController(this));
         controllerDict.put(ViewGameController.class, viewGameController);
         controllerDict.put(WaitingRoomController.class, waitingRoomController);
+        controllerDict.put(ModifyProfileController.class, profileController);
     }
 
     public void initStyles() {

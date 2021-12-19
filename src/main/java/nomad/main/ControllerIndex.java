@@ -10,7 +10,8 @@ public enum ControllerIndex {
     CREATE_GAME(3),
     DIALOG(4),
     VIEW_GAME(5),
-    WAITING_ROOM(6);
+    WAITING_ROOM(6),
+    MODIFY_PROFILE(7);
 
     public final int index;
     ControllerIndex(int index) {

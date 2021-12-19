@@ -45,7 +45,9 @@ public class MenuController extends IhmControllerComponent implements ListChange
     }
 
     public void onClickProfile() {
-        // TODO : implement method
+        ihmController.getProfileController().start();
+        ihmController.changeScreen(ModifyProfileController.class);
+
     }
 
     public void displayUser(List<UserLight> users, ListView<String> view) {
