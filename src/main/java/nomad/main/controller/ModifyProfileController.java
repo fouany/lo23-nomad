@@ -14,6 +14,7 @@ import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
 import java.io.*;
+import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -92,8 +93,14 @@ public class ModifyProfileController extends IhmControllerComponent {
         idPlayer.setText("#"+this.ihmController.getDataI().getUser().getUserId());
         login.setText(this.ihmController.getDataI().getUser().getLogin());
         name.setText(this.ihmController.getDataI().getUser().getName());
-        serverID.setText(""+ihmController.getDataI().getUser().getLastServer().getIpAddress().toString().substring(1,ihmController.getDataI().getUser().getLastServer().getIpAddress().toString().length()));
-        portID.setText(""+this.ihmController.getDataI().getUser().getLastServer().getPort());
+        try {
+            serverID.setText(""+ihmController.getDataI().getUser().getLastServer().getIpAddress().toString().substring(1,ihmController.getDataI().getUser().getLastServer().getIpAddress().toString().length()));
+            portID.setText(""+this.ihmController.getDataI().getUser().getLastServer().getPort());
+        } catch (UnknownHostException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.getMessage());
+            DialogController.display("Erreur","Vous avez été déconnecté", DialogController.DialogStatus.WARNING, ihmController);
+            this.ihmController.changeScreen(LoginController.class);
+        }
         if(this.ihmController.getDataI().getUser().getBirthDate() != null){
             LocalDate localDateBirth = this.ihmController.getDataI().getUser().getBirthDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             birthDate.setValue(localDateBirth);

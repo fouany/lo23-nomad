@@ -127,13 +127,9 @@ public class User extends Observable implements Serializable {
 
     }
 
-    public Server getLastServer() {
+    public Server getLastServer() throws UnknownHostException {
         if (lastServer == null) { // TODO : modify lastServer assignation
-            try {
-                lastServer = new Server("default", InetAddress.getByName("127.0.0.1"), 12);
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            }
+            lastServer = new Server("default", InetAddress.getByName("127.0.0.1"), 12);
         }
         return lastServer;
     }

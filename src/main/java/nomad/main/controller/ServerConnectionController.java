@@ -8,10 +8,9 @@ import nomad.common.data_structure.UserException;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,7 +68,7 @@ public class ServerConnectionController extends IhmControllerComponent implement
 
 
 
-    public void onClickConnection() throws IOException, UserException, ClassNotFoundException {
+    public void onClickConnection()  {
         String ip = serverIp.getText();
         String port = serverPort.getText();
 
@@ -78,29 +77,25 @@ public class ServerConnectionController extends IhmControllerComponent implement
             String password = ihmMainScreenController.getAttributes().get("password");
             boolean signup =  Boolean.parseBoolean(ihmMainScreenController.getAttributes().get("isSignup"));
             if (signup) {
-
                 try {
                     ihmMainScreenController.getDataI().createAccount(user,password,user,"", null);
                 }
-                catch (UserException e)
+                catch (UserException | IOException e)
                 {
                     DialogController.display("Erreur", e.getMessage(), DialogController.DialogStatus.ERROR, ihmMainScreenController);
                     return;
                 }
             }
             try {
-
                 /**todo add connectException  **/
                 ihmMainScreenController.getDataI().login(user, password, ip, Integer.parseInt(port));
-                screenControl.changeScreen(MenuController.class);
-            } catch (FileNotFoundException | ConnectException | UserException e) {
-
-
+            } catch (UserException | IOException|  ClassNotFoundException e) {
                 //TODO: ajouter back pour revenir
                DialogController.display("Erreur connexion", e.getMessage(),
                        DialogController.DialogStatus.ERROR, this.ihmMainScreenController);
                 screenControl.changeScreen(LoginController.class);
             }
+            screenControl.changeScreen(MenuController.class);
         } else {
             Logger.getLogger(ServerConnectionController.class.getName()).log(Level.INFO, "Error on Ip address or in port");
         }
