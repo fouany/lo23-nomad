@@ -1,17 +1,24 @@
 module nomadapp {
+    // Library dependencies
     requires java.sql;
     requires javafx.graphics;
     requires javafx.controls;
     requires javafx.fxml;
     requires org.apache.commons.codec;
 
-    exports nomad.main.utils to javafx.fxml;
-    opens nomad.main.utils to javafx.fxml;
-    exports nomad.common.ihm;
-    exports nomad.main.controller;
-    exports nomad.game.controller;
-    exports nomad.game;
+    // Common
     exports nomad.common;
-    opens nomad.game.controller to javafx.fxml;
-    opens nomad.game to javafx.fxml;
+    exports nomad.common.ihm;
+
+    // Main module
+    opens nomad.main.utils;
+    opens nomad.main.controller;
+
+    // Com module
+
+    // Data module
+
+    // Game module
+    opens nomad.game;
+    opens nomad.game.controller;
 }

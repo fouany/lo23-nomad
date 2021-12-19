@@ -15,8 +15,8 @@ import java.io.IOException;
  */
 public class IhmGameScreenController extends IhmScreenController {
 
-    private DataToGameConcrete dataInterface;
-    private ComToIhmGameConcrete comInterface;
+    protected DataToGameConcrete dataInterface;
+    protected ComToIhmGameConcrete comInterface;
 
     /**
      * Contructor that set the module name and the default screen start

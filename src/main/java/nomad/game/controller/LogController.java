@@ -2,7 +2,7 @@ package nomad.game.controller;
 
 import nomad.common.ihm.IhmScreenController;
 
-public class LogController extends GameComponentsAbstract{
+public class LogController extends GameControllerAbstract {
     /**
      * Constructor that link the screen controller to the component controller
      *

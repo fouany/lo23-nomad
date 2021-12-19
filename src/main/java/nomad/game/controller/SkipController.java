@@ -4,9 +4,8 @@ package nomad.game.controller;
 import nomad.common.data_structure.Game;
 import nomad.common.data_structure.Skip;
 import nomad.common.ihm.IhmScreenController;
-import nomad.game.IhmGameScreenController;
 
-public class SkipController extends GameComponentsAbstract {
+public class SkipController extends GameControllerAbstract {
 
     /**
      * Constructor that link the screen controller to the component controller
