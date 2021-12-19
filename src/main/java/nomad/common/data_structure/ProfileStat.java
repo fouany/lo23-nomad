@@ -2,7 +2,7 @@ package nomad.common.data_structure;
 
 import java.io.Serializable;
 
-public class ProfileStat implements Serializable {
+public class  ProfileStat implements Serializable {
 
     private int gamesPlayed;
     private int gamesWon;

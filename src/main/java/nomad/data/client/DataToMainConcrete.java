@@ -147,11 +147,9 @@ public class DataToMainConcrete implements DataToIhmMainInterface {
         User newUser = getUser();
         // updates the profile information
         newUser.setLogin(login);
-        String password =hashPassword(pwd);
-        if (password == null){
-            throw new UserException("Password couldn't be hashed properly");
+        if (pwd != null ){
+            newUser.setPassword(hashPassword(pwd));
         }
-        newUser.setPassword(password);
         newUser.setName(name);
         newUser.setProfilePicture(profilePicture);
         newUser.setBirthDate(birthDate);
@@ -203,6 +201,7 @@ public class DataToMainConcrete implements DataToIhmMainInterface {
         //1 - Verify account exists else throw exception
         dataClientController.setPath("");
         User u = dataClientController.read(login);
+        System.out.println(u.toString());
         if ((u.getLogin().equals(login)) && (u.getPassword().equals(hashPassword(password)))) {
             dataClientController.getUserController().setUser(u);
             //2 Make sure the right port and IP is saved in user
@@ -335,13 +334,24 @@ public class DataToMainConcrete implements DataToIhmMainInterface {
         User user = dataClientController.getUserController().getUser();
 
         // Setting the path for the file to export
-        dataClientController.setPath(exportPath);
+
+        String path = exportPath;
+        if (exportPath.contains("\\")){
+            path = path+"\\";
+        }else if (exportPath.contains("/")){
+            path = path+"/";
+        }
+        dataClientController.setPath(path);
+
+        System.out.println("Path = " + dataClientController.getPathProfile());
+
 
         //Verify there is not already a file with this login
         try {
-            dataClientController.read(user.getLogin());
+            dataClientController.read(path+user.getLogin());
         } catch (IOException | ClassNotFoundException e) {
             //if there is no file => create one
+            System.out.println("write");
             dataClientController.write(user);
             dataClientController.setPath(""); // to ensure a clean path for further import/export
             return;
