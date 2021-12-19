@@ -92,14 +92,14 @@ public class ServerConnectionController extends IhmControllerComponent implement
 
                 /**todo add connectException  **/
                 ihmMainScreenController.getDataI().login(user, password, ip, Integer.parseInt(port));
-                screenControl.changeScreen(2);
+                screenControl.changeScreen(MenuController.class);
             } catch (FileNotFoundException | ConnectException | UserException e) {
 
 
                 //TODO: ajouter back pour revenir
                DialogController.display("Erreur connexion", e.getMessage(),
                        DialogController.DialogStatus.ERROR, this.ihmMainScreenController);
-                screenControl.changeScreen(0);
+                screenControl.changeScreen(LoginController.class);
             }
         } else {
             Logger.getLogger(ServerConnectionController.class.getName()).log(Level.INFO, "Error on Ip address or in port");
@@ -115,6 +115,6 @@ public class ServerConnectionController extends IhmControllerComponent implement
 
     public void backToLogin(ActionEvent actionEvent) {
 
-        ihmMainScreenController.changeScreen(0);
+        ihmMainScreenController.changeScreen(LoginController.class);
     }
 }

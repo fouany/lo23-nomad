@@ -51,7 +51,7 @@ public class LoginController extends IhmControllerComponent {
         ihmMainScreenController.getAttributes().put("isSignup", String.valueOf(isSignup));
         ihmMainScreenController.getAttributes().put("login", login.getText());
         ihmMainScreenController.getAttributes().put("password", password.getText());
-        screenControl.changeScreen(1);
+        screenControl.changeScreen(ServerConnectionController.class);
     }
 
     public void onClickSignIn() {
@@ -59,6 +59,6 @@ public class LoginController extends IhmControllerComponent {
         ihmMainScreenController.getAttributes().put("isSignup", String.valueOf(isSignup));
         ihmMainScreenController.getAttributes().put("login", login.getText());
         ihmMainScreenController.getAttributes().put("password", password.getText());
-        screenControl.changeScreen(1);
+        screenControl.changeScreen(ServerConnectionController.class);
     }
 }

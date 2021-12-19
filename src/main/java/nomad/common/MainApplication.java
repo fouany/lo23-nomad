@@ -47,13 +47,9 @@ public class MainApplication extends Application {
 
     private IhmGameToDataInterface ihmGameToDataConcrete;
 
-    public MainApplication() {
+    public MainApplication() throws IOException {
         initConcreteInterface();
-        try {
-            initController();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        initController();
         linkConcreteController();
     }
 

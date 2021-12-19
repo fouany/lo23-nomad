@@ -34,12 +34,12 @@ public class IhmMainScreenController extends IhmScreenController {
     public IhmMainScreenController(MainApplication app, DataToIhmMainInterface dataI, ComToIhmMainInterface comI) throws IOException {
         super(app);
         module = "MAIN";
-        defaultStart = ControllerIndex.LOGIN.index;
+        defaultController = LoginController.class;
         attributes = new HashMap<>();
         initPanes();
         this.dataI = dataI;
         this.comI = comI;
-        DialogController.initDialog(paneDict.get(4));
+        DialogController.initDialog(paneDict.get(DialogController.class));
         // TODO : ajouter l'interface com concrete
     }
 
@@ -88,20 +88,20 @@ public class IhmMainScreenController extends IhmScreenController {
         viewGameController = new ViewGameController(this);
         waitingRoomController = new WaitingRoomController(this);
 
-        controllerDict.put(ControllerIndex.LOGIN.index, new LoginController(this));
-        controllerDict.put(ControllerIndex.SERVER_CONNECTION.index, new ServerConnectionController(this));
-        controllerDict.put(ControllerIndex.MENU.index, menuController);
-        controllerDict.put(ControllerIndex.CREATE_GAME.index, createGameController);
-        controllerDict.put(ControllerIndex.DIALOG.index, new DialogController(this));
-        controllerDict.put(ControllerIndex.VIEW_GAME.index, viewGameController);
-        controllerDict.put(ControllerIndex.WAITING_ROOM.index, waitingRoomController);
+        controllerDict.put(LoginController.class, new LoginController(this));
+        controllerDict.put(ServerConnectionController.class, new ServerConnectionController(this));
+        controllerDict.put(MenuController.class, menuController);
+        controllerDict.put(CreateGameController.class, createGameController);
+        controllerDict.put(DialogController.class, new DialogController(this));
+        controllerDict.put(ViewGameController.class, viewGameController);
+        controllerDict.put(WaitingRoomController.class, waitingRoomController);
     }
 
     public void initStyles() {
         String stylesheet = "Poppins/style.css";
-        styleDict.put(0, stylesheet);
-        styleDict.put(1, stylesheet);
-        styleDict.put(2, stylesheet);
-        styleDict.put(3, stylesheet);
+        styleDict.put(LoginController.class, stylesheet);
+        styleDict.put(ServerConnectionController.class, stylesheet);
+        styleDict.put(MenuController.class, stylesheet);
+        styleDict.put(CreateGameController.class, stylesheet);
     }
 }

@@ -5,15 +5,16 @@ package nomad.common.ihm;
 
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import nomad.common.MainApplication;
 
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +26,7 @@ public abstract class IhmScreenController {
     /**
      * Default screen that will be display when the class is initialized
      */
-    protected int defaultStart;
+    protected Class<?> defaultController;
     /**
      * nomad.common.ihm.Main app of the GUI
      */
@@ -44,22 +45,27 @@ public abstract class IhmScreenController {
     /**
      * Dict of all the style of the current module
      */
-    protected HashMap<Integer, String> styleDict = new HashMap<>();
+    protected HashMap<Class<?>, String> styleDict = new HashMap<>();
 
     /**
      * Dict of all the controllers of the current module
      */
-    protected HashMap<Integer, IhmControllerComponent> controllerDict = new HashMap<>();
+    protected HashMap<Class<?>, IhmControllerComponent> controllerDict = new HashMap<>();
 
     /**
      * Dict of all the panes of the current module
      */
-    protected HashMap<Integer, Pane> paneDict = new HashMap<>();
+    protected HashMap<Class<?>, Pane> paneDict = new HashMap<>();
 
     /**
      * Dict of non-pane elements of the module
      */
-    protected HashMap<Integer, Node> nodeDict = new HashMap<>();
+    protected HashMap<Class<?>, Node> nodeDict = new HashMap<>();
+
+    /**
+     * Callback to return controllers from the dictionnary
+     */
+    private final Callback<Class<?>, Object> controllerFactory = controllerDict::get;
 
     /**
      * Init all styles for the current module
@@ -95,9 +101,9 @@ public abstract class IhmScreenController {
         Platform.runLater(() -> {
             mainApp.getStage().setTitle("Nomad - " + module);
             if (mainApp.getStage().getScene() == null) { // No scene, initialize it with correct root
-                mainApp.getStage().setScene(new Scene(paneDict.get(defaultStart)));
+                mainApp.getStage().setScene(new Scene(paneDict.get(defaultController)));
             } else { // Change root node of scene
-                mainApp.getStage().getScene().setRoot(paneDict.get(defaultStart));
+                mainApp.getStage().getScene().setRoot(paneDict.get(defaultController));
             }
             mainApp.getStage().show();
         });
@@ -117,55 +123,41 @@ public abstract class IhmScreenController {
     /**
      * Init all the panes in the panes dict
      *
-     * @throws IOException
+     * @throws IOException When loading a specified FXML fails
      */
     protected void initPanes() throws IOException {
-        for (int i = 0; i < listPaths.size(); i++) {
-            FXMLLoader fxmlLoader = loadFile(listPaths.get(i), controllerDict.get(i));
+        for (String path : listPaths) {
+            URL fxmlUrl = this.getClass().getResource(path);
+            if (fxmlUrl == null) {
+                return;
+            }
+
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(controllerFactory);
+            fxmlLoader.setLocation(fxmlUrl);
+
             Pane pane;
             Node node = fxmlLoader.load();
             try {
                 pane = (Pane) node; // node might not be a Pane
-            } catch (ClassCastException e) {
-                nodeDict.put(i, node);
+            } catch (ClassCastException e) { // Not a Pane
+                nodeDict.put(fxmlLoader.getController().getClass(), node);
                 return;
             }
 
-            paneDict.put(i, pane);
-            if (styleDict.containsKey(i)) {
-                pane.getStylesheets().add(getFxmlUrl(styleDict.get(i)));
+            paneDict.put(fxmlLoader.getController().getClass(), pane); // Is a Pane
+            if (styleDict.containsKey(fxmlLoader.getController().getClass())) {
+                pane.getStylesheets().add(getFxmlUrl(styleDict.get(fxmlLoader.getController().getClass())));
             }
         }
     }
-
-    /**
-     * Load a scene with the linked controller
-     *
-     * @param url                 url of the scene
-     * @param interfaceController controller to linked
-     * @return
-     */
-    public FXMLLoader loadFile(String url, IhmControllerComponent interfaceController) {
-        try {
-            return new FXMLLoader(
-                    this.getClass().getResource(url),
-                    null,
-                    new JavaFXBuilderFactory(),
-                    param -> interfaceController
-            );
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     /**
      * Change the current screen (with a scene of the current module)
      *
-     * @param i
+     * @param controllerClass The class of the controller associated to the FXML to recover the style for
      */
-    public void changeScreen(int i) {
-        mainApp.getStage().getScene().setRoot(paneDict.get(i));
+    public void changeScreen(Class<?> controllerClass) {
+        mainApp.getStage().getScene().setRoot(paneDict.get(controllerClass));
         mainApp.getStage().show();
     }
 
@@ -173,8 +165,8 @@ public abstract class IhmScreenController {
         return mainApp.getStage();
     }
 
-    public IhmControllerComponent getController(int i) {
-        return controllerDict.get(i);
+    public IhmControllerComponent getController(Class<?> controllerClass) {
+        return controllerDict.get(controllerClass);
     }
 
     /**

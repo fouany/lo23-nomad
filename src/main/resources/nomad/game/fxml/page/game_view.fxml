@@ -15,8 +15,8 @@
        <RowConstraints maxHeight="318.67510986328125" minHeight="10.0" prefHeight="100.8567886352539" vgrow="SOMETIMES" />
        <RowConstraints maxHeight="599.4680786132812" minHeight="10.0" prefHeight="578.1432113647461" vgrow="SOMETIMES" />
      </rowConstraints>
-     <fx:include fx:id="player_info_controller" source="../components/player_info.fxml" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-     <fx:include fx:id="board_controller" source="../components/board.fxml" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+     <fx:include source="../components/player_info.fxml" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+     <fx:include source="../components/board.fxml" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
      <GridPane alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
        <columnConstraints>
          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

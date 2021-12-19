@@ -59,7 +59,7 @@ public class CreateGameController extends IhmControllerComponent {
 
 
     public void onClickBack() {
-        screenControl.changeScreen(2);
+        screenControl.changeScreen(MenuController.class);
     }
 
     private void resetCheckBoxes() {
@@ -127,7 +127,7 @@ public class CreateGameController extends IhmControllerComponent {
             } else {
                 DialogController.display("Match accepté", "Vous avez été accepté comme opposant", DialogController.DialogStatus.SUCCESS, ihmMainScreenController);
             }
-            ihmMainScreenController.changeScreen(6);
+            ihmMainScreenController.changeScreen(WaitingRoomController.class);
         });
     }
 

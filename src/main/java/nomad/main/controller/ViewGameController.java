@@ -54,7 +54,7 @@ public class ViewGameController extends IhmControllerComponent implements Initia
 
 
     public void onClickReturnMenu() {
-        this.ihmController.changeScreen(2);
+        this.ihmController.changeScreen(MenuController.class);
     }
     /**
      * Both onClickAddGame and onClickRemoveGame are created for test
@@ -87,7 +87,7 @@ public class ViewGameController extends IhmControllerComponent implements Initia
     {
         freeIhm();
         DialogController.display("Match accepté", "Vous avez été accepté comme opposant", DialogController.DialogStatus.SUCCESS, ihmController);
-        ihmController.changeScreen(6);
+        ihmController.changeScreen(WaitingRoomController.class);
     }
 
     public void refusedInGame() {

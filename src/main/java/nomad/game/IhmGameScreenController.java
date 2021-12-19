@@ -27,11 +27,10 @@ public class IhmGameScreenController extends IhmScreenController {
     public IhmGameScreenController(MainApplication app, DataToGameConcrete dataInterface, ComToIhmGameConcrete comInterface) throws IOException {
         super(app);
         module = "GAME";
-        defaultStart = ControllerIndex.GAME.index;
+        defaultController = GameController.class;
         this.comInterface = comInterface;
         this.dataInterface = dataInterface;
-        initPanes();
-        initListenerGame();
+        initGameControllers();
     }
 
     /**
@@ -42,8 +41,10 @@ public class IhmGameScreenController extends IhmScreenController {
         return dataInterface.getGame();
     }
 
-    public void initListenerGame(){
-        ((GameController) controllerDict.get(0)).initListener();
+    public void initGameControllers() throws IOException {
+        ((GameController) controllerDict.get(defaultController)).instanciateControllers();
+        initPanes();
+        ((GameController) controllerDict.get(defaultController)).initControllers();
     }
 
     public DataToGameConcrete getDataInterface(){
@@ -71,11 +72,11 @@ public class IhmGameScreenController extends IhmScreenController {
 
     @Override
     public void initController() {
-        controllerDict.put(ControllerIndex.GAME.index, new GameController(this));
-        controllerDict.put(ControllerIndex.PLAYER_INFO.index, new PlayerInfoController(this));
-        controllerDict.put(ControllerIndex.BOARD.index, new BoardController(this));
-        controllerDict.put(ControllerIndex.LOG.index, new LogController(this));
-        controllerDict.put(ControllerIndex.SKIP.index, new SkipController(this));
-        controllerDict.put(ControllerIndex.CHAT.index, new ChatController(this));
+        controllerDict.put(GameController.class, new GameController(this));
+        controllerDict.put(PlayerInfoController.class, new PlayerInfoController(this));
+        controllerDict.put(BoardController.class, new BoardController(this));
+        controllerDict.put(LogController.class, new LogController(this));
+        controllerDict.put(SkipController.class, new SkipController(this));
+        controllerDict.put(ChatController.class, new ChatController(this));
     }
 }
