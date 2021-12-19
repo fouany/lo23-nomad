@@ -36,12 +36,10 @@ public class LoginController extends IhmControllerComponent {
         File file = fileChooser.showOpenDialog(this.ihmMainScreenController.getStage());
         try {
             ihmMainScreenController.getDataI().addAccount(file.getPath());
-        } catch (IOException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.getMessage());
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.getMessage());
         } catch (UserException e) {
-            DialogController.display("Erreur","L'utilisateur existe déjà en local.", DialogController.DialogStatus.ERROR, ihmMainScreenController);
+            DialogController.display("Erreur", "L'utilisateur existe déjà en local.", DialogController.DialogStatus.ERROR, ihmMainScreenController);
         }
     }
 

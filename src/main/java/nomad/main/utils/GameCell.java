@@ -15,17 +15,14 @@ import java.util.logging.Logger;
 
 public class GameCell extends ListCell<GameLight> {
 
-
     @FXML
     public Label playerName;
     @FXML
     public Label playerId;
     @FXML
     public Label towers;
-
     @FXML
     public Label gameName;
-
     @FXML
     public HBox container;
 
