@@ -41,6 +41,7 @@ public class ChatController extends GameComponentsAbstract{
         Game game = dataInterface.getGame();
         ObservableList<UserLight> viewerList = game.getSpect();
         viewers = new ListView<UserLight>(viewerList);
+        //TODO : only display viewer logins
     }
 
     @Override
@@ -85,11 +86,18 @@ public class ChatController extends GameComponentsAbstract{
 
     public void handleListViewClick(){
         IhmGameScreenController ihmGameScreenController = (IhmGameScreenController)super.screenControl;
+        UserLight userClicked = (UserLight)viewers.getSelectionModel().getSelectedItem();
+        //TODO : il nous manque une fonction get User from UserId
+        //User user = userClicked.getUser(userClicked.getId());
+        //InfoViewerController.display(user.getLogin(), user.getUserInfo().getProfilePicture(), user.getProfileStat(), IhmScreenController controller)
+
+        /*
         DataToGameConcrete dataInterface = ihmGameScreenController.getDataInterface();
         User user = dataInterface.getUser();
         String profilePicture = user.getProfilePicture();
         ProfileStat profileStats = user.getProfileStat();
         String login = user.getLogin();
+        */
     }
 
 }

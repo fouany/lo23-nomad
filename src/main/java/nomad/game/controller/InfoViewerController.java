@@ -24,6 +24,7 @@ public class InfoViewerController extends GameComponentsAbstract {
 
     @Override
     public void init() {
+        /*
         IhmGameScreenController ihmGameScreenController = (IhmGameScreenController)super.screenControl;
         DataToGameConcrete dataInterface = ihmGameScreenController.getDataInterface();
         User user = dataInterface.getUser();
@@ -31,6 +32,8 @@ public class InfoViewerController extends GameComponentsAbstract {
         ProfileStat profileStats = user.getProfileStat();
         String login = user.getLogin();
         InfoViewerController.infoViewerControllerScene = ihmGameScreenController.getStage().getScene();
+        */
+
 
     }
 
