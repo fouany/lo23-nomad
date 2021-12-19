@@ -160,7 +160,7 @@ public class ModifyProfileController extends IhmControllerComponent {
         return "";
     }
 
-    public void onClickModifyProfile() throws IOException, ClassNotFoundException {
+    public void onClickModifyProfile() throws IOException {
         //TODO Finish to implement
         // tout les champs vides il faut recuperer ont passe null
         String passwordTest;
@@ -180,9 +180,7 @@ public class ModifyProfileController extends IhmControllerComponent {
         } catch (UserException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.getMessage());
             DialogController.display("Modify User", "Le profil n'a pas bien été modifié", DialogController.DialogStatus.ERROR, this.ihmController);
-
         }
-        System.out.println(login.getText() + passwordTest + name.getText());
     }
 
     public void onClickExportProfile() {
