@@ -76,10 +76,7 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
     @Override
     public void updateRejectOpponent(Game game) {
         if(!isHost(game)) {
-            Platform.runLater(() ->
-            {
-                mainScreenController.getViewGameController().refusedInGame();
-            });
+            Platform.runLater(() -> mainScreenController.getViewGameController().refusedInGame());
         }
     }
 

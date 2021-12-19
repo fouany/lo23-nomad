@@ -113,7 +113,7 @@ public class ServerConnectionController extends IhmControllerComponent implement
         serverPort.setText("12");
     }
 
-    public void backToLogin(ActionEvent actionEvent) {
+    public void backToLogin() {
 
         ihmMainScreenController.changeScreen(LoginController.class);
     }

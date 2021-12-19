@@ -35,8 +35,6 @@ public class CreateGameController extends IhmControllerComponent {
     public Slider towerNumber;
     @FXML
     public CheckBox allowViewers;
-
-
     @FXML
     public CheckBox allowViewersChat;
     private boolean color;
@@ -57,7 +55,6 @@ public class CreateGameController extends IhmControllerComponent {
         }
     }
 
-
     public void onClickBack() {
         screenControl.changeScreen(MenuController.class);
     }
@@ -66,7 +63,6 @@ public class CreateGameController extends IhmControllerComponent {
         red.setSelected(false);
         white.setSelected(false);
         random.setSelected(false);
-
     }
 
     public void onCheckColor(ActionEvent e) throws MainException {
@@ -105,7 +101,6 @@ public class CreateGameController extends IhmControllerComponent {
         Logger.getLogger(this.getClass().getName()).log(Level.INFO, data);
     }
 
-
     public void onCheckAllow() {
         if (allowViewers.isSelected()) {
             allowViewersChat.setDisable(false);
@@ -139,11 +134,6 @@ public class CreateGameController extends IhmControllerComponent {
         log(gameName.getText());
         log(String.valueOf((int) towerNumber.getValue()));
         UserLight user = ihmMainScreenController.getDataI().getUserLight();
-
         ihmMainScreenController.getComI().newGame(gameName.getText(), user, (int) towerNumber.getValue(), allowViewers.isSelected(), allowViewersChat.isSelected(), color);
-
-
     }
-
-
 }

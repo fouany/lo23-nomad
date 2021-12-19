@@ -19,13 +19,16 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.apache.commons.codec.binary.Base64;
 
 
 public class ModifyProfileController extends IhmControllerComponent {
-    private IhmMainScreenController ihmController;
-    public ListView<Game> savedGamesView;
+    private final IhmMainScreenController ihmController;
+    private ListView<Game> savedGamesView;
     private ObservableList<Game> savedGames;
+    DirectoryChooser directoryChooser = new DirectoryChooser();
+
     @FXML
     public Label win;
     @FXML
@@ -56,7 +59,6 @@ public class ModifyProfileController extends IhmControllerComponent {
     public ImageView profilePicture;
 
 
-
     /**
      * Constructor that link the screen controller to the component controller
      *
@@ -67,47 +69,51 @@ public class ModifyProfileController extends IhmControllerComponent {
         this.ihmController = screen;
     }
 
-
-    public void start(){
+    public void start() {
         int winInf = this.ihmController.getDataI().getUser().getProfileStat().getGamesWon();
-        int lostInf =this.ihmController.getDataI().getUser().getProfileStat().getGamesLost();
+        int lostInf = this.ihmController.getDataI().getUser().getProfileStat().getGamesLost();
         int totalInf = this.ihmController.getDataI().getUser().getProfileStat().getGamesPlayed();
-        int drawInf = totalInf-lostInf-winInf;
-        win.setText(""+winInf);
+        int drawInf = totalInf - lostInf - winInf;
+        win.setText("" + winInf);
 
-        loses.setText(""+lostInf);
-        draws.setText(""+drawInf);
-        if(totalInf>0){
-            ratio.setText(""+winInf/totalInf);
-        }else{
+        loses.setText("" + lostInf);
+        draws.setText("" + drawInf);
+        if (totalInf > 0) {
+            ratio.setText("" + winInf / totalInf);
+        } else {
             ratio.setText("1.00");
         }
-        total.setText(""+totalInf);
+        total.setText("" + totalInf);
         displayInfoUser();
         displaySavedGames();
     }
 
-    public void displayInfoUser(){
+    public void displayInfoUser() {
         labelLogIn.setText(this.ihmController.getDataI().getUser().getLogin());
-        idPlayer.setText("#"+this.ihmController.getDataI().getUser().getUserId());
+        idPlayer.setText("#" + this.ihmController.getDataI().getUser().getUserId());
         login.setText(this.ihmController.getDataI().getUser().getLogin());
         name.setText(this.ihmController.getDataI().getUser().getName());
-        serverID.setText(""+ihmController.getDataI().getUser().getLastServer().getIpAddress().toString().substring(1,ihmController.getDataI().getUser().getLastServer().getIpAddress().toString().length()));
-        portID.setText(""+this.ihmController.getDataI().getUser().getLastServer().getPort());
-        if(this.ihmController.getDataI().getUser().getBirthDate() != null){
+        serverID.setText("" + ihmController.getDataI().getUser().getLastServer().getIpAddress().toString().substring(1));
+        portID.setText("" + this.ihmController.getDataI().getUser().getLastServer().getPort());
+        if (this.ihmController.getDataI().getUser().getBirthDate() != null) {
             LocalDate localDateBirth = this.ihmController.getDataI().getUser().getBirthDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             birthDate.setValue(localDateBirth);
         }
     }
-    public void displaySavedGames(){
+
+    public void displaySavedGames() {
         savedGames = FXCollections.observableArrayList(this.ihmController.getDataI().getUser().getSavedGames());
         savedGamesView.setItems(savedGames);
     }
+
     public void onClickReturnMenu() {
         this.ihmController.changeScreen(MenuController.class);
     }
+
     public void onClickDeleteProfile() {
+        //Todo Implement DeleteProfile
     }
+
     public void onClickSignOut() {
         this.ihmController.getDataI().logout();
         this.ihmController.changeScreen(LoginController.class);
@@ -139,63 +145,55 @@ public class ModifyProfileController extends IhmControllerComponent {
     public String getProfilePicture() {
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(this.ihmController.getStage());
-        try {
-            FileInputStream fs = new FileInputStream(file);
-            byte imageData[] = new byte[(int) file.length()];
-            fs.read(imageData);
-            Image img = new Image(file.toURI().toString());
-            profilePicture.setImage(img);
-            profilePictureStr = encodeImage(imageData);
-            return profilePictureStr;
-        } catch (FileNotFoundException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.getMessage());
+        try (FileInputStream fs = new FileInputStream(file)) {
+            byte[] imageData = new byte[(int) file.length()];
+
+            if (fs.read(imageData) > 0) {
+                Image img = new Image(file.toURI().toString());
+                profilePicture.setImage(img);
+                profilePictureStr = encodeImage(imageData);
+                return profilePictureStr;
+            }
         } catch (IOException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.getMessage());
         }
         return "";
-
     }
 
     public void onClickModifyProfile() throws IOException, ClassNotFoundException {
         //TODO Finish to implement
         // tout les champs vides il faut recuperer ont passe null
         String passwordTest;
-        if (password.getText().equals("")){
+        if (password.getText().equals("")) {
             passwordTest = null;
-        }
-        else  {
+        } else {
             passwordTest = password.getText();
         }
         if (birthDate == null) {
-            DialogController.display("Erreur","La date d'anniversaire ne doit pas être null", DialogController.DialogStatus.ERROR, ihmController);
+            DialogController.display("Erreur", "La date d'anniversaire ne doit pas être null", DialogController.DialogStatus.ERROR, ihmController);
             return;
         }
         Date dateBirth = Date.from(birthDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         try {
-            this.ihmController.getDataI().modifyAccount(login.getText(),passwordTest,name.getText(), profilePictureStr, dateBirth);
+            this.ihmController.getDataI().modifyAccount(login.getText(), passwordTest, name.getText(), profilePictureStr, dateBirth);
         } catch (UserException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.getMessage());
-            DialogController.display("Modify User", "Le profil n'a pas bien été modifié", DialogController.DialogStatus.ERROR , this.ihmController);
+            DialogController.display("Modify User", "Le profil n'a pas bien été modifié", DialogController.DialogStatus.ERROR, this.ihmController);
 
         }
-        System.out.println(login.getText() +  passwordTest + name.getText());
+        System.out.println(login.getText() + passwordTest + name.getText());
     }
-    DirectoryChooser directoryChooser = new DirectoryChooser();
+
     public void onClickExportProfile() {
         //TODO Waiting for Data Implementation of exportPlayer
-
         directoryChooser.setTitle("Export profile");
         File file = directoryChooser.showDialog(this.ihmController.getStage());
         try {
             ihmController.getDataI().exportProfile(file.getPath());
-            DialogController.display("Export profil", "Le profil a bien été exporté", DialogController.DialogStatus.SUCCESS , this.ihmController);
+            DialogController.display("Export profil", "Le profil a bien été exporté", DialogController.DialogStatus.SUCCESS, this.ihmController);
         } catch (IOException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.getMessage());
         }
-
     }
-
-
-
 }

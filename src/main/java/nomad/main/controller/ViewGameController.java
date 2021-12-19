@@ -78,7 +78,6 @@ public class ViewGameController extends IhmControllerComponent implements Initia
 
     }
     public void handleGameAsPlayerListClick() {
-        //ihmController.getComI().addPlayerInGame(ihmController.getDataI().getPlayer(), gamesViewAsPlayer.getSelectionModel().getSelectedItem());
         // TODO outdated, new lauch is in gamecell
     }
 
