@@ -52,10 +52,8 @@ public class ClientListener extends Thread {
 
             } catch (IOException | ClassNotFoundException e) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to receive message from server !");
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.toString());
             } catch (SocketClosedException e) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Socket has been closed !");
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.toString());
                 break;
             }
         }
