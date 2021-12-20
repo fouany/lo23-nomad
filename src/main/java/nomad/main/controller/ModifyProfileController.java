@@ -143,6 +143,7 @@ public class ModifyProfileController extends IhmControllerComponent {
     public void displaySavedGames() {
         savedGames = FXCollections.observableArrayList(this.ihmController.getDataI().getUser().getSavedGames());
         if (savedGamesView!=null) savedGamesView.setItems(savedGames);
+
     }
 
     public void onClickReturnMenu() {
