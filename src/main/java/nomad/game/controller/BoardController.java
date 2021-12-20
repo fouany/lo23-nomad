@@ -14,7 +14,8 @@ import nomad.common.data_structure.*;
 import nomad.common.ihm.IhmScreenController;
 import nomad.game.IhmGameScreenController;
 
-import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BoardController extends GameControllerAbstract {
     /**
@@ -38,7 +39,7 @@ public class BoardController extends GameControllerAbstract {
         Game currentGame = getGameController().getCurrentGame();
         User currentUser = getGameController().getGameScreen().getDataInterface().getUser();
         Move move;
-        if(!played && currentGame.getCurrentPlayerUUID().equals(currentUser.getUserId())) {
+        if (!played && currentGame.getCurrentPlayerUUID().equals(currentUser.getUserId())) {
             if (currentGame.getMoves().size() < currentGame.getNbOfTowers()) { // Place a tower
                 move = new Tower(GridPane.getColumnIndex(source), GridPane.getRowIndex(source));
             } else { // Place a tile
@@ -47,9 +48,8 @@ public class BoardController extends GameControllerAbstract {
             move.setGameId(currentGame.getGameId());
             move.setUserId(currentGame.getCurrentPlayerUUID());
             ((IhmGameScreenController) screenControl).getComInterface().playMove(move);
-            played=true;
-        }
-        else{
+            played = true;
+        } else {
             Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Not your turn!");
         }
     }
@@ -64,7 +64,8 @@ public class BoardController extends GameControllerAbstract {
         }
     }
 
-    public void update(ObservableList<Move> move) {
+    public void update() {
+        ObservableList<Move> move = getGameController().getCurrentGame().getMoves();
         if (!move.isEmpty()) {
             Move newMove = move.get(move.size() - 1);
             ObservableList<Node> childrens = gameBoard.getChildren(); // Get all panes in board
@@ -73,8 +74,8 @@ public class BoardController extends GameControllerAbstract {
                 Tower tower = ((Tower) newMove);
 
                 for (Node node : childrens) {
-                    if (GridPane.getRowIndex(node) == tower.getY() && GridPane.getColumnIndex(node) == tower.getX()) {
-                        if (node.getClass() == Pane.class) { //
+                    if (node.getClass() == Pane.class) {
+                        if (GridPane.getRowIndex(node) == tower.getY() && GridPane.getColumnIndex(node) == tower.getX()) {
                             Platform.runLater(() -> {
                                 ImageView towerView = new ImageView(getClass().getResource("img/tower.png").toExternalForm());
                                 towerView.fitWidthProperty().bind(((Pane) node).widthProperty()); // Link width of image to pane width
@@ -89,9 +90,8 @@ public class BoardController extends GameControllerAbstract {
             } else if (newMove instanceof Tile) {
                 Tile tile = ((Tile) newMove);
                 for (Node node : childrens) {
-                    if (GridPane.getRowIndex(node) == tile.getY() && GridPane.getColumnIndex(node) == tile.getX()) {
-                        if (node.getClass() == Pane.class) {
-
+                    if (node.getClass() == Pane.class) {
+                        if (GridPane.getRowIndex(node) == tile.getY() && GridPane.getColumnIndex(node) == tile.getX()) {
                             Case boardCase = getGameController().getCurrentGame().getBoard().getCase(tile.getX(), tile.getY());
 
                             Platform.runLater(() -> {
