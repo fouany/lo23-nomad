@@ -148,9 +148,11 @@ public class DataToComConcrete implements DataToComClientInterface {
     @Override
     public void moveReceived(Move move) {
         if (move.idMove()=="Tower"){
-            dataClientController.getGameController().getGame().getBoard().updateBoard((Tower)move);
+            Tower t = (Tower)move;
+            dataClientController.getGameController().getGame().getBoard().updateBoard(t);
         }else if (move.idMove()=="Tile"){
-            dataClientController.getGameController().getGame().getBoard().updateBoard((Tile)move);
+            Tile t = (Tile)move;
+            dataClientController.getGameController().getGame().getBoard().updateBoard(t);
         }
         dataClientController.getGameController().getGame().changeCurrentPlayer();
         dataClientController.getGameController().getGame().addMove(move);

@@ -92,6 +92,7 @@ public class DataToComConcrete implements DataToComServerInterface {
             throw new TowerException("A tower is already registered at those coordinates");
         }else{
             dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setTower(true);
+            dataServerController.getGamesController().getGame(gameID).changeCurrentPlayer();
             dataServerController.getGamesController().getGame(t.getGameId()).addMove(t);
             dataServerController.getComOfferedInterface().towerValid(t, dataServerController.getGamesController().getGame(t.getGameId()).getListOther());
         }
