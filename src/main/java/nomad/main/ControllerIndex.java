@@ -11,7 +11,8 @@ public enum ControllerIndex {
     DIALOG(4),
     VIEW_GAME(5),
     WAITING_ROOM(6),
-    MODIFY_PROFILE(7);
+    MODIFY_PROFILE(7),
+    SEE_PROFILE(8);
 
     public final int index;
     ControllerIndex(int index) {

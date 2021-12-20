@@ -33,13 +33,27 @@ public class DialogController extends IhmControllerComponent {
         ERROR,
         QUESTION
 }
+    public static void centerDialog(Stage stage, Stage primaryStage) {
+        // Calculate the center position of the parent Stage
+        double centerXPosition = primaryStage.getX() + primaryStage.getWidth()/2d;
+        double centerYPosition = primaryStage.getY() + primaryStage.getHeight()/2d;
+
+        // Hide the pop-up stage before it is shown and becomes relocated
+        stage.setOnShowing(ev -> stage.hide());
+
+        // Relocate the pop-up Stage
+        stage.setOnShown(ev -> {
+            stage.setX(centerXPosition - stage.getWidth()/2d);
+            stage.setY(centerYPosition - stage.getHeight()/2d - 50);
+            stage.show();
+        });
+    }
+
     private static Pane dialogPane = null;
     private static Scene scene = null;
 
-
-public static Boolean display(String title, String content, DialogStatus status , IhmScreenController controller)
-{
-
+    
+public static Boolean display(String title, String content, DialogStatus status , IhmScreenController controller) {
     Stage stage = new Stage();
     Stage primaryStage = controller.getStage();
     stage.initModality(Modality.APPLICATION_MODAL);
@@ -50,19 +64,8 @@ public static Boolean display(String title, String content, DialogStatus status 
     }
     stage.setScene(DialogController.scene);
     stage.initOwner(primaryStage);
-    // Calculate the center position of the parent Stage
-    double centerXPosition = primaryStage.getX() + primaryStage.getWidth()/2d;
-    double centerYPosition = primaryStage.getY() + primaryStage.getHeight()/2d;
-
-    // Hide the pop-up stage before it is shown and becomes relocated
-    stage.setOnShowing(ev -> stage.hide());
-
-    // Relocate the pop-up Stage
-    stage.setOnShown(ev -> {
-        stage.setX(centerXPosition - stage.getWidth()/2d);
-        stage.setY(centerYPosition - stage.getHeight()/2d - 50);
-        stage.show();
-    });
+    
+    DialogController.centerDialog(stage, primaryStage);
 
     AtomicReference<Boolean> accept = new AtomicReference<>(false);
     Button yes = (Button)dialogPane.lookup("#oui");
