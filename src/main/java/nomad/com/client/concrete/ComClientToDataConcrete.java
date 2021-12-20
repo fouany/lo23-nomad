@@ -1,6 +1,7 @@
 package nomad.com.client.concrete;
 
 import nomad.com.client.ClientController;
+import nomad.com.common.message.Message;
 import nomad.com.common.message.client_message.game.RejectPlayerMessage;
 import nomad.com.common.message.server_message.game.EnoughPlayerMessage;
 import nomad.com.common.message.server_message.game.GetSavedGameMessage;
@@ -31,27 +32,19 @@ public class ComClientToDataConcrete implements ComToDataClientInterface {
      * @param user The local connected user
      */
     @Override
-    public void addConnectedUser(User user) {
+    public void addConnectedUser(User user) throws IOException {
         if (user == null) {
             throw new NullPointerException();
         }
 
-        try {
-            clientController.connectClient(user.getLastServer().getIpAddress(), user.getLastServer().getPort());
-        } catch (IOException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to init socket to remote server !");
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.toString());
-            return;
-        }
+        clientController.connectClient(user.getLastServer().getIpAddress(), user.getLastServer().getPort());
 
-        if (!clientController.sendMessage(new LocalUserConnectionMessage(user))) { // Connect to the remote server
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to register the user to the remote server !");
-        }
+        sendMessage(new LocalUserConnectionMessage(user), "Failed to register the user to the remote server !");
     }
 
     @Override
     public void enoughPlayers(UUID gameId, UUID opponentId) {
-        clientController.sendMessage(new EnoughPlayerMessage(gameId, opponentId));
+        sendMessage(new EnoughPlayerMessage(gameId, opponentId), "Failed to send EnoughPlayerMessage to the remote server");
     }
 
     /**
@@ -69,7 +62,7 @@ public class ComClientToDataConcrete implements ComToDataClientInterface {
      */
     @Override
     public void askForSave(UUID gameId) {
-        clientController.sendMessage(new GetSavedGameMessage(gameId));
+        sendMessage(new GetSavedGameMessage(gameId), "Failed to send GetSavedGameMessage to the remote server");
     }
 
     /**
@@ -79,16 +72,22 @@ public class ComClientToDataConcrete implements ComToDataClientInterface {
      */
     @Override
     public void getProfileMain(UUID userId) {
-        clientController.sendMessage(new GetProfileMainMessage(userId));
+        sendMessage(new GetProfileMainMessage(userId), "Failed to send GetProfileMainMessage to the remote server");
     }
 
     @Override
     public void getProfileGame(UUID userId) {
-        clientController.sendMessage(new GetProfileGameMessage(userId));
+        sendMessage(new GetProfileGameMessage(userId), "Failed to send GetProfileGameMessage to the remote server");
     }
 
     @Override
     public void rejectPlayers(UUID gameId) {
-        clientController.sendMessage(new RejectPlayerMessage(gameId));
+        sendMessage(new RejectPlayerMessage(gameId), "Failed to send RejectPlayerMessage to the remote server");
+    }
+
+    private void sendMessage(Message message, String errorMessage) {
+        if (!clientController.sendMessage(message)) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, errorMessage);
+        }
     }
 }

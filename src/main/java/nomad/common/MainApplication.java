@@ -8,7 +8,6 @@ import nomad.com.client.ClientController;
 import nomad.com.client.concrete.ComClientToDataConcrete;
 import nomad.com.client.concrete.ComClientToIhmMainConcrete;
 import nomad.com.client.concrete.ComToIhmGameConcrete;
-import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmScreenController;
 import nomad.common.interfaces.game.IhmGameToDataInterface;
 import nomad.data.client.DataClientController;
@@ -31,6 +30,8 @@ import java.util.logging.Logger;
  */
 public class MainApplication extends Application {
 
+    private final int MIN_WIDTH = 935;
+    private final int MIN_HEIGHT = 610;
     /**
      * Current stage
      */
@@ -38,26 +39,32 @@ public class MainApplication extends Application {
     private DataToMainConcrete dataToMainConcrete;
     private DataToComConcrete dataToComConcrete;
     private DataToGameConcrete dataToGameConcrete;
-
     private ComClientToIhmMainConcrete comClientToIhmMainConcrete;
     private IhmMainToDataConcrete ihmMainToDataConcrete;
     private IhmMainToComConcrete ihmMainToComConcrete;
     private IhmGameToComConcrete ihmGameToComConcrete;
     private ComClientToDataConcrete comClientToDataConcrete;
-
     private DataClientController dataClientController;
     private ClientController clientController;
     private IhmMainScreenController ihmMainScreenController;
     private IhmGameScreenController ihmGameScreenController;
     private IhmScreenController screenController;
     private ComToIhmGameConcrete comToGameConcrete;
-
     private IhmGameToDataInterface ihmGameToDataConcrete;
 
     public MainApplication() throws IOException {
         initConcreteInterface();
         initController();
         linkConcreteController();
+    }
+
+    /**
+     * Entry point of the application
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        launch(args);
     }
 
     public void initConcreteInterface() {
@@ -92,9 +99,6 @@ public class MainApplication extends Application {
         comClientToDataConcrete.setController(clientController);
     }
 
-    private final int MIN_WIDTH = 935;
-    private final int MIN_HEIGHT = 610;
-
     @Override
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
@@ -105,9 +109,7 @@ public class MainApplication extends Application {
 
     }
 
-
-    private void attachCloseListener()
-    {
+    private void attachCloseListener() {
         getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
@@ -116,14 +118,13 @@ public class MainApplication extends Application {
                     dataToMainConcrete.logout();
 
 
-                }
-                catch (NullPointerException e)
-                {
+                } catch (NullPointerException e) {
                     //user is not connected so nullpointer exception is raised
                 }
             }
         });
     }
+
     /**
      * Change the current module (Main of Game)
      *
@@ -147,15 +148,6 @@ public class MainApplication extends Application {
      */
     public Stage getStage() {
         return stage;
-    }
-
-    /**
-     * Entry point of the application
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        launch(args);
     }
 
 

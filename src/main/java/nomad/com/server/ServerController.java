@@ -53,19 +53,6 @@ public class ServerController extends Thread {
     }
 
     /**
-     * Get the User UID associated with a given socket
-     *
-     * @param socket Socket connected to a client
-     * @return UID of the associated identified user or null if not found or not identified
-     */
-    public UUID getAssociatedUserUID(Socket socket) {
-        if (clientList.containsKey(socket)) {
-            return clientList.get(socket).getUID();
-        }
-        return null;
-    }
-
-    /**
      * Get the client socket with a given ID
      *
      * @param userId ID of the user
@@ -112,7 +99,6 @@ public class ServerController extends Thread {
                 entry.getValue().getOutputStream().writeObject(message);
             } catch (IOException e) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send message to client !");
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.toString());
                 disconnectClient(entry.getKey()); // Error has happened, kick the faulty client
             }
         }
