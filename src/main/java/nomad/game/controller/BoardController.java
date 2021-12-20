@@ -39,6 +39,8 @@ public class BoardController extends GameControllerAbstract {
         } else { // Place a tile
             move = new Tile(GridPane.getColumnIndex(source), GridPane.getRowIndex(source), true);
         }
+        move.setGameId(currentGame.getGameId());
+        move.setUserId(currentGame.getCurrentPlayerUUID());
         ((IhmGameScreenController) screenControl).getComInterface().playMove(move);
     }
 
