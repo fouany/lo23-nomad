@@ -14,12 +14,29 @@ import java.util.logging.Logger;
  */
 public class DataToComConcrete implements DataToComServerInterface {
 
+    /**
+     * The main class of the server package
+     */
     private DataServerController dataServerController;
 
+    /**
+     * Constructor of DataToComConcrete
+     * @param dataServerController - DataServerController the main class of the server package
+     */
     public DataToComConcrete(DataServerController dataServerController){
         this.dataServerController = dataServerController;
     }
 
+    /**
+     * Transfer all the necessary information for the server to create the game
+     * @param name - String : the name of the game
+     * @param host - UserLight : the creator of the game
+     * @param nbOfTowers - int : the number of tower of the game
+     * @param spectAllowed - boolean : if spectators are allowed in the game
+     * @param spectChatAllowed - boolean : if spectators are allowed to chat in the game
+     * @param hostColour - boolean : the color of the host of the game
+     * @return Game - the created Game
+     */
     @Override
     //Create a Game
     public Game createGame(String name, UserLight host, int nbOfTowers, boolean spectAllowed, boolean spectChatAllowed, boolean hostColour) {
@@ -35,6 +52,11 @@ public class DataToComConcrete implements DataToComServerInterface {
         return game;
     }
 
+    /**
+     * A request for another player to join the game
+     * @param player - Player : the player requesting to join the game
+     * @param game - GameLight : the game requested to be joined
+     */
     @Override
     public void joinGameRequest(Player player, GameLight game) {
         if (dataServerController.getGamesController().getGame(game.getGameId()).getOpponent() == null){
@@ -43,15 +65,25 @@ public class DataToComConcrete implements DataToComServerInterface {
         }
     }
 
+    /**
+     * Method used when an opponent is accepted
+     * @param gameId - UUID : id of the game
+     * @param opponentId - UUID : id of the user
+     * @return Game - the Game
+     */
     @Override
-    public Game guestAccepted(UUID gameId, UUID opponentID) {
+    public Game guestAccepted(UUID gameId, UUID opponentId) {
         dataServerController.getGamesController().setGame(dataServerController.getGamesController().getGame(gameId));
 
-        Player p = new Player(opponentID, dataServerController.getUser(opponentID).getLogin(), dataServerController.getUser(opponentID).getProfilePicture());
+        Player p = new Player(opponentId, dataServerController.getUser(opponentId).getLogin(), dataServerController.getUser(opponentId).getProfilePicture());
         dataServerController.getGamesController().getGame(gameId).setOpponent(p);
         return dataServerController.getGamesController().getGame(gameId);
     }
-    /*Checks that no opponent is associated with the player*/
+
+    /**
+     * Denies a player's request to be the opponent
+     * @param player - Player : the player requesting to join the game
+     */
     @Override
     public void guestRefused(Player player) {
         for (Game g : dataServerController.getGamesController().getAllGames().values()) {
@@ -61,11 +93,21 @@ public class DataToComConcrete implements DataToComServerInterface {
         }
     }
 
+    /**
+     * Adds a spectator in a game
+     * @param user - UserLight : the spectator added to the game
+     * @param game - GameLight : the game that the spectator joins
+     */
     @Override
     public void addSpecInGame(UserLight user, GameLight game) {
         dataServerController.getGamesController().getGame(game.getGameId()).addSpec(user);
     }
 
+    /**
+     * Sends the Users present in the game
+     * @param game - GameLight : the game of the Users
+     * @return List<UUID> : the list of UUID
+     */
     @Override
     public List<UUID> getUserList(GameLight game) {
         Game g = dataServerController.getGamesController().getGame(game.getGameId());
@@ -78,11 +120,20 @@ public class DataToComConcrete implements DataToComServerInterface {
         return users;
     }
 
+    /**
+     * Launches the game
+     * @param gameId - UUID : id of the game
+     */
     @Override
     public void launchGame(UUID gameId) {
         dataServerController.getGamesController().getGame(gameId).setGameLaunched(true);
     }
 
+    /**
+     * Saves a tower on the game's board
+     * @param t - Tower : The Tower to be saved
+     * @throws TowerException
+     */
     @Override
     public void saveTower(Tower t) throws TowerException {
         UUID gameID = t.getGameId();
@@ -97,6 +148,11 @@ public class DataToComConcrete implements DataToComServerInterface {
         }
     }
 
+    /**
+     * Saves a tile on the game's board
+     * @param t - Tile : The Tile to be saved
+     * @throws TileException
+     */
     @Override
     public void saveTile(Tile t) throws TileException {
         UUID gameID = t.getGameId();
@@ -129,6 +185,12 @@ public class DataToComConcrete implements DataToComServerInterface {
         }
     }
 
+    /**
+     * Checks if the piles of Tiles next to each other are high enough for a tile to be placed
+     * @param t - Tile : The Tile to be saved
+     * @param height - int : The height of the Pile
+     * @param color - boolean : the color of the last Tile on the Pile
+     */
     private boolean checkPile(Tile t, int height, boolean color){
         UUID gameID = t.getGameId();
         boolean nearPileOK = false;
@@ -145,6 +207,11 @@ public class DataToComConcrete implements DataToComServerInterface {
         }
         return nearPileOK;
     }
+
+    /**
+     * Saves a skip on the game's board
+     * @param s - Skip : The Skip to be saved
+     */
     @Override
     public void saveSkip(Skip s) {
         Game g = dataServerController.getGamesController().getGame(s.getGameId());
@@ -157,11 +224,30 @@ public class DataToComConcrete implements DataToComServerInterface {
         }
     }
 
+    /**
+     * Saves a move on the game's board
+     * @param m - Move : The Move to be saved
+     */
     @Override
     public void saveMove(UserLight user, Move m) {
         //TODO
     }
 
+    /**
+     * Checks if a game is ended
+     * @param game - GameLight : the game that has to be checked
+     * @return boolean
+     */
+    @Override
+    public boolean checkGameEnded(GameLight game) {
+        return false;
+    }
+
+    /**
+     * Gets the current Game
+     * @param gameId - UUID : id of the Game
+     * @return Game
+     */
     @Override
     public Game getStoredGame(UUID gameId) {
         return dataServerController.getGamesController().getGame(gameId);
@@ -185,6 +271,10 @@ public class DataToComConcrete implements DataToComServerInterface {
         dataServerController.getGamesController().getGame(message.getGameId()).addMessage(message);
     }
 
+    /**
+     * Gets all the Users currently connected
+     * @return List<Player>
+     */
     @Override
     public List<Player> requestConnectedUserList() {
         List<Player> players = new ArrayList<>();
@@ -195,26 +285,38 @@ public class DataToComConcrete implements DataToComServerInterface {
         return players;
     }
 
+    /**
+     * Gets all the Games currently in lobby
+     * @return List<GameLight>
+     */
     @Override
     public List<GameLight> requestGameListInLobby() {
         return dataServerController.getGamesController().getGameLightListInLobby();
     }
 
+    /**
+     * Gets all the Games currently being played
+     * @return List<GameLight>
+     */
     @Override
     public List<GameLight> requestGameListInPlay() {
         return dataServerController.getGamesController().getGameLightListInPlay();
     }
 
+    /**
+     * Adds a connected User
+     * @param newUser - User : User to be added
+     */
     @Override
     public void updateUserListAdd(User newUser) {
         dataServerController.getUserController().setUser(newUser);
     }
 
     /**
-     * Removes a Player from the connected Users List and removes all Games in Lobby he created
-     * @param userId
+     * Removes a user of the connected users list and removes all Games in Lobby he created
+     * @param userId - UUID : id of the user to be removed
+     * @return User
      */
-
     //TODO Removes all game from the User or just the first?
     @Override
     public User updateUserListRemove(UUID userId) {
@@ -225,11 +327,11 @@ public class DataToComConcrete implements DataToComServerInterface {
         }
         return dataServerController.getUserController().removeUser(userId);
     }
-    /**
-     * Removes all Games initiated by user in the GameList
-     * @param oldUser
-     */
 
+    /**
+     * Removes a game of the games in play list
+     * @param oldUser - User : id of the user whose games have to be removed
+     */
     //TODO marche surement pas, cf méthode updateListRemove
     @Override
     public void updateListGamesRemove(User oldUser){
@@ -240,11 +342,21 @@ public class DataToComConcrete implements DataToComServerInterface {
         }
     }
 
+    /**
+     * get profile of an user
+     * @param idUser : id of the user
+     * @return User
+     */
     @Override
     public User getUserProfile(UUID idUser) {
         return dataServerController.getUser(idUser);
     }
 
+    /**
+     * Adds an opponent to a game
+     * @param gameId - UUID : id of the game
+     * @param userId - UUID : id of the user
+     */
     @Override
     public void addOpponent(UUID gameId, UUID userId) {
         Player p = new Player(userId, dataServerController.getUser(userId).getLogin(),  dataServerController.getUser(userId).getProfilePicture());

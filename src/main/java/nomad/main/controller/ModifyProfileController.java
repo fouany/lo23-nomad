@@ -224,7 +224,7 @@ public class ModifyProfileController extends IhmControllerComponent {
 
         try {
             this.ihmController.getDataI().modifyAccount(login.getText(), passwordTest, name.getText(), profilePictureStr, dateBirth);
-        } catch (UserException e) {
+        } catch (IOException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.getMessage());
             DialogController.display("Modify User", "Le profil n'a pas bien été modifié", DialogController.DialogStatus.ERROR, this.ihmController);
         }
