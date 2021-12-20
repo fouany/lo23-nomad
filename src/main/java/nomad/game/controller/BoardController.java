@@ -1,8 +1,11 @@
 package nomad.game.controller;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -28,6 +31,9 @@ public class BoardController extends GameComponentsAbstract {
     private GridPane gameBoard ;
 
     @FXML
+    private Node[][] gridPaneArray = null ;
+
+    @FXML
     private int[] getCoordinates(MouseEvent event) {
         int[] coordinates = new int[2] ;
         Node source = (Node) event.getTarget() ;
@@ -38,11 +44,9 @@ public class BoardController extends GameComponentsAbstract {
 
     @Override
     public void init() {
-        for (int i = 0 ; i < 13 ; i++) {
-            for (int j = 0 ; j < 13 ; j++) {
-                Pane p = new Pane() ;
-                gameBoard.add(p, i, j) ;
-            }
+        this.gridPaneArray = new Pane[gameBoard.getRowCount()][gameBoard.getColumnCount()] ;
+        for(Node node : this.gameBoard.getChildren()) {
+            this.gridPaneArray[GridPane.getRowIndex(node)][GridPane.getColumnIndex(node)] = node ;
         }
     }
 
@@ -74,10 +78,10 @@ public class BoardController extends GameComponentsAbstract {
         boolean isValidMove = false ;
         boolean placeTowerOrTile = currentGame.getMoves().size() < 2 * currentGame.getNbOfTowers() ;
 
+        int adjMaxHeight = 0, caseHeight = currentGameBoard[i][j].getHeight() ;
+
         // PLACE TILE
         if (!placeTowerOrTile) {
-
-            int adjMaxHeight = 0, caseHeight = currentGameBoard[i][j].getHeight() ;
 
             if (i > 0) {
                 if (currentGameBoard[i - 1][j].isColor() == isCurrentPlayerColor &&
@@ -139,11 +143,24 @@ public class BoardController extends GameComponentsAbstract {
             if (placeTowerOrTile) {
                 Tile tile = new Tile(i, j, isCurrentPlayerColor) ;
                 currentGame.getMoves().add(tile) ;
+                Pane pane = (Pane) this.gridPaneArray[i][j] ;
+                if (isCurrentPlayerColor) {
+                    Image redTile = new Image("../../../resources/nomad/images/whiteTile_" + (caseHeight + 1) + ".png") ;
+                    pane.getChildren().add(new ImageView(redTile)) ;
+                }
+                else {
+                    Image whiteTile = new Image("../../../resources/nomad/images/redTile_" + (caseHeight + 1) + ".png") ;
+                    pane.getChildren().add(new ImageView(whiteTile)) ;
+                }
             } else {
                 Tower tower = new Tower(i, j) ;
                 currentGame.getMoves().add(tower) ;
+                Pane pane = (Pane) this.gridPaneArray[i][j] ;
+                Image towerIcon = new Image("../../../resources/nomad/images/sand-castle.png") ;
+                pane.getChildren().add(new ImageView(towerIcon)) ;
             }
         }
     }
+
 
 }
