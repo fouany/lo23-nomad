@@ -6,12 +6,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import nomad.common.data_structure.Game;
 import nomad.common.data_structure.UserException;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
+import java.awt.image.BufferedImage;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -21,6 +24,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.codec.binary.Base64;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 
 public class ModifyProfileController extends IhmControllerComponent {
@@ -75,6 +81,25 @@ public class ModifyProfileController extends IhmControllerComponent {
         int lostInf = this.ihmController.getDataI().getUser().getProfileStat().getGamesLost();
         int totalInf = this.ihmController.getDataI().getUser().getProfileStat().getGamesPlayed();
         int drawInf = totalInf - lostInf - winInf;
+
+        byte[] byteArray = decodeImage(this.ihmController.getDataI().getUser().getProfilePicture());
+
+        if(byteArray.length > 0) {
+
+
+            ByteArrayInputStream bis = new ByteArrayInputStream(decodeImage(this.ihmController.getDataI().getUser().getProfilePicture()));
+            BufferedImage img = null;
+
+            try {
+                img = ImageIO.read(bis);
+                //ImageIcon im = new ImageIcon(decodeImage(this.ihmController.getDataI().getUser().getProfilePicture()));
+                // java.awt.Image image =  im.getImage();
+                profilePicture.setImage(convertToFxImage(img));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         win.setText("" + winInf);
 
         loses.setText("" + lostInf);
@@ -87,6 +112,21 @@ public class ModifyProfileController extends IhmControllerComponent {
         total.setText("" + totalInf);
         displayInfoUser();
         displaySavedGames();
+    }
+
+    private static Image convertToFxImage(BufferedImage image) {
+        WritableImage wr = null;
+        if (image != null) {
+            wr = new WritableImage(image.getWidth(), image.getHeight());
+            PixelWriter pw = wr.getPixelWriter();
+            for (int x = 0; x < image.getWidth(); x++) {
+                for (int y = 0; y < image.getHeight(); y++) {
+                    pw.setArgb(x, y, image.getRGB(x, y));
+                }
+            }
+        }
+
+        return new ImageView(wr).getImage();
     }
 
     public void displayInfoUser() {
@@ -172,11 +212,15 @@ public class ModifyProfileController extends IhmControllerComponent {
         } else {
             passwordTest = password.getText();
         }
-        if (birthDate == null) {
-            DialogController.display("Erreur", "La date d'anniversaire ne doit pas être null", DialogController.DialogStatus.ERROR, ihmController);
+        if (birthDate.getValue() == null) {
+            DialogController.display("Erreur", "La date d'anniversaire ne doit pas être nulle", DialogController.DialogStatus.ERROR, ihmController);
             return;
         }
         Date dateBirth = Date.from(birthDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        if(!ServerConnectionController.ipFormatIsValid(serverID.getText()) || !ServerConnectionController.portFormatIsValid(portID.getText())){
+            DialogController.display("Erreur", "Le format IP/Port n'est pas valide", DialogController.DialogStatus.ERROR, ihmController);
+            return;
+        }
 
         try {
             this.ihmController.getDataI().modifyAccount(login.getText(), passwordTest, name.getText(), profilePictureStr, dateBirth);
@@ -184,6 +228,7 @@ public class ModifyProfileController extends IhmControllerComponent {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.getMessage());
             DialogController.display("Modify User", "Le profil n'a pas bien été modifié", DialogController.DialogStatus.ERROR, this.ihmController);
         }
+        DialogController.display("Modify User", "Le profil a bien été modifié", DialogController.DialogStatus.SUCCESS, this.ihmController);
     }
 
     public void onClickExportProfile() {
