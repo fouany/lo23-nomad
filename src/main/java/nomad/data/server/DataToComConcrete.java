@@ -94,6 +94,7 @@ public class DataToComConcrete implements DataToComServerInterface {
             dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setTower(true);
             dataServerController.getGamesController().getGame(t.getGameId()).addMove(t);
             dataServerController.getComOfferedInterface().towerValid(t, dataServerController.getGamesController().getGame(t.getGameId()).getListOther());
+            dataServerController.getGamesController().getGame(gameID).incrementNbRounds();
         }
     }
 
@@ -120,6 +121,7 @@ public class DataToComConcrete implements DataToComServerInterface {
             dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setHeight(height+1);
             dataServerController.getGamesController().getGame(t.getGameId()).addMove(t);
             dataServerController.getComOfferedInterface().tileValid(t, dataServerController.getGamesController().getGame(t.getGameId()).getListOther());
+            dataServerController.getGamesController().getGame(gameID).incrementNbRounds();
         }
 
         UUID winner = dataServerController.checkGameEndedAfterTile(dataServerController.getGamesController().getGame(gameID), t.getUserId());
@@ -150,6 +152,7 @@ public class DataToComConcrete implements DataToComServerInterface {
         Game g = dataServerController.getGamesController().getGame(s.getGameId());
         g.addMove(s);
         dataServerController.getComOfferedInterface().skipValid(s, dataServerController.getGamesController().getGame(s.getGameId()).getListOther());
+        dataServerController.getGamesController().getGame(s.getGameId()).incrementNbRounds();
         UUID potentialWinner = dataServerController.checkGameEndedAfterSkip(g);
         if(potentialWinner != null){
             dataServerController.getComOfferedInterface().gameOver(g.getGameId(), dataServerController.getUsersUUIDs(g.getGameId()), s, potentialWinner);
