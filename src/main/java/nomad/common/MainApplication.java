@@ -55,6 +55,7 @@ public class MainApplication extends Application {
     public MainApplication() throws IOException {
         initConcreteInterface();
         initController();
+        ihmMainToComConcrete.setController(ihmMainScreenController);
         linkConcreteController();
     }
 

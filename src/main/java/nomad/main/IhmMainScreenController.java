@@ -1,5 +1,8 @@
 package nomad.main;
 
+import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.stage.WindowEvent;
 import nomad.common.data_structure.Session;
 import nomad.common.ihm.IhmScreenController;
 import nomad.common.MainApplication;
@@ -10,6 +13,8 @@ import nomad.main.controller.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class IhmMainScreenController extends IhmScreenController {
 
