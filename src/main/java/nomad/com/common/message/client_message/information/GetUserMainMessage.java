@@ -4,10 +4,10 @@ import nomad.com.client.ClientController;
 import nomad.com.common.message.client_message.BaseClientMessage;
 import nomad.common.data_structure.User;
 
-public class GetUserMessage extends BaseClientMessage {
+public class GetUserMainMessage extends BaseClientMessage {
     private final User user;
 
-    public GetUserMessage(User user) {
+    public GetUserMainMessage(User user) {
         this.user = user;
     }
 

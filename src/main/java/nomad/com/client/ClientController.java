@@ -3,6 +3,7 @@ package nomad.com.client;
 import nomad.com.common.message.Message;
 import nomad.com.common.message.server_message.information.LocalUserDisconnectionMessage;
 import nomad.common.interfaces.data.DataToComClientInterface;
+import nomad.common.interfaces.game.IhmGameToComInterface;
 import nomad.common.interfaces.main.IhmMainToComInterface;
 
 import java.io.IOException;
@@ -19,14 +20,16 @@ public class ClientController {
     private final DataToComClientInterface dataToCom;
 
     private final IhmMainToComInterface ihmMainToCom;
+    private final IhmGameToComInterface ihmGameToCom;
     private ClientListener listener;
 
     private ObjectOutputStream output;
     private Socket socket;
 
-    public ClientController(DataToComClientInterface dataToCom, IhmMainToComInterface ihmMainToCom) {
+    public ClientController(DataToComClientInterface dataToCom, IhmMainToComInterface ihmMainToCom, IhmGameToComInterface ihmGameToCom) {
         this.dataToCom = dataToCom;
         this.ihmMainToCom = ihmMainToCom;
+        this.ihmGameToCom = ihmGameToCom;
     }
 
     public DataToComClientInterface getDataToCom() {
@@ -35,6 +38,10 @@ public class ClientController {
 
     public IhmMainToComInterface getIhmMainToCom() {
         return ihmMainToCom;
+    }
+
+    public IhmGameToComInterface getIhmGameToCom() {
+        return ihmGameToCom;
     }
 
     /**

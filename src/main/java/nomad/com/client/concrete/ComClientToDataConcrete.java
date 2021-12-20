@@ -4,7 +4,8 @@ import nomad.com.client.ClientController;
 import nomad.com.common.message.client_message.game.RejectPlayerMessage;
 import nomad.com.common.message.server_message.game.EnoughPlayerMessage;
 import nomad.com.common.message.server_message.game.GetSavedGameMessage;
-import nomad.com.common.message.server_message.information.GetProfileMessage;
+import nomad.com.common.message.server_message.information.GetProfileGameMessage;
+import nomad.com.common.message.server_message.information.GetProfileMainMessage;
 import nomad.com.common.message.server_message.information.LocalUserConnectionMessage;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.com.ComToDataClientInterface;
@@ -77,8 +78,13 @@ public class ComClientToDataConcrete implements ComToDataClientInterface {
      * @param userId the unique identifier of the user profile to recover.
      */
     @Override
-    public void getProfile(UUID userId) {
-        clientController.sendMessage(new GetProfileMessage(userId));
+    public void getProfileMain(UUID userId) {
+        clientController.sendMessage(new GetProfileMainMessage(userId));
+    }
+
+    @Override
+    public void getProfileGame(UUID userId) {
+        clientController.sendMessage(new GetProfileGameMessage(userId));
     }
 
     @Override
