@@ -6,6 +6,7 @@ import nomad.common.data_structure.*;
 import nomad.common.ihm.IhmScreenController;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.UUID;
 
 public class LogController extends GameComponentsAbstract{
@@ -40,20 +41,20 @@ public class LogController extends GameComponentsAbstract{
 
     public void updateLogsMove(Move move) {
         UUID senderUUID = move.getUserId();
-        //TODO : replace UUID by User login in display
+        String login = findPlayerLogin(senderUUID);
         if (move instanceof Tile)
         {
-            String newMove = senderUUID +" placed a tile in "+ ((Tile) move).getX()+ ","+ ((Tile) move).getY()+ "\n";
+            String newMove = login +" placed a tile in "+ ((Tile) move).getX()+ ","+ ((Tile) move).getY()+ "\n";
             logs.appendText(newMove);
         }
         else if (move instanceof Tower)
         {
-            String newMove = senderUUID +" placed a tower in "+ ((Tower) move).getX()+ ","+ ((Tower) move).getY()+ "\n";
+            String newMove = login +" placed a tower in "+ ((Tower) move).getX()+ ","+ ((Tower) move).getY()+ "\n";
             logs.appendText(newMove);
         }
         else if (move instanceof Skip)
         {
-            String newMove = senderUUID +" skipped his turn "+ "\n";
+            String newMove = login +" skipped his turn "+ "\n";
             logs.appendText(newMove);
         }
     }
@@ -63,4 +64,18 @@ public class LogController extends GameComponentsAbstract{
         String newMove = senderLogin +" joined the game "+ "\n";
         logs.appendText(newMove);
     }
+
+    public String findPlayerLogin(UUID id){
+        GameController gameController = getGameController() ;
+        Game currentGame = gameController.getCurrentGame() ;
+        Player opponent = currentGame.getOpponent();
+        Player host = currentGame.getHost();
+        if(host.getId()==id){
+            return host.getLogin();
+        }else if (opponent.getId()==id){
+           return opponent.getLogin();
+        }
+        return "";
+    }
+
 }

@@ -29,11 +29,13 @@ public class EndGameController extends GameComponentsAbstract {
 
     @Override
     public void init() {
+        /*
         IhmGameScreenController ihmGameScreenController = (IhmGameScreenController)super.screenControl;
         DataToGameConcrete dataInterface = ihmGameScreenController.getDataInterface();
         UserLight userLight = dataInterface.getUserLight();
         String login = userLight.getLogin();
         EndGameController.EndGameControllerScene = ihmGameScreenController.getStage().getScene();
+         */
     }
 
     public void display(String login, IhmScreenController controller) {
