@@ -140,8 +140,10 @@ public class Game extends Observable implements Serializable  {
         UUID hostUUID = getHost().getId();
 
         if (hostUUID.equals(currentPlayerUUID)){
+            System.out.println("Opponent turn");
             setCurrentPlayer(opponentUUID);
         } else {
+            System.out.println("Host turn");
             setCurrentPlayer(hostUUID);
         }
     }

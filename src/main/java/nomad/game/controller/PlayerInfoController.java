@@ -56,6 +56,7 @@ public class PlayerInfoController extends GameControllerAbstract {
         numberTower.setText("Towers : "+game.getNbOfTowers()+"/5");
         numberTiles.setText("Tiles : "+game.getNbOfTilesPlayed()+"/5");
         updatePane(game);
+        System.out.println("Start player :"+game.getCurrentPlayerUUID());
     }
 
     public void update() {

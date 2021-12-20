@@ -101,8 +101,8 @@ public class DataToComConcrete implements DataToComClientInterface {
      * @param valid
      */
     public void towerValid(Tower tower, boolean valid) {
-        dataClientController.getGameController().getGame().addMove(tower);
         dataClientController.getGameController().getGame().changeCurrentPlayer();
+        dataClientController.getGameController().getGame().addMove(tower);
         dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
 
@@ -113,8 +113,8 @@ public class DataToComConcrete implements DataToComClientInterface {
      */
     public void tileValid(Tile tile, boolean valid) throws TileException {
         if (valid) {
-            dataClientController.getGameController().getGame().addMove(tile);
             dataClientController.getGameController().getGame().changeCurrentPlayer();
+            dataClientController.getGameController().getGame().addMove(tile);
             dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
         } else {
             dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
@@ -129,8 +129,8 @@ public class DataToComConcrete implements DataToComClientInterface {
      */
     public void skipValidation(Skip skip, boolean valid) throws SkipException {
         if (valid) {
-            dataClientController.getGameController().getGame().addMove(skip);
             dataClientController.getGameController().getGame().changeCurrentPlayer();
+            dataClientController.getGameController().getGame().addMove(skip);
             dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
         } else {
             dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
@@ -144,8 +144,8 @@ public class DataToComConcrete implements DataToComClientInterface {
      */
     @Override
     public void moveReceived(Move move) {
-        dataClientController.getGameController().getGame().addMove(move);
         dataClientController.getGameController().getGame().changeCurrentPlayer();
+        dataClientController.getGameController().getGame().addMove(move);
         dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
 

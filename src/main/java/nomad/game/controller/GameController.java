@@ -58,6 +58,7 @@ public class GameController extends IhmControllerComponent implements Observer {
         currentGame.getMoves().addListener(
                 (ListChangeListener<Move>) c -> {
                     Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Au tour de"+currentGame.getCurrentPlayerUUID());
+                    Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Je suis "+gameScreen.getDataInterface().getUser().getUserId());
                     logController.update(currentGame.getMoves().get(currentGame.getMoves().size()-1));
                     this.update(null,null);
                 }
