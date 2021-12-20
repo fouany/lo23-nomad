@@ -279,6 +279,17 @@ public class Game extends Observable implements Serializable  {
         this.nbOfTowersPlayed = this.nbOfTowersPlayed + 1;
     }
 
+    public boolean getCurrentPlayerColor() {
+        boolean color;
+        if (host.getId().equals(currentPlayer)) {
+            color = isHostColor();
+        } else {
+            color = !isHostColor();
+        }
+
+        return color;
+    }
+
     public boolean switchTowerTile(){
         return getNbOfTowersPlayed()==getNbOfTowers();
     }
