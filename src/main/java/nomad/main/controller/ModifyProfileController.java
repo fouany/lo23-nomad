@@ -26,7 +26,6 @@ import java.util.logging.Logger;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 
 
 public class ModifyProfileController extends IhmControllerComponent {
@@ -84,8 +83,7 @@ public class ModifyProfileController extends IhmControllerComponent {
 
         byte[] byteArray = decodeImage(this.ihmController.getDataI().getUser().getProfilePicture());
 
-        if(byteArray.length > 0) {
-
+        if(byteArray != null && byteArray.length > 0) {
 
             ByteArrayInputStream bis = new ByteArrayInputStream(decodeImage(this.ihmController.getDataI().getUser().getProfilePicture()));
             BufferedImage img = null;
@@ -114,7 +112,7 @@ public class ModifyProfileController extends IhmControllerComponent {
         displaySavedGames();
     }
 
-    private static Image convertToFxImage(BufferedImage image) {
+    public static Image convertToFxImage(BufferedImage image) {
         WritableImage wr = null;
         if (image != null) {
             wr = new WritableImage(image.getWidth(), image.getHeight());

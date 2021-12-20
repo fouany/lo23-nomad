@@ -1,5 +1,6 @@
 package nomad.main;
 
+import javafx.application.Platform;
 import nomad.common.data_structure.User;
 import nomad.common.interfaces.main.IhmMainToComInterface;
 import nomad.main.controller.SeeProfileController;
@@ -14,6 +15,6 @@ public class IhmMainToComConcrete implements IhmMainToComInterface {
 
     @Override
     public void getUser(User user) {
-        SeeProfileController.display(mainScreenController, user);
+        Platform.runLater(() -> SeeProfileController.display(mainScreenController, user));
     }
 }
