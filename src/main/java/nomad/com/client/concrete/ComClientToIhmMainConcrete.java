@@ -1,6 +1,7 @@
 package nomad.com.client.concrete;
 
 import nomad.com.client.ClientController;
+import nomad.com.common.message.Message;
 import nomad.com.common.message.server_message.game.AddSpecInGameMessage;
 import nomad.com.common.message.server_message.game.GameCreationMessage;
 import nomad.com.common.message.server_message.game.LaunchGameMessage;
@@ -33,9 +34,7 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
         if (host == null) {
             throw new NullPointerException();
         }
-        if (!clientController.sendMessage(new GameCreationMessage(name, host, nbTowers, areSpecAllowed, isSpecChatAllowed, hostColor))) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send new game to the remote server !");
-        }
+        sendMessage(new GameCreationMessage(name, host, nbTowers, areSpecAllowed, isSpecChatAllowed, hostColor), "Failed to send GameCreationMessage to the remote server !");
     }
 
     /**
@@ -48,9 +47,7 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Null data");
         }
 
-        if (!clientController.sendMessage(new NewGamePlayerServerMessage(player, game))) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send new player request to the remote server !");
-        }
+        sendMessage(new NewGamePlayerServerMessage(player, game), "Failed to send NewGamePlayerServerMessage to the remote server !");
     }
 
     @Override
@@ -61,15 +58,17 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
             return;
         }
 
-        if (!clientController.sendMessage(new LaunchGameMessage(game.getGameSerializable()))) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send launch game request to the remote server !");
-        }
+        sendMessage(new LaunchGameMessage(game.getGameSerializable()), "Failed to send LaunchGameMessage to the remote server");
     }
 
     @Override
     public void addSpecInGame(UserLight user, GameLight game) {
-        if (!clientController.sendMessage(new AddSpecInGameMessage(user, game))) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to add spec in game !");
+        sendMessage(new AddSpecInGameMessage(user, game), "Failed to send AddSpecInGameMessage to the remote server");
+    }
+
+    private void sendMessage(Message message, String errorMessage) {
+        if (!clientController.sendMessage(message)) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, errorMessage);
         }
     }
 }
