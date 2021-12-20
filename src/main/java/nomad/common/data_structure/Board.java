@@ -21,6 +21,14 @@ public class Board implements Serializable {
         this.gameBoard = gameBoard;
     }
 
+    public Case getCase(int x, int y) {
+        if(x < BOARDDIMENSIONS && y < BOARDDIMENSIONS && x >= 0 && y >= 0) {
+            return gameBoard[x][y];
+        }
+
+        return null;
+    }
+
     public Case[][] getGameBoard() {
         return gameBoard;
     }
