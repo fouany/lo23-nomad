@@ -41,7 +41,9 @@ public class IhmMainScreenController extends IhmScreenController {
         initPanes();
         this.dataI = dataI;
         this.comI = comI;
+
         DialogController.initDialog(paneDict.get(DialogController.class));
+        SeeProfileController.initDialog(paneDict.get(SeeProfileController.class));
         // TODO : ajouter l'interface com concrete
     }
 
@@ -82,6 +84,8 @@ public class IhmMainScreenController extends IhmScreenController {
         listPaths.add("fxml/ihm_view_game.fxml");
         listPaths.add("fxml/ihm_waiting_room.fxml");
         listPaths.add("fxml/ihm_modify_profile.fxml");
+        listPaths.add("fxml/ihm_see_profile.fxml");
+
     }
 
     @Override
@@ -99,6 +103,7 @@ public class IhmMainScreenController extends IhmScreenController {
         controllerDict.put(ViewGameController.class, viewGameController);
         controllerDict.put(WaitingRoomController.class, waitingRoomController);
         controllerDict.put(ModifyProfileController.class, profileController);
+        controllerDict.put(SeeProfileController.class, new SeeProfileController(this));
     }
 
     public void initStyles() {
