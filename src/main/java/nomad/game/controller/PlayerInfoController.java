@@ -50,7 +50,6 @@ public class PlayerInfoController extends GameControllerAbstract {
         //TODO update for connect / nb tiles when com implements the methods
     }
 
-    @Override
     public void update(String type) {
 
     }

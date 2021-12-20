@@ -19,7 +19,6 @@ public class SkipController extends GameControllerAbstract {
     @Override
     public void init() {}
 
-    @Override
     public void update(String type) {}
 
     private void skipMove() {

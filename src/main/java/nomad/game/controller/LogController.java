@@ -17,7 +17,6 @@ public class LogController extends GameControllerAbstract {
 
     }
 
-    @Override
     public void update(String type) {
 
     }

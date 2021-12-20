@@ -54,7 +54,12 @@ public class GameController extends IhmControllerComponent implements Observer {
         currentGame.addObserver(this);
 
         currentGame.getMoves().addListener(
-                (ListChangeListener<Move>) c -> System.out.println("Changement sur les mooves à gérer coté IHM")
+                new ListChangeListener<Move>() {
+                    @Override
+                    public void onChanged(Change<? extends Move> c) {
+                        boardController.update(currentGame.getMoves());
+                    }
+                }
         );
 
         currentGame.getSpect().addListener(
@@ -90,7 +95,6 @@ public class GameController extends IhmControllerComponent implements Observer {
         chatController.init();
     }
 
-    @Override
     public void update(Observable o, Object arg) {
         System.out.println("Update on game");
         //TODO handle different type of updates => call update on the controller needed

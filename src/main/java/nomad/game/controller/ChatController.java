@@ -34,7 +34,6 @@ public class ChatController extends GameControllerAbstract {
 
     }
 
-    @Override
     public void update(String type){}
 
 

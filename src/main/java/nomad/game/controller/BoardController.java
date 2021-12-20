@@ -1,5 +1,7 @@
 package nomad.game.controller;
 
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -54,63 +56,12 @@ public class BoardController extends GameControllerAbstract {
         }
     }
 
-    @Override
-    public void update(String type) {
-        System.out.println(type);
-        // TODO : implement board update
-    }
-
-    private void playMove(MouseEvent event) {
-
-        /** ----- 1. IS MOVE VALID ??? ----- **/
-
-        // GET CLICK COORDINATES
-        int[] coordinates = {0, 0};
-        //coordinates = getCoordinates(event) ;
-        int i = coordinates[0];
-        int j = coordinates[1];
-
-        // GET CURRENT GAME
-        GameController gameController = getGameController();
-        Game currentGame = gameController.getCurrentGame();
-        Case[][] currentGameBoard = currentGame.getBoard().getGameBoard();
-
-        // GET CURRENT PLAYER COLOR
-        UUID hostUUID = currentGame.getHost().getId();
-        UUID currentPlayerUUID = currentGame.getCurrentPlayerUUID();
-        boolean isCurrentPlayerColor;
-        if (hostUUID == currentPlayerUUID) {
-            isCurrentPlayerColor = currentGame.isHostColor();
-        } else {
-            isCurrentPlayerColor = !currentGame.isHostColor();
-        }
-
-        boolean isValidMove = false;
-        boolean placeTowerOrTile = currentGame.getMoves().size() < 2 * currentGame.getNbOfTowers();
-
-
-        // SQUARE UNOCCUPIED BY TOWER
-        if (currentGameBoard[i][j].isTower()) {
-            isValidMove = false;
-        }
-        ;
-
-        /** ----- 2. PLAY MOVE OR DISPLAY ERROR MESSAGE ----- **/
-
-        if (!isValidMove) { // ERROR
-            final Stage dialog = new Stage();
-            VBox dialogVbox = new VBox(20);
-            dialogVbox.getChildren().add(new Text("Invalid move, you may play again."));
-            Scene dialogScene = new Scene(dialogVbox, 300, 200);
-            dialog.setScene(dialogScene);
-            dialog.show();
-        } else { // VALID
-            if (placeTowerOrTile) {
-                Tile tile = new Tile(i, j, isCurrentPlayerColor);
-                currentGame.getMoves().add(tile);
-            } else {
-                Tower tower = new Tower(i, j);
-                currentGame.getMoves().add(tower);
+    public void update(ObservableList<Move> move) {
+        for (Move newMove: move){
+            if (newMove instanceof Tower){
+                //Draw tower
+            }else if (newMove instanceof Tile){
+                //Draw tile
             }
         }
     }
