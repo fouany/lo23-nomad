@@ -76,18 +76,6 @@ public class ServerConnectionController extends IhmControllerComponent implement
         if (ipFormatIsValid(ip) && portFormatIsValid(port)) {
             String user = ihmMainScreenController.getAttributes().get("login");
             String password = ihmMainScreenController.getAttributes().get("password");
-            boolean signup =  Boolean.parseBoolean(ihmMainScreenController.getAttributes().get("isSignup"));
-            if (signup) {
-
-                try {
-                    ihmMainScreenController.getDataI().createAccount(user,password,user,"", null);
-                }
-                catch (UserException e)
-                {
-                    DialogController.display("Erreur", e.getMessage(), DialogController.DialogStatus.ERROR, ihmMainScreenController);
-                    return;
-                }
-            }
             try {
 
                 /**todo add connectException  **/
