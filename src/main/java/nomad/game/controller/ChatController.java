@@ -34,8 +34,6 @@ public class ChatController extends GameControllerAbstract {
 
     }
 
-    public void update(String type){}
-
 
     public void updateChat(Message message) {
         //Message message = messages.get(messages.size()-1);

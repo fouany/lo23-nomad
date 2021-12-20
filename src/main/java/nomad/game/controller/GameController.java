@@ -54,7 +54,10 @@ public class GameController extends IhmControllerComponent implements Observer {
         currentGame.addObserver(this);
 
         currentGame.getMoves().addListener(
-                (ListChangeListener<Move>) c -> this.update(null,null)
+                (ListChangeListener<Move>) c -> {
+                    logController.update(currentGame.getMoves().get(currentGame.getMoves().size()-1));
+                    this.update(null,null);
+                }
         );
 
         currentGame.getSpect().addListener(
@@ -62,7 +65,7 @@ public class GameController extends IhmControllerComponent implements Observer {
         );
 
         currentGame.getChat().addListener(
-                (ListChangeListener<Message>) c -> System.out.println("Changement sur le chat")
+                (ListChangeListener<Message>) c -> chatController.updateChat(currentGame.getChat().get(currentGame.getChat().size()-1))
         );
 
         playerInfoController = (PlayerInfoController) gameScreen.getController(PlayerInfoController.class);

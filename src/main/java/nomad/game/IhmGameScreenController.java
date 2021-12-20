@@ -26,10 +26,10 @@ public class IhmGameScreenController extends IhmScreenController {
      */
     public IhmGameScreenController(MainApplication app, DataToGameConcrete dataInterface, ComToIhmGameConcrete comInterface) throws IOException {
         super(app);
-        module = "GAME";
         defaultController = GameController.class;
         this.comInterface = comInterface;
         this.dataInterface = dataInterface;
+        module = "GAME" + "("+dataInterface.getUser().getLogin()+")";
         initGameControllers();
     }
 
