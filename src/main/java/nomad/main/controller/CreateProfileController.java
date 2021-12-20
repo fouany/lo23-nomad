@@ -53,7 +53,7 @@ public class CreateProfileController extends IhmControllerComponent {
             if (fs.read(imageData) > 0) {
                 Image img = new Image(file.toURI().toString());
                 addProfilePicture.setImage(img);
-                String profilePictureStr = encodeImage(imageData);
+                this.profilePictureStr = encodeImage(imageData);
                 return profilePictureStr;
             }
         } catch (IOException e) {

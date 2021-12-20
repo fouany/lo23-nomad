@@ -33,7 +33,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="245.0" prefWidth="403.0">
                      <children>
-                        <ImageView fx:id="addProfilePicture" fitHeight="153.0" fitWidth="151.0">
+                        <ImageView fx:id="addProfilePicture" onMouseClicked="#getProfilePicture" fitHeight="153.0" fitWidth="151.0">
                            <image>
                               <Image url="@../imgs/profile_placeholder.png" />
                            </image>
