@@ -25,6 +25,7 @@ import org.apache.commons.codec.binary.Base64;
 
 public class ModifyProfileController extends IhmControllerComponent {
     private final IhmMainScreenController ihmController;
+    @FXML
     private ListView<Game> savedGamesView;
     private ObservableList<Game> savedGames;
     DirectoryChooser directoryChooser = new DirectoryChooser();
