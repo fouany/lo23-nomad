@@ -104,7 +104,7 @@ public class ModifyProfileController extends IhmControllerComponent {
 
     public void displaySavedGames() {
         savedGames = FXCollections.observableArrayList(this.ihmController.getDataI().getUser().getSavedGames());
-        savedGamesView.setItems(savedGames);
+        if (savedGamesView!=null) savedGamesView.setItems(savedGames);
     }
 
     public void onClickReturnMenu() {
@@ -112,7 +112,9 @@ public class ModifyProfileController extends IhmControllerComponent {
     }
 
     public void onClickDeleteProfile() {
-        //Todo Implement DeleteProfile
+        //TODO add delete account function
+        //this.ihmController.getDataI().deleteAccount();
+        this.ihmController.changeScreen(LoginController.class);
     }
 
     public void onClickSignOut() {
