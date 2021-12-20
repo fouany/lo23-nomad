@@ -14,26 +14,51 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Server Controller which controls the server
+ */
 public class ServerController extends Thread {
+    /**
+     * Client list which associate a Socket to a Client Id
+     */
     private final HashMap<Socket, IdentifiedClient> clientList = new HashMap<>();
+    /**
+     * Interface data to com
+     */
     private final DataToComServerInterface dataToCom;
+    /**
+     * Server socket
+     */
     private ServerSocket serverSocket;
+    /**
+     * Boolean to check while the server is running
+     */
     private boolean serverRun = true;
 
+    /**
+     * Constructor
+     * @param port port in which runs the server
+     * @param dataToCom Interface Datatocom to communicate with Data
+     */
     public ServerController(int port, DataToComServerInterface dataToCom) {
         this.dataToCom = dataToCom;
         try {
-            serverSocket = new ServerSocket(port);
+            serverSocket = new ServerSocket(port); // Initialize the server
         } catch (IOException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Unable to create the ServerSocket");
         }
     }
 
+    /**
+     * Getter Datatocom interface
+     * @return
+     */
     public DataToComServerInterface getDataToCom() {
         return dataToCom;
     }
 
     /**
+     * Getter client list
      * @return server clientList
      */
     public Map<Socket, IdentifiedClient> getClientList() {
@@ -42,7 +67,6 @@ public class ServerController extends Thread {
 
     /**
      * Register an user on a unidentified socket
-     *
      * @param socket Socket connected to the client
      * @param user   User profile transmitted by client
      */
@@ -90,15 +114,17 @@ public class ServerController extends Thread {
      * @param message Message to broadcast
      */
     public void broadcast(Message message) {
+        // Loop in the Client connected in the game
         for (Map.Entry<Socket, IdentifiedClient> entry : clientList.entrySet()) {
             if (entry.getValue().getUID() == null) { // Skip unidentified users
                 continue;
             }
 
             try {
-                entry.getValue().getOutputStream().writeObject(message);
+                entry.getValue().getOutputStream().writeObject(message); // Send message
             } catch (IOException e) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to send message to client !");
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.toString());
                 disconnectClient(entry.getKey()); // Error has happened, kick the faulty client
             }
         }
@@ -134,6 +160,9 @@ public class ServerController extends Thread {
         serverRun = false;
     }
 
+    /**
+     * Run function
+     */
     @Override
     public void run() {
         while (serverRun) {

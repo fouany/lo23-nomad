@@ -12,15 +12,34 @@ import java.net.Socket;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Add Spectators In Game Message
+ */
 public class AddSpecInGameMessage extends BaseServerMessage {
+    /**
+     * user
+     */
     private final UserLight user;
+    /**
+     * gamelight
+     */
     private final GameLight gameLight;
 
+    /**
+     * Constructot
+     * @param user user
+     * @param gameLight gamelight
+     */
     public AddSpecInGameMessage(UserLight user, GameLight gameLight) {
         this.user = user;
         this.gameLight = gameLight;
     }
 
+    /**
+     * Process method
+     * @param socket socket
+     * @param controller socket
+     */
     @Override
     public void process(Socket socket, ServerController controller) {
         Game game = controller.getDataToCom().getStoredGame(gameLight.getGameId());

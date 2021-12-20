@@ -8,13 +8,27 @@ import nomad.common.data_structure.SkipException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Use to validate a skip move
+ */
 public class ValidateSkipMoveMessage extends BaseClientMessage {
+    /**
+     * Skip
+     */
     private final Skip skip;
 
+    /**
+     * Constructor
+     * @param skip Skip
+     */
     public ValidateSkipMoveMessage(Skip skip) {
         this.skip = skip;
     }
 
+    /**
+     * Process to Data
+     * @param controller clientController
+     */
     @Override
     public void process(ClientController controller) {
         try {

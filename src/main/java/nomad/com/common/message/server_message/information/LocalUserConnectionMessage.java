@@ -15,12 +15,24 @@ import java.util.ArrayList;
  * Message sent to connect local user on the server
  */
 public class LocalUserConnectionMessage extends BaseServerMessage {
+    /**
+     * Instance of user
+     */
     public final User user;
 
+    /**
+     * Constructor of LocalUserConnectionMessage class
+     * @param user Id of the user we want to send the message to.
+     */
     public LocalUserConnectionMessage(User user) {
         this.user = user;
     }
 
+    /**
+     * Update the list of connected users
+     * @param socket Socket of the client app
+     * @param controller Instance of the server controller
+     */
     @Override
     public void process(Socket socket, ServerController controller) {
 
