@@ -13,6 +13,7 @@ import nomad.data.client.DataToComConcrete;
 import nomad.data.client.DataToGameConcrete;
 import nomad.data.client.DataToMainConcrete;
 import nomad.game.IhmGameScreenController;
+import nomad.game.IhmGameToComConcrete;
 import nomad.game.IhmGameToDataConcrete;
 import nomad.main.IhmMainScreenController;
 import nomad.main.IhmMainToComConcrete;
@@ -36,6 +37,7 @@ public class MainApplication extends Application {
     private ComClientToIhmMainConcrete comClientToIhmMainConcrete;
     private IhmMainToDataConcrete ihmMainToDataConcrete;
     private IhmMainToComConcrete ihmMainToComConcrete;
+    private IhmGameToComConcrete ihmGameToComConcrete;
     private ComClientToDataConcrete comClientToDataConcrete;
 
     private DataClientController dataClientController;
@@ -63,6 +65,7 @@ public class MainApplication extends Application {
         comClientToIhmMainConcrete = new ComClientToIhmMainConcrete();
         comClientToDataConcrete = new ComClientToDataConcrete();
         ihmGameToDataConcrete = new IhmGameToDataConcrete();
+        ihmGameToComConcrete = new IhmGameToComConcrete();
     }
 
     public void initController() throws IOException {
@@ -70,7 +73,7 @@ public class MainApplication extends Application {
                 ihmMainToDataConcrete,
                 ihmGameToDataConcrete);
         dataToGameConcrete.setDataClientController(dataClientController);
-        clientController = new ClientController(dataToComConcrete, ihmMainToComConcrete);
+        clientController = new ClientController(dataToComConcrete, ihmMainToComConcrete, ihmGameToComConcrete);
         ihmMainScreenController = new IhmMainScreenController(this, dataToMainConcrete, comClientToIhmMainConcrete);
     }
 

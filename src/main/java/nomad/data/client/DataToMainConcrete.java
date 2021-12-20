@@ -3,7 +3,6 @@ package nomad.data.client;
 import nomad.common.data_structure.*;
 import nomad.common.interfaces.data.DataToIhmMainInterface;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
@@ -241,7 +240,7 @@ public class DataToMainConcrete implements DataToIhmMainInterface {
      */
     public void getProfileInfos(UUID idUserLight) {
         //1- Get the profile of the user
-        dataClientController.getComToDataInterface().getProfile(idUserLight);
+        dataClientController.getComToDataInterface().getProfileMain(idUserLight);
     }
 
     /**
