@@ -63,4 +63,12 @@ public class DataToGameConcrete implements DataToIhmGameInterface  {
             }
         }
 
+    @Override
+    public boolean getUserColor(UUID userID){
+        Game game = dataClientControllerGame.getGameController().getGame();
+        if(game.getHost().getId().equals(userID))
+            return game.getGameParameters().isHostColor();
+        else
+            return !game.getGameParameters().isHostColor();
+    }
 }

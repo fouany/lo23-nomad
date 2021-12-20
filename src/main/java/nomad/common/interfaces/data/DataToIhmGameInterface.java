@@ -14,6 +14,13 @@ public interface DataToIhmGameInterface {
     void setProfile(User user);
     void getProfilInfos(UUID userId);
     /**
+     * Gets the user color.
+     * @param userID - the user ID
+     * @return the user color
+     */
+    boolean getUserColor(UUID userID);
+
+    /**
      * save the current game
      * @throws IOException error in file writing
      */
