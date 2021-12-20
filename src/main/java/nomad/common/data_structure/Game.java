@@ -19,6 +19,7 @@ public class Game extends Observable implements Serializable  {
     private boolean gameLaunched;
     private boolean gameEnded;
     private int nbOfTilesPlayed;
+    private int nbOfTowersPlayed;
     private ObservableList<Move> moves;
     private ObservableList<UserLight> spect;
     private ObservableList<Message> chat;
@@ -34,6 +35,7 @@ public class Game extends Observable implements Serializable  {
         this.currentPlayer = host.getId();
         this.gameParameters = gameParameters;
         this.nbOfTilesPlayed=0;
+        this.nbOfTowersPlayed=0;
         this.spect = FXCollections.observableArrayList(new ArrayList<>());
         this.moves = FXCollections.observableArrayList(new ArrayList<>());
         this.chat = FXCollections.observableArrayList(new ArrayList<>());
@@ -268,4 +270,12 @@ public class Game extends Observable implements Serializable  {
     }
 
     public void setNbOfTilesPlayed(int nbOfTilesPlayed) { this.nbOfTilesPlayed = nbOfTilesPlayed; }
+
+    public int getNbOfTowersPlayed () { return this.nbOfTowersPlayed;}
+
+    public void setNbOfTowersPlayed(int nbOfTowersPlayed) { this.nbOfTowersPlayed = nbOfTowersPlayed; }
+
+    public void addTowerPlayed() {
+        this.nbOfTowersPlayed = this.nbOfTowersPlayed + 1;
+    }
 }

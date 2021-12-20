@@ -101,6 +101,7 @@ public class DataToComConcrete implements DataToComClientInterface {
      * @param valid
      */
     public void towerValid(Tower tower, boolean valid) {
+        dataClientController.getGameController().getGame().addTowerPlayed();
         dataClientController.getGameController().getGame().changeCurrentPlayer();
         dataClientController.getGameController().getGame().addMove(tower);
         dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
