@@ -37,6 +37,9 @@ public class Tile extends Move {
     }
 
     @Override
+    public String idMove(){return "Tile";}
+
+    @Override
     public String toString() {
         return "Tile{" +
                 "x=" + x +

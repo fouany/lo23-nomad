@@ -278,4 +278,8 @@ public class Game extends Observable implements Serializable  {
     public void addTowerPlayed() {
         this.nbOfTowersPlayed = this.nbOfTowersPlayed + 1;
     }
+
+    public boolean switchTowerTile(){
+        return getNbOfTowersPlayed()==getNbOfTowers();
+    }
 }

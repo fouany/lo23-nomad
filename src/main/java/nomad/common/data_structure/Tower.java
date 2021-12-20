@@ -27,6 +27,9 @@ public class Tower extends Move {
     }
 
     @Override
+    public String idMove(){return "Tower";}
+
+    @Override
     public String toString() {
         return "Tower{" +
                 "x=" + x +

@@ -43,6 +43,8 @@ public abstract class Move extends Observable implements Serializable {
         this.s = s;
     }
 
+    abstract public String idMove();
+
     @Override
     public String toString() {
         return "Move{" +
