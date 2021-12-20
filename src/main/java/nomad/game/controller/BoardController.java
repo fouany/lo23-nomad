@@ -145,20 +145,24 @@ public class BoardController extends GameComponentsAbstract {
                 currentGame.getMoves().add(tile) ;
                 Pane pane = (Pane) this.gridPaneArray[i][j] ;
                 if (isCurrentPlayerColor) {
-                    Image redTile = new Image("../../../resources/nomad/images/whiteTile_" + (caseHeight + 1) + ".png") ;
+                    // Image redTile = new Image("../../../resources/nomad/images/redTile_" + (caseHeight + 1) + ".png") ;
+                    Image redTile = new Image("../../../resources/nomad/images/redTile.png") ;
                     pane.getChildren().add(new ImageView(redTile)) ;
                 }
                 else {
-                    Image whiteTile = new Image("../../../resources/nomad/images/redTile_" + (caseHeight + 1) + ".png") ;
+                    // Image whiteTile = new Image("../../../resources/nomad/images/whiteTile_" + (caseHeight + 1) + ".png") ;
+                    Image whiteTile = new Image("../../../resources/nomad/images/whiteTile.png") ;
                     pane.getChildren().add(new ImageView(whiteTile)) ;
                 }
             } else {
                 Tower tower = new Tower(i, j) ;
                 currentGame.getMoves().add(tower) ;
                 Pane pane = (Pane) this.gridPaneArray[i][j] ;
-                Image towerIcon = new Image("../../../resources/nomad/images/sand-castle.png") ;
+                Image towerIcon = new Image("../../../resources/nomad/images/tower.png") ;
                 pane.getChildren().add(new ImageView(towerIcon)) ;
             }
+
+
         }
     }
 
