@@ -136,6 +136,7 @@ public class ServerController extends Thread {
         Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Disconnected user from server !");
         if (uid != null) {
             broadcast(new UserChangedMessage(user, false)); // announce disconnection to all clients
+            dataToCom.updateUserListRemove(uid);
         }
     }
 
@@ -153,6 +154,7 @@ public class ServerController extends Thread {
 
         if (uid != null) {
             broadcast(new UserChangedMessage(dataToCom.getUserProfile(uid), false)); // announce disconnection to all clients
+            dataToCom.updateUserListRemove(uid);
         }
     }
 
