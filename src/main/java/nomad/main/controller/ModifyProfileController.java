@@ -152,9 +152,7 @@ public class ModifyProfileController extends IhmControllerComponent {
     }
 
     public void onClickDeleteProfile() {
-        //TODO add delete account function
-        //this.ihmController.getDataI().deleteAccount();
-        this.ihmController.changeScreen(LoginController.class);
+       // this.ihmController.getDataI().deleteAccount();
     }
 
     public void onClickSignOut() {

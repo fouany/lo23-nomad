@@ -44,12 +44,7 @@ public class LoginController extends IhmControllerComponent {
     }
 
     public void onClickSignUp() {
-        // TODO : implement method
-        isSignup = true;
-        ihmMainScreenController.getAttributes().put("isSignup", String.valueOf(isSignup));
-        ihmMainScreenController.getAttributes().put("login", login.getText());
-        ihmMainScreenController.getAttributes().put("password", password.getText());
-        screenControl.changeScreen(ServerConnectionController.class);
+        screenControl.changeScreen(CreateProfileController.class);
     }
 
     public void onClickSignIn() {
