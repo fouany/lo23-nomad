@@ -251,7 +251,11 @@ public class Game extends Observable implements Serializable  {
 
     public List<UUID> getListOther() {
         List<UUID> listOther = new ArrayList<>();
-        listOther.add(this.opponent.getId());
+        if (this.currentPlayer.equals(this.host.getId())){
+            listOther.add(this.opponent.getId());
+        } else{
+            listOther.add(this.host.getId());
+        }
         for (UserLight ul : this.spect){
             listOther.add(ul.getId());
         }
@@ -288,5 +292,9 @@ public class Game extends Observable implements Serializable  {
         }
 
         return color;
+    }
+
+    public boolean switchTowerTile(){
+        return getNbOfTowersPlayed()==getNbOfTowers();
     }
 }
