@@ -56,10 +56,9 @@ public class BoardController extends GameControllerAbstract {
         }
     }
 
-    public void update(ObservableList<Move> move) {
-        System.out.println("Update moves");
+    public void update() {
+        ObservableList<Move> move = getGameController().getCurrentGame().getMoves();
         for (Move newMove: move){
-            System.out.println(move);
             if (newMove instanceof Tower){
                 //Draw tower
             }else if (newMove instanceof Tile){

@@ -54,12 +54,7 @@ public class GameController extends IhmControllerComponent implements Observer {
         currentGame.addObserver(this);
 
         currentGame.getMoves().addListener(
-                new ListChangeListener<Move>() {
-                    @Override
-                    public void onChanged(Change<? extends Move> c) {
-                        boardController.update(currentGame.getMoves());
-                    }
-                }
+                (ListChangeListener<Move>) c -> this.update(null,null)
         );
 
         currentGame.getSpect().addListener(
@@ -98,6 +93,8 @@ public class GameController extends IhmControllerComponent implements Observer {
     public void update(Observable o, Object arg) {
         System.out.println("Update on game");
         //TODO handle different type of updates => call update on the controller needed
+        boardController.update();
+        playerInfoController.update();
     }
 
     public Game getCurrentGame() {
@@ -106,5 +103,9 @@ public class GameController extends IhmControllerComponent implements Observer {
 
     public void setCurrentGame(Game currentGame) {
         this.currentGame = currentGame;
+    }
+
+    public IhmGameScreenController getGameScreen() {
+        return gameScreen;
     }
 }
