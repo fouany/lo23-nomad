@@ -41,7 +41,10 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
      */
     @Override
     public void updateObservable(Game game) {
-        //todo remove function
+        // check si on est dans la partie et si on est un viewer
+        // si on est un viewer -> changemodule
+        //todo Change Module to viewer ( ABORTED )
+
     }
 
     /**

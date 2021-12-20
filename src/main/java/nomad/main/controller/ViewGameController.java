@@ -146,6 +146,9 @@ public class ViewGameController extends IhmControllerComponent implements Initia
         };
     }
 
+    public  boolean getCheckBoxViewerState(){
+        return stateCheckBox.isSelected();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
