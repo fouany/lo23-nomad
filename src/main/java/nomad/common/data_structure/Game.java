@@ -23,6 +23,7 @@ public class Game extends Observable implements Serializable  {
     private ObservableList<UserLight> spect;
     private ObservableList<Message> chat;
     private ObservableList<Tower> towers;
+    private int nbRounds;
 
     public Game(Player host, int nbOfTowers, String name, GameParameters gameParameters) {
         this.gameId = UUID.randomUUID();
@@ -209,10 +210,15 @@ public class Game extends Observable implements Serializable  {
     }
 
     public boolean areAllTowersConnected(){
-
-
-
         return false;
+    }
+
+    public int getNbRounds(){
+        return this.nbRounds;
+    }
+
+    public void incrementNbRounds(){
+        this.nbRounds++;
     }
 
     @Override
