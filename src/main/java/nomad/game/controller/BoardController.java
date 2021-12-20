@@ -16,6 +16,8 @@ import nomad.common.ihm.IhmScreenController;
 import nomad.game.IhmGameScreenController;
 
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BoardController extends GameControllerAbstract {
     /**
@@ -30,20 +32,29 @@ public class BoardController extends GameControllerAbstract {
     @FXML
     private GridPane gameBoard;
 
+    private boolean played = false;
+
     @FXML
     public void getCoordinates(MouseEvent event) {
         Node source = (Node) event.getTarget();
 
         Game currentGame = getGameController().getCurrentGame();
+        User currentUser = getGameController().getGameScreen().getDataInterface().getUser();
         Move move;
-        if (currentGame.getMoves().size() < currentGame.getNbOfTowers()) { // Place a tower
-            move = new Tower(GridPane.getColumnIndex(source), GridPane.getRowIndex(source));
-        } else { // Place a tile
-            move = new Tile(GridPane.getColumnIndex(source), GridPane.getRowIndex(source), true);
+        if(!played && currentGame.getCurrentPlayerUUID().equals(currentUser.getUserId())) {
+            if (currentGame.getMoves().size() < currentGame.getNbOfTowers()) { // Place a tower
+                move = new Tower(GridPane.getColumnIndex(source), GridPane.getRowIndex(source));
+            } else { // Place a tile
+                move = new Tile(GridPane.getColumnIndex(source), GridPane.getRowIndex(source), true);
+            }
+            move.setGameId(currentGame.getGameId());
+            move.setUserId(currentGame.getCurrentPlayerUUID());
+            ((IhmGameScreenController) screenControl).getComInterface().playMove(move);
+            played=true;
         }
-        move.setGameId(currentGame.getGameId());
-        move.setUserId(currentGame.getCurrentPlayerUUID());
-        ((IhmGameScreenController) screenControl).getComInterface().playMove(move);
+        else{
+            Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Not your turn!");
+        }
     }
 
     @Override
@@ -58,6 +69,7 @@ public class BoardController extends GameControllerAbstract {
 
     public void update() {
         ObservableList<Move> move = getGameController().getCurrentGame().getMoves();
+        played=false;
         for (Move newMove: move){
             if (newMove instanceof Tower){
                 //Draw tower

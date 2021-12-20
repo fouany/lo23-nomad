@@ -139,7 +139,7 @@ public class Game extends Observable implements Serializable  {
         UUID opponentUUID = getOpponent().getId();
         UUID hostUUID = getHost().getId();
 
-        if (hostUUID == currentPlayerUUID) {
+        if (hostUUID.equals(currentPlayerUUID)){
             setCurrentPlayer(opponentUUID);
         } else {
             setCurrentPlayer(hostUUID);

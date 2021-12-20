@@ -67,10 +67,8 @@ public class PlayerInfoController extends GameControllerAbstract {
     }
 
     public void updatePane(Game game){
-        if(game.getCurrentPlayerUUID().equals(currentUser)){
-            System.out.println("A moi de jouer!");
-            System.out.println(currentUser);
-        }
+        System.out.println(game.getCurrentPlayerUUID());
+        System.out.println(game.getHost().getId());
         if(game.getCurrentPlayerUUID().equals(game.getHost().getId())){
             paneUser1.setStyle("-fx-background-color: #134900;");
             paneUser2.setStyle("-fx-background-color: #003049;");

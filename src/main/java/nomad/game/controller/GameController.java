@@ -12,6 +12,8 @@ import nomad.game.IhmGameScreenController;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GameController extends IhmControllerComponent implements Observer {
 
@@ -55,6 +57,7 @@ public class GameController extends IhmControllerComponent implements Observer {
 
         currentGame.getMoves().addListener(
                 (ListChangeListener<Move>) c -> {
+                    Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Au tour de"+currentGame.getCurrentPlayerUUID());
                     logController.update(currentGame.getMoves().get(currentGame.getMoves().size()-1));
                     this.update(null,null);
                 }
@@ -82,6 +85,8 @@ public class GameController extends IhmControllerComponent implements Observer {
 
         chatController = (ChatController) gameScreen.getController(ChatController.class);
         chatController.setParentController(this);
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Au tour de"+currentGame.getCurrentPlayerUUID());
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Je suis "+gameScreen.getDataInterface().getUser().getUserId());
     }
 
     public void initControllers()
@@ -94,8 +99,6 @@ public class GameController extends IhmControllerComponent implements Observer {
     }
 
     public void update(Observable o, Object arg) {
-        System.out.println("Update on game");
-        //TODO handle different type of updates => call update on the controller needed
         boardController.update();
         playerInfoController.update();
     }
