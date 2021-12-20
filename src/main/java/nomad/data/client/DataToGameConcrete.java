@@ -4,6 +4,7 @@ import nomad.common.data_structure.*;
 import nomad.common.interfaces.data.DataToIhmGameInterface;
 
 import java.io.IOException;
+import java.util.UUID;
 
 public class DataToGameConcrete implements DataToIhmGameInterface  {
 
@@ -35,6 +36,11 @@ public class DataToGameConcrete implements DataToIhmGameInterface  {
 
     public void setProfile(User user){
         dataClientControllerGame.getUserController().setUser(user);
+    }
+
+    @Override
+    public void getProfilInfos(UUID userId) {
+        dataClientControllerGame.getComToDataInterface().getProfileGame(userId);
     }
 
     /**
