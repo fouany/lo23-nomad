@@ -21,7 +21,7 @@ public class SaveTowerMoveMessage extends BaseServerMessage {
         try {
             controller.getDataToCom().saveTower(tower);
         } catch (TowerException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to make the tile move");
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to make the tower move");
         }
     }
 }

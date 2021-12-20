@@ -63,11 +63,6 @@ public class IhmGameScreenController extends IhmScreenController {
     @Override
     public void initPaths() {
         listPaths.add("fxml/page/game_view.fxml");
-        listPaths.add("fxml/components/player_info.fxml");
-        listPaths.add("fxml/components/board.fxml");
-        listPaths.add("fxml/components/log.fxml");
-        listPaths.add("fxml/components/skip_turn.fxml");
-        listPaths.add("fxml/components/chat.fxml");
     }
 
     @Override

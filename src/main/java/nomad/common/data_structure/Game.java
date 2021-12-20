@@ -23,7 +23,7 @@ public class Game extends Observable implements Serializable  {
     private ObservableList<UserLight> spect;
     private ObservableList<Message> chat;
     private ObservableList<Tower> towers;
-    private int nbRounds;
+    private int nbRounds = 0;
 
     public Game(Player host, int nbOfTowers, String name, GameParameters gameParameters) {
         this.gameId = UUID.randomUUID();
@@ -53,6 +53,7 @@ public class Game extends Observable implements Serializable  {
             nbOfTilesPlayed ++;
             board.updateBoard((Tile) m);
         }
+        this.incrementNbRounds();
     }
 
     public UUID getGameId() {

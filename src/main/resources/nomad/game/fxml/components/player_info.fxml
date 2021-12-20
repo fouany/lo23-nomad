@@ -15,48 +15,54 @@
                 <ImageView fitHeight="69.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-radius: 50%;" />
                 <VBox layoutX="70.0" prefHeight="70.0" prefWidth="184.0">
                     <children>
-                        <TextField fx:id="playerOneName" alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Player : ">
+                        <Label fx:id="playerOneName" alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Player : ">
                             <font>
                                 <Font size="15.0" />
-                            </font></TextField>
-                        <TextField alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Connected Towers :">
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Connected Towers :">
                             <font>
                                 <Font size="15.0" />
-                            </font></TextField>
+                            </font>
+                        </Label>
                     </children>
                 </VBox>
             </children>
         </Pane>
         <Separator opacity="0.0" orientation="VERTICAL" prefHeight="69.0" prefWidth="65.5" />
-        <Pane prefHeight="69.0" prefWidth="167.0" style="-fx-background-color: #003049;">
+        <Pane fx:id="paneUser1" prefHeight="69.0" prefWidth="167.0" style="-fx-background-color: #003049;">
             <children>
                 <VBox prefHeight="70.0" prefWidth="167.0">
                     <children>
-                        <TextField fx:id="numberTower" alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Towers : 0/5">
+                        <Label fx:id="numberTower" alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Towers : 0/5">
                             <font>
                                 <Font size="15.0" />
-                            </font></TextField>
-                        <TextField alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Tiles : 0/165">
+                            </font>
+                        </Label>
+                        <Label fx:id="numberTiles" alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Tiles : 0/165">
                             <font>
                                 <Font size="15.0" />
-                            </font></TextField>
+                            </font>
+                        </Label>
                     </children>
                 </VBox>
             </children>
         </Pane>
         <Separator layoutX="264.0" layoutY="10.0" opacity="0.0" orientation="VERTICAL" prefHeight="69.0" prefWidth="65.5" />
-        <Pane prefHeight="69.0" prefWidth="254.0" style="-fx-background-color: #134900;">
+        <Pane fx:id="paneUser2" prefHeight="69.0" prefWidth="254.0" style="-fx-background-color: #134900;">
             <children>
                 <VBox prefHeight="70.0" prefWidth="184.0">
                     <children>
-                        <TextField fx:id="playerTwoName" alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Player : ">
+                        <Label fx:id="playerTwoName" alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Player : ">
                             <font>
                                 <Font size="15.0" />
-                            </font></TextField>
-                        <TextField alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Connected Towers :">
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" style="-fx-background-color: none; -fx-text-fill: white;" text="Connected Towers :">
                             <font>
                                 <Font size="15.0" />
-                            </font></TextField>
+                            </font>
+                        </Label>
                     </children>
                 </VBox>
                 <Circle fill="WHITE" layoutX="219.0" layoutY="34.0" radius="34.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />

@@ -1,6 +1,7 @@
 package nomad.game.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import nomad.common.data_structure.Game;
 import nomad.common.ihm.IhmScreenController;
@@ -16,22 +17,16 @@ public class PlayerInfoController extends GameControllerAbstract {
      */
 
     @FXML
-    public TextField playerOneName;
+    public Label playerOneName;
 
     @FXML
-    public TextField playerTwoName;
+    public Label playerTwoName;
 
     @FXML
-    public TextField numberTower;
+    public Label numberTower;
 
     @FXML
-    public TextField numberTiles;
-
-    @FXML
-    public TextField conectedTowerOne;
-
-    @FXML
-    public TextField connectedTowerTwo;
+    public Label numberTiles;
 
     private IhmScreenController gameScreen;
 
@@ -44,14 +39,17 @@ public class PlayerInfoController extends GameControllerAbstract {
     @Override
     public void init() {
         Game game = getGameController().getCurrentGame();
+        System.out.println(game.getHost().getLogin());
         playerOneName.setText(game.getHost().getLogin());
-        playerTwoName.setText(game.getOpponent().getLogin());
+        playerTwoName.setText("Player: " + game.getOpponent().getLogin());
         numberTower.setText("Towers : "+game.getNbOfTowers()+"/5");
-        //TODO update for connect / nb tiles when com implements the methods
+        numberTiles.setText("Tiles : "+game.getNbOfTilesPlayed()+"/5");
     }
 
     public void update(String type) {
-
+        Game game = getGameController().getCurrentGame();
+        numberTower.setText("Towers : "+game.getNbOfTowers()+"/5");
+        numberTiles.setText("Tiles : "+game.getNbOfTilesPlayed()+"/5");
     }
 
 }
