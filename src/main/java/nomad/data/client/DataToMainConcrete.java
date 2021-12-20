@@ -215,8 +215,8 @@ public class DataToMainConcrete implements DataToIhmMainInterface {
             dataClientController.getIhmMainToDataInterface().updateObservable(dataClientController.getSession());
             return;
         }
-
-        throw new UserException("User doesn't exist");
+        
+        throw new UserException("User doesn't exist or wrong credentials");
 
     }
 

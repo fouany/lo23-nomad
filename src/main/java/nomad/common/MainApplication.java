@@ -1,11 +1,14 @@
 package nomad.common;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import nomad.com.client.ClientController;
 import nomad.com.client.concrete.ComClientToDataConcrete;
 import nomad.com.client.concrete.ComClientToIhmMainConcrete;
 import nomad.com.client.concrete.ComToIhmGameConcrete;
+import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmScreenController;
 import nomad.common.interfaces.game.IhmGameToDataInterface;
 import nomad.data.client.DataClientController;
@@ -20,6 +23,8 @@ import nomad.main.IhmMainToComConcrete;
 import nomad.main.IhmMainToDataConcrete;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Main application
@@ -93,12 +98,32 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
-
+        attachCloseListener();
         stage.setMinHeight(MIN_HEIGHT);
         stage.setMinWidth(MIN_WIDTH);
         this.changeModule("MAIN");
+
     }
 
+
+    private void attachCloseListener()
+    {
+        getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Logger.getAnonymousLogger().log(Level.SEVERE, "Quit application");
+                try {
+                    dataToMainConcrete.logout();
+
+
+                }
+                catch (NullPointerException e)
+                {
+                    //user is not connected so nullpointer exception is raised
+                }
+            }
+        });
+    }
     /**
      * Change the current module (Main of Game)
      *

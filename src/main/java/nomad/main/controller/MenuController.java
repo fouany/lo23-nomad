@@ -3,14 +3,18 @@ package nomad.main.controller;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 import nomad.common.MainApplication;
 import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 import nomad.main.IhmMainToComConcrete;
 
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -94,4 +98,5 @@ public class MenuController extends IhmControllerComponent implements ListChange
             }
         }
     }
+
 }
