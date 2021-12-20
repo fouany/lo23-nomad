@@ -37,7 +37,6 @@ public class SeeProfileController extends IhmControllerComponent {
 
         DialogController.centerDialog(stage, primaryStage);
 
-
         Button buttonClose = (Button) dialogPane.lookup("#close");
         Label labelUserName = (Label) dialogPane.lookup("#userName");
         Label labelUserID = (Label) dialogPane.lookup("#userID");
@@ -46,8 +45,9 @@ public class SeeProfileController extends IhmControllerComponent {
         Label labelNumberOfLoses = (Label) dialogPane.lookup("#numberOfLoses");
         Label labelNumberOfDraws = (Label) dialogPane.lookup("#numberOfDraws");
         Label labelNumberOfRatio = (Label) dialogPane.lookup("#numberOfRatio");
-        labelUserName.setText("user.getLogin()");
-        labelUserID.setText("user.getUserId())");
+        labelUserName.setText(user.getLogin());
+        labelUserID.setText(String.valueOf(user.getUserId()));
+
         labelNumberOfGames.setText("666");
         labelNumberOfVictories.setText("66");
         labelNumberOfLoses.setText("66");

@@ -32,7 +32,7 @@ public class ServerConnectionController extends IhmControllerComponent implement
         ihmMainScreenController = screen;
     }
 
-    private boolean ipFormatIsValid(String ip) {
+    public static boolean ipFormatIsValid(String ip) {
         String zeroTo255
                 = "(\\d{1,2}|([01])\\"
                 + "d{2}|2[0-4]\\d|25[0-5])";
@@ -56,7 +56,7 @@ public class ServerConnectionController extends IhmControllerComponent implement
      * @param port a string containing a potential port number
      * @return True if the port is valid, else false
      */
-    private boolean portFormatIsValid(String port) {
+    public static boolean portFormatIsValid(String port) {
         int portNumber;
         try {
             portNumber = Integer.parseInt(port);
