@@ -12,8 +12,6 @@ import java.net.Socket;
 public class LocalUserDisconnectionMessage extends BaseServerMessage {
     @Override
     public void process(Socket socket, ServerController controller) {
-        User u = controller.getDataToCom().getUserProfile(controller.getAssociatedUserUID(socket));
-        controller.getDataToCom().updateUserListRemove(controller.getAssociatedUserUID(socket));
-        controller.disconnectClient(socket, u);
+        controller.disconnectClient(socket);
     }
 }

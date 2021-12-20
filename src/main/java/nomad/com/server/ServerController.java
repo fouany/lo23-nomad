@@ -123,23 +123,6 @@ public class ServerController extends Thread {
      *
      * @param client Client to disconnect
      */
-    public void disconnectClient(Socket client, User user) {
-        UUID uid = getAssociatedUserUID(client);
-        clientList.get(client).stopClientCommunication(); // Stop client communication thread
-        clientList.remove(client); // Remove client from identified clients list
-        try {
-            client.close();
-        } catch (IOException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Failed to close connection with client !");
-        }
-
-        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Disconnected user from server !");
-        if (uid != null) {
-            broadcast(new UserChangedMessage(user, false)); // announce disconnection to all clients
-            dataToCom.updateUserListRemove(uid);
-        }
-    }
-
     public void disconnectClient(Socket client) {
         clientList.get(client).stopClientCommunication(); // Stop client communication thread
         UUID uid = clientList.get(client).getUID();
