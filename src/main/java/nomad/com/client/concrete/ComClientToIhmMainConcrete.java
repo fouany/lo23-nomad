@@ -50,6 +50,11 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
         sendMessage(new NewGamePlayerServerMessage(player, game), "Failed to send NewGamePlayerServerMessage to the remote server !");
     }
 
+    /**
+     * launchGame send a message to the server to launch a new game
+     *
+     * @param game is the game to launch
+     */
     @Override
     public void launchGame(Game game) {
         
@@ -61,11 +66,22 @@ public class ComClientToIhmMainConcrete implements ComToIhmMainInterface {
         sendMessage(new LaunchGameMessage(game.getGameSerializable()), "Failed to send LaunchGameMessage to the remote server");
     }
 
+    /**
+     * addSpecInGame send a message to add a spectator in a specific game
+     * @param user is the spectator added in the game
+     * @param game is the game that the spectator wants to join
+     */
     @Override
     public void addSpecInGame(UserLight user, GameLight game) {
         sendMessage(new AddSpecInGameMessage(user, game), "Failed to send AddSpecInGameMessage to the remote server");
     }
 
+    /**
+     * sendMessage is a private function to send a message to the server
+     *
+     * @param message is the message to sent
+     * @param errorMessage is the error message to sent
+     */
     private void sendMessage(Message message, String errorMessage) {
         if (!clientController.sendMessage(message)) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, errorMessage);

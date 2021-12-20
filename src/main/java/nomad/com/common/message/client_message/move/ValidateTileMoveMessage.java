@@ -7,14 +7,27 @@ import nomad.common.data_structure.TileException;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/**
+ * Use to validate a tile move
+ */
 public class ValidateTileMoveMessage extends BaseClientMessage {
+    /**
+     * Tile
+     */
     private final Tile tile;
 
+    /**
+     * Constructor
+     * @param tile Tile
+     */
     public ValidateTileMoveMessage(Tile tile) {
         this.tile = tile;
     }
 
+    /**
+     * Process to Data
+     * @param controller clientController
+     */
     @Override
     public void process(ClientController controller) {
         try {

@@ -14,11 +14,19 @@ public class GameCreatedMessage extends BaseClientMessage {
      */
     private final GameSerializable game;
 
+    /**
+     * Constructor
+     * @param game Game
+     */
     public GameCreatedMessage(GameSerializable game) {
         this.game = game;
     }
 
 
+    /**
+     * Process to Data
+     * @param controller ClientController
+     */
     @Override
     public void process(ClientController controller) {
         Game g = this.game.getGame();

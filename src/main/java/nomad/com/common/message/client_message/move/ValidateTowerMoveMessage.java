@@ -9,13 +9,27 @@ import nomad.common.data_structure.TowerException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Use to validate a Tower move
+ */
 public class ValidateTowerMoveMessage extends BaseClientMessage {
+    /**
+     * Tower
+     */
     private final Tower tower;
 
+    /**
+     * Constructor
+     * @param tower Tower
+     */
     public ValidateTowerMoveMessage(Tower tower) {
         this.tower = tower;
     }
 
+    /**
+     * Process to data
+     * @param controller clientController
+     */
     @Override
     public void process(ClientController controller) {
         try {

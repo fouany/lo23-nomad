@@ -43,6 +43,15 @@ public class GameCreationMessage extends BaseServerMessage {
      */
     private final boolean hostColor;
 
+    /**
+     * Constructor
+     * @param name name of the game
+     * @param host host of the game
+     * @param nbTowers number of towers in the game
+     * @param areSpecAllowed boolean that allow spectator to join the game
+     * @param isSpecChatAllowed boolean that allow chat
+     * @param hostColor boolean
+     */
     public GameCreationMessage(String name, UserLight host, int nbTowers, boolean areSpecAllowed, boolean isSpecChatAllowed, boolean hostColor) {
         this.name = name;
         this.host = host;
@@ -52,6 +61,11 @@ public class GameCreationMessage extends BaseServerMessage {
         this.hostColor = hostColor;
     }
 
+    /**
+     * Process method
+     * @param socket socket
+     * @param controller controller
+     */
     @Override
     public void process(Socket socket, ServerController controller) {
         Game game = controller.getDataToCom().createGame(name, host, nbTowers, areSpecAllowed, isSpecChatAllowed, hostColor);

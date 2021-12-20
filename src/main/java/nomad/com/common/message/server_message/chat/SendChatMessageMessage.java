@@ -33,6 +33,11 @@ public class SendChatMessageMessage extends BaseServerMessage {
         this.message = message;
     }
 
+    /**
+     * Process method
+     * @param socket  socket
+     * @param controller controller
+     */
     @Override
     public void process(Socket socket, ServerController controller) {
         try{

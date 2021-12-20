@@ -14,13 +14,28 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Message of launch game
+ */
 public class LaunchGameMessage extends BaseServerMessage {
+    /**
+     * game
+     */
     private final GameSerializable game;
 
+    /**
+     * Contructor
+     * @param game game
+     */
     public LaunchGameMessage(GameSerializable game) {
         this.game = game;
     }
 
+    /**
+     * Process
+     * @param socket socket
+     * @param controller controller
+     */
     @Override
     public void process(Socket socket, ServerController controller) {
         controller.getDataToCom().launchGame(game.getGameId());
