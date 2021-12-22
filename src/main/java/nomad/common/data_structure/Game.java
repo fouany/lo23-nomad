@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import java.io.Serializable;
 import java.util.*;
 
-public class Game extends Observable implements Serializable  {
+public class Game extends Observable implements Serializable {
 
     private UUID gameId;
     private Player host;
@@ -34,8 +34,8 @@ public class Game extends Observable implements Serializable  {
         this.board = new Board();
         this.currentPlayer = host.getId();
         this.gameParameters = gameParameters;
-        this.nbOfTilesPlayed=0;
-        this.nbOfTowersPlayed=0;
+        this.nbOfTilesPlayed = 0;
+        this.nbOfTowersPlayed = 0;
         this.spect = FXCollections.observableArrayList(new ArrayList<>());
         this.moves = FXCollections.observableArrayList(new ArrayList<>());
         this.chat = FXCollections.observableArrayList(new ArrayList<>());
@@ -46,13 +46,13 @@ public class Game extends Observable implements Serializable  {
         return nbOfTilesPlayed;
     }
 
-    public void addMove(Move m){
+    public void addMove(Move m) {
         moves.add(m);
-        if ( m instanceof Tower ){
+        if (m instanceof Tower) {
             towers.add((Tower) m);
             board.updateBoard((Tower) m);
-        } else if (m instanceof Tile){
-            nbOfTilesPlayed ++;
+        } else if (m instanceof Tile) {
+            nbOfTilesPlayed++;
             board.updateBoard((Tile) m);
         }
         this.incrementNbRounds();
@@ -73,7 +73,6 @@ public class Game extends Observable implements Serializable  {
     public Player getHost() {
         return host;
     }
-
 
 
     public void setHost(Player host) {
@@ -136,12 +135,12 @@ public class Game extends Observable implements Serializable  {
         this.currentPlayer = currentPlayer;
     }
 
-    public void changeCurrentPlayer(){
+    public void changeCurrentPlayer() {
         UUID currentPlayerUUID = getCurrentPlayerUUID();
         UUID opponentUUID = getOpponent().getId();
         UUID hostUUID = getHost().getId();
 
-        if (hostUUID.equals(currentPlayerUUID)){
+        if (hostUUID.equals(currentPlayerUUID)) {
             System.out.println("Opponent turn");
             setCurrentPlayer(opponentUUID);
         } else {
@@ -210,19 +209,19 @@ public class Game extends Observable implements Serializable  {
         this.spect.add(spect);
     }
 
-    public GameLight createGameLight(){
+    public GameLight createGameLight() {
         return new GameLight(gameId, host, nbOfTowers);
     }
 
-    public boolean areAllTowersConnected(){
+    public boolean areAllTowersConnected() {
         return false;
     }
 
-    public int getNbRounds(){
+    public int getNbRounds() {
         return this.nbRounds;
     }
 
-    public void incrementNbRounds(){
+    public void incrementNbRounds() {
         this.nbRounds++;
     }
 
@@ -247,16 +246,18 @@ public class Game extends Observable implements Serializable  {
                 '}';
     }
 
-    public void removeOpponent() { this.opponent = null; }
+    public void removeOpponent() {
+        this.opponent = null;
+    }
 
     public List<UUID> getListOther() {
         List<UUID> listOther = new ArrayList<>();
-        if (this.currentPlayer.equals(this.host.getId())){
+        if (this.currentPlayer.equals(this.host.getId())) {
             listOther.add(this.opponent.getId());
-        } else{
+        } else {
             listOther.add(this.host.getId());
         }
-        for (UserLight ul : this.spect){
+        for (UserLight ul : this.spect) {
             listOther.add(ul.getId());
         }
         return listOther;
@@ -266,18 +267,25 @@ public class Game extends Observable implements Serializable  {
         return new GameSerializable(this);
     }
 
-    public ObservableList<Tower> getTowers() { return this.towers;
+    public ObservableList<Tower> getTowers() {
+        return this.towers;
     }
 
     public void setTowers(ObservableList<Tower> towers) {
         this.towers = towers;
     }
 
-    public void setNbOfTilesPlayed(int nbOfTilesPlayed) { this.nbOfTilesPlayed = nbOfTilesPlayed; }
+    public void setNbOfTilesPlayed(int nbOfTilesPlayed) {
+        this.nbOfTilesPlayed = nbOfTilesPlayed;
+    }
 
-    public int getNbOfTowersPlayed () { return this.nbOfTowersPlayed;}
+    public int getNbOfTowersPlayed() {
+        return this.nbOfTowersPlayed;
+    }
 
-    public void setNbOfTowersPlayed(int nbOfTowersPlayed) { this.nbOfTowersPlayed = nbOfTowersPlayed; }
+    public void setNbOfTowersPlayed(int nbOfTowersPlayed) {
+        this.nbOfTowersPlayed = nbOfTowersPlayed;
+    }
 
     public void addTowerPlayed() {
         this.nbOfTowersPlayed = this.nbOfTowersPlayed + 1;
@@ -294,7 +302,7 @@ public class Game extends Observable implements Serializable  {
         return color;
     }
 
-    public boolean switchTowerTile(){
-        return getNbOfTowersPlayed()==getNbOfTowers();
+    public boolean switchTowerTile() {
+        return getNbOfTowersPlayed() == getNbOfTowers();
     }
 }

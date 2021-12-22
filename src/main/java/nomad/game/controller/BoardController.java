@@ -39,7 +39,7 @@ public class BoardController extends GameControllerAbstract {
         Game currentGame = getGameController().getCurrentGame();
         User currentUser = getGameController().getGameScreen().getDataInterface().getUser();
         Move move;
-        if (!played && currentGame.getCurrentPlayerUUID().equals(currentUser.getUserId())) {
+        if (currentGame.getCurrentPlayerUUID().equals(currentUser.getUserId())) {
             if (currentGame.getMoves().size() < currentGame.getNbOfTowers()) { // Place a tower
                 move = new Tower(GridPane.getColumnIndex(source), GridPane.getRowIndex(source));
             } else { // Place a tile
@@ -65,6 +65,7 @@ public class BoardController extends GameControllerAbstract {
     }
 
     public void update() {
+        played = false;
         ObservableList<Move> move = getGameController().getCurrentGame().getMoves();
         if (!move.isEmpty()) {
             Move newMove = move.get(move.size() - 1);
@@ -96,25 +97,24 @@ public class BoardController extends GameControllerAbstract {
 
                             Platform.runLater(() -> {
                                 StackPane stackPane = new StackPane();
-                                ImageView tileImage;
+                                ImageView tileView;
 
                                 if (getGameController().getCurrentGame().getCurrentPlayerColor()) {
-                                    tileImage = new ImageView(getClass().getResource("img/redTile.png").toExternalForm());
+                                    tileView = new ImageView(getClass().getResource("img/redTile.png").toExternalForm());
                                 } else {
-                                    tileImage = new ImageView(getClass().getResource("img/whiteTile.png").toExternalForm());
+                                    tileView = new ImageView(getClass().getResource("img/whiteTile.png").toExternalForm());
                                 }
 
                                 Text height = new Text(String.valueOf(boardCase.getHeight()));
-                                stackPane.getChildren().add(tileImage);
+                                stackPane.getChildren().add(tileView);
                                 stackPane.getChildren().add(height);
 
                                 ((Pane) node).getChildren().clear();
                                 ((Pane) node).getChildren().add(stackPane);
 
-                                ImageView towerView = new ImageView(getClass().getResource("img/tower.png").toExternalForm());
-                                towerView.fitWidthProperty().bind(((Pane) node).widthProperty()); // Link width of image to pane width
-                                towerView.fitHeightProperty().bind(((Pane) node).heightProperty()); // Link height of image to pane height
-                                ((Pane) node).getChildren().add(towerView);
+                                tileView.fitWidthProperty().bind(((Pane) node).widthProperty()); // Link width of image to pane width
+                                tileView.fitHeightProperty().bind(((Pane) node).heightProperty()); // Link height of image to pane height
+                                ((Pane) node).getChildren().add(tileView);
                             });
 
                             break;
