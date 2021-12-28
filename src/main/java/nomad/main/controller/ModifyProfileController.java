@@ -75,12 +75,7 @@ public class ModifyProfileController extends IhmControllerComponent {
         this.ihmController = screen;
     }
 
-    public void start() {
-        int winInf = this.ihmController.getDataI().getUser().getProfileStat().getGamesWon();
-        int lostInf = this.ihmController.getDataI().getUser().getProfileStat().getGamesLost();
-        int totalInf = this.ihmController.getDataI().getUser().getProfileStat().getGamesPlayed();
-        int drawInf = totalInf - lostInf - winInf;
-
+    public void getInitialPicture() {
         byte[] byteArray = decodeImage(this.ihmController.getDataI().getUser().getProfilePicture());
 
         if(byteArray != null && byteArray.length > 0) {
@@ -98,6 +93,14 @@ public class ModifyProfileController extends IhmControllerComponent {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void start() {
+        int winInf = this.ihmController.getDataI().getUser().getProfileStat().getGamesWon();
+        int lostInf = this.ihmController.getDataI().getUser().getProfileStat().getGamesLost();
+        int totalInf = this.ihmController.getDataI().getUser().getProfileStat().getGamesPlayed();
+        int drawInf = totalInf - lostInf - winInf;
+        getInitialPicture();
         win.setText("" + winInf);
 
         loses.setText("" + lostInf);
@@ -217,6 +220,10 @@ public class ModifyProfileController extends IhmControllerComponent {
         if(!ServerConnectionController.ipFormatIsValid(serverID.getText()) || !ServerConnectionController.portFormatIsValid(portID.getText())){
             DialogController.display("Erreur", "Le format IP/Port n'est pas valide", DialogController.DialogStatus.ERROR, ihmController);
             return;
+        }
+
+        if (profilePictureStr == null ) {
+            profilePictureStr = this.ihmController.getDataI().getUser().getProfilePicture();
         }
 
         try {
