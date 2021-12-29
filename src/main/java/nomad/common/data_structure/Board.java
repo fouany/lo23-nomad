@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Board implements Serializable {
 
-    private final static int BOARDDIMENSIONS = 13;
+    public static final int BOARDDIMENSIONS = 13;
     private Case[][] gameBoard;
 
     public Board(){

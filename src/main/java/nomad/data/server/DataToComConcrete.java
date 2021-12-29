@@ -6,8 +6,6 @@ import nomad.common.interfaces.data.DataToComServerInterface;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Concretization of the Ihm Com interface.
@@ -131,21 +129,105 @@ public class DataToComConcrete implements DataToComServerInterface {
         }
     }
 
-    private boolean checkPile(Tile t, int height, boolean color) {
-        UUID gameID = t.getGameId();
-        boolean nearPileOK = false;
-        for (int x = -1; x < 2; x++) {
-            for (int y = -1; y < 2; y++) {
-                if (!(x == 0 && y == 0)) {
-                    int height2 = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX() + x][t.getY() + y].getHeight();
-                    boolean color2 = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX() + x][t.getY() + y].isColor();
-                    if (height2 >= height && color == color2) {
-                        nearPileOK = true;
-                    }
-                }
+    /**
+     * Check if tile is in the bounds of the array and if height is positive or null
+     *
+     * @param t      Tile to check
+     * @param height Height to check
+     * @return True if tile and height are in bounds, else false
+     */
+    private boolean checkBounds(Tile t, int height) {
+        return checkPosition(t.getX(), t.getY())
+                && height >= 0;
+    }
+
+    /**
+     * Check if position (x, y) is inside of board
+     *
+     * @param x X position
+     * @param y Y position
+     * @return True if position is in board, else false
+     */
+    private boolean checkPosition(int x, int y) {
+        return x < Board.BOARDDIMENSIONS
+                && y < Board.BOARDDIMENSIONS
+                && x >= 0
+                && y >= 0;
+    }
+
+    /**
+     * Get a list of cases adjacent to the given tile (diagonal excluded).
+     * Warning, no bound checks are done on parameters.
+     *
+     * @param t     Reference tile, must be bound checked before calling this method
+     * @param board Board in the form of a 2D Case array
+     * @return A list containing all adjacent cases
+     */
+    private List<Case> getAdjacentCases(Tile t, Case[][] board) {
+        ArrayList<Case> adjacentCases = new ArrayList<>();
+        int x = t.getX();
+        int y = t.getY();
+
+        if (checkPosition(x - 1, y)) {
+            adjacentCases.add(board[x - 1][y]);
+        }
+
+        if (checkPosition(x + 1, y)) {
+            adjacentCases.add(board[x + 1][y]);
+        }
+
+        if (checkPosition(x, y - 1)) {
+            adjacentCases.add(board[x][y - 1]);
+        }
+
+        if (checkPosition(x, y + 1)) {
+            adjacentCases.add(board[x][y + 1]);
+        }
+
+        return adjacentCases;
+    }
+
+    /**
+     * Get the size of the highest neighbour pile of tile of the given color
+     *
+     * @param adjacentCases List of neighbours
+     * @param color Color of the piles to consider
+     * @return Size of the highest pile of given color, 0 if none was found
+     */
+    private int highestNeighbourOfColor(List<Case> adjacentCases, boolean color) {
+        int highest = 0;
+        for (Case c : adjacentCases) { // Iterate over neighboors
+            if (!c.isTower()
+                    && c.isColor() == color
+                    && c.getHeight() > highest)
+            { // Only consider tiles of same color
+                highest = c.getHeight();
             }
         }
-        return nearPileOK;
+
+        return highest;
+    }
+
+    /**
+     * Check if tile can be placed depending on nearby piles and bounds
+     *
+     * @param t      Tile to check
+     * @param height Height of the pile before adding the tile
+     * @param color  Color of the placed tile
+     * @return True if the move is allowed and the tile can be placed, else false
+     */
+    private boolean checkPile(Tile t, int height, boolean color) {
+        if (!checkBounds(t, height)) { // Invalid bounds or height
+            return false;
+        }
+
+        UUID gameID = t.getGameId();
+        Case[][] board = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard();
+
+        List<Case> adjacentList = getAdjacentCases(t, board);
+        int highestNeighbour = highestNeighbourOfColor(adjacentList, color);
+
+        return height <= highestNeighbour;
     }
 
     @Override
