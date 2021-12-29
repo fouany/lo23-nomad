@@ -5,9 +5,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import nomad.common.data_structure.Game;
 import nomad.common.data_structure.GameException;
+import nomad.common.data_structure.GameLight;
 import nomad.common.data_structure.Player;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
@@ -48,7 +51,6 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
     @FXML
     public HBox hostContainer;
 
-
     private IhmMainScreenController controller;
     private Boolean passModule = false;
     private Boolean viewInitialized = false;
@@ -73,9 +75,14 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
 
     }
 
-    public void quitGame(ActionEvent e)
-    {
-       /*todo add interface to quit the game = abandonner la partie*/
+    public void quitGame(ActionEvent e) {
+        GameLight g = controller.getDataI().getGameLight();
+
+        // if the host is leaving the lobby, we remove the game from the list
+        if (g.getHost().getId().equals(controller.getDataI().getPlayer().getId())) {
+            controller.getSession().getGamesInLobby().remove(g);
+        }
+        controller.changeScreen(MenuController.class);
     }
 
     public void opponentLeftTheGame()
