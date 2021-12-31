@@ -101,12 +101,8 @@ public class DataToComConcrete implements DataToComServerInterface {
     public void saveTile(Tile t) throws TileException {
         UUID gameID = t.getGameId();
         boolean color;
-        if (t.getUserId().equals(dataServerController.getGamesController().getGame(gameID).getHost().getId())) {
-            //current player is the host
-            color = dataServerController.getGamesController().getGame(gameID).isHostColor();
-        } else {
-            color = !dataServerController.getGamesController().getGame(gameID).isHostColor();
-        }
+        color = t.getUserId().equals(dataServerController.getGamesController().getGame(gameID).getHost().getId());
+
         boolean isTower = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].isTower();
         int height = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].getHeight();
         //we check if there is an adjacent pile at least as high as this one (ans owned by the current player)
