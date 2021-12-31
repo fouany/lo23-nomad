@@ -1,6 +1,5 @@
 package nomad.main.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -8,6 +7,8 @@ import nomad.common.data_structure.UserException;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -67,7 +68,19 @@ public class ServerConnectionController extends IhmControllerComponent implement
         return portNumber > 0 && portNumber < 65536;
     }
 
-
+    private String setDefaultImage(){
+        String profilePicture = null;
+        File file = new File("src/main/resources/nomad/main/imgs/profile_placeholder.png");
+        try (FileInputStream fs = new FileInputStream(file)) {
+            byte[] imageData = new byte[(int) file.length()];
+            if (fs.read(imageData) > 0) {
+                profilePicture = ModifyProfileController.encodeImage(imageData);
+            }
+        } catch (IOException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.getMessage());
+        }
+        return profilePicture;
+    }
 
     public void onClickConnection() throws IOException, UserException, ClassNotFoundException {
         String ip = serverIp.getText();
@@ -76,6 +89,17 @@ public class ServerConnectionController extends IhmControllerComponent implement
         if (ipFormatIsValid(ip) && portFormatIsValid(port)) {
             String user = ihmMainScreenController.getAttributes().get("login");
             String password = ihmMainScreenController.getAttributes().get("password");
+            boolean signup =  Boolean.parseBoolean(ihmMainScreenController.getAttributes().get("isSignup"));
+            if (signup) {
+                try {
+                    String profilePicture = setDefaultImage();
+                    ihmMainScreenController.getDataI().createAccount(user,password,user, profilePicture, null);
+                }
+                catch (UserException e) {
+                    DialogController.display("Erreur", e.getMessage(), DialogController.DialogStatus.ERROR, ihmMainScreenController);
+                    return;
+                }
+            }
             try {
 
                 /**todo add connectException  **/

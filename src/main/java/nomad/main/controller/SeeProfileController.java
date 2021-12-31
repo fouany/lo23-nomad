@@ -75,13 +75,13 @@ public class SeeProfileController extends IhmControllerComponent {
         ImageView profilePicture = (ImageView) dialogPane.lookup("#profilePicture");
 
         //Set the profile picture
-        byte[] byteArray = decodeImage(user.getProfilePicture());
+        byte[] byteArray = ModifyProfileController.decodeImage(user.getProfilePicture());
         if(byteArray != null && byteArray.length > 0) {
-            ByteArrayInputStream bis = new ByteArrayInputStream(decodeImage(user.getProfilePicture()));
-            BufferedImage img = null;
+            ByteArrayInputStream bis = new ByteArrayInputStream(ModifyProfileController.decodeImage(user.getProfilePicture()));
+            BufferedImage img;
             try {
                 img = ImageIO.read(bis);
-                profilePicture.setImage(convertToFxImage(img));
+                profilePicture.setImage(ModifyProfileController.convertToFxImage(img));
             } catch (IOException e) {
                 e.printStackTrace();
             }
