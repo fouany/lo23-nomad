@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -117,18 +118,15 @@ public class BoardController extends GameControllerAbstract {
             Platform.runLater(() -> {
                 StackPane stackPane = new StackPane();
                 ImageView tileView = new ImageView(getClass().getResource(tileImage).toExternalForm());
+                tileView.fitWidthProperty().bind(pane.widthProperty()); // Link width of image to pane width
+                tileView.fitHeightProperty().bind(pane.heightProperty()); // Link height of image to pane height
                 stackPane.getChildren().add(tileView);
 
-                Text height = new Text(String.valueOf(boardCase.getHeight()));
+                Label height = new Label(String.valueOf(boardCase.getHeight()));
                 stackPane.getChildren().add(height);
-                stackPane.addEventHandler(MouseEvent.MOUSE_CLICKED, this::handleStackpaneClick);
 
                 pane.getChildren().clear();
                 pane.getChildren().add(stackPane);
-
-                tileView.fitWidthProperty().bind(pane.widthProperty()); // Link width of image to pane width
-                tileView.fitHeightProperty().bind(pane.heightProperty()); // Link height of image to pane height
-                pane.getChildren().add(tileView);
             });
         } else {
             Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Could not add Tile to the gameboard !");

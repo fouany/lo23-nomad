@@ -5,8 +5,6 @@ import nomad.common.interfaces.data.DataToComClientInterface;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DataToComConcrete implements DataToComClientInterface {
 
@@ -156,12 +154,12 @@ public class DataToComConcrete implements DataToComClientInterface {
      */
     @Override
     public void moveReceived(Move move) {
-        if (move.idMove() == "Tower") {
-            Tower t = (Tower) move;
-            dataClientController.getGameController().getGame().getBoard().updateBoard(t);
-        } else if (move.idMove() == "Tile") {
-            Tile t = (Tile) move;
-            dataClientController.getGameController().getGame().getBoard().updateBoard(t);
+        if (move.idMove().equals("Tower")) {
+            Tower tower = (Tower) move;
+            dataClientController.getGameController().getGame().getBoard().updateBoard(tower);
+        } else if (move.idMove().equals("Tile")) {
+            Tile tile = (Tile) move;
+            dataClientController.getGameController().getGame().getBoard().updateBoard(tile);
         }
         dataClientController.getGameController().getGame().changeCurrentPlayer();
         dataClientController.getGameController().getGame().addMove(move);

@@ -42,6 +42,7 @@ public class Board implements Serializable {
     }
 
     public void updateBoard(Tile t){
+        gameBoard[t.getX()][t.getY()].incrementHeight();
         gameBoard[t.getX()][t.getY()].setColor(t.isColor());
     }
 

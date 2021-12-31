@@ -100,8 +100,7 @@ public class DataToComConcrete implements DataToComServerInterface {
     @Override
     public void saveTile(Tile t) throws TileException {
         UUID gameID = t.getGameId();
-        boolean color;
-        color = t.getUserId().equals(dataServerController.getGamesController().getGame(gameID).getHost().getId());
+        boolean color = t.getUserId().equals(dataServerController.getGamesController().getGame(gameID).getHost().getId());
 
         boolean isTower = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].isTower();
         int height = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].getHeight();
@@ -112,7 +111,6 @@ public class DataToComConcrete implements DataToComServerInterface {
             throw new TileException("Tile not valid");
         } else {
             dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setColor(color);
-            dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setHeight(height + 1);
             dataServerController.getGamesController().getGame(t.getGameId()).addMove(t);
             dataServerController.getComOfferedInterface().tileValid(t, dataServerController.getGamesController().getGame(t.getGameId()).getListOther());
             dataServerController.getGamesController().getGame(gameID).changeCurrentPlayer();
