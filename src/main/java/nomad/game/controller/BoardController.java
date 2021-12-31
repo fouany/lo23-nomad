@@ -21,7 +21,7 @@ public class BoardController extends GameControllerAbstract {
     /**
      * Constructor that link the screen controller to the component controller
      *
-     * @param screen
+     * @param screen Parent screen controller
      */
     public BoardController(IhmScreenController screen) {
         super(screen);
@@ -30,11 +30,20 @@ public class BoardController extends GameControllerAbstract {
     @FXML
     private GridPane gameBoard;
 
-    private boolean played = false;
+    private static final String RED_TILE_IMG = "img/redTile.png";
+    private static final String WHITE_TILE_IMG = "img/whiteTile.png";
+    private static final String TOWER_IMG = "img/tower.png";
 
     @FXML
     public void playMove(MouseEvent event) {
         Node source = (Node) event.getTarget();
+        if (source.getClass() == ImageView.class) { // Source is an ImageView from a tile
+            source = source.getParent(); // ImageView -> StackPane
+        }
+
+        if (source.getClass() == StackPane.class) {
+            source = source.getParent(); // StackPane -> Pane
+        }
 
         Game currentGame = getGameController().getCurrentGame();
         User currentUser = getGameController().getGameScreen().getDataInterface().getUser();
@@ -48,7 +57,6 @@ public class BoardController extends GameControllerAbstract {
             move.setGameId(currentGame.getGameId());
             move.setUserId(currentGame.getCurrentPlayerUUID());
             ((IhmGameScreenController) screenControl).getComInterface().playMove(move);
-            played = true;
         } else {
             Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Not your turn!");
         }
@@ -64,63 +72,104 @@ public class BoardController extends GameControllerAbstract {
         }
     }
 
+    /**
+     * Add a tower to the game board.
+     *
+     * @param pane Pane containing the tower. If the pane is null, the method does nothing.
+     */
+    public void addTower(Pane pane) {
+        if (pane != null) {
+            Platform.runLater(() -> {
+                ImageView towerView = new ImageView(getClass().getResource(TOWER_IMG).toExternalForm());
+                towerView.fitWidthProperty().bind(pane.widthProperty()); // Link width of image to pane width
+                towerView.fitHeightProperty().bind(pane.heightProperty()); // Link height of image to pane height
+                pane.getChildren().add(towerView);
+            });
+        } else {
+            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Could not add Tower to the gameboard !");
+        }
+    }
+
+    /**
+     * Redirect event catched by a stackpane to playmove function
+     * @param event
+     */
+    public void handleStackpaneClick(MouseEvent event) {
+        Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Reached handler !");
+    }
+
+
+    /**
+     * Add a tile to the game board
+     *
+     * @param pane      Pane containing the tile. If the pane is null, the method does nothing
+     * @param boardCase Case in the game board data structure. If the case is null, the method does nothing
+     */
+    public void addTile(Pane pane, Case boardCase) {
+        if (pane != null && boardCase != null) {
+            String tileImage;
+            if (getGameController().getCurrentGame().getCurrentPlayerColor()) {
+                tileImage = RED_TILE_IMG;
+            } else {
+                tileImage = WHITE_TILE_IMG;
+            }
+
+            Platform.runLater(() -> {
+                StackPane stackPane = new StackPane();
+                ImageView tileView = new ImageView(getClass().getResource(tileImage).toExternalForm());
+                stackPane.getChildren().add(tileView);
+
+                Text height = new Text(String.valueOf(boardCase.getHeight()));
+                stackPane.getChildren().add(height);
+                stackPane.addEventHandler(MouseEvent.MOUSE_CLICKED, this::handleStackpaneClick);
+
+                pane.getChildren().clear();
+                pane.getChildren().add(stackPane);
+
+                tileView.fitWidthProperty().bind(pane.widthProperty()); // Link width of image to pane width
+                tileView.fitHeightProperty().bind(pane.heightProperty()); // Link height of image to pane height
+                pane.getChildren().add(tileView);
+            });
+        } else {
+            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Could not add Tile to the gameboard !");
+        }
+    }
+
+    /**
+     * Get the Pane element at the specified coordinates in the game board
+     *
+     * @param boardChildren List of all children of the gridpane
+     * @param x             X coordinate of pane
+     * @param y             Y coordinate of pane
+     * @return Pane at corresponding coordinates or null if not found
+     */
+    public Pane getGridPaneAt(ObservableList<Node> boardChildren, int x, int y) {
+        for (Node node : boardChildren) {
+            if (node.getClass() == Pane.class // Eliminate non-pane children
+                    && GridPane.getRowIndex(node) == y
+                    && GridPane.getColumnIndex(node) == x) {
+                return (Pane) node;
+            }
+        }
+
+        return null;
+    }
+
     public void update() {
-        played = false;
         ObservableList<Move> move = getGameController().getCurrentGame().getMoves();
         if (!move.isEmpty()) {
-            Move newMove = move.get(move.size() - 1);
-            ObservableList<Node> childrens = gameBoard.getChildren(); // Get all panes in board
+            Move newMove = move.get(move.size() - 1); // Get last move
+            ObservableList<Node> children = gameBoard.getChildren(); // Get all panes in board
 
-            if (newMove instanceof Tower) {
+            if (newMove.getClass() == Tower.class) {
                 Tower tower = ((Tower) newMove);
-
-                for (Node node : childrens) {
-                    if (node.getClass() == Pane.class) {
-                        if (GridPane.getRowIndex(node) == tower.getY() && GridPane.getColumnIndex(node) == tower.getX()) {
-                            Platform.runLater(() -> {
-                                ImageView towerView = new ImageView(getClass().getResource("img/tower.png").toExternalForm());
-                                towerView.fitWidthProperty().bind(((Pane) node).widthProperty()); // Link width of image to pane width
-                                towerView.fitHeightProperty().bind(((Pane) node).heightProperty()); // Link height of image to pane height
-                                ((Pane) node).getChildren().add(towerView);
-                            });
-
-                            break;
-                        }
-                    }
-                }
-            } else if (newMove instanceof Tile) {
+                Pane pane = getGridPaneAt(children, tower.getX(), tower.getY());
+                addTower(pane);
+            } else if (newMove.getClass() == Tile.class) {
                 Tile tile = ((Tile) newMove);
-                for (Node node : childrens) {
-                    if (node.getClass() == Pane.class) {
-                        if (GridPane.getRowIndex(node) == tile.getY() && GridPane.getColumnIndex(node) == tile.getX()) {
-                            Case boardCase = getGameController().getCurrentGame().getBoard().getCase(tile.getX(), tile.getY());
-
-                            Platform.runLater(() -> {
-                                StackPane stackPane = new StackPane();
-                                ImageView tileView;
-
-                                if (getGameController().getCurrentGame().getCurrentPlayerColor()) {
-                                    tileView = new ImageView(getClass().getResource("img/redTile.png").toExternalForm());
-                                } else {
-                                    tileView = new ImageView(getClass().getResource("img/whiteTile.png").toExternalForm());
-                                }
-
-                                Text height = new Text(String.valueOf(boardCase.getHeight()));
-                                stackPane.getChildren().add(tileView);
-                                stackPane.getChildren().add(height);
-
-                                ((Pane) node).getChildren().clear();
-                                ((Pane) node).getChildren().add(stackPane);
-
-                                tileView.fitWidthProperty().bind(((Pane) node).widthProperty()); // Link width of image to pane width
-                                tileView.fitHeightProperty().bind(((Pane) node).heightProperty()); // Link height of image to pane height
-                                ((Pane) node).getChildren().add(tileView);
-                            });
-
-                            break;
-                        }
-                    }
-                }
+                Pane pane = getGridPaneAt(children, tile.getX(), tile.getY());
+                Case boardCase = getGameController().getCurrentGame().getBoard().getCase(tile.getX(), tile.getY());
+                addTile(pane, boardCase);
             }
         }
     }
