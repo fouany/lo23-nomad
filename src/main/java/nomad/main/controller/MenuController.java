@@ -7,22 +7,27 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import nomad.common.MainApplication;
+import nomad.common.data_structure.User;
 import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 import nomad.main.IhmMainToComConcrete;
+import nomad.main.utils.PlayerCell;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MenuController extends IhmControllerComponent implements ListChangeListener<UserLight> {
+public class MenuController extends IhmControllerComponent implements ListChangeListener<UserLight>,Initializable {
 
     @FXML
-    public ListView<String> userList;
+    public ListView<UserLight> userList;
+
+    public List<User> bigUserList = new ArrayList<>();
     private IhmMainScreenController ihmController;
 
     public MenuController(IhmMainScreenController ihmMainScreenController) {
@@ -56,18 +61,24 @@ public class MenuController extends IhmControllerComponent implements ListChange
 
     }
 
-    public void displayUser(Object u) {
-        String field = ((UserLight) u).getLogin() + "#" + ((UserLight) u).getId();
-        userList.getItems().add(field);
-
+    private void addUserInList(UserLight u)
+    {
+        Platform.runLater(() -> userList.getItems().add(u));
     }
-    public void removeUser(Object u) {
+
+    private void removeUser(UserLight u)
+    {
+        Platform.runLater(() -> userList.getItems().remove(u));
+    }
+
+
+    /*public void removeUser(Object u) {
         String field = ((UserLight) u).getLogin() + "#" + ((UserLight) u).getId();
         userList.getItems().remove(field);
-    }
+    }*/
 
     public void handleUserListClick() {
-        if(userList.getSelectionModel().getSelectedItem() != null) {
+        /*if(userList.getSelectionModel().getSelectedItem() != null) {
             Logger.getLogger(this.getClass().getName()).log(Level.INFO, userList.getSelectionModel().getSelectedItem());
 
             // On obtient le UUID de l'utilisateur cliqué
@@ -76,7 +87,7 @@ public class MenuController extends IhmControllerComponent implements ListChange
             this.ihmController.getDataI().getProfileInfos(userID);
 
             //SeeProfileController.display(ihmController, userList.getSelectionModel().getSelectedItem());
-        }
+        }*/
     }
 
     @Override
@@ -85,18 +96,20 @@ public class MenuController extends IhmControllerComponent implements ListChange
 
             if (change.wasAdded()) {
                 for (Object u : change.getAddedSubList()) {
-                    Platform.runLater(() ->
-                            displayUser(u)
-                    );
+                    addUserInList((UserLight) u);
                 }
             } else if (change.wasRemoved()) {
                 for (Object u : change.getRemoved()) {
-                    Platform.runLater(() ->
-                            removeUser(u)
-                    );
+
+                    removeUser((UserLight)u);
                 }
             }
         }
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        userList.setCellFactory(lv -> new PlayerCell(ihmController));
+    }
 }

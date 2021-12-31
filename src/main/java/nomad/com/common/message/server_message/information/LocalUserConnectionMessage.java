@@ -36,19 +36,21 @@ public class LocalUserConnectionMessage extends BaseServerMessage {
     @Override
     public void process(Socket socket, ServerController controller) {
 
-        controller.broadcast(new UserChangedMessage(user, true));
 
-        //Send information on games and users to newly connected client
-        LobbyInformationMessage informationMessage = new LobbyInformationMessage(
-                (ArrayList<Player>) controller.getDataToCom().requestConnectedUserList(),
-                (ArrayList<GameLight>) controller.getDataToCom().requestGameListInLobby(),
-                (ArrayList<GameLight>) controller.getDataToCom().requestGameListInPlay()
-        );
-        controller.sendMessage(socket, informationMessage);
+            controller.broadcast(new UserChangedMessage(user, true));
+
+            //Send information on games and users to newly connected client
+            LobbyInformationMessage informationMessage = new LobbyInformationMessage(
+                    (ArrayList<Player>) controller.getDataToCom().requestConnectedUserList(),
+                    (ArrayList<GameLight>) controller.getDataToCom().requestGameListInLobby(),
+                    (ArrayList<GameLight>) controller.getDataToCom().requestGameListInPlay()
+            );
+            controller.sendMessage(socket, informationMessage);
 
 
-        //Register a new connected client on the server
-        controller.getDataToCom().updateUserListAdd(user);
-        controller.registerUser(socket, user);
+            //Register a new connected client on the server
+            controller.getDataToCom().updateUserListAdd(user);
+            controller.registerUser(socket, user);
+
     }
 }
