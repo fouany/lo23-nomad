@@ -85,6 +85,7 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
 
     private boolean isHost(Game game)
     {
+        if (game == null) return false;
         return game.getHost().getId().equals(mainScreenController.getDataI().getPlayer().getId());
     }
     /**
