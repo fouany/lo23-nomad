@@ -19,10 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class MenuController extends IhmControllerComponent implements ListChangeListener<UserLight>,Initializable {
+public class MenuController extends IhmControllerComponent implements ListChangeListener<UserLight>, Initializable {
 
     @FXML
     public ListView<UserLight> userList;
