@@ -93,7 +93,7 @@ public class MainApplication extends Application {
     public void linkConcreteController() {
         dataToComConcrete.setController(dataClientController);
         dataToMainConcrete.setController(dataClientController);
-
+        ihmMainToComConcrete.setController(ihmMainScreenController);
 
         comClientToIhmMainConcrete.setClientController(clientController);
         ihmMainToDataConcrete.setController(ihmMainScreenController);

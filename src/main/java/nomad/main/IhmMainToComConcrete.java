@@ -5,6 +5,9 @@ import nomad.common.data_structure.User;
 import nomad.common.interfaces.main.IhmMainToComInterface;
 import nomad.main.controller.SeeProfileController;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class IhmMainToComConcrete implements IhmMainToComInterface {
 
     private IhmMainScreenController mainScreenController;

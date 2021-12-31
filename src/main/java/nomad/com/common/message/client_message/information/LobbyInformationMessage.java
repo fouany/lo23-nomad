@@ -45,6 +45,8 @@ public class LobbyInformationMessage extends BaseClientMessage {
      */
     @Override
     public void process(ClientController controller) {
+
         controller.getDataToCom().addConnectedUserProfile(players, gamesInLobby, gamesInPlay);
+
     }
 }

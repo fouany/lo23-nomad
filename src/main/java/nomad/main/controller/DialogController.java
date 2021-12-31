@@ -44,7 +44,7 @@ public class DialogController extends IhmControllerComponent {
         // Relocate the pop-up Stage
         stage.setOnShown(ev -> {
             stage.setX(centerXPosition - stage.getWidth()/2d);
-            stage.setY(centerYPosition - stage.getHeight()/2d - 50);
+            stage.setY(centerYPosition - stage.getHeight()/2d);
             stage.show();
         });
     }
