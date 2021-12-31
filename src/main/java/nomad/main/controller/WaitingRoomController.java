@@ -54,6 +54,7 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
     private Boolean viewInitialized = false;
     private static final String WHITE_BG = "main-bg-white";
     private static final String RED_BG = "main-bg-red";
+    private Player opponent = null;
 
     public WaitingRoomController(IhmMainScreenController screen) {
         super(screen);
@@ -102,6 +103,7 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
             String opponentName = g.getOpponent().getLogin();
             Boolean accept = DialogController.display("Nouvel opposant", "Le joueur " + opponentName + " à rejoint la partie, voulez vous l'accepter", DialogController.DialogStatus.QUESTION, controller);
             if(Boolean.TRUE.equals(accept)) {
+                handleOpponent(opponent);
                 controller.getDataI().enoughPlayers(controller.getDataI().getGameLight());
                 DialogController.display("Todo", "Click dimiss to start the game (wait opponent click on the dialog 'Partie rejoint')", DialogController.DialogStatus.WARNING, controller);
                 controller.getComI().launchGame(controller.getDataI().getGame());
@@ -210,8 +212,7 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
 
         }
 
-        Player opponent = g.getOpponent();
-        handleOpponent(opponent);
+        opponent = g.getOpponent();
         if (opponent != null) {
             acceptOrRejectOpponent(g);
         }
