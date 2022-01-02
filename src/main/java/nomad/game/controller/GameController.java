@@ -17,6 +17,7 @@ import nomad.common.data_structure.Move;
 import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.common.ihm.IhmScreenController;
+import nomad.common.ihm.ModuleMode;
 import nomad.game.IhmGameScreenController;
 
 import java.io.IOException;
@@ -140,15 +141,12 @@ public class GameController extends IhmControllerComponent implements Observer {
                 Button button = new Button("Revenir au menu");
                 dialogVbox.getChildren().add(button);
 
-                button.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        try {
-                            screenControl.changeModule();
-                            dialog.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                button.setOnAction(event -> {
+                    try {
+                        screenControl.changeModule(ModuleMode.GAME_END);
+                        dialog.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 });
 

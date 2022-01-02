@@ -10,6 +10,7 @@ import nomad.common.data_structure.Game;
 import nomad.common.data_structure.GameException;
 import nomad.common.data_structure.Player;
 import nomad.common.ihm.IhmControllerComponent;
+import nomad.common.ihm.ModuleMode;
 import nomad.main.IhmMainScreenController;
 
 import java.io.IOException;
@@ -121,7 +122,7 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
         Logger.getAnonymousLogger().log(Level.INFO, "Try to launch the game");
 
         try {
-            controller.changeModule();
+            controller.changeModule(ModuleMode.GAME_START);
             passModule = true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -158,7 +159,11 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
         hostName.setText(g.getHost().getLogin());
         hostId.setText("#" + g.getHost().getId());
         handleColor(g);
+
+        // Reset fields to allow replay
+        handleOpponent(null);
         viewInitialized = true;
+        passModule = false;
     }
 
     /**
@@ -203,13 +208,12 @@ public class WaitingRoomController extends IhmControllerComponent implements Ini
 
         if (!passModule && g.isGameLaunched()) {
             startTheGame();
+            viewInitialized = false;
             return;
         }
 
-
-        if (viewInitialized != null && !viewInitialized) {
+        if (!viewInitialized) {
             initializeView(g);
-
         }
 
         opponent = g.getOpponent();

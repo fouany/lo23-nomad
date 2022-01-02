@@ -9,6 +9,7 @@ import nomad.com.client.concrete.ComClientToDataConcrete;
 import nomad.com.client.concrete.ComClientToIhmMainConcrete;
 import nomad.com.client.concrete.ComToIhmGameConcrete;
 import nomad.common.ihm.IhmScreenController;
+import nomad.common.ihm.ModuleMode;
 import nomad.common.interfaces.game.IhmGameToDataInterface;
 import nomad.data.client.DataClientController;
 import nomad.data.client.DataToComConcrete;
@@ -20,6 +21,7 @@ import nomad.game.IhmGameToDataConcrete;
 import nomad.main.IhmMainScreenController;
 import nomad.main.IhmMainToComConcrete;
 import nomad.main.IhmMainToDataConcrete;
+import nomad.main.controller.MenuController;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -107,22 +109,19 @@ public class MainApplication extends Application {
         attachCloseListener();
         stage.setMinHeight(MIN_HEIGHT);
         stage.setMinWidth(MIN_WIDTH);
-        this.changeModule("MAIN");
+        this.changeModule(ModuleMode.MAIN_LOGIN);
 
     }
 
     private void attachCloseListener() {
-        getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                Logger.getAnonymousLogger().log(Level.SEVERE, "Quit application");
-                try {
-                    dataToMainConcrete.logout();
+        getStage().setOnCloseRequest(event -> {
+            Logger.getAnonymousLogger().log(Level.SEVERE, "Quit application");
+            try {
+                dataToMainConcrete.logout();
 
 
-                } catch (NullPointerException e) {
-                    //user is not connected so nullpointer exception is raised
-                }
+            } catch (NullPointerException e) {
+                //user is not connected so nullpointer exception is raised
             }
         });
     }
@@ -133,14 +132,19 @@ public class MainApplication extends Application {
      * @param mode module wanted
      * @throws IOException
      */
-    public void changeModule(String mode) throws IOException {
-        if (mode.equals("MAIN")) {
+    public void changeModule(ModuleMode mode) throws IOException {
+        if (mode.equals(ModuleMode.MAIN_LOGIN)) {
             screenController = ihmMainScreenController;
-        } else {
+            screenController.initIHM(null);
+        } else if (mode.equals(ModuleMode.GAME_START)) {
             ihmGameScreenController = new IhmGameScreenController(this, dataToGameConcrete, comToGameConcrete,ihmGameToDataConcrete);
             screenController = ihmGameScreenController;
+            screenController.initIHM(null);
+        } else if (mode.equals(ModuleMode.GAME_END)) {
+            screenController = ihmMainScreenController;
+            screenController.initIHM(MenuController.class);
         }
-        screenController.initIHM();
+
     }
 
     /**

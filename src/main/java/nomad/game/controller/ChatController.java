@@ -36,7 +36,6 @@ public class ChatController extends GameControllerAbstract {
 
 
     public void updateChat(Message message) {
-        //Message message = messages.get(messages.size()-1);
         UserLight sender = message.getSender();
         String senderLogin = sender.getLogin();
         Timestamp time = message.getTime();
