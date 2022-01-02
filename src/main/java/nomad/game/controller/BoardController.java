@@ -98,15 +98,6 @@ public class BoardController extends GameControllerAbstract {
     }
 
     /**
-     * Redirect event catched by a stackpane to playmove function
-     * @param event
-     */
-    public void handleStackpaneClick(MouseEvent event) {
-        Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Reached handler !");
-    }
-
-
-    /**
      * Add a tile to the game board
      *
      * @param pane      Pane containing the tile. If the pane is null, the method does nothing
