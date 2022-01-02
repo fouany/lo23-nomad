@@ -42,8 +42,8 @@ public class PlayerInfoController extends GameControllerAbstract {
         Game game = getGameController().getCurrentGame();
         playerOneName.setText("Player: " + game.getHost().getLogin());
         playerTwoName.setText("Player: " + game.getOpponent().getLogin());
-        numberTower.setText("Towers : " + game.getNbOfTowers() + "/5");
-        numberTiles.setText("Tiles : " + game.getNbOfTilesPlayed() + "/5");
+        numberTower.setText("Towers : " + game.getNbOfTowersPlayed() + "/"+game.getNbOfTowers());
+        numberTiles.setText("Tiles : " + game.getNbOfTilesPlayed() + "/165");
         updatePane(game);
     }
 
@@ -51,8 +51,8 @@ public class PlayerInfoController extends GameControllerAbstract {
         Game game = getGameController().getCurrentGame();
         updatePane(game);
         Platform.runLater(() -> {
-            numberTower.setText("Towers : " + game.getNbOfTowers() + "/5");
-            numberTiles.setText("Tiles : " + game.getNbOfTilesPlayed() + "/5");
+            numberTower.setText("Towers : " + game.getNbOfTowersPlayed() + "/"+game.getNbOfTowers());
+            numberTiles.setText("Tiles : " + game.getNbOfTilesPlayed() + "/165");
         });
     }
 

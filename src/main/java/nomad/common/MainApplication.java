@@ -50,7 +50,7 @@ public class MainApplication extends Application {
     private IhmGameScreenController ihmGameScreenController;
     private IhmScreenController screenController;
     private ComToIhmGameConcrete comToGameConcrete;
-    private IhmGameToDataInterface ihmGameToDataConcrete;
+    private IhmGameToDataConcrete ihmGameToDataConcrete;
 
     public MainApplication() throws IOException {
         initConcreteInterface();
@@ -137,7 +137,7 @@ public class MainApplication extends Application {
         if (mode.equals("MAIN")) {
             screenController = ihmMainScreenController;
         } else {
-            ihmGameScreenController = new IhmGameScreenController(this, dataToGameConcrete, comToGameConcrete);
+            ihmGameScreenController = new IhmGameScreenController(this, dataToGameConcrete, comToGameConcrete,ihmGameToDataConcrete);
             screenController = ihmGameScreenController;
         }
         screenController.initIHM();
