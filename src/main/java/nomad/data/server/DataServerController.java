@@ -306,9 +306,9 @@ public class DataServerController {
 
         boolean color;
         if(g.getHost().getId().equals(player))
-            color = g.isHostColor();
-        else
             color = !g.isHostColor();
+        else
+            color = g.isHostColor();
 
         if(g.getNbOfTilesPlayed() == 165){
             return checkWinner(g, g.getHost().getId(), g.getOpponent().getId());
