@@ -100,7 +100,9 @@ public class DataToComConcrete implements DataToComServerInterface {
     @Override
     public void saveTile(Tile t) throws TileException {
         UUID gameID = t.getGameId();
-        boolean color = t.getUserId().equals(dataServerController.getGamesController().getGame(gameID).getHost().getId());
+        boolean color;
+        color = t.getUserId().equals(dataServerController.getGamesController().getGame(gameID).getHost().getId());
+        t.setColor(color);
 
         boolean isTower = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].isTower();
         int height = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].getHeight();
