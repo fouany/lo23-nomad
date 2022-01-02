@@ -34,7 +34,7 @@ public class Session extends Observable {
     public GameLight getGameInLobbyById(UUID gameId){
         GameLight tempGameLight = null;
         for (int i = 0; i < gamesInLobby.size(); i++) {
-            if (gamesInLobby.get(i).getGameId() == gameId) tempGameLight = gamesInLobby.get(i);
+            if (gamesInLobby.get(i).getGameId().equals(gameId)) tempGameLight = gamesInLobby.get(i);
         }
         return tempGameLight;
     }
