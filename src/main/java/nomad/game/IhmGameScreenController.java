@@ -24,13 +24,14 @@ public class IhmGameScreenController extends IhmScreenController {
      * @param comInterface
      * @throws IOException
      */
-    public IhmGameScreenController(MainApplication app, DataToGameConcrete dataInterface, ComToIhmGameConcrete comInterface) throws IOException {
+    public IhmGameScreenController(MainApplication app, DataToGameConcrete dataInterface, ComToIhmGameConcrete comInterface, IhmGameToDataConcrete ihmGameToDataConcrete) throws IOException {
         super(app);
         defaultController = GameController.class;
         this.comInterface = comInterface;
         this.dataInterface = dataInterface;
         module = "GAME" + "("+dataInterface.getUser().getLogin()+")";
         initGameControllers();
+        ihmGameToDataConcrete.setGameController(((GameController) controllerDict.get(defaultController)));
     }
 
     /**
@@ -74,4 +75,5 @@ public class IhmGameScreenController extends IhmScreenController {
         controllerDict.put(SkipController.class, new SkipController(this));
         controllerDict.put(ChatController.class, new ChatController(this));
     }
+
 }

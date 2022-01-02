@@ -312,7 +312,7 @@ public class DataServerController {
 
         if(g.getNbOfTilesPlayed() == 165){
             return checkWinner(g, g.getHost().getId(), g.getOpponent().getId());
-        } else if(numberOfTowersConnected(g, color, true) == 5){
+        } else if(numberOfTowersConnected(g, color, true) == g.getNbOfTowers()){
             return player;
         }
 
