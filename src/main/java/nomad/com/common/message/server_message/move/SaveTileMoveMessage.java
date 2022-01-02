@@ -9,13 +9,28 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * SaveTileMoveMessage contains a tile to call the saveTile method
+ */
 public class SaveTileMoveMessage extends BaseServerMessage {
+    /**
+     * Instance of tile
+     */
     private final Tile tile;
 
+    /**
+     * Constructor of SaveTileMoveMessage class
+     * @param tile the tile sent by the client app
+     */
     public SaveTileMoveMessage(Tile tile) {
         this.tile = tile;
     }
 
+    /**
+     * When this message is received, call the saveTile method
+     * @param socket the client's socket
+     * @param controller an instance of the server controller
+     */
     @Override
     public void process(Socket socket, ServerController controller) {
         try {

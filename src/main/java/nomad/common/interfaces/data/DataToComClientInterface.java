@@ -8,37 +8,37 @@ import java.util.UUID;
 public interface DataToComClientInterface {
 
     /**
-     * adds a new game in the lobby
-     * @param gameLight
+     * adds a game in games in lobby in Session
+     * @param gameLight - GameLight : game to add
      */
     void updateSession(GameLight gameLight);
 
     /**
-     * Change the State of Game in Session
-     * @param gameId
-     * @param gameLaunched
+     * changes the state of Game in Session
+     * @param gameId UUID : id of the game
+     * @param gameLaunched - boolean : to know if the game is Launched
      */
     void updateSessionGameState(UUID gameId, boolean gameLaunched);
 
     /**
-     * adds a user light to the connected user of the session object
-     * @param player
-     * @param connected
+     * adds a user light to the connected user of the Session object
+     * @param player - Player : user to add to the connected user
+     * @param connected - boolean : to know if the user is connected
      */
     void updateUserSession(Player player, boolean connected);
 
     /**
      * updates the opponent of the game
-     * @param player
-     * @param game
-     * @throws GameException
+     * @param player - Player : new opponent of the game
+     * @param gameLight - GameLight : game to update
+     * @throws GameException Exception if the game does not exist
      */
-    void updateOpponent(Player player, GameLight game) throws GameException;
+    void updateOpponent(Player player, GameLight gameLight) throws GameException;
 
     /**
      * adds a user light to the spectator's list of the game
-     * @param userLight
-     * @param isAdded
+     * @param userLight - UserLight : user Light to add
+     * @param isAdded - boolean : not used
      */
     void handleSpectator(UserLight userLight, boolean isAdded);
 
@@ -48,87 +48,130 @@ public interface DataToComClientInterface {
     void gameLaunchEvent();
 
     /**
-     * adds the move to the list of moves of the game and changes the current player
-     * @param tower
-     * @param valid
+     * adds the tower move to the list of moves of the game, changes the current player
+     * @param tower - Move : move to add
+     * @param valid - boolean : to know if the move is valid
+     * @throws TowerException Tower Placement not valid
      */
-    void towerValid(Tower tower, boolean valid);
+    void towerValid(Tower tower, boolean valid) throws TowerException;
 
     /**
-     * adds the move to the list of moves of the game and changes the current player
-     * @param tile
-     * @param valid
-     * @throws TileException
+     * adds the tile move to the list of moves of the game and changes the current player
+     * @param tile - Move : move to add
+     * @param valid - boolean : to know if the move is valid
+     * @throws TileException Tile Placement not valid
      */
     void tileValid(Tile tile, boolean valid) throws TileException;
 
     /**
-     * adds the move to the list of moves of the game and changes the current player
-     * @param skip
-     * @param valid
-     * @throws SkipException
+     * adds the skip move to the list of moves of the game and changes the current player
+     * @param skip - Move : move to add
+     * @param valid - boolean : to know if the move is valid
+     * @throws SkipException Skip not valid
      */
     void skipValidation(Skip skip, boolean valid) throws SkipException;
 
     /**
      * adds the move to the list of moves, changes the current player, and updates the observable
-     * @param move
+     * uses for the spectators and the opponent
+     * @param move - Move : move to add
      */
     void moveReceived(Move move);
 
     /**
      * removes the game from the gamesInPlay from the session object and sets the game to "ended" state
-     * @param idGame
-     * @param winner
-     * @param lastMove
+     * @param gameId - UUID : the game which has just ended
+     * @param winner - UUID : the winner of the game
+     * @param lastMove - Move : The Move that ended the game
      */
-    void endGame (UUID idGame, UUID winner, Move lastMove);
-
-    /**
-     * removes the game from the gamesInPlay from the session object and sets the game to "ended" state
-     * @param gameId
-     */
-    void removeFinishedGame (UUID gameId);
+    void endGame (UUID gameId, UUID winner, Move lastMove);
 
     /**
      * adds the game to the saved games of the user
-     * @param savedGame
+     * @param savedGame - Game : game to add
      */
-    void transferSavedGame(Game savedGame);
+    //TODO : to delete (new sequence diagram)
+    void transferSavedGame (Game savedGame);
 
     /**
      * adds the message to the chat of the game
-     *
-     * @param message message to add
+     * @param message - Message : message to add
      */
     void storeNewMessage(Message message);
 
     /**
-     * adds the connected user, and updates the according lists of connected user to the games in lobby and in play
-     * @param players
-     * @param gamesInLobby
-     * @param gamesInPlay
+     * adds the connected user, and updates the according lists of connected user to Session
+     * @param players - List<Player> : connected users to add
+     * @param gamesInLobby - List<GameLight> : games in Lobby to add
+     * @param gamesInPlay - List<GameLight> : games in Play to add
      */
     void addConnectedUserProfile(List<Player> players, List<GameLight> gamesInLobby, List<GameLight> gamesInPlay);
 
-    void isDisconnected(UUID idUser, boolean isDeconnected);
+    /**
+     * removes a user from the connected users of the session object
+     * @param idUser - UUID : id of the user to remove
+     * @param isDisconnected  - boolean : to know if the user isDisconnected
+     */
+    void isDisconnected(UUID idUser, boolean isDisconnected);
 
-    void gameCreated(Game game);
-
-    void newPlayer(UUID gameId, Player opponent) throws GameException;
-
-    void newSpectator(UUID gameId, Player spec) throws GameException;
-
-    List<Game> getStoredAvailableGames();
-
+    /**
+     * retrieves all the online users
+     * @return List<UserLight> : List of connected users
+     */
     List<UserLight> getOnlineUsers();
 
-    //TODO UUID or boolean ?
+    /**
+     * sets the game (created by the server) in the GameController.
+     * @param game - Game : game created
+     */
+    void gameCreated(Game game);
+
+    /**
+     * adds a user to the game as opponent
+     * @param gameID - UUID : id of the game
+     * @param p - Player : opponent to add
+     * @throws GameException : Exception if the game doesn't exist
+     */
+    void newPlayer(UUID gameID, Player p) throws GameException;
+
+    /**
+     * adds a user to the game as spectator
+     * @param gameID - UUID : id of the game
+     * @param spec - Player : user to add
+     * @throws GameException : Exception if the game doesn't exist
+     */
+    void newSpectator(UUID gameID, Player spec) throws GameException;
+
+
+    /**
+     * retrieves all the saved games of the user.
+     * @return List<Game> : list of the game saved
+     */
+    List<Game> getStoredAvailableGames();
+
+
+    /**
+     * returns the UUID of the player currently playing
+     * @return UUID
+     */
     UUID currentUserIsPlayer();
 
+    /**
+     * get profile of the current user
+     * @return UserLight
+     */
     UserLight getUserLight();
+
+    /**
+     * adds or refused an opponent in a game
+     * @param game - Game : game to add/refuse the opponent
+     * @param isAdded - boolean : to know if the opponent is added or refused
+     * @throws GameException : Exception if the opponent is refused
+     */
 
     void addedPlayerInGame(Game game, boolean isAdded) throws GameException;
 
     void addedSpecInGame(Game game, boolean isAdded);
+
+    void removeFinishedGame(UUID gameId);
 }

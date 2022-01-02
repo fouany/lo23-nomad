@@ -39,8 +39,14 @@ public class LobbyInformationMessage extends BaseClientMessage {
         this.players = players;
     }
 
+    /**
+     * Process to data
+     * @param controller clientController
+     */
     @Override
     public void process(ClientController controller) {
+
         controller.getDataToCom().addConnectedUserProfile(players, gamesInLobby, gamesInPlay);
+
     }
 }

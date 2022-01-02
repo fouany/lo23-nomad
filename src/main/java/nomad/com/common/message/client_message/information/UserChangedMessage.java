@@ -30,6 +30,10 @@ public class UserChangedMessage extends BaseClientMessage {
         this.isConnected = isConnected;
     }
 
+    /**
+     * Process to data
+     * @param controller clientController
+     */
     @Override
     public void process(ClientController controller) {
         //Update information on connected or disconnected users

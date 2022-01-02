@@ -8,17 +8,34 @@ import nomad.common.data_structure.Game;
 import java.net.Socket;
 import java.util.UUID;
 
+/**
+ * Message to check if there is enough player in the game
+ */
 public class EnoughPlayerMessage extends BaseServerMessage {
+    /**
+     * game id
+     */
     private final UUID gameId;
+    /**
+     * oppenent id
+     */
     private final UUID opponentId;
 
-
+    /**
+     * Constructor
+     * @param gameId game id
+     * @param opponentId oppenent id
+     */
     public EnoughPlayerMessage(UUID gameId, UUID opponentId) {
         this.gameId = gameId;
         this.opponentId = opponentId;
     }
 
-
+    /**
+     * Process method
+     * @param socket socket
+     * @param controller controller
+     */
     @Override
     public void process(Socket socket, ServerController controller) {
         Socket opponentSocket = controller.getClientSocket(opponentId);

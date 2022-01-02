@@ -9,15 +9,22 @@ import java.util.*;
  * Controller for the Ihm Game.
  */
 public class GamesController {
+
+    /**
+     * The map of Games currently created
+     */
     private Map<UUID, Game> games;
 
+    /**
+     * Constructor of the class
+     */
     public GamesController() {
         games = new HashMap<>();
     }
 
     /**
      * Sets the current game.
-     * @param game
+     * @param game - Game : the current Game
      */
     public void setGame(Game game){
         games.put(game.getGameId(), game);
@@ -25,14 +32,15 @@ public class GamesController {
 
     /**
      * Returns the current game.
-     * @return game
+     * @return game game - Game : the current Game
      */
     public Game getGame(UUID gameId){
         return games.get(gameId);
     }
 
     /**
-     * Returns the game in Lobby in GameLight format :
+     * Returns the game in Lobby in GameLight format
+     * @return List<GameLight> : games in Lobby
      */
     public List<GameLight> getGameLightListInLobby(){
         List<GameLight> listInLobby= new ArrayList<>();
@@ -48,7 +56,8 @@ public class GamesController {
     }
 
     /**
-     * Returns the game in Play in GameLight format :
+     * Returns the games in Play in GameLight format
+     * @return List<GameLight> : games in Play in GameLight format
      */
     public List<GameLight> getGameLightListInPlay(){
         List<GameLight> listInPlay= new ArrayList<>();
@@ -65,12 +74,17 @@ public class GamesController {
 
 
     /**
-     * @return all the game (in play and in lobby)
+     * Returns all the game (in play and in lobby)
+     * @return Map<UUID,Game> : all the game (in play and in lobby)
      */
     public Map<UUID,Game> getAllGames(){
         return games;
     }
 
+    /**
+     * Removes a game from the list
+     * @param gameId - UUID: the game to be removed
+     */
     public void removeGame(UUID gameId){
         this.games.remove(gameId);
     }

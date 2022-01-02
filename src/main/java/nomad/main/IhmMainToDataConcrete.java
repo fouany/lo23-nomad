@@ -41,7 +41,10 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
      */
     @Override
     public void updateObservable(Game game) {
-        //todo remove function
+        // check si on est dans la partie et si on est un viewer
+        // si on est un viewer -> changemodule
+        //todo Change Module to viewer ( ABORTED )
+
     }
 
     /**
@@ -76,15 +79,13 @@ public class IhmMainToDataConcrete implements IhmMainToDataInterface {
     @Override
     public void updateRejectOpponent(Game game) {
         if(!isHost(game)) {
-            Platform.runLater(() ->
-            {
-                mainScreenController.getViewGameController().refusedInGame();
-            });
+            Platform.runLater(() -> mainScreenController.getViewGameController().refusedInGame());
         }
     }
 
     private boolean isHost(Game game)
     {
+        if (game == null) return false;
         return game.getHost().getId().equals(mainScreenController.getDataI().getPlayer().getId());
     }
     /**

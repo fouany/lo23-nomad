@@ -9,13 +9,28 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * SaveTowerMoveMessage contains a tower to call the saveTower method
+ */
 public class SaveTowerMoveMessage extends BaseServerMessage {
+    /**
+     * Instance of Tower
+     */
     private final Tower tower;
 
+    /**
+     * Constructor of SaveTowerMoveMessage class
+     * @param tower the tower sent by the client app
+     */
     public SaveTowerMoveMessage(Tower tower) {
         this.tower = tower;
     }
 
+    /**
+     * When this message is received, tries to call the saveTower method
+     * @param socket the client's socket
+     * @param controller instance of the server controller
+     */
     @Override
     public void process(Socket socket, ServerController controller) {
         try {

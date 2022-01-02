@@ -1,6 +1,5 @@
 package nomad.main.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -8,6 +7,8 @@ import nomad.common.data_structure.UserException;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -32,7 +33,7 @@ public class ServerConnectionController extends IhmControllerComponent implement
         ihmMainScreenController = screen;
     }
 
-    private boolean ipFormatIsValid(String ip) {
+    public static boolean ipFormatIsValid(String ip) {
         String zeroTo255
                 = "(\\d{1,2}|([01])\\"
                 + "d{2}|2[0-4]\\d|25[0-5])";
@@ -56,7 +57,7 @@ public class ServerConnectionController extends IhmControllerComponent implement
      * @param port a string containing a potential port number
      * @return True if the port is valid, else false
      */
-    private boolean portFormatIsValid(String port) {
+    public static boolean portFormatIsValid(String port) {
         int portNumber;
         try {
             portNumber = Integer.parseInt(port);
@@ -67,7 +68,19 @@ public class ServerConnectionController extends IhmControllerComponent implement
         return portNumber > 0 && portNumber < 65536;
     }
 
-
+    private String setDefaultImage(){
+        String profilePicture = null;
+        File file = new File("src/main/resources/nomad/main/imgs/profile_placeholder.png");
+        try (FileInputStream fs = new FileInputStream(file)) {
+            byte[] imageData = new byte[(int) file.length()];
+            if (fs.read(imageData) > 0) {
+                profilePicture = ModifyProfileController.encodeImage(imageData);
+            }
+        } catch (IOException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, e.getMessage());
+        }
+        return profilePicture;
+    }
 
     public void onClickConnection() throws IOException, UserException, ClassNotFoundException {
         String ip = serverIp.getText();
@@ -78,12 +91,11 @@ public class ServerConnectionController extends IhmControllerComponent implement
             String password = ihmMainScreenController.getAttributes().get("password");
             boolean signup =  Boolean.parseBoolean(ihmMainScreenController.getAttributes().get("isSignup"));
             if (signup) {
-
                 try {
-                    ihmMainScreenController.getDataI().createAccount(user,password,user,"", null);
+                    String profilePicture = setDefaultImage();
+                    ihmMainScreenController.getDataI().createAccount(user,password,user, profilePicture, null);
                 }
-                catch (UserException e)
-                {
+                catch (UserException e) {
                     DialogController.display("Erreur", e.getMessage(), DialogController.DialogStatus.ERROR, ihmMainScreenController);
                     return;
                 }
@@ -113,7 +125,7 @@ public class ServerConnectionController extends IhmControllerComponent implement
         serverPort.setText("12");
     }
 
-    public void backToLogin(ActionEvent actionEvent) {
+    public void backToLogin() {
 
         ihmMainScreenController.changeScreen(LoginController.class);
     }

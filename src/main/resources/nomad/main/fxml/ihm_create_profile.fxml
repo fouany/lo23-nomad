@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="935.0" styleClass="main-background" stylesheets="@../Poppins/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.main.controller.CreateProfileController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="536.0" prefWidth="935.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="536.0" prefWidth="478.0" styleClass="main-container">
+               <children>
+                  <HBox prefHeight="98.0" prefWidth="298.0">
+                     <children>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
+                        <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
+                        <Button fx:id="quit" minWidth="53.0" mnemonicParsing="false" onAction="#onClickReturnToLogin" prefHeight="31.0" prefWidth="122.0" text="Quit">
+                           <styleClass>
+                              <String fx:value="main-button" />
+                              <String fx:value="main-bg-red" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="245.0" prefWidth="403.0">
+                     <children>
+                        <ImageView fx:id="addProfilePicture" onMouseClicked="#getProfilePicture" fitHeight="153.0" fitWidth="151.0">
+                           <image>
+                              <Image url="@../imgs/profile_placeholder.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="22.0" prefWidth="298.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="450.0" styleClass="see-profile-player" text="Place new image above" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="16.0" prefWidth="298.0">
+                     <children>
+                        <Label fx:id="idPlayer" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="365.0" />
+                     </children>
+                  </HBox>
+                  <Separator prefHeight="64.0" prefWidth="403.0" visible="false" />
+                  <HBox minHeight="35.0" prefHeight="35.0" prefWidth="298.0">
+                     <children>
+                        <TextField fx:id="createLogin" prefHeight="35.0" prefWidth="202.0" styleClass="main-textfield" promptText="Log in ">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="createName" prefHeight="35.0" prefWidth="247.0" styleClass="main-textfield" promptText="My name">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="29.0" prefWidth="403.0">
+                     <children>
+                        <PasswordField fx:id="createPassword" minHeight="35.0" prefHeight="35.0" prefWidth="284.0" promptText="password" styleClass="main-textfield" text="">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </PasswordField>
+                        <DatePicker fx:id="addBirthDate" minHeight="35.0" prefHeight="35.0" prefWidth="217.0" styleClass="main-textfield" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Button minHeight="35.0" mnemonicParsing="false" onAction="#onClickCreateProfile" prefHeight="30.0" prefWidth="502.0" text="Submit">
+                     <styleClass>
+                        <String fx:value="main-button" />
+                        <String fx:value="main-bg-blue" />
+                     </styleClass>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>

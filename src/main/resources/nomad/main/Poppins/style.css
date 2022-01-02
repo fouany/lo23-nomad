@@ -310,6 +310,26 @@ TODO mettre les bonnes tailles d'écran a jour
     -fx-text-fill: white;
 }
 
+.see-profile-player {
+    -fx-font-size: 20px;
+    -fx-font-weight: 900;
+    -fx-font-family: Poppins;
+}
+
+.see-profile-stat-title {
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-family: 'Poppins';
+
+}
+
+.see-profile-stat-value {
+    -fx-font-size: 24;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+    -fx-font-style: italic;
+}
+
 
 
 /* latin */

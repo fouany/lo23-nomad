@@ -5,6 +5,7 @@ module nomadapp {
     requires javafx.controls;
     requires javafx.fxml;
     requires org.apache.commons.codec;
+    requires java.desktop;
 
     // Common
     exports nomad.common;

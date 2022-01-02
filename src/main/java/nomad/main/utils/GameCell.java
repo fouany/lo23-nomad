@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 import nomad.common.data_structure.GameLight;
 import nomad.main.IhmMainScreenController;
+import nomad.main.controller.ViewGameController;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -15,17 +16,14 @@ import java.util.logging.Logger;
 
 public class GameCell extends ListCell<GameLight> {
 
-
     @FXML
     public Label playerName;
     @FXML
     public Label playerId;
     @FXML
     public Label towers;
-
     @FXML
     public Label gameName;
-
     @FXML
     public HBox container;
 
@@ -64,12 +62,15 @@ public class GameCell extends ListCell<GameLight> {
     @FXML
     public void joinGame(ActionEvent e)
     {
-        Logger.getAnonymousLogger().log(Level.INFO, "CLICK");
-
-        controller.getViewGameController().blockIhm();
-        controller.getComI().addPlayerInGame(controller.getDataI().getPlayer(),game);
-
-
+        if (controller.getViewGameController().getCheckBoxViewerState()){
+            //it is a viewer
+            controller.getComI().addSpecInGame(controller.getDataI().getUserLight(),game);
+            //OUI
+        }else{
+            //it is a player
+            controller.getComI().addPlayerInGame(controller.getDataI().getPlayer(),game);
+            controller.getViewGameController().blockIhm();
+        }
 
     }
 

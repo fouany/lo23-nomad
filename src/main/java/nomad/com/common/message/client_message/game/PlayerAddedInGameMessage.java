@@ -9,15 +9,33 @@ import nomad.common.data_structure.GameSerializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Use to notify new player in game
+ */
 public class PlayerAddedInGameMessage extends BaseClientMessage {
+    /**
+     * Game serializable
+     */
     public final GameSerializable gameSerializable;
+    /**
+     * Is Valid
+     */
     private final boolean isValid;
 
+    /**
+     * Contructor
+     * @param game Game
+     * @param isValid boolean
+     */
     public PlayerAddedInGameMessage(GameSerializable game, boolean isValid) {
         this.gameSerializable = game;
         this.isValid = isValid;
     }
 
+    /**
+     * Process to data
+     * @param controller ClientController
+     */
     @Override
     public void process(ClientController controller) {
         try {

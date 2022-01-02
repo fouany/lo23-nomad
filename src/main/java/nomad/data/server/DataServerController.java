@@ -11,10 +11,29 @@ import java.util.UUID;
  * Controller for the data server.
  */
 public class DataServerController {
+
+    /**
+     * The class in charge of managing users
+     */
     private UserController userController;
+
+    /**
+     * The class in charge of calling the com's module methods
+     */
     private ComToDataServerInterface comOfferedInterface;
+
+
+    /**
+     * The class in charge of managing games
+     */
     private GamesController gamesController;
 
+    /**
+     * Constructor of DataServerController
+     * @param userController - UserController the class in charge of managing users
+     * @param gamesController - GamesController the class in charge of managing games
+     * @param comToData - ComToDataServerInterface the class in charge of calling the com's module methods
+     */
     public DataServerController(UserController userController,
                                 GamesController gamesController, ComToDataServerInterface comToData) {
         this.userController = userController;
@@ -24,8 +43,7 @@ public class DataServerController {
 
     /**
      * Sets the users at the specified index.
-     *
-     * @param user
+     * @param user - User : the specified user
      */
     public void setUser(User user) {
         userController.setUser(user);
@@ -33,7 +51,6 @@ public class DataServerController {
 
     /**
      * Returns the list of users.
-     *
      * @return users
      */
     public List<User> getUsers() {
@@ -56,8 +73,7 @@ public class DataServerController {
 
     /**
      * Returns the user at the specified index.
-     *
-     * @param userId
+     * @param userId - UUID : the User's Id
      * @return the user at the specified index.
      */
     public User getUser(UUID userId) {
@@ -66,7 +82,6 @@ public class DataServerController {
 
     /**
      * Returns the dataToCom interface.
-     *
      * @return dataToCom
      */
     public ComToDataServerInterface getComOfferedInterface() {
@@ -75,7 +90,6 @@ public class DataServerController {
 
     /**
      * Gets the user controller.
-     *
      * @return userController
      */
     public UserController getUserController() {
@@ -83,9 +97,8 @@ public class DataServerController {
     }
 
     /**
-     * Sets tue user controller.
-     *
-     * @param userController
+     * Sets the user controller.
+     * @param userController - UserController the controller in charge of managing Users
      */
     public void setUserController(UserController userController) {
         this.userController = userController;
@@ -93,8 +106,7 @@ public class DataServerController {
 
     /**
      * Gets the games controller.
-     *
-     * @return gameController
+     * @return gameController - GamesController : the controller in charge of managing Games
      */
     public GamesController getGamesController() {
         return gamesController;
@@ -102,8 +114,7 @@ public class DataServerController {
 
     /**
      * Sets the games controller.
-     *
-     * @param gamesController
+     * @param gamesController - GamesController : the controller in charge of managing Games
      */
     public void setGamesController(GamesController gamesController) {
         this.gamesController = gamesController;

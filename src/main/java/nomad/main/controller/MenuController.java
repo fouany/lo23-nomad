@@ -3,21 +3,30 @@ package nomad.main.controller;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
+import nomad.common.MainApplication;
+import nomad.common.data_structure.User;
 import nomad.common.data_structure.UserLight;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
+import nomad.main.IhmMainToComConcrete;
+import nomad.main.utils.PlayerCell;
 
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ResourceBundle;
+import java.util.UUID;
 
-public class MenuController extends IhmControllerComponent implements ListChangeListener<UserLight> {
+public class MenuController extends IhmControllerComponent implements ListChangeListener<UserLight>, Initializable {
 
     @FXML
-    public ListView<String> userList;
-    private IhmMainScreenController ihmController;
+    public ListView<UserLight> userList;
 
+    public List<User> bigUserList = new ArrayList<>();
+    private IhmMainScreenController ihmController;
 
     public MenuController(IhmMainScreenController ihmMainScreenController) {
         super(ihmMainScreenController);
@@ -50,15 +59,33 @@ public class MenuController extends IhmControllerComponent implements ListChange
 
     }
 
-    public void displayUser(List<UserLight> users, ListView<String> view) {
-        for (UserLight user : users) {
-            String field = user.getLogin() + "#" + user.getId();
-            view.getItems().add(field);
-        }
+    private void addUserInList(UserLight u)
+    {
+        Platform.runLater(() -> userList.getItems().add(u));
     }
 
+    private void removeUser(UserLight u)
+    {
+        Platform.runLater(() -> userList.getItems().remove(u));
+    }
+
+
+    /*public void removeUser(Object u) {
+        String field = ((UserLight) u).getLogin() + "#" + ((UserLight) u).getId();
+        userList.getItems().remove(field);
+    }*/
+
     public void handleUserListClick() {
-        Logger.getLogger(this.getClass().getName()).log(Level.INFO, userList.getSelectionModel().getSelectedItem());
+        /*if(userList.getSelectionModel().getSelectedItem() != null) {
+            Logger.getLogger(this.getClass().getName()).log(Level.INFO, userList.getSelectionModel().getSelectedItem());
+
+            // On obtient le UUID de l'utilisateur cliqué
+            String[] userInfo = userList.getSelectionModel().getSelectedItem().split("#");
+            UUID userID = UUID.fromString(userInfo[1]);
+            this.ihmController.getDataI().getProfileInfos(userID);
+
+            //SeeProfileController.display(ihmController, userList.getSelectionModel().getSelectedItem());
+        }*/
     }
 
     @Override
@@ -67,17 +94,20 @@ public class MenuController extends IhmControllerComponent implements ListChange
 
             if (change.wasAdded()) {
                 for (Object u : change.getAddedSubList()) {
-                    Platform.runLater(() ->
-                        userList.getItems().add(((UserLight) u).getLogin()) // add new user login to userList
-                    );
+                    addUserInList((UserLight) u);
                 }
             } else if (change.wasRemoved()) {
                 for (Object u : change.getRemoved()) {
-                    Platform.runLater(() ->
-                            userList.getItems().remove(((UserLight) u).getLogin())// remove user with login
-                    );
+
+                    removeUser((UserLight)u);
                 }
             }
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        userList.setCellFactory(lv -> new PlayerCell(ihmController));
     }
 }

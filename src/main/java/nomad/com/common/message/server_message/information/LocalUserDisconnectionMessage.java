@@ -10,10 +10,13 @@ import java.net.Socket;
  * Message sent to disconnect local user from the server
  */
 public class LocalUserDisconnectionMessage extends BaseServerMessage {
+    /**
+     * Disconnect the client
+     * @param socket Socket of the client we want to disconnect
+     * @param controller Instance of the server controller
+     */
     @Override
     public void process(Socket socket, ServerController controller) {
-        User u = controller.getDataToCom().getUserProfile(controller.getAssociatedUserUID(socket));
-        controller.getDataToCom().updateUserListRemove(controller.getAssociatedUserUID(socket));
-        controller.disconnectClient(socket, u);
+        controller.disconnectClient(socket);
     }
 }

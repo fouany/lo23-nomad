@@ -1,5 +1,8 @@
 package nomad.main;
 
+import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.stage.WindowEvent;
 import nomad.common.data_structure.Session;
 import nomad.common.ihm.IhmScreenController;
 import nomad.common.MainApplication;
@@ -10,6 +13,8 @@ import nomad.main.controller.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class IhmMainScreenController extends IhmScreenController {
 
@@ -23,6 +28,7 @@ public class IhmMainScreenController extends IhmScreenController {
     private WaitingRoomController waitingRoomController;
     private Session session;
     private ModifyProfileController profileController;
+    private CreateProfileController createProfileController;
 
     public void setSession(Session session) {
         this.session = session;
@@ -41,7 +47,9 @@ public class IhmMainScreenController extends IhmScreenController {
         initPanes();
         this.dataI = dataI;
         this.comI = comI;
+
         DialogController.initDialog(paneDict.get(DialogController.class));
+        SeeProfileController.initDialog(paneDict.get(SeeProfileController.class));
         // TODO : ajouter l'interface com concrete
     }
 
@@ -82,6 +90,8 @@ public class IhmMainScreenController extends IhmScreenController {
         listPaths.add("fxml/ihm_view_game.fxml");
         listPaths.add("fxml/ihm_waiting_room.fxml");
         listPaths.add("fxml/ihm_modify_profile.fxml");
+        listPaths.add("fxml/ihm_create_profile.fxml");
+        listPaths.add("fxml/ihm_see_profile.fxml");
     }
 
     @Override
@@ -91,6 +101,7 @@ public class IhmMainScreenController extends IhmScreenController {
         viewGameController = new ViewGameController(this);
         waitingRoomController = new WaitingRoomController(this);
         profileController = new ModifyProfileController(this);
+        createProfileController=new CreateProfileController(this);
         controllerDict.put(LoginController.class, new LoginController(this));
         controllerDict.put(ServerConnectionController.class, new ServerConnectionController(this));
         controllerDict.put(MenuController.class, menuController);
@@ -99,6 +110,8 @@ public class IhmMainScreenController extends IhmScreenController {
         controllerDict.put(ViewGameController.class, viewGameController);
         controllerDict.put(WaitingRoomController.class, waitingRoomController);
         controllerDict.put(ModifyProfileController.class, profileController);
+        controllerDict.put(CreateProfileController.class, createProfileController);
+        controllerDict.put(SeeProfileController.class, new SeeProfileController(this));
     }
 
     public void initStyles() {

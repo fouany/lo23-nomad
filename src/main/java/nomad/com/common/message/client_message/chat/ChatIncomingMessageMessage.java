@@ -23,6 +23,10 @@ public class ChatIncomingMessageMessage extends BaseClientMessage {
         this.message = message;
     }
 
+    /**
+     * Process method
+     * @param controller client controller
+     */
     @Override
     public void process(ClientController controller) {
         // Store message on com client

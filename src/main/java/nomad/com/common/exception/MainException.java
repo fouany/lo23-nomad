@@ -1,6 +1,8 @@
 package nomad.com.common.exception;
 
-//TODO Make something proper than this
+/**
+ * Exception class that handle Main exception
+ */
 public class MainException extends Exception {
     public MainException(String mes) {
         super(mes);

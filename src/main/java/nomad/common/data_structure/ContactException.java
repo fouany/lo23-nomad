@@ -1,5 +1,8 @@
 package nomad.common.data_structure;
 
+/**
+ * Represents a contact Exception
+ */
 public class ContactException extends Exception {
 
     public ContactException() {
