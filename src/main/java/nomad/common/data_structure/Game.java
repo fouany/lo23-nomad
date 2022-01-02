@@ -47,7 +47,6 @@ public class Game extends Observable implements Serializable {
     }
 
     public void addMove(Move m) {
-        moves.add(m);
         if (m instanceof Tower) {
             towers.add((Tower) m);
             board.updateBoard((Tower) m);
@@ -56,6 +55,7 @@ public class Game extends Observable implements Serializable {
             board.updateBoard((Tile) m);
         }
         this.incrementNbRounds();
+        moves.add(m);
     }
 
     public UUID getGameId() {
