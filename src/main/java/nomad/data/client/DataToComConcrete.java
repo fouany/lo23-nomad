@@ -122,7 +122,6 @@ public class DataToComConcrete implements DataToComClientInterface {
      */
     public void tileValid(Tile tile, boolean valid) throws TileException {
         if (valid) {
-            dataClientController.getGameController().getGame().getBoard().updateBoard(tile);
             dataClientController.getGameController().getGame().changeCurrentPlayer();
             dataClientController.getGameController().getGame().addMove(tile);
             dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
@@ -156,13 +155,6 @@ public class DataToComConcrete implements DataToComClientInterface {
      */
     @Override
     public void moveReceived(Move move) {
-        if (move.idMove() == "Tower") {
-            Tower t = (Tower) move;
-            dataClientController.getGameController().getGame().getBoard().updateBoard(t);
-        } else if (move.idMove() == "Tile") {
-            Tile t = (Tile) move;
-            dataClientController.getGameController().getGame().getBoard().updateBoard(t);
-        }
         dataClientController.getGameController().getGame().changeCurrentPlayer();
         dataClientController.getGameController().getGame().addMove(move);
         dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());

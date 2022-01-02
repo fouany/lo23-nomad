@@ -42,6 +42,10 @@ public class Case implements Serializable {
         this.height = height;
     }
 
+    public void incrementHeight() {
+        this.height += 1;
+    }
+
     public boolean isTower() {
         return isTower;
     }
