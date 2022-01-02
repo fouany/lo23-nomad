@@ -1,7 +1,16 @@
 package nomad.game.controller;
 
+import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import nomad.common.data_structure.Game;
 import nomad.common.data_structure.Message;
 import nomad.common.data_structure.Move;
@@ -10,6 +19,7 @@ import nomad.common.ihm.IhmControllerComponent;
 import nomad.common.ihm.IhmScreenController;
 import nomad.game.IhmGameScreenController;
 
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
@@ -41,6 +51,8 @@ public class GameController extends IhmControllerComponent implements Observer {
     private BoardController boardController;
 
     private IhmGameScreenController gameScreen;
+
+    private boolean popUp= false;
 
     /**
      * Constructor of the main game controller
@@ -114,5 +126,36 @@ public class GameController extends IhmControllerComponent implements Observer {
 
     public IhmGameScreenController getGameScreen() {
         return gameScreen;
+    }
+
+    public void showPopUpEnd() throws IOException {
+        if(!popUp){
+            popUp = true;
+            Platform.runLater(() -> {
+                final Stage dialog = new Stage();
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.initOwner(screenControl.getStage());
+                VBox dialogVbox = new VBox(20);
+                dialogVbox.getChildren().add(new Text("Fin de la partie"));
+                Button button = new Button("Revenir au menu");
+                dialogVbox.getChildren().add(button);
+
+                button.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        try {
+                            screenControl.changeModule();
+                            dialog.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                Scene dialogScene = new Scene(dialogVbox, 300, 200);
+                dialog.setScene(dialogScene);
+                dialog.show();
+            });
+        }
     }
 }
