@@ -97,13 +97,18 @@ public abstract class IhmScreenController {
     /**
      * Initialize a module and change the root node in scene
      */
-    public void initIHM() {
+    public void initIHM(Class<?> controllerClass) {
+        if (controllerClass == null) {
+            controllerClass = defaultController;
+        }
+
+        Class<?> finalControllerClass = controllerClass;
         Platform.runLater(() -> {
             mainApp.getStage().setTitle("Nomad - " + module);
             if (mainApp.getStage().getScene() == null) { // No scene, initialize it with correct root
-                mainApp.getStage().setScene(new Scene(paneDict.get(defaultController)));
+                mainApp.getStage().setScene(new Scene(paneDict.get(finalControllerClass)));
             } else { // Change root node of scene
-                mainApp.getStage().getScene().setRoot(paneDict.get(defaultController));
+                mainApp.getStage().getScene().setRoot(paneDict.get(finalControllerClass));
             }
             mainApp.getStage().show();
         });
@@ -172,11 +177,7 @@ public abstract class IhmScreenController {
     /**
      * Change the current active module
      */
-    public void changeModule() throws IOException {
-        if (module.equals("MAIN")) {
-            mainApp.changeModule("GAME");
-        } else {
-            mainApp.changeModule("MAIN");
-        }
+    public void changeModule(ModuleMode mode) throws IOException {
+        mainApp.changeModule(mode);
     }
 }

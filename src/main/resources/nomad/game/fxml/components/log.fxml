@@ -21,7 +21,7 @@
         <content>
           <AnchorPane maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="198.0" styleClass="scroll_infos_container">
                <children>
-                  <TextArea fx:id="logs_container" editable="false" prefHeight="223.0" prefWidth="183.0" styleClass="text_infos" text="fdsfsdfsdfsd&#10;">
+                  <TextArea fx:id="logs_container" editable="false" prefHeight="223.0" prefWidth="183.0" styleClass="text_infos" text="">
                      <font>
                         <Font size="11.0" />
                      </font>
