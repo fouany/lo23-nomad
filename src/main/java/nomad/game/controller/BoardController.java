@@ -38,8 +38,14 @@ public class BoardController extends GameControllerAbstract {
     @FXML
     public void playMove(MouseEvent event) {
         Node source = (Node) event.getTarget();
-        if (source.getClass() == ImageView.class) { // Source is an ImageView from a tile
-            source = source.getParent(); // ImageView -> StackPane
+
+        if (Text.class.isAssignableFrom(source.getClass())) {
+            source = source.getParent(); // LabeledText -> Label
+        }
+
+        // Source is an ImageView from a tile or a Label from the tile height
+        if (source.getClass() == ImageView.class || source.getClass() == Label.class) {
+            source = source.getParent(); // ImageView || Label -> StackPane
         }
 
         if (source.getClass() == StackPane.class) {
