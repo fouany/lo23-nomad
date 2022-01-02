@@ -65,6 +65,7 @@ public class Game extends Observable implements Serializable  {
      * Number of tiles already played
      */
     private int nbOfTilesPlayed;
+    private int nbOfTowersPlayed;
 
     /**
      * List of moves already played in the game
@@ -85,6 +86,7 @@ public class Game extends Observable implements Serializable  {
      * List of played towers - useful to access their position
      */
     private ObservableList<Tower> towers;
+    private int nbRounds = 0;
 
     /**
      * Game constructor
@@ -101,7 +103,8 @@ public class Game extends Observable implements Serializable  {
         this.board = new Board();
         this.currentPlayer = host.getId();
         this.gameParameters = gameParameters;
-        this.nbOfTilesPlayed=0;
+        this.nbOfTilesPlayed = 0;
+        this.nbOfTowersPlayed = 0;
         this.spect = FXCollections.observableArrayList(new ArrayList<>());
         this.moves = FXCollections.observableArrayList(new ArrayList<>());
         this.chat = FXCollections.observableArrayList(new ArrayList<>());
@@ -121,15 +124,16 @@ public class Game extends Observable implements Serializable  {
      * If Move is a tile, increment the number of tiles played and update the board
      * @param m - Move to be added
      */
-    public void addMove(Move m){
-        moves.add(m);
-        if ( m instanceof Tower ){
+    public void addMove(Move m) {
+        if (m instanceof Tower) {
             towers.add((Tower) m);
             board.updateBoard((Tower) m);
-        } else if (m instanceof Tile){
-            nbOfTilesPlayed ++;
+        } else if (m instanceof Tile) {
+            nbOfTilesPlayed++;
             board.updateBoard((Tile) m);
         }
+        this.incrementNbRounds();
+        moves.add(m);
     }
 
     /**
@@ -292,7 +296,7 @@ public class Game extends Observable implements Serializable  {
         UUID opponentUUID = getOpponent().getId();
         UUID hostUUID = getHost().getId();
 
-        if (hostUUID == currentPlayerUUID) {
+        if (hostUUID.equals(currentPlayerUUID)) {
             setCurrentPlayer(opponentUUID);
         } else {
             setCurrentPlayer(hostUUID);
@@ -424,12 +428,16 @@ public class Game extends Observable implements Serializable  {
         return new GameLight(gameId, host, nbOfTowers);
     }
 
-
-    public boolean areAllTowersConnected(){
-
-
-
+    public boolean areAllTowersConnected() {
         return false;
+    }
+
+    public int getNbRounds() {
+        return this.nbRounds;
+    }
+
+    public void incrementNbRounds() {
+        this.nbRounds++;
     }
     /**
      * Returns a string representation of the object
@@ -459,7 +467,9 @@ public class Game extends Observable implements Serializable  {
     /**
      * Remove the current opponent of the game
      */
-    public void removeOpponent() { this.opponent = null; }
+    public void removeOpponent() {
+        this.opponent = null;
+    }
 
     /**
      * Returns a list of all the users of the game apart from the host (spectators + opponent)
@@ -467,8 +477,12 @@ public class Game extends Observable implements Serializable  {
      */
     public List<UUID> getListOther() {
         List<UUID> listOther = new ArrayList<>();
-        listOther.add(this.opponent.getId());
-        for (UserLight ul : this.spect){
+        if (this.currentPlayer.equals(this.host.getId())) {
+            listOther.add(this.opponent.getId());
+        } else {
+            listOther.add(this.host.getId());
+        }
+        for (UserLight ul : this.spect) {
             listOther.add(ul.getId());
         }
         return listOther;
@@ -486,7 +500,8 @@ public class Game extends Observable implements Serializable  {
      * Returns a list of played towers
      * @return a list of played towers as a List of Towers
      */
-    public ObservableList<Tower> getTowers() { return this.towers;
+    public ObservableList<Tower> getTowers() {
+        return this.towers;
     }
 
     /**
@@ -501,5 +516,34 @@ public class Game extends Observable implements Serializable  {
      * Sets the number of tiles played
      * @param nbOfTilesPlayed - Number of tiles played as an int
      */
-    public void setNbOfTilesPlayed(int nbOfTilesPlayed) { this.nbOfTilesPlayed = nbOfTilesPlayed; }
+    public void setNbOfTilesPlayed(int nbOfTilesPlayed) {
+        this.nbOfTilesPlayed = nbOfTilesPlayed;
+    }
+
+    public int getNbOfTowersPlayed() {
+        return this.nbOfTowersPlayed;
+    }
+
+    public void setNbOfTowersPlayed(int nbOfTowersPlayed) {
+        this.nbOfTowersPlayed = nbOfTowersPlayed;
+    }
+
+    public void addTowerPlayed() {
+        this.nbOfTowersPlayed = this.nbOfTowersPlayed + 1;
+    }
+
+    public boolean getCurrentPlayerColor() {
+        boolean color;
+        if (host.getId().equals(currentPlayer)) {
+            color = isHostColor();
+        } else {
+            color = !isHostColor();
+        }
+
+        return color;
+    }
+
+    public boolean switchTowerTile() {
+        return getNbOfTowersPlayed() == getNbOfTowers();
+    }
 }

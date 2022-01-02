@@ -98,6 +98,7 @@ public class MainApplication extends Application {
         comClientToIhmMainConcrete.setClientController(clientController);
         ihmMainToDataConcrete.setController(ihmMainScreenController);
         comClientToDataConcrete.setController(clientController);
+        comToGameConcrete.setController(clientController);
     }
 
     @Override

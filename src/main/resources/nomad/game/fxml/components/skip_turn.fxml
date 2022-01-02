@@ -9,7 +9,8 @@
       prefWidth="806.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nomad.game.controller.SkipController">
    <children>
       <Separator minHeight="42.0" opacity="0.0" prefWidth="342.0" />
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="42.0" prefWidth="124.0" style="-fx-background-color: #003049; -fx-background-radius: 0;" text="Skip Turn" textAlignment="CENTER" textFill="WHITE">
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="42.0" prefWidth="124.0" style="-fx-background-color: #003049; -fx-background-radius: 0;"
+              text="Skip Turn" textAlignment="CENTER" textFill="WHITE" onMouseClicked="#skipMove">
          <font>
             <Font size="18.0" />
          </font>

@@ -6,8 +6,6 @@ import nomad.common.interfaces.data.DataToComServerInterface;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Concretization of the Ihm Com interface.
@@ -59,7 +57,7 @@ public class DataToComConcrete implements DataToComServerInterface {
      */
     @Override
     public void joinGameRequest(Player player, GameLight game) {
-        if (dataServerController.getGamesController().getGame(game.getGameId()).getOpponent() == null){
+        if (dataServerController.getGamesController().getGame(game.getGameId()).getOpponent() == null) {
             dataServerController.getGamesController().getGame(game.getGameId()).setOpponent(player);
             dataServerController.getComOfferedInterface().requestHost(game, player);
         }
@@ -87,7 +85,7 @@ public class DataToComConcrete implements DataToComServerInterface {
     @Override
     public void guestRefused(Player player) {
         for (Game g : dataServerController.getGamesController().getAllGames().values()) {
-            if (g.getOpponent()==player){
+            if (g.getOpponent() == player) {
                 dataServerController.getGamesController().getGame(g.getGameId()).removeOpponent();
             }
         }
@@ -114,7 +112,7 @@ public class DataToComConcrete implements DataToComServerInterface {
         List<UUID> users = new ArrayList<>();
         users.add(g.getHost().getId());
         users.add(g.getOpponent().getId());
-        for(UserLight ul : g.getSpect()){
+        for (UserLight ul : g.getSpect()) {
             users.add(ul.getId());
         }
         return users;
@@ -141,10 +139,11 @@ public class DataToComConcrete implements DataToComServerInterface {
         if (bool) {
             // There is already a tower, we throw an exception
             throw new TowerException("A tower is already registered at those coordinates");
-        }else{
+        } else {
             dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setTower(true);
             dataServerController.getGamesController().getGame(t.getGameId()).addMove(t);
             dataServerController.getComOfferedInterface().towerValid(t, dataServerController.getGamesController().getGame(t.getGameId()).getListOther());
+            dataServerController.getGamesController().getGame(gameID).changeCurrentPlayer();
         }
     }
 
@@ -157,13 +156,9 @@ public class DataToComConcrete implements DataToComServerInterface {
     public void saveTile(Tile t) throws TileException {
         UUID gameID = t.getGameId();
         boolean color;
-        if (t.getUserId().equals(dataServerController.getGamesController().getGame(gameID).getHost().getId())){
-            //current player is the host
-            color = dataServerController.getGamesController().getGame(gameID).isHostColor();
-        }
-        else{
-            color = !dataServerController.getGamesController().getGame(gameID).isHostColor();
-        }
+        color = t.getUserId().equals(dataServerController.getGamesController().getGame(gameID).getHost().getId());
+        t.setColor(color);
+
         boolean isTower = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].isTower();
         int height = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].getHeight();
         //we check if there is an adjacent pile at least as high as this one (ans owned by the current player)
@@ -171,54 +166,128 @@ public class DataToComConcrete implements DataToComServerInterface {
         if (isTower || !nearPileOK) {
             // There is a problem, so we throw an exception
             throw new TileException("Tile not valid");
-        }else{
+        } else {
             dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setColor(color);
-            dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX()][t.getY()].setHeight(height+1);
             dataServerController.getGamesController().getGame(t.getGameId()).addMove(t);
             dataServerController.getComOfferedInterface().tileValid(t, dataServerController.getGamesController().getGame(t.getGameId()).getListOther());
+            dataServerController.getGamesController().getGame(gameID).changeCurrentPlayer();
         }
 
         UUID winner = dataServerController.checkGameEndedAfterTile(dataServerController.getGamesController().getGame(gameID), t.getUserId());
-        if(winner != null){
+        if (winner != null) {
             dataServerController.getComOfferedInterface().gameOver(gameID, dataServerController.getUsersUUIDs(gameID), t, winner);
             dataServerController.getGamesController().getAllGames().remove(gameID);
         }
     }
 
     /**
-     * Checks if the piles of Tiles next to each other are high enough for a tile to be placed
-     * @param t - Tile : The Tile to be saved
-     * @param height - int : The height of the Pile
-     * @param color - boolean : the color of the last Tile on the Pile
+     * Check if tile is in the bounds of the array and if height is positive or null
+     *
+     * @param t      Tile to check
+     * @param height Height to check
+     * @return True if tile and height are in bounds, else false
      */
-    private boolean checkPile(Tile t, int height, boolean color){
-        UUID gameID = t.getGameId();
-        boolean nearPileOK = false;
-        for (int x = -1; x < 2; x++){
-            for(int y = -1; y < 2; y++){
-                if(!(x == 0 && y == 0)){
-                    int height2 = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX() + x][t.getY() + y].getHeight();
-                    boolean color2 = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard()[t.getX() + x][t.getY() + y].isColor();
-                    if(height2 >= height && color == color2){
-                        nearPileOK = true;
-                    }
-                }
-            }
-        }
-        return nearPileOK;
+    private boolean checkBounds(Tile t, int height) {
+        return checkPosition(t.getX(), t.getY())
+                && height >= 0;
     }
 
     /**
-     * Saves a skip on the game's board
-     * @param s - Skip : The Skip to be saved
+     * Check if position (x, y) is inside of board
+     *
+     * @param x X position
+     * @param y Y position
+     * @return True if position is in board, else false
      */
+    private boolean checkPosition(int x, int y) {
+        return x < Board.BOARDDIMENSIONS
+                && y < Board.BOARDDIMENSIONS
+                && x >= 0
+                && y >= 0;
+    }
+
+    /**
+     * Get a list of cases adjacent to the given tile (diagonal excluded).
+     * Warning, no bound checks are done on parameters.
+     *
+     * @param t     Reference tile, must be bound checked before calling this method
+     * @param board Board in the form of a 2D Case array
+     * @return A list containing all adjacent cases
+     */
+    private List<Case> getAdjacentCases(Tile t, Case[][] board) {
+        ArrayList<Case> adjacentCases = new ArrayList<>();
+        int x = t.getX();
+        int y = t.getY();
+
+        if (checkPosition(x - 1, y)) {
+            adjacentCases.add(board[x - 1][y]);
+        }
+
+        if (checkPosition(x + 1, y)) {
+            adjacentCases.add(board[x + 1][y]);
+        }
+
+        if (checkPosition(x, y - 1)) {
+            adjacentCases.add(board[x][y - 1]);
+        }
+
+        if (checkPosition(x, y + 1)) {
+            adjacentCases.add(board[x][y + 1]);
+        }
+
+        return adjacentCases;
+    }
+
+    /**
+     * Get the size of the highest neighbour pile of tile of the given color
+     *
+     * @param adjacentCases List of neighbours
+     * @param color Color of the piles to consider
+     * @return Size of the highest pile of given color, 0 if none was found
+     */
+    private int highestNeighbourOfColor(List<Case> adjacentCases, boolean color) {
+        int highest = 0;
+        for (Case c : adjacentCases) { // Iterate over neighboors
+            if (!c.isTower()
+                    && c.isColor() == color
+                    && c.getHeight() > highest)
+            { // Only consider tiles of same color
+                highest = c.getHeight();
+            }
+        }
+
+        return highest;
+    }
+
+    /**
+     * Check if tile can be placed depending on nearby piles and bounds
+     *
+     * @param t      Tile to check
+     * @param height Height of the pile before adding the tile
+     * @param color  Color of the placed tile
+     * @return True if the move is allowed and the tile can be placed, else false
+     */
+    private boolean checkPile(Tile t, int height, boolean color) {
+        if (!checkBounds(t, height)) { // Invalid bounds or height
+            return false;
+        }
+
+        UUID gameID = t.getGameId();
+        Case[][] board = dataServerController.getGamesController().getGame(gameID).getBoard().getGameBoard();
+
+        List<Case> adjacentList = getAdjacentCases(t, board);
+        int highestNeighbour = highestNeighbourOfColor(adjacentList, color);
+
+        return height <= highestNeighbour;
+    }
+
     @Override
     public void saveSkip(Skip s) {
         Game g = dataServerController.getGamesController().getGame(s.getGameId());
         g.addMove(s);
         dataServerController.getComOfferedInterface().skipValid(s, dataServerController.getGamesController().getGame(s.getGameId()).getListOther());
         UUID potentialWinner = dataServerController.checkGameEndedAfterSkip(g);
-        if(potentialWinner != null){
+        if (potentialWinner != null) {
             dataServerController.getComOfferedInterface().gameOver(g.getGameId(), dataServerController.getUsersUUIDs(g.getGameId()), s, potentialWinner);
             dataServerController.getGamesController().getAllGames().remove(g.getGameId());
         }
@@ -260,12 +329,12 @@ public class DataToComConcrete implements DataToComServerInterface {
      */
     public void storeMessage(Message message) throws MessageException {
         int gamePresent = 0;
-        for (GameLight gl : dataServerController.getGamesController().getGameLightListInPlay()){
-            if (gl.getGameId().equals(message.getGameId())){
+        for (GameLight gl : dataServerController.getGamesController().getGameLightListInPlay()) {
+            if (gl.getGameId().equals(message.getGameId())) {
                 gamePresent = 1;
             }
         }
-        if (gamePresent == 0){
+        if (gamePresent == 0) {
             throw new MessageException("The message was sent to a game that doesn't exist anymore");
         }
         dataServerController.getGamesController().getGame(message.getGameId()).addMessage(message);
@@ -278,7 +347,7 @@ public class DataToComConcrete implements DataToComServerInterface {
     @Override
     public List<Player> requestConnectedUserList() {
         List<Player> players = new ArrayList<>();
-        for(User u : dataServerController.getUsers()){
+        for (User u : dataServerController.getUsers()) {
             Player p = new Player(u.getUserId(), u.getLogin(), u.getProfilePicture());
             players.add(p);
         }
@@ -320,8 +389,8 @@ public class DataToComConcrete implements DataToComServerInterface {
     //TODO Removes all game from the User or just the first?
     @Override
     public User updateUserListRemove(UUID userId) {
-        for (GameLight gl : dataServerController.getGamesController().getGameLightListInLobby()){
-            if (gl.getHost().getId().equals(userId)){
+        for (GameLight gl : dataServerController.getGamesController().getGameLightListInLobby()) {
+            if (gl.getHost().getId().equals(userId)) {
                 dataServerController.getGamesController().removeGame(gl.getGameId());
             }
         }
@@ -334,9 +403,9 @@ public class DataToComConcrete implements DataToComServerInterface {
      */
     //TODO marche surement pas, cf méthode updateListRemove
     @Override
-    public void updateListGamesRemove(User oldUser){
-        for (Game gl : dataServerController.getGamesController().getAllGames().values()){
-            if (gl.getHost().getId().equals(oldUser.getUserId())){
+    public void updateListGamesRemove(User oldUser) {
+        for (Game gl : dataServerController.getGamesController().getAllGames().values()) {
+            if (gl.getHost().getId().equals(oldUser.getUserId())) {
                 dataServerController.getGamesController().getAllGames().remove(gl.getGameId());
             }
         }
@@ -359,7 +428,7 @@ public class DataToComConcrete implements DataToComServerInterface {
      */
     @Override
     public void addOpponent(UUID gameId, UUID userId) {
-        Player p = new Player(userId, dataServerController.getUser(userId).getLogin(),  dataServerController.getUser(userId).getProfilePicture());
+        Player p = new Player(userId, dataServerController.getUser(userId).getLogin(), dataServerController.getUser(userId).getProfilePicture());
         dataServerController.getGamesController().getGame(gameId).setOpponent(p);
     }
 }

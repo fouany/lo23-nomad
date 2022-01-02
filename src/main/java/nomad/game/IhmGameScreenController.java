@@ -15,8 +15,8 @@ import java.io.IOException;
  */
 public class IhmGameScreenController extends IhmScreenController {
 
-    private DataToGameConcrete dataInterface;
-    private ComToIhmGameConcrete comInterface;
+    protected DataToGameConcrete dataInterface;
+    protected ComToIhmGameConcrete comInterface;
 
     /**
      * Contructor that set the module name and the default screen start
@@ -26,10 +26,10 @@ public class IhmGameScreenController extends IhmScreenController {
      */
     public IhmGameScreenController(MainApplication app, DataToGameConcrete dataInterface, ComToIhmGameConcrete comInterface) throws IOException {
         super(app);
-        module = "GAME";
         defaultController = GameController.class;
         this.comInterface = comInterface;
         this.dataInterface = dataInterface;
+        module = "GAME" + "("+dataInterface.getUser().getLogin()+")";
         initGameControllers();
     }
 
@@ -63,11 +63,6 @@ public class IhmGameScreenController extends IhmScreenController {
     @Override
     public void initPaths() {
         listPaths.add("fxml/page/game_view.fxml");
-        listPaths.add("fxml/components/player_info.fxml");
-        listPaths.add("fxml/components/board.fxml");
-        listPaths.add("fxml/components/log.fxml");
-        listPaths.add("fxml/components/skip_turn.fxml");
-        listPaths.add("fxml/components/chat.fxml");
     }
 
     @Override

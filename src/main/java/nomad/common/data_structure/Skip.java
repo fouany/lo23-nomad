@@ -41,6 +41,9 @@ public class Skip extends Move {
      * @return String
      */
     @Override
+    public String idMove(){return "Skip";}
+
+    @Override
     public String toString() {
         return "Skip{" +
                 "isSkipped=" + isSkipped +

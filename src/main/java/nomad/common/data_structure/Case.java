@@ -100,7 +100,9 @@ public class Case implements Serializable {
     /**
      * Increments the height parameter of the case by 1
      */
-    public void incrementHeight() { height += 1;}
+    public void incrementHeight() {
+        height++;
+    }
 
     /**
      * Returns True if the case is a Tower
