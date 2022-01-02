@@ -68,6 +68,7 @@ public class GameSerializable extends Observable implements Serializable {
      * Number of tiles already played
      */
     private int nbOfTilesPlayed;
+    private int nbOfTowersPlayed;
 
     /**
      * List of moves already played in the game
@@ -105,6 +106,7 @@ public class GameSerializable extends Observable implements Serializable {
         this.gameLaunched = g.isGameLaunched();
         this.gameEnded = g.isGameEnded();
         this.nbOfTilesPlayed = g.getNbOfTilesPlayed();
+        this.nbOfTowersPlayed = g.getNbOfTowersPlayed();
         this.moves = g.getMoves().stream().collect(Collectors.toList());
         this.spect = g.getSpect().stream().collect(Collectors.toList());
         this.chat = g.getChat().stream().collect(Collectors.toList());
@@ -122,6 +124,7 @@ public class GameSerializable extends Observable implements Serializable {
         g.setBoard(this.board);
         g.setCurrentPlayer(this.currentPlayer);
         g.setNbOfTilesPlayed(this.nbOfTilesPlayed);
+        g.setNbOfTowersPlayed(this.nbOfTilesPlayed);
         g.setGameLaunched(this.gameLaunched);
         g.setGameEnded(this.gameEnded);
         g.setMoves(FXCollections.observableArrayList(this.moves));

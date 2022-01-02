@@ -8,11 +8,10 @@ import java.util.Arrays;
  */
 public class Board implements Serializable {
 
-    private final static int BOARDDIMENSIONS = 13;
     /**
      * constant : size of the board (13x13)
      */
-    private final static int boardDimensions = 13;
+    public static final int BOARDDIMENSIONS = 13;
 
     /**
      * 2-D array of Case object : represents the board
@@ -38,6 +37,14 @@ public class Board implements Serializable {
      */
     public Board(Case[][] gameBoard) {
         this.gameBoard = gameBoard;
+    }
+
+    public Case getCase(int x, int y) {
+        if(x < BOARDDIMENSIONS && y < BOARDDIMENSIONS && x >= 0 && y >= 0) {
+            return gameBoard[x][y];
+        }
+
+        return null;
     }
 
     /**

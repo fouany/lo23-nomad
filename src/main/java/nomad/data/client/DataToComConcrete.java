@@ -5,8 +5,6 @@ import nomad.common.interfaces.data.DataToComClientInterface;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Concretion of the com Interface.
@@ -27,8 +25,9 @@ public class DataToComConcrete implements DataToComClientInterface {
     }
 
     /**
-     * adds a new game in games in lobby in Session
-     * @param gameLight - GameLight : game to add
+     * adds a new game in the lobby
+     *
+     * @param gameLight
      */
     @Override
     public void updateSession(GameLight gameLight){
@@ -36,9 +35,10 @@ public class DataToComConcrete implements DataToComClientInterface {
     }
 
     /**
-     * changes the state of Game in Session
-     * @param gameId - UUID : id of the game
-     * @param gameLaunched - boolean : to know if the game is Launched
+     * Change the State of Game in Session
+     *
+     * @param gameId
+     * @param gameLaunched
      */
     //
     public void updateSessionGameState(UUID gameId, boolean gameLaunched) {
@@ -58,9 +58,10 @@ public class DataToComConcrete implements DataToComClientInterface {
     }
 
     /**
-     * adds a user light to the connected user of the Session object
-     * @param player - Player : User to add to the connected user
-     * @param connected - boolean : to know if the user is connected
+     * adds a user light to the connected user of the session object
+     *
+     * @param player
+     * @param connected
      */
     // TODO : pas besoin du booleen !
     public void updateUserSession(Player player, boolean connected) {
@@ -76,9 +77,10 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * updates the opponent of the game
-     * @param player - Player : new opponent of the game
-     * @param gameLight - GameLight : game to update
-     * @throws GameException Exception if the game does not exist
+     *
+     * @param player
+     * @param gameLight
+     * @throws GameException
      */
     @Override
     public void updateOpponent(Player player, GameLight gameLight) throws GameException {
@@ -92,8 +94,9 @@ public class DataToComConcrete implements DataToComClientInterface {
 
     /**
      * adds a user light to the spectator's list of the game
-     * @param userLight - UserLight : user to add
-     * @param isAdded - boolean : not used
+     *
+     * @param userLight
+     * @param isAdded
      */
     @Override
     // TODO : pas besoin du booleen
@@ -118,19 +121,13 @@ public class DataToComConcrete implements DataToComClientInterface {
     @Override
     public void towerValid(Tower tower, boolean valid) throws TowerException {
         if (valid){ //if the move is valid
-            //add the move to the list of moves of the game
             dataClientController.getGameController().getGame().addMove(tower);
-
-            //changes the current player
             dataClientController.getGameController().getGame().changeCurrentPlayer();
-
-            //update game observable
             dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
         }else{ //move invalid => throw exception
             dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
             throw new TowerException("Tower Placement not valid");
         }
-
     }
 
     /**
@@ -142,13 +139,8 @@ public class DataToComConcrete implements DataToComClientInterface {
     @Override
     public void tileValid(Tile tile, boolean valid) throws TileException {
         if (valid){
-            //add the move to the list of moves of the game
             dataClientController.getGameController().getGame().addMove(tile);
-
-            //changes the current player
             dataClientController.getGameController().getGame().changeCurrentPlayer();
-
-            //update game observable
             dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
         }else{ //move invalid => throw exception
             dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
@@ -165,13 +157,8 @@ public class DataToComConcrete implements DataToComClientInterface {
     @Override
     public void skipValidation(Skip skip, boolean valid) throws SkipException {
         if (valid){
-            //add the move to the list of moves of the game
             dataClientController.getGameController().getGame().addMove(skip);
-
-            //changes the current player
             dataClientController.getGameController().getGame().changeCurrentPlayer();
-
-            //update game observable
             dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
         }else{ //move invalid => throw exception
             dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
@@ -186,8 +173,8 @@ public class DataToComConcrete implements DataToComClientInterface {
      */
     @Override
     public void moveReceived(Move move) {
-        dataClientController.getGameController().getGame().addMove(move);
         dataClientController.getGameController().getGame().changeCurrentPlayer();
+        dataClientController.getGameController().getGame().addMove(move);
         dataClientController.getIhmGameToDataInterface().updateObservable(dataClientController.getGameController().getGame());
     }
 
@@ -269,9 +256,10 @@ public class DataToComConcrete implements DataToComClientInterface {
     }
 
     /**
-     * remove a user from the connected users of the session object
-     * @param idUser - UUID : id of the user to remove
-     * @param isDisconnected - boolean : to know if the user isDisconnected
+     * Remove an user from the connected users of the session object
+     *
+     * @param userId        UID of the user to remove
+     * @param isDeconnected Not used
      */
     // TODO : changer signature : pas besoin du booleen
     @Override
@@ -281,8 +269,9 @@ public class DataToComConcrete implements DataToComClientInterface {
     }
 
     /**
-     * retrieves all the online users
-     * @return List<UserLight> : List of connected users
+     * Retrieve all the online users
+     *
+     * @return List of connected users
      */
     @Override
     public List<UserLight> getOnlineUsers(){
@@ -343,7 +332,7 @@ public class DataToComConcrete implements DataToComClientInterface {
         if (isAdded) {
             dataClientController.getGameController().setGame(game);
             dataClientController.getIhmMainToDataInterface().updateAcceptOpponent(dataClientController.getGameController().getGame());
-        }else{
+        } else {
             dataClientController.getIhmMainToDataInterface().updateRejectOpponent(dataClientController.getGameController().getGame());
             throw new GameException("Player was refused from game");
         }
@@ -383,5 +372,4 @@ public class DataToComConcrete implements DataToComClientInterface {
             dataClientController.getIhmMainToDataInterface().updateObservable(dataClientController.getGameController().getGame());
         }
     }
-
 }

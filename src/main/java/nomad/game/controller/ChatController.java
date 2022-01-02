@@ -1,6 +1,5 @@
 package nomad.game.controller;
 
-import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
 import nomad.com.client.concrete.ComToIhmGameConcrete;
 import nomad.common.data_structure.Message;
@@ -15,7 +14,7 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 
-public class ChatController extends GameComponentsAbstract{
+public class ChatController extends GameControllerAbstract {
 
     /**
      * Constructor that link the screen controller to the component controller
@@ -34,9 +33,6 @@ public class ChatController extends GameComponentsAbstract{
     public void init() {
 
     }
-
-    @Override
-    public void update(String type){}
 
 
     public void updateChat(Message message) {

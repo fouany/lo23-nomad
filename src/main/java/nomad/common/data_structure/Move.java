@@ -91,6 +91,8 @@ public abstract class Move extends Observable implements Serializable {
         this.s = s;
     }
 
+    abstract public String idMove();
+
     /**
      * Returns a string representation of the object
      * @return String

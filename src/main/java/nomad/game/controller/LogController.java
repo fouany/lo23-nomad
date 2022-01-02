@@ -1,8 +1,11 @@
 package nomad.game.controller;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
+import nomad.common.data_structure.Move;
 import nomad.common.ihm.IhmScreenController;
 
-public class LogController extends GameComponentsAbstract{
+public class LogController extends GameControllerAbstract {
     /**
      * Constructor that link the screen controller to the component controller
      *
@@ -12,13 +15,15 @@ public class LogController extends GameComponentsAbstract{
         super(screen);
     }
 
+    @FXML
+    public TextArea logs_container;
+
     @Override
     public void init() {
 
     }
 
-    @Override
-    public void update(String type) {
-
+    public void update(Move m) {
+        logs_container.appendText(m.toString()+"\n");
     }
 }
