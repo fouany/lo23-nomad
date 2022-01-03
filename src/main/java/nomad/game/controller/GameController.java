@@ -99,8 +99,6 @@ public class GameController extends IhmControllerComponent implements Observer {
 
         chatController = (ChatController) gameScreen.getController(ChatController.class);
         chatController.setParentController(this);
-        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Au tour de"+currentGame.getCurrentPlayerUUID());
-        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Je suis "+gameScreen.getDataInterface().getUser().getUserId());
     }
 
     public void initControllers()

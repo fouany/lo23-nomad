@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.commons.codec.binary.Base64;
+import java.util.Base64;
 
 import javax.imageio.ImageIO;
 
@@ -170,7 +170,7 @@ public class ModifyProfileController extends IhmControllerComponent {
      * @return String a {@link java.lang.String}
      */
     public static String encodeImage(byte[] imageByteArray) {
-        return Base64.encodeBase64URLSafeString(imageByteArray);
+        return Base64.getEncoder().encodeToString(imageByteArray);
     }
 
     /**
@@ -180,7 +180,10 @@ public class ModifyProfileController extends IhmControllerComponent {
      * @return byte array
      */
     public static byte[] decodeImage(String imageDataString) {
-        return Base64.decodeBase64(imageDataString);
+        if(imageDataString == null) {
+            return null;
+        }
+        return Base64.getDecoder().decode(imageDataString);
     }
 
     private String profilePictureStr;

@@ -9,7 +9,8 @@ import javafx.stage.FileChooser;
 import nomad.common.data_structure.UserException;
 import nomad.common.ihm.IhmControllerComponent;
 import nomad.main.IhmMainScreenController;
-import org.apache.commons.codec.binary.Base64;
+
+import java.util.Base64;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,7 +35,7 @@ public class CreateProfileController extends IhmControllerComponent {
     public ImageView addProfilePicture;
 
     public static String encodeImage(byte[] imageByteArray) {
-        return Base64.encodeBase64URLSafeString(imageByteArray);
+        return Base64.getEncoder().encodeToString(imageByteArray);
     }
     private IhmMainScreenController ihmMainScreenController;
     public CreateProfileController(IhmMainScreenController ihmMainScreenController) {

@@ -24,11 +24,6 @@
             <version>17.0.0.1</version>
         </dependency>
         <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.11</version>
-        </dependency>
-        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>5.8.1</version>
@@ -55,9 +50,9 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <launcher>StartNomad</launcher>
-                            <jlinkImageName>NomadTheGame</jlinkImageName>
-                            <mainClass>nomadapp/nomad.common.MainApplication</mainClass>
+                            <launcher>StartServer</launcher>
+                            <jlinkImageName>NomadServer</jlinkImageName>
+                            <mainClass>nomadapp/nomad.common.ServerApplication</mainClass>
                             <stripDebug>true</stripDebug>
                             <compress>1</compress>
                             <noHeaderFiles>true</noHeaderFiles>
